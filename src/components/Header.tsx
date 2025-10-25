@@ -72,7 +72,7 @@ export default function Header() {
         <div className="flex justify-between items-center gap-4">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 rounded-full flex items-center justify-center overflow-hidden bg-white shadow-md">
-              <img src="/media/static/logo.png" alt="Regisbridge logo" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt="Regisbridge logo" className="w-full h-full object-cover" />
             </div>
             <div className="hidden md:block">
               <h1 className="font-bold text-xl lg:text-2xl animate-fade-in leading-tight">Regisbridge Private School</h1>

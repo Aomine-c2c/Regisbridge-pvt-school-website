@@ -61,7 +61,7 @@ export default function AboutSection() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
             <div className="animate-fade-in">
               <img
-                src="./media/static/founder.jpg"
+                src="/founder.jpg"
                 alt="Headmaster"
                 className="rounded-lg shadow-lg w-full hover:scale-105 transition-transform duration-300"
               />

@@ -92,19 +92,19 @@ VITE_API_URL=[Your backend URL]/api
 
 ---
 
-## 💾 Push to GitHub
+## 💾 GitHub Repository
 
-```powershell
-# If you haven't created a GitHub repo yet:
-# 1. Go to https://github.com/new
-# 2. Create a new repository named "regisbridge-school"
-# 3. Copy the repository URL
+✅ **Code Pushed Successfully!**
 
-# Then run:
-git remote add origin https://github.com/YOUR_USERNAME/regisbridge-school.git
-git branch -M main
-git push -u origin main
+**Repository URL:**
 ```
+https://github.com/Armutimbire223373Q/Regisbridge-pvt-school-website
+```
+
+**Branch:** main
+
+**View on GitHub:**
+https://github.com/Armutimbire223373Q/Regisbridge-pvt-school-website
 
 ---
 
