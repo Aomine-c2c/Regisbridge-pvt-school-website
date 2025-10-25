@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Kusha",
+    "about": "Nezvedu",
+    "academics": "Dzidzo",
+    "boarding": "Kugara",
+    "sports": "Mitambo",
+    "admissions": "Kubvumidzwa",
+    "apply": "Nyorera",
+    "calendar": "Karenda",
+    "news": "Nhau",
+    "portal": "Portal",
+    "contact": "Taura nesu"
+  },
+  "hero": {
+    "title": "Kusimbisa Pfungwa, Kugadzira Ramangwana",
+    "subtitle": "Regisbridge Private School - Chikoro chakasarudzika chezuva nehusiku muZimbabwe",
+    "cta": "Ona Zvirongwa Zvedu"
+  },
+  "about": {
+    "title": "Nezve Regisbridge",
+    "subtitle": "Nhaka Yekunaka Mudzidzo",
+    "description": "Regisbridge Private School yanga ichipa dzidzo yepamusoro kwemakore anopfuura makumi maviri, ichibatanidza kuomarara kwezvidzidzo nekuvandudza hunhu munzvimbo inorera.",
+    "mission": "Chinangwa Chedu",
+    "missionText": "Kupa dzidzo yakazara inosimudzira kuda kuziva, kutendeseka, uye unyanzvi hwehutungamiriri muvadzidzi vedu.",
+    "vision": "Chiratidzo Chedu",
+    "visionText": "Kuva nzvimbo yekutanga yedzidzo muZimbabwe, inozivikanwa nekunaka kwezvidzidzo nekuvandudza hunhu."
+  },
+  "academics": {
+    "title": "Kunaka Kwezvidzidzo",
+    "subtitle": "Chirongwa Chakazara Chekubudirira",
+    "description": "Chirongwa chedu chedzidzo chinobatanidza chirongwa cheCambridge International nezvinodiwa zvomunharaunda, zvichiita kuti vadzidzi vagadzirirwe mikana yemuno neyekunze.",
+    "grades": "Giredhi 1-7",
+    "forms": "Fomu 1-3",
+    "subjects": "Zvidzidzo Zvakakosha",
+    "subjectsList": ["Masvomhu", "Chirungu", "Sainzi", "Zvidzidzo Zvemagariro", "Dzidzo Yechitendero", "Dzidzo Yemuviri", "Unyanzvi", "Mimhanzi"]
+  },
+  "boarding": {
+    "title": "Hupenyu Hwekugara",
+    "subtitle": "Imba Kure Neimba",
+    "description": "Nzvimbo dzedu dzekugara dzinopa nharaunda yakachengeteka inorera apo vadzidzi vanosimudzira kuzvimirira, mutoro, uye hushamwari hwemuhupenyu hwose.",
+    "facilities": "Zvivakwa Zvemazuva Ano",
+    "facilitiesList": ["Dzimba dzekurara dzinonakidza", "Imba yekudya", "Nzvimbo dzekudzidza", "Makamuri ekutandara", "Zvivakwa zvemitambo", "Kutarisirwa kweutano"],
+    "activities": "Mabasa Ekunze",
+    "activitiesList": ["Kirabhu yegakava", "Sosaiti yemitambo", "Mimhanzi ensemble", "Zvikwata zvemitambo", "Basa renharaunda", "Zviitiko zvetsika"]
+  },
+  "contact": {
+    "title": "Taura Nesu",
+    "subtitle": "Taurirana Nesu",
+    "address": "3502 Turf, Ngezi, Mhondoro, Zimbabwe",
+    "phone": "Foni: +263-4-123-4567",
+    "email": "Email: info@regisbridge.ac.zw",
+    "hours": "Maawa Ehofisi: Muvhuro-Fri 8:00 AM - 4:00 PM",
+    "form": {
+      "name": "Zita Rizere",
+      "email": "Kero YeEmail",
+      "subject": "Musoro",
+      "message": "Mharidzo",
+      "send": "Tumira Mharidzo"
+    }
+  },
+  "footer": {
+    "description": "Regisbridge Private School - Kusimbisa pfungwa, kugadzira ramangwana kubva 2000.",
+    "quickLinks": "Zvinongedzo Zvakakurumidza",
+    "contact": "Ruzivo Rwekutaurirana",
+    "social": "Titevere",
+    "copyright": "© 2024 Regisbridge Private School. Kodzero dzose dzakachengetwa."
+  }
+}

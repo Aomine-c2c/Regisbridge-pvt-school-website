@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "academics": "Academics",
+    "boarding": "Boarding",
+    "sports": "Sports",
+    "admissions": "Admissions",
+    "apply": "Apply",
+    "calendar": "Calendar",
+    "news": "News",
+    "portal": "Portal",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Empowering Minds, Shaping Futures",
+    "subtitle": "Regisbridge Private School - A distinguished private day and boarding school in Zimbabwe",
+    "cta": "Explore Our Programs"
+  },
+  "about": {
+    "title": "About Regisbridge",
+    "subtitle": "A Legacy of Excellence in Education",
+    "description": "Regisbridge Private School has been providing exceptional education for over two decades, combining academic rigor with character development in a nurturing environment.",
+    "mission": "Our Mission",
+    "missionText": "To provide a holistic education that develops intellectual curiosity, moral integrity, and leadership skills in our students.",
+    "vision": "Our Vision",
+    "visionText": "To be the leading educational institution in Zimbabwe, recognized for academic excellence and character development."
+  },
+  "academics": {
+    "title": "Academic Excellence",
+    "subtitle": "Comprehensive Curriculum for Success",
+    "description": "Our curriculum combines the Cambridge International curriculum with local requirements, ensuring students are prepared for both local and international opportunities.",
+    "grades": "Grades 1-7",
+    "forms": "Forms 1-3",
+    "subjects": "Core Subjects",
+    "subjectsList": ["Mathematics", "English", "Science", "Social Studies", "Religious Education", "Physical Education", "Art", "Music"]
+  },
+  "boarding": {
+    "title": "Boarding Life",
+    "subtitle": "A Home Away from Home",
+    "description": "Our boarding facilities provide a safe, nurturing environment where students develop independence, responsibility, and lifelong friendships.",
+    "facilities": "Modern Facilities",
+    "facilitiesList": ["Comfortable dormitories", "Dining hall", "Study areas", "Recreation rooms", "Sports facilities", "Medical care"],
+    "activities": "Extracurricular Activities",
+    "activitiesList": ["Debate club", "Drama society", "Music ensembles", "Sports teams", "Community service", "Cultural events"]
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "address": "3502 Turf, Ngezi, Mhondoro, Zimbabwe",
+    "phone": "Phone: +263-4-123-4567",
+    "email": "Email: info@regisbridge.ac.zw",
+    "hours": "Office Hours: Mon-Fri 8:00 AM - 4:00 PM",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    }
+  },
+  "footer": {
+    "description": "Regisbridge Private School - Empowering minds, shaping futures since 2000.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Info",
+    "social": "Follow Us",
+    "copyright": "© 2024 Regisbridge Private School. All rights reserved."
+  }
+}
