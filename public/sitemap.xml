@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://regisbridge.ac.zw/</loc>
+    <loc>https://regisbridge.page/</loc>
     <lastmod>2025-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://regisbridge.ac.zw/login</loc>
+    <loc>https://regisbridge.page/login</loc>
     <lastmod>2025-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://regisbridge.ac.zw/register</loc>
+    <loc>https://regisbridge.page/register</loc>
     <lastmod>2025-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://regisbridge.ac.zw/portal</loc>
+    <loc>https://regisbridge.page/portal</loc>
     <lastmod>2025-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://regisbridge.ac.zw/admin</loc>
+    <loc>https://regisbridge.page/admin</loc>
     <lastmod>2025-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://regisbridge.ac.zw/sitemap.xml
+Sitemap: https://regisbridge.page/sitemap.xml
