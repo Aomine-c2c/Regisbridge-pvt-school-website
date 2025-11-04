@@ -12,6 +12,7 @@ import dotenv from 'dotenv';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { createUserInDB, findUserByEmailInDB, getAllUsersFromDB, updateUserInDB, deleteUserInDB } from './db.js';
 
 // Load environment variables
 dotenv.config();
@@ -139,24 +140,35 @@ const loginSchema = Joi.object({
 // AUTHENTICATION UTILITIES
 // ============================================================================
 
-// In-memory user storage (replace with database in production)
+// In-memory user storage (kept as fallback) and DB integration
 const users = new Map();
 
-// Helper utilities for working with in-memory users
-const findUserByEmail = (email) => {
+// Helper utilities for working with users. These prefer DB when available but fallback to in-memory map.
+const findUserByEmail = async (email) => {
   if (!email) return undefined;
   const target = email.toLowerCase();
+  // Try DB first
+  try {
+    const dbUser = await findUserByEmailInDB(target);
+    if (dbUser) return dbUser;
+  } catch (e) {
+    // ignore
+  }
   return Array.from(users.values()).find(u => u.email?.toLowerCase() === target);
 };
 
-const isEmailTaken = (email) => Boolean(findUserByEmail(email));
+const isEmailTaken = async (email) => {
+  const u = await findUserByEmail(email);
+  return Boolean(u);
+};
 
 /**
  * Seed admin user for testing
  */
 async function seedAdminUser() {
   const existingAdmin = findUserByEmail('admin@regisbridge.edu');
-  if (!existingAdmin) {
+  const resolved = await existingAdmin;
+  if (!resolved) {
     try {
       const hashedPassword = await bcrypt.hash('Admin123!', 10);
       const adminUser = {
@@ -169,7 +181,9 @@ async function seedAdminUser() {
         status: 'active',
         createdAt: new Date().toISOString(),
       };
-  users.set(adminUser.id, adminUser);
+      users.set(adminUser.id, adminUser);
+      // persist to DB if available
+      await createUserInDB(adminUser).catch(() => null);
       console.log('✅ Admin user seeded:');
       console.log('   Email: admin@regisbridge.edu');
       console.log('   Password: Admin123!');
@@ -184,7 +198,7 @@ async function seedAdminUser() {
  * Seed superuser for testing
  */
 async function seedSuperUser() {
-  const existingSuperAdmin = findUserByEmail('superadmin@regisbridge.edu');
+  const existingSuperAdmin = await findUserByEmail('superadmin@regisbridge.edu');
   if (!existingSuperAdmin) {
     try {
       const hashedPassword = await bcrypt.hash('SuperAdmin123!', 10);
@@ -200,6 +214,8 @@ async function seedSuperUser() {
         createdAt: new Date().toISOString(),
       };
       users.set(superUser.id, superUser);
+      // persist to DB if available
+      await createUserInDB(superUser).catch(() => null);
       console.log('✅ Superuser seeded:');
       console.log('   Email: superadmin@regisbridge.edu');
       console.log('   Password: SuperAdmin123!');
