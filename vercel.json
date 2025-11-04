@@ -18,6 +18,13 @@
       }
     },
     {
+      "src": "/ads.txt",
+      "dest": "/ads.txt",
+      "headers": {
+        "Content-Type": "text/plain; charset=utf-8"
+      }
+    },
+    {
       "src": "/robots.txt",
       "dest": "/robots.txt",
       "headers": {
