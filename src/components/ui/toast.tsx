@@ -4,19 +4,39 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 
 export interface ToastProps {
-  message: string;
-  type: 'success' | 'error' | 'warning' | 'info';
+  message?: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  type?: 'success' | 'error' | 'warning' | 'info';
+  variant?: 'default' | 'destructive';
   duration?: number;
-  onClose: () => void;
+  onClose?: () => void;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
 }
 
 export type ToastActionElement = React.ReactElement;
 
-const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }) => {
+const Toast: React.FC<ToastProps> = ({ 
+  message, 
+  title, 
+  description, 
+  type, 
+  variant, 
+  duration = 5000, 
+  onClose 
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
 
+  // Determine type from variant if not explicitly set
+  const effectiveType = type || (variant === 'destructive' ? 'error' : 'info');
+  // Use description or message for the content
+  const content = description || message || '';
+
   useEffect(() => {
+    if (!onClose) return;
+    
     // Trigger entrance animation
     setTimeout(() => setIsVisible(true), 10);
 
@@ -29,12 +49,13 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }
   }, [duration]);
 
   const handleClose = () => {
+    if (!onClose) return;
     setIsLeaving(true);
     setTimeout(onClose, 300); // Match animation duration
   };
 
   const getIcon = () => {
-    switch (type) {
+    switch (effectiveType) {
       case 'success':
         return <CheckCircle className="text-green-600" size={20} />;
       case 'error':
@@ -51,7 +72,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }
   const getStyles = () => {
     const baseStyles = "flex items-center space-x-3 p-4 rounded-lg shadow-lg border transition-all duration-300";
 
-    switch (type) {
+    switch (effectiveType) {
       case 'success':
         return `${baseStyles} bg-green-50 border-green-200 text-green-800`;
       case 'error':
@@ -72,7 +93,10 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }
       }`}
     >
       {getIcon()}
-      <span className="flex-1">{message}</span>
+      <div className="flex-1">
+        {title && <div className="font-semibold">{title}</div>}
+        <span>{content}</span>
+      </div>
       <button
         onClick={handleClose}
         className="text-gray-400 hover:text-gray-600 transition-colors"
