@@ -47,3 +47,10 @@ coverage
 .cache
 .temp
 *.tsbuildinfo
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Vercel
+.vercel
