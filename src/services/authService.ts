@@ -3,7 +3,10 @@
  * Handles all authentication-related API calls
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002/api';
+// Next.js API routes - use relative paths in production, localhost in dev
+const API_BASE_URL = typeof window !== 'undefined' 
+  ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '')
+  : '';
 
 export interface User {
   id: string;

@@ -1,7 +1,9 @@
+'use client';
+
 // AdminDashboard - Main admin interface with tabbed navigation
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { redirect, useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { LogOut, LayoutDashboard, Users, GraduationCap, FileText, BookOpen, DollarSign, BarChart3, Settings } from 'lucide-react';
@@ -15,17 +17,18 @@ import { ReportsAnalytics } from '@/components/admin/ReportsAnalytics';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
 
   // Only admins can access this page
   if (user?.role !== 'admin') {
-    return <Navigate to="/" />;
+    redirect('/');
+    return null;
   }
 
   const handleLogout = async () => {
     await logout();
-    navigate('/');
+    router.push('/');
   };
 
   return (

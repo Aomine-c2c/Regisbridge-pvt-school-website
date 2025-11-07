@@ -1,19 +1,21 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { User, BookOpen, Calendar, MessageSquare, LogOut, Eye, EyeOff, Download, Search, TrendingUp, Award, Clock, CreditCard, CheckCircle, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 export default function StudentPortal() {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
     await logout();
-    navigate('/');
+    router.push('/');
   };
 
   const handleTabChange = async (tabId: string) => {

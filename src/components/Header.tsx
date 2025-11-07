@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Search, LogIn, LogOut, User, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -75,7 +76,7 @@ export default function Header() {
         <div className="flex justify-between items-center gap-4">
           <div className="flex items-center space-x-4">
             <div className="w-14 h-14 rounded-full flex items-center justify-center overflow-hidden bg-white shadow-md">
-              <img src="/logo.png" alt="Regisbridge logo" className="w-full h-full object-cover" />
+              <Image src="/logo.png" alt="Regisbridge logo" width={56} height={56} className="w-full h-full object-cover" />
             </div>
             <div className="hidden md:block">
               <h1 className="font-bold text-xl lg:text-2xl animate-fade-in leading-tight">Regisbridge Private School</h1>

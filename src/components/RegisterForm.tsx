@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import type { RegisterData } from '@/services/authService';
 import { Button } from '@/components/ui/button';
@@ -11,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, Mail, Lock, User, Eye, EyeOff, Check, X } from 'lucide-react';
 
 export function RegisterForm() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { register, isLoading, error, clearError } = useAuth();
   
   const [formData, setFormData] = useState<RegisterData>({
@@ -98,7 +101,7 @@ export function RegisterForm() {
     try {
       await register(formData);
       // Registration successful, navigate to portal
-      navigate('/portal');
+      router.push('/portal');
     } catch (err) {
       // Error is handled by AuthContext
       console.error('Registration failed:', err);

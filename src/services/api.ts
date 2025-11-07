@@ -1,7 +1,10 @@
 // API Service for Regisbridge School Website
 // This provides integration capabilities for external systems
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Next.js API routes - use relative paths in production, localhost in dev
+const API_BASE_URL = typeof window !== 'undefined' 
+  ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '')
+  : '';
 
 // Demo data for development - replace with real API calls
 const DEMO_DATA = {

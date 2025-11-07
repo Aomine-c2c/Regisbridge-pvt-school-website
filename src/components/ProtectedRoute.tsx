@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { redirect } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
 
@@ -10,7 +12,6 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children, requireRole }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth();
-  const location = useLocation();
 
   // Show loading spinner while checking authentication
   if (isLoading) {
@@ -26,8 +27,8 @@ export function ProtectedRoute({ children, requireRole }: ProtectedRouteProps) {
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    // Save the attempted URL to redirect back after login
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    redirect('/login');
+    return null;
   }
 
   // Check role-based access if specified

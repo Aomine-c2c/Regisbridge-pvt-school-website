@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 export function LoginForm() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { login, isLoading, error, clearError } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -49,7 +52,7 @@ export function LoginForm() {
     try {
       await login(formData.email, formData.password);
       // Login successful, navigate to portal
-      navigate('/portal');
+      router.push('/portal');
     } catch (err) {
       // Error is handled by AuthContext
       console.error('Login failed:', err);

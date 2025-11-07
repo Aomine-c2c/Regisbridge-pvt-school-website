@@ -1,5 +1,7 @@
+'use client';
+
 // AdminHeader Component - Header for admin pages with breadcrumbs
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, Home } from 'lucide-react';
 
@@ -21,7 +23,7 @@ export function AdminHeader({
   breadcrumbs,
   action,
 }: AdminHeaderProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div className="mb-6">
@@ -31,7 +33,7 @@ export function AdminHeader({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/admin')}
+            onClick={() => router.push('/admin')}
             className="h-auto p-0 hover:bg-transparent"
           >
             <Home className="h-4 w-4" />
@@ -43,7 +45,7 @@ export function AdminHeader({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigate(item.path!)}
+                  onClick={() => router.push(item.path!)}
                   className="h-auto p-0 hover:bg-transparent hover:underline"
                 >
                   {item.label}
