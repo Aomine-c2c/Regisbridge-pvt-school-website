@@ -40,18 +40,26 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  // Generate stable particle positions (same on server and client)
+  const particles = [...Array(50)].map((_, i) => ({
+    left: (i * 7.3) % 100,
+    top: (i * 13.7) % 100,
+    delay: (i * 0.06) % 3,
+    duration: 2 + ((i * 0.11) % 3),
+  }));
+
   return (
     <section id="home" className="relative h-[600px] flex items-center justify-center overflow-hidden">
       <div className="particles-container absolute inset-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
+        {particles.map((particle, i) => (
           <div
             key={i}
             className="particle absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              animationDelay: `${particle.delay}s`,
+              animationDuration: `${particle.duration}s`,
             }}
           />
         ))}
