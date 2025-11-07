@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Calculator, Beaker, Globe, Laptop, Book, Palette, Music, Users, X } from 'lucide-react';
 

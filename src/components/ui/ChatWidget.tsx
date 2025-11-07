@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, Send, X, Minimize2, Maximize2, Paperclip } from 'lucide-react';
 import { Button } from '@/components/ui/button';
