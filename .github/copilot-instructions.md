@@ -18,6 +18,7 @@ Key files (start here)
   - `admin/users/route.ts` – admin user CRUD operations
 - `src/lib/db.ts` – Prisma wrapper with TypeScript types, falls back to in-memory Map when DB not configured
 - `src/lib/auth-middleware.ts` – JWT verification (`verifyAuth()`) and admin check (`requireAdmin()`) utilities
+- `src/lib/flags.ts` – Feature flags configuration with Statsig adapter (server-side only)
 - `prisma/schema.prisma` – Database schema (User model). Run `npx prisma generate` after edits.
 - `src/components/` – React components. **All interactive components marked with `'use client'`**
 - `src/contexts/` – AuthContext (client component), AppContext (client component) for global state
@@ -48,6 +49,7 @@ Project-specific conventions & patterns
 - **Environment Variables**: Use fallbacks (e.g., `JWT_SECRET || 'fallback-secret-key'`). **Set in Vercel for production**.
 - **Path Alias**: `@/*` maps to `src/*` (configured in `tsconfig.json`).
 - **Toast System**: Supports dual APIs – custom (`message`, `type`) and shadcn/ui (`title`, `description`, `variant`). Use `useToast()` hook.
+- **Feature Flags**: Use `createFeatureFlag("flag_name")()` or `featureFlags.betaFeatures()` from `src/lib/flags.ts`. **Server-side only** (async functions). Requires `STATSIG_SDK_KEY` env var. See `FEATURE_FLAGS_GUIDE.md` for details.
 
 Critical hydration rules (prevents React errors)
 - **Never use `Math.random()`, `Date.now()`, or `new Date()` directly in render** – causes server/client mismatch
@@ -59,6 +61,7 @@ Integration points & external deps
 - **SendGrid** (`@sendgrid/mail`) – requires `SENDGRID_API_KEY` env var for email sending
 - **Prisma** – requires `DATABASE_URL` for PostgreSQL. Schema at `prisma/schema.prisma`
 - **JWT** – requires `JWT_SECRET` and `JWT_REFRESH_SECRET` env vars for auth
+- **Statsig** (`@flags-sdk/statsig`, `flags`) – requires `STATSIG_SDK_KEY` for feature flags. Server-side only. See `FEATURE_FLAGS_GUIDE.md`
 - **Vercel** – auto-deploys on push to main. Config in `vercel.json` (framework: nextjs)
 - **Next.js Image Optimization** – remote images allowed via `next.config.mjs` (`remotePatterns`)
 - **React Query** – wrapped in `QueryProvider` in layout, provides client-side data fetching
