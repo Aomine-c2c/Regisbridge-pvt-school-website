@@ -6,84 +6,118 @@ High-level architecture
 - Frontend: Next.js 15 (React + TypeScript). Entry: `src/app/layout.tsx` -> `src/app/page.tsx`. Routes are file-based (Next.js App Router) with automatic code splitting.
 - Backend API: Next.js API routes at `src/app/api/*`. Uses JWT auth, Joi validation, SendGrid email. Persistence via Prisma when `DATABASE_URL` is set (see `prisma/schema.prisma` and `src/lib/db.ts`).
 - Deployment: Next.js build deployed to Vercel. Automatic optimization for images, fonts, and scripts. SEO handled via metadata API.
+- Migration Status: **Recently migrated from Vite + React Router to Next.js 15.5.6**. All old Vite files removed (`src/pages/`, `vite.config.ts`, `index.html`).
 
 Key files (start here)
-- `src/app/layout.tsx` – root layout with providers, metadata, fonts, and global structure
-- `src/app/page.tsx` – home page (server component by default)
-- `src/app/api/` – API routes replacing Express server
-  - `auth/login/route.ts`, `auth/register/route.ts`, `auth/verify/route.ts` – authentication
-  - `contact/route.ts` – contact form
+- `src/app/layout.tsx` – root layout with providers (AuthProvider, QueryProvider, ThemeProvider), metadata, fonts, global components (Toaster, PWAInstallPrompt, ChatWidget)
+- `src/app/page.tsx` – home page (client component with AppProvider context)
+- `src/app/api/` – API routes (replaced Express server completely)
+  - `auth/login/route.ts`, `auth/register/route.ts`, `auth/verify/route.ts` – authentication endpoints
+  - `contact/route.ts` – contact form submissions
   - `newsletter/route.ts` – newsletter subscriptions
-  - `admin/users/route.ts` – admin user management
-- `src/lib/db.ts` – Prisma wrapper with TypeScript types
-- `src/lib/auth-middleware.ts` – JWT verification and admin check utilities
-- `prisma/schema.prisma` – Prisma schema (User model). Run `npx prisma generate` after edits and `npx prisma migrate dev` to apply.
-- `src/components/` – React components. Add `'use client'` directive for interactive components.
-- `public/` – static assets (logo.png, placeholder.svg, manifest.json, etc.)
+  - `admin/users/route.ts` – admin user CRUD operations
+- `src/lib/db.ts` – Prisma wrapper with TypeScript types, falls back to in-memory Map when DB not configured
+- `src/lib/auth-middleware.ts` – JWT verification (`verifyAuth()`) and admin check (`requireAdmin()`) utilities
+- `prisma/schema.prisma` – Database schema (User model). Run `npx prisma generate` after edits.
+- `src/components/` – React components. **All interactive components marked with `'use client'`**
+- `src/contexts/` – AuthContext (client component), AppContext (client component) for global state
+- `public/` – static assets served at root (logo.png, manifest.json, sw.js for PWA)
 
 Developer workflows / commands
 - Development: `npm run dev` (Next.js dev server on port 3000)
 - Production build: `npm run build` (creates optimized `.next` directory)
 - Start production: `npm start` (serves built app)
-- Lint: `npm run lint` (Next.js ESLint)
+- Lint: `npm run lint` (Next.js ESLint with TypeScript)
 - Prisma commands (from root):
-  - `npx prisma generate` – regenerate Prisma client
+  - `npx prisma generate` – regenerate Prisma client after schema changes
   - `npx prisma migrate dev --name <name>` – create and apply migration
   - `npx prisma db push` – push schema without migration (dev only)
   - `npx prisma studio` – visual database browser
 
 Project-specific conventions & patterns
-- **Server vs Client Components**: Components are server components by default. Add `'use client'` at top of file for interactivity (useState, useEffect, event handlers).
-- **Routing**: File-based. `src/app/about/page.tsx` = `/about` route. Dynamic routes use `[id]` folders.
-- **API Routes**: Each API route exports `GET`, `POST`, `PUT`, `DELETE` functions. Use `NextRequest` and `NextResponse`.
-- **Data Fetching**: Server components can `await` data directly. Client components use React Query (`QueryProvider` wraps app).
-- **Images**: Use Next.js `<Image>` component from `next/image` for automatic optimization.
-- **Links**: Use `<Link>` from `next/link` instead of `<a>` tags.
-- **Metadata**: Define in `layout.tsx` or per-page via `export const metadata`.
-- **Auth Middleware**: Use `verifyAuth()` or `requireAdmin()` from `src/lib/auth-middleware.ts` in API routes.
-- **In-memory fallback**: App uses in-memory Map for users when DB not configured. New persistence should prefer `src/lib/db.ts` helpers.
-- **Env handling**: Features fall back to insecure defaults (e.g. `JWT_SECRET || 'fallback-secret-key'`). Add startup check for `NODE_ENV === 'production'` to require secrets.
-- Path alias: `@/*` maps to `src/*` (see `tsconfig.json`).
+- **Server vs Client Components**: Components are server by default. **MUST add `'use client'` at top of file** for: useState, useEffect, useContext, event handlers (onClick, onChange), browser APIs (window, localStorage), React Query hooks. All page components in `src/app/**/page.tsx` are currently client components.
+- **Routing**: File-based. `src/app/login/page.tsx` = `/login` route. No more React Router (removed).
+- **Navigation**: Use `useRouter()` from `'next/navigation'` (not React Router). Call `router.push('/path')` for navigation.
+- **Links**: Use `<Link href="/path">` from `next/link` (not `to` prop).
+- **API Routes**: Each route exports `GET`, `POST`, `PUT`, `DELETE` async functions. Use `NextRequest` and `NextResponse.json()`.
+- **Data Fetching**: Server components can `await` data. Client components use React Query via `useQuery()` hook.
+- **Images**: Use `<Image>` from `next/image` with `width`, `height`, and `alt` props. Supports remote images via `next.config.mjs`.
+- **Metadata**: Define `export const metadata: Metadata` in `layout.tsx` or page files for SEO.
+- **Auth Pattern**: API routes use `verifyAuth(request)` to get user, `requireAdmin(request)` for admin-only routes.
+- **Database**: Prisma client accessed via `src/lib/db.ts` helpers (`createUserInDB`, `findUserByEmailInDB`). Falls back to in-memory Map.
+- **Environment Variables**: Use fallbacks (e.g., `JWT_SECRET || 'fallback-secret-key'`). **Set in Vercel for production**.
+- **Path Alias**: `@/*` maps to `src/*` (configured in `tsconfig.json`).
+- **Toast System**: Supports dual APIs – custom (`message`, `type`) and shadcn/ui (`title`, `description`, `variant`). Use `useToast()` hook.
 
-Integration points & external deps to be careful with
-- SendGrid (`@sendgrid/mail`) – `SENDGRID_API_KEY` required to send email. Code logs warnings if missing.
-- Auth: JWT secrets (env vars `JWT_SECRET`, `JWT_REFRESH_SECRET`) used in API routes and middleware.
-- Vercel Postgres / DATABASE_URL – when present, Prisma client is enabled. Make schema migrations part of deploy or CI.
-- Next.js Image Optimization – requires proper `next.config.mjs` setup for remote images.
+Critical hydration rules (prevents React errors)
+- **Never use `Math.random()`, `Date.now()`, or `new Date()` directly in render** – causes server/client mismatch
+- Use deterministic values or move to `useEffect()` for client-only randomness
+- Example fix in `Hero.tsx`: particles use calculated positions `(i * 7.3) % 100` instead of `Math.random()`
+- Browser APIs (`window`, `localStorage`) **must be in `useEffect()`** or client components only
 
-How to add or change an API route (example)
-1. Create file at `src/app/api/<endpoint>/route.ts`
-2. Export async functions: `export async function GET(request: NextRequest) { ... }`
-3. Use Joi validation -> try/catch -> consistent JSON shape `{ success, message, data }`
-4. For protected routes, call `verifyAuth()` or `requireAdmin()` from middleware
-5. If route needs persistence, call `createUserInDB`, `findUserByEmailInDB`, etc. from `src/lib/db.ts`
-6. Return `NextResponse.json()` with appropriate status codes
+Integration points & external deps
+- **SendGrid** (`@sendgrid/mail`) – requires `SENDGRID_API_KEY` env var for email sending
+- **Prisma** – requires `DATABASE_URL` for PostgreSQL. Schema at `prisma/schema.prisma`
+- **JWT** – requires `JWT_SECRET` and `JWT_REFRESH_SECRET` env vars for auth
+- **Vercel** – auto-deploys on push to main. Config in `vercel.json` (framework: nextjs)
+- **Next.js Image Optimization** – remote images allowed via `next.config.mjs` (`remotePatterns`)
+- **React Query** – wrapped in `QueryProvider` in layout, provides client-side data fetching
 
-Testing & CI notes
-- No automated tests or GitHub Actions yet. Suggested: run `npm run lint`, `npm run build`, `npx prisma generate` in CI.
-- Use Vitest or Jest + React Testing Library for components and Vitest for API routes.
+How to add or change an API route
+1. Create `src/app/api/<endpoint>/route.ts`
+2. Export async function: `export async function POST(request: NextRequest) { ... }`
+3. Parse body: `const body = await request.json()`
+4. Validate with Joi: `const { error } = schema.validate(body)`
+5. For protected routes: `const user = await verifyAuth(request)` or `await requireAdmin(request)`
+6. Database ops: `await createUserInDB(data)` from `src/lib/db.ts`
+7. Return: `NextResponse.json({ success: true, data }, { status: 200 })`
+8. Consistent error shape: `{ success: false, message: 'error description' }`
+
+Common pitfalls & fixes
+- **Build fails with "useState is not a function"** → Component missing `'use client'` directive
+- **Hydration mismatch error** → Using `Math.random()`, `Date.now()`, or `window` in render. Move to `useEffect()`.
+- **"Cannot use hooks" error** → Server component trying to use client hooks. Add `'use client'`.
+- **ESLint "Cannot find package 'globals'"** → Run `npm install -D globals`
+- **Vercel build fails with SES error** → Check `vercel.json` is configured for Next.js, not Vite static build
+- **Images not loading** → Use Next.js `<Image>` component, ensure `next.config.mjs` allows remote domains
 
 Editing guidelines for AI agents
-- Mark interactive components with `'use client'` (anything using useState, useEffect, onClick, etc.)
-- Server components can't use client-side hooks – move interactivity to separate client components
-- Use Next.js `<Image>` and `<Link>` components instead of `<img>` and `<a>`
-- API routes return `NextResponse.json()`, not Express `res.json()`
-- Keep changes small. Auth flow touches: API routes, `AuthContext`, `authService.ts`, middleware
-- Commit message style: `feat:`, `fix:`, `chore:`, `docs:`
-- Never hardcode secrets. Use env vars and update Vercel environment variables
+- **Always check if component needs `'use client'` before adding hooks**
+- Server components can't use: useState, useEffect, useContext, onClick handlers, browser APIs
+- Use Next.js `<Image>` and `<Link>`, never `<img>` or `<a href>`
+- API routes use `NextResponse.json()`, not Express `res.json()`
+- Keep commits focused: `feat:`, `fix:`, `chore:`, `docs:` prefixes
+- Test locally with `npm run build` before pushing (catches TypeScript/hydration errors)
+- Never hardcode secrets – use env vars and add to Vercel dashboard
 
-Repo housekeeping notes
-- Large TailAdmin template files under `public/Downloads` and `media/static/` inflate repository. Consider archiving.
-- Old Vite files (`vite.config.ts`, `index.html`, `src/main.tsx`) can be removed after migration verified.
-- Static assets in `public/` are served at root (e.g. `public/logo.png` = `/logo.png`)
+Deployment workflow
+1. Local: `npm run build` to verify (must succeed)
+2. Commit: `git add -A && git commit -m "fix: description"`
+3. Push: `git push origin main`
+4. Vercel auto-deploys to https://regisbridge.page/
+5. Check Vercel dashboard for build logs if deployment fails
+6. Set env vars in Vercel: `DATABASE_URL`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, `SENDGRID_API_KEY`
 
-SEO & Performance
-- Metadata defined in `src/app/layout.tsx` and per-page
-- Sitemap generated at `src/app/sitemap.ts` (automatic route)
-- Robots.txt at `src/app/robots.ts`
-- Ads.txt at `src/app/ads.txt/route.ts`
-- All pages server-rendered by default for better SEO and performance
-- Automatic code splitting per route
-- Image optimization via Next.js Image component
+Current state & known issues
+- ✅ Next.js migration complete, production build succeeds
+- ✅ Toast API compatibility fixed (supports both custom and shadcn/ui)
+- ✅ Hydration errors resolved (Hero component uses deterministic particles)
+- ✅ All pages marked as client components (use contexts)
+- ⚠️ `metadataBase` warning – add `metadataBase: new URL('https://regisbridge.page')` to layout.tsx metadata
+- ⚠️ Large template files in `public/Downloads/` and `media/static/` – added to `.vercelignore`
+- ⚠️ Database not configured – app uses in-memory storage (set `DATABASE_URL` for persistence)
 
-If anything is unclear or you want me to expand a section (CI workflow, Prisma migration automation, or example code edits), tell me which area and I'll iterate.
+File structure notes
+- `src/app/` – Next.js App Router (pages, layouts, API routes)
+- `src/components/` – Reusable React components (most are client components)
+- `src/components/admin/` – Admin dashboard components (UserManagement, Overview, etc.)
+- `src/components/ui/` – shadcn/ui components (Button, Input, Toast, etc.)
+- `src/contexts/` – React contexts (AuthContext, AppContext)
+- `src/services/` – API client services (authService, adminService, api)
+- `src/hooks/` – Custom React hooks (use-toast, use-mobile)
+- `src/lib/` – Utilities (db, auth-middleware, utils)
+- `prisma/` – Database schema and migrations
+- `public/` – Static assets (images, manifest, service worker)
+
+If anything is unclear, ask about: auth flow details, Prisma migration workflow, specific component patterns, or deployment troubleshooting.
+
