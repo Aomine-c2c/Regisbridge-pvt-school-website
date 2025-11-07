@@ -36,6 +36,7 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://regisbridge.page'),
   title: 'Regisbridge Private School - Empowering Minds, Shaping Futures',
   description: 'Regisbridge Private School - A distinguished private day and boarding school in Zimbabwe offering Grades 1-7 and Forms 1-3. Supervincimus - We Conquer Together.',
   keywords: 'private school, boarding school, Zimbabwe, education, Regisbridge',
