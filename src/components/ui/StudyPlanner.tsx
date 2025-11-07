@@ -52,11 +52,19 @@ export function StudyPlanner({
   const [isSessionDialogOpen, setIsSessionDialogOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedTask, setSelectedTask] = useState<StudyTask | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    description: string;
+    subject: string;
+    priority: 'low' | 'medium' | 'high';
+    dueDate: string;
+    estimatedTime: number;
+    tags: string;
+  }>({
     title: '',
     description: '',
     subject: '',
-    priority: 'medium' as const,
+    priority: 'medium',
     dueDate: '',
     estimatedTime: 60,
     tags: '',

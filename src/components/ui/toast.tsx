@@ -3,12 +3,14 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 
-interface ToastProps {
+export interface ToastProps {
   message: string;
   type: 'success' | 'error' | 'warning' | 'info';
   duration?: number;
   onClose: () => void;
 }
+
+export type ToastActionElement = React.ReactElement;
 
 const Toast: React.FC<ToastProps> = ({ message, type, duration = 5000, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);

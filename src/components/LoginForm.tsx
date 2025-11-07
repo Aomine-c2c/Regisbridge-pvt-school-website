@@ -102,7 +102,7 @@ export function LoginForm() {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
                 <Link 
-                  to="/forgot-password" 
+                  href="/forgot-password" 
                   className="text-sm text-primary hover:underline"
                   tabIndex={-1}
                 >
@@ -158,18 +158,18 @@ export function LoginForm() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-center text-muted-foreground">
             Don't have an account?{' '}
-            <Link to="/register" className="text-primary hover:underline font-medium">
+            <Link href="/register" className="text-primary hover:underline font-medium">
               Register here
             </Link>
           </div>
           
           <div className="text-xs text-center text-muted-foreground">
             By signing in, you agree to our{' '}
-            <Link to="/terms" className="text-primary hover:underline">
+            <Link href="/terms" className="text-primary hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link to="/privacy" className="text-primary hover:underline">
+            <Link href="/privacy" className="text-primary hover:underline">
               Privacy Policy
             </Link>
           </div>

@@ -118,7 +118,7 @@ export default function Header() {
               </div>
             ) : (
               <Button
-                onClick={() => navigate('/login')}
+                onClick={() => router.push('/login')}
                 variant="outline"
                 size="sm"
                 className="hidden md:flex text-white border-white hover:bg-white hover:text-[#1C1A75] transition-all"
@@ -181,7 +181,7 @@ export default function Header() {
 
               {/* Portal Link */}
               <Link
-                to="/portal"
+                href="/portal"
                 className="hover:text-[#D4AF37] transition-all duration-300 hover:scale-105 focus-visible font-medium"
                 aria-label="Navigate to Portal page"
               >
@@ -274,7 +274,7 @@ export default function Header() {
 
             {/* Portal */}
             <Link
-              to="/portal"
+              href="/portal"
               className="block w-full text-left py-3 px-4 hover:bg-white/10 hover:text-[#D4AF37] rounded-lg transition-all duration-300 font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -313,7 +313,7 @@ export default function Header() {
             ) : (
               <button
                 onClick={() => {
-                  navigate('/login');
+                  router.push('/login');
                   setIsMenuOpen(false);
                 }}
                 className="w-full text-left py-3 px-4 hover:bg-white/10 hover:text-[#D4AF37] rounded-lg transition-all duration-300 font-medium flex items-center gap-2 border-t border-white/20 mt-3 pt-5"
