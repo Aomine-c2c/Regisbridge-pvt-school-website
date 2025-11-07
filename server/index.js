@@ -356,7 +356,7 @@ app.post('/api/auth/register', async (req, res) => {
     const { email, password, firstName, lastName, role, grade, studentId } = value;
 
     // Check if user already exists
-  if (isEmailTaken(email)) {
+    if (await isEmailTaken(email)) {
       return res.status(409).json({
         success: false,
         message: 'User with this email already exists',
@@ -379,8 +379,11 @@ app.post('/api/auth/register', async (req, res) => {
       createdAt: new Date().toISOString(),
     };
 
-    // Store user
-  users.set(user.id, user);
+    // Store user in memory
+    users.set(user.id, user);
+
+    // Persist to DB if available
+    await createUserInDB(user).catch(() => null);
 
     // Generate tokens
     const token = generateToken(user);

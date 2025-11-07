@@ -42,6 +42,30 @@ export async function getAllUsersFromDB() {
   return await prisma.user.findMany()
 }
 
+export async function findUserByIdInDB(id) {
+  if (!prisma) return null
+  return await prisma.user.findUnique({ where: { id } })
+}
+
+export async function findUsersWithFilters({ role, status, search, page = 1, limit = 10 } = {}) {
+  if (!prisma) return []
+  const where = {}
+  if (role) where.role = role
+  if (status) where.status = status
+  if (search) {
+    where.OR = [
+      { firstName: { contains: search, mode: 'insensitive' } },
+      { lastName: { contains: search, mode: 'insensitive' } },
+      { email: { contains: search, mode: 'insensitive' } },
+    ]
+  }
+  const take = parseInt(limit)
+  const skip = (parseInt(page) - 1) * take
+  const total = await prisma.user.count({ where })
+  const data = await prisma.user.findMany({ where, take, skip, orderBy: { createdAt: 'desc' } })
+  return { data, total }
+}
+
 export async function updateUserInDB(id, updates) {
   if (!prisma) return null
   return await prisma.user.update({ where: { id }, data: updates })

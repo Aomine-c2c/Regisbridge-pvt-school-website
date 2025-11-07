@@ -65,7 +65,7 @@ export default function Hero() {
 
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
         <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden mx-auto mb-6 animate-fade-in bg-white">
-          <LazyImage
+          <img
             src="/logo.png"
             alt="Regisbridge logo"
             className="w-full h-full object-cover"
