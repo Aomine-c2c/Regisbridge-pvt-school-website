@@ -10,6 +10,8 @@ import { PWAInstallPrompt } from "@/components/ui/PWAInstallPrompt"
 import { ChatWidget } from "@/components/ui/ChatWidget"
 import { VideoConferenceButton } from "@/components/ui/VideoConferenceButton"
 import { QueryProvider } from "@/components/QueryProvider"
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const playfair = Playfair_Display({ 
   subsets: ['latin'],
@@ -114,6 +116,8 @@ export default function RootLayout({
             </QueryProvider>
           </ThemeProvider>
         </ErrorBoundary>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
