@@ -12,9 +12,9 @@
     "test": "jest --watch",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "test:coverage": "jest --coverage",
-    "test:unit": "jest --testPathPattern=src/lib",
-    "test:integration": "jest --testPathPattern=src/app/api",
-    "test:components": "jest --testPathPattern=src/components"
+    "test:unit": "jest src/lib",
+    "test:integration": "jest src/app/api",
+    "test:components": "jest src/components"
   },
   "dependencies": {
     "@d3plus/react": "^3.0.8",

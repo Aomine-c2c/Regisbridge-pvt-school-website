@@ -23,7 +23,7 @@ const config = {
     '!src/app/layout.tsx',
     '!src/main.tsx',
   ],
-  coverageThresholds: {
+  coverageThreshold: {
     global: {
       branches: 70,
       functions: 70,

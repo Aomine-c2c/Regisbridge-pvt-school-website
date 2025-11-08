@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { POST } from '../../auth/login/route'
+import { POST } from '../route'
 import { NextRequest } from 'next/server'
 import { findUserByEmailInDB, createUserInDB } from '@/lib/db'
 import bcrypt from 'bcryptjs'
