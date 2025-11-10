@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react';
 import { StatsCard } from './shared/StatsCard';
 import { AdminHeader } from './shared/AdminHeader';
-import { Users, GraduationCap, DollarSign, FileText, TrendingUp, Clock } from 'lucide-react';
+import { Users, GraduationCap, DollarSign, FileText, TrendingUp, Clock, PieChart as PieChartIcon, Send, FileDown, Database, Mail, BarChart3 } from 'lucide-react';
 import { getDashboardStats, getEnrollmentData, getRevenueData, getActivityLogs } from '@/services/adminService';
 import type { DashboardStats, EnrollmentData, RevenueData, ActivityLog } from '@/types/admin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Button } from '@/components/ui/button';
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
 
 export function Overview() {
@@ -44,6 +45,36 @@ export function Overview() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Mock data for new charts
+  const gradeDistribution = [
+    { name: 'Grade 8', value: 120, fill: '#1C1A75' },
+    { name: 'Grade 9', value: 145, fill: '#2D2B8F' },
+    { name: 'Grade 10', value: 130, fill: '#10B981' },
+    { name: 'Grade 11', value: 110, fill: '#F59E0B' },
+    { name: 'Grade 12', value: 95, fill: '#EF4444' },
+  ];
+
+  const teacherWorkload = [
+    { teacher: 'Mr. Smith', assignments: 12, classes: 5 },
+    { teacher: 'Ms. Johnson', assignments: 15, classes: 6 },
+    { teacher: 'Dr. Williams', assignments: 10, classes: 4 },
+    { teacher: 'Mrs. Brown', assignments: 14, classes: 5 },
+    { teacher: 'Mr. Davis', assignments: 11, classes: 4 },
+  ];
+
+  const feePaymentStatus = [
+    { status: 'Paid', value: 450, fill: '#10B981' },
+    { status: 'Pending', value: 120, fill: '#F59E0B' },
+    { status: 'Overdue', value: 30, fill: '#EF4444' },
+  ];
+
+  const handleQuickAction = (action: string) => {
+    toast({
+      title: 'Quick Action',
+      description: `${action} - Feature coming soon!`,
+    });
   };
 
   if (loading) {
@@ -147,6 +178,151 @@ export function Overview() {
           </CardContent>
         </Card>
       </div>
+
+      {/* New Enhanced Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Grade Distribution Pie Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <PieChartIcon className="h-5 w-5" />
+              Student Distribution by Grade
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={gradeDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  dataKey="value"
+                >
+                  {gradeDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Teacher Workload Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BarChart3 className="h-5 w-5" />
+              Teacher Workload
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={teacherWorkload} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" />
+                <YAxis dataKey="teacher" type="category" width={100} />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="assignments" fill="#1C1A75" name="Assignments" />
+                <Bar dataKey="classes" fill="#10B981" name="Classes" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Fee Payment Status Pie Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <DollarSign className="h-5 w-5" />
+              Fee Payment Status
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={feePaymentStatus}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ status, percent }) => `${status}: ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  dataKey="value"
+                >
+                  {feePaymentStatus.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions Widget */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('Send Announcement')}
+            >
+              <Send className="h-5 w-5" />
+              <span className="text-xs">Send Announcement</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('Generate Report')}
+            >
+              <FileDown className="h-5 w-5" />
+              <span className="text-xs">Generate Report</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('Export Data')}
+            >
+              <Database className="h-5 w-5" />
+              <span className="text-xs">Export Data</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('Bulk Email')}
+            >
+              <Mail className="h-5 w-5" />
+              <span className="text-xs">Bulk Email</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('View Analytics')}
+            >
+              <BarChart3 className="h-5 w-5" />
+              <span className="text-xs">View Analytics</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => handleQuickAction('Backup Database')}
+            >
+              <Database className="h-5 w-5" />
+              <span className="text-xs">Backup Database</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Quick Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
