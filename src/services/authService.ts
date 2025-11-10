@@ -124,7 +124,7 @@ export function getUser(): User | null {
  */
 export async function register(data: RegisterData): Promise<AuthResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ export async function register(data: RegisterData): Promise<AuthResponse> {
  */
 export async function login(data: LoginData): Promise<AuthResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ export async function verifyToken(): Promise<VerifyResponse> {
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/verify`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -233,7 +233,7 @@ export async function refreshAccessToken(): Promise<RefreshResponse> {
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ export async function logout(): Promise<void> {
   if (token) {
     try {
       // Call backend logout endpoint
-      await fetch(`${API_BASE_URL}/auth/logout`, {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

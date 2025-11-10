@@ -1,5 +1,13 @@
 const nextJest = require('next/jest')
 
+// Set test environment variables before creating Jest config
+process.env.JWT_SECRET = 'test-secret-key'
+process.env.JWT_REFRESH_SECRET = 'test-refresh-secret-key'
+process.env.SENDGRID_API_KEY = 'test-sendgrid-key'
+process.env.STATSIG_SDK_KEY = 'test-statsig-key'
+process.env.DATABASE_URL = 'postgresql://testuser:testpass@localhost:5432/testdb'
+process.env.NODE_ENV = 'test'
+
 /** @type {import('jest').Config} */
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -10,6 +18,8 @@ const createJestConfig = nextJest({
 const config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
+  // Load polyfills in each test worker before setupFilesAfterEnv
+  setupFiles: ['<rootDir>/jest.polyfills.js'],
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {

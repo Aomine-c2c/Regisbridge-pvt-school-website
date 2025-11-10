@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import { POST } from '../register/route'
 import { NextRequest } from 'next/server'
 import bcrypt from 'bcryptjs'

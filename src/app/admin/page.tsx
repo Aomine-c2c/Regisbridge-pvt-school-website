@@ -15,11 +15,23 @@ import { FinanceManagement } from '@/components/admin/FinanceManagement'
 import { ReportsAnalytics } from '@/components/admin/ReportsAnalytics'
 
 export default function AdminPage() {
-  const { user, logout } = useAuth()
+  const { user, logout, isLoading } = useAuth()
   const [activeTab, setActiveTab] = useState('overview')
 
-  // Only admins can access this page
-  if (user?.role !== 'admin') {
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1C1A75] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Only admins and superadmins can access this page
+  if (!user || (user.role !== 'admin' && user.role !== 'superadmin')) {
     redirect('/')
   }
 

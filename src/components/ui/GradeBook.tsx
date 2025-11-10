@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/logger';
 import { TrendingUp, TrendingDown, Award, BookOpen, Users, Calendar, Filter, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -111,7 +112,7 @@ export function GradeBook({
       const progressResult = await lmsService.getStudentProgress(studentId);
       if (progressResult.success) {
         // Combine grade and progress data for comprehensive analytics
-        console.log('Progress data loaded:', progressResult.data);
+        logger.debug('Progress data loaded');
       }
     } catch (error) {
       console.error('Error loading grade data:', error);

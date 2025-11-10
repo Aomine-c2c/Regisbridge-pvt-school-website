@@ -24,6 +24,8 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "@typescript-eslint/no-unused-vars": "off",
+      // Prefer using the shared logger; allow only warn/error directly
+      "no-console": ["warn", { allow: ["warn", "error"] }],
     },
   }
 );

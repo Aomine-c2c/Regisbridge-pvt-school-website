@@ -17,14 +17,15 @@ export function RegisterForm() {
   const router = useRouter();
   const { register, isLoading, error, clearError } = useAuth();
   
+  // Registration form is for students only
   const [formData, setFormData] = useState<RegisterData>({
     email: '',
     password: '',
     firstName: '',
     lastName: '',
-    role: 'student',
+    role: 'student', // Fixed as student
     grade: '',
-    studentId: '',
+    studentId: '', // Will be auto-generated as application ID
   });
   
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,16 +52,6 @@ export function RegisterForm() {
     // Clear errors when user starts typing
     if (error) clearError();
     if (localError) setLocalError(null);
-  };
-
-  const handleRoleChange = (value: 'student' | 'parent' | 'teacher') => {
-    setFormData(prev => ({
-      ...prev,
-      role: value,
-      // Clear grade and studentId if not student
-      grade: value === 'student' ? prev.grade : '',
-      studentId: value === 'student' ? prev.studentId : '',
-    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,8 +84,8 @@ export function RegisterForm() {
       return;
     }
 
-    if (formData.role === 'student' && (!formData.grade || !formData.studentId)) {
-      setLocalError('Grade and Student ID are required for students');
+    if (!formData.grade) {
+      setLocalError('Grade is required');
       return;
     }
 
@@ -114,9 +105,9 @@ export function RegisterForm() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 px-4 py-8">
       <Card className="w-full max-w-2xl">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Student Application</CardTitle>
           <CardDescription className="text-center">
-            Join the Regisbridge community
+            Apply to join Regisbridge Academy
           </CardDescription>
         </CardHeader>
         
@@ -187,67 +178,34 @@ export function RegisterForm() {
               </div>
             </div>
 
-            {/* Role Selection */}
+            {/* Grade Selection */}
             <div className="space-y-2">
-              <Label htmlFor="role">I am a *</Label>
-              <Select 
-                value={formData.role} 
-                onValueChange={handleRoleChange}
+              <Label htmlFor="grade">Grade *</Label>
+              <Select
+                value={formData.grade}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, grade: value }))}
                 disabled={isLoading}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select your role" />
+                  <SelectValue placeholder="Select your grade" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="parent">Parent</SelectItem>
-                  <SelectItem value="teacher">Teacher</SelectItem>
+                  <SelectItem value="Form 1A">Form 1A</SelectItem>
+                  <SelectItem value="Form 1B">Form 1B</SelectItem>
+                  <SelectItem value="Form 2A">Form 2A</SelectItem>
+                  <SelectItem value="Form 2B">Form 2B</SelectItem>
+                  <SelectItem value="Form 3A">Form 3A</SelectItem>
+                  <SelectItem value="Form 3B">Form 3B</SelectItem>
+                  <SelectItem value="Form 4A">Form 4A</SelectItem>
+                  <SelectItem value="Form 4B">Form 4B</SelectItem>
+                  <SelectItem value="Lower 6">Lower 6</SelectItem>
+                  <SelectItem value="Upper 6">Upper 6</SelectItem>
                 </SelectContent>
               </Select>
+              <p className="text-sm text-muted-foreground">
+                You will receive an application ID upon registration. Your official registration number will be assigned after admission approval.
+              </p>
             </div>
-
-            {/* Conditional Student Fields */}
-            {formData.role === 'student' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="grade">Grade *</Label>
-                  <Select
-                    value={formData.grade}
-                    onValueChange={(value) => setFormData(prev => ({ ...prev, grade: value }))}
-                    disabled={isLoading}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select grade" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Form 1A">Form 1A</SelectItem>
-                      <SelectItem value="Form 1B">Form 1B</SelectItem>
-                      <SelectItem value="Form 2A">Form 2A</SelectItem>
-                      <SelectItem value="Form 2B">Form 2B</SelectItem>
-                      <SelectItem value="Form 3A">Form 3A</SelectItem>
-                      <SelectItem value="Form 3B">Form 3B</SelectItem>
-                      <SelectItem value="Form 4A">Form 4A</SelectItem>
-                      <SelectItem value="Form 4B">Form 4B</SelectItem>
-                      <SelectItem value="Lower 6">Lower 6</SelectItem>
-                      <SelectItem value="Upper 6">Upper 6</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="studentId">Student ID *</Label>
-                  <Input
-                    id="studentId"
-                    name="studentId"
-                    type="text"
-                    placeholder="STU2025001"
-                    value={formData.studentId}
-                    onChange={handleChange}
-                    disabled={isLoading}
-                  />
-                </div>
-              </div>
-            )}
 
             {/* Password */}
             <div className="space-y-2">

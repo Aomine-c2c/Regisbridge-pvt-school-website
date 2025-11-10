@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import LazyImage from '@/components/ui/LazyImage';
 
 export default function Hero() {
+  const router = useRouter();
   const [displayText, setDisplayText] = useState('');
   const fullText = "Empowering Minds, Shaping Futures";
   const scrollToSection = (id: string) => {
@@ -98,7 +100,7 @@ export default function Hero() {
             Learn More
           </button>
           <button
-            onClick={() => scrollToSection('admissions')}
+            onClick={() => router.push('/register')}
             className="bg-white text-[#1C1A75] px-8 py-3 rounded-lg font-semibold hover:bg-[#C0C0C0] transition-colors"
           >
             Apply Now

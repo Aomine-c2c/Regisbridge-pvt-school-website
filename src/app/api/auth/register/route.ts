@@ -3,9 +3,10 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import Joi from 'joi'
 import { createUserInDB } from '@/lib/db'
-
-// In-memory users map as fallback
-const users = new Map()
+import { config } from '@/lib/config'
+import { checkRateLimit, rateLimitPresets } from '@/lib/rate-limit'
+import { secureResponse } from '@/lib/security-headers'
+import { users } from '@/lib/users-store'
 
 const registerSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -18,11 +19,8 @@ const registerSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
-  studentId: Joi.string().when('role', {
-    is: 'student',
-    then: Joi.required(),
-    otherwise: Joi.optional(),
-  }),
+  // studentId is now auto-generated, not required from client
+  studentId: Joi.string().optional(),
 })
 
 // Check if email is already taken
@@ -39,7 +37,7 @@ async function isEmailTaken(email: string): Promise<boolean> {
 function generateToken(user: any) {
   return jwt.sign(
     { userId: user.id, email: user.email, role: user.role },
-    process.env.JWT_SECRET || 'fallback-secret-key',
+    config.jwt.secret,
     { expiresIn: '7d' }
   )
 }
@@ -47,19 +45,25 @@ function generateToken(user: any) {
 function generateRefreshToken(user: any) {
   return jwt.sign(
     { userId: user.id, type: 'refresh' },
-    process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret',
+    config.jwt.refreshSecret,
     { expiresIn: '30d' }
   )
 }
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting: 5 registration attempts per 15 minutes
+    const rateLimitResponse = checkRateLimit(request, rateLimitPresets.auth)
+    if (rateLimitResponse) {
+      return rateLimitResponse
+    }
+
     const body = await request.json()
     
     // Validate input
     const { error, value } = registerSchema.validate(body)
     if (error) {
-      return NextResponse.json(
+      return secureResponse(
         { success: false, message: error.details[0].message },
         { status: 400 }
       )
@@ -69,7 +73,7 @@ export async function POST(request: NextRequest) {
 
     // Check if user already exists
     if (await isEmailTaken(email)) {
-      return NextResponse.json(
+      return secureResponse(
         { success: false, message: 'User with this email already exists' },
         { status: 409 }
       )
@@ -77,6 +81,12 @@ export async function POST(request: NextRequest) {
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
+
+    // Note: Registration numbers are assigned by admin upon admission approval
+    // Students get a temporary application ID during signup
+    const applicationId = role === 'student' 
+      ? `APP${new Date().getFullYear()}${Date.now().toString().slice(-6)}`
+      : undefined
 
     // Create user object
     const user = {
@@ -87,7 +97,7 @@ export async function POST(request: NextRequest) {
       lastName,
       role,
       grade: role === 'student' ? grade : undefined,
-      studentId: role === 'student' ? studentId : undefined,
+      studentId: role === 'student' ? (studentId || applicationId) : undefined,
       createdAt: new Date().toISOString(),
     }
 
@@ -104,7 +114,7 @@ export async function POST(request: NextRequest) {
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user
 
-    return NextResponse.json(
+    return secureResponse(
       {
         success: true,
         message: 'User registered successfully',
@@ -118,7 +128,7 @@ export async function POST(request: NextRequest) {
     )
   } catch (error) {
     console.error('Registration error:', error)
-    return NextResponse.json(
+    return secureResponse(
       { success: false, message: 'Failed to register user' },
       { status: 500 }
     )

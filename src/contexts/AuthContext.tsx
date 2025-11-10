@@ -12,7 +12,7 @@ interface AuthState {
 }
 
 interface AuthContextType extends AuthState {
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
@@ -85,6 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           isLoading: false,
           error: null,
         });
+        return result.data.user; // Return user data for immediate use
       } else {
         throw new Error(result.message || 'Login failed');
       }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/logger';
 import { Bell, BellOff, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,7 +30,7 @@ export function NotificationManager() {
       const subscription = await registration.pushManager.getSubscription();
       setIsSubscribed(!!subscription);
     } catch (error) {
-      console.error('Error checking subscription status:', error);
+      logger.error('Error checking subscription status', error);
     }
   };
 
@@ -52,7 +53,7 @@ export function NotificationManager() {
         });
       }
     } catch (error) {
-      console.error('Error requesting permission:', error);
+      logger.error('Error requesting permission', error);
       toast({
         title: "Error",
         description: "Failed to enable notifications.",
@@ -74,7 +75,7 @@ export function NotificationManager() {
       });
 
       // Here you would send the subscription to your server
-      console.log('Push subscription:', subscription);
+  logger.debug('Push subscription object received');
 
       setIsSubscribed(true);
       toast({
@@ -82,7 +83,7 @@ export function NotificationManager() {
         description: "You'll receive important updates and announcements.",
       });
     } catch (error) {
-      console.error('Error subscribing to notifications:', error);
+      logger.error('Error subscribing to notifications', error);
       toast({
         title: "Subscription failed",
         description: "Unable to subscribe to push notifications.",
@@ -105,7 +106,7 @@ export function NotificationManager() {
         });
       }
     } catch (error) {
-      console.error('Error unsubscribing:', error);
+      logger.error('Error unsubscribing from notifications', error);
       toast({
         title: "Error",
         description: "Failed to unsubscribe from notifications.",

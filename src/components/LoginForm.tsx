@@ -50,9 +50,13 @@ export function LoginForm() {
     }
 
     try {
-      await login(formData.email, formData.password);
-      // Login successful, navigate to portal
-      router.push('/portal');
+      const user = await login(formData.email, formData.password);
+      // Redirect based on user role
+      if (user.role === 'admin' || user.role === 'superadmin') {
+        router.push('/admin');
+      } else {
+        router.push('/portal');
+      }
     } catch (err) {
       // Error is handled by AuthContext
       console.error('Login failed:', err);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logger } from '@/lib/logger';
 
 // LMS (Learning Management System) service configuration
 class LMSService {
@@ -66,7 +67,7 @@ class LMSService {
         };
       }
     } catch (error) {
-      console.error('Error fetching courses:', error);
+      logger.error('Error fetching courses', error);
       return { success: false, error };
     }
   }
@@ -129,7 +130,7 @@ class LMSService {
         };
       }
     } catch (error) {
-      console.error('Error fetching course content:', error);
+      logger.error('Error fetching course content', error);
       return { success: false, error };
     }
   }
@@ -169,7 +170,7 @@ class LMSService {
         };
       }
     } catch (error) {
-      console.error('Error fetching assignments:', error);
+      logger.error('Error fetching assignments', error);
       return { success: false, error };
     }
   }
@@ -188,12 +189,12 @@ class LMSService {
         });
         return { success: true, data: response.data };
       } else {
-        // Mock submission
-        console.log('Mock assignment submission:', { assignmentId, file: file.name, studentId });
+        // Mock submission (dev only logging)
+        logger.debug('Mock assignment submission', { assignmentId, file: file.name, studentId });
         return { success: true, data: { submissionId: 'mock-' + Date.now() } };
       }
     } catch (error) {
-      console.error('Error submitting assignment:', error);
+      logger.error('Error submitting assignment', error);
       return { success: false, error };
     }
   }
@@ -240,7 +241,7 @@ class LMSService {
         };
       }
     } catch (error) {
-      console.error('Error fetching grades:', error);
+      logger.error('Error fetching grades', error);
       return { success: false, error };
     }
   }
@@ -295,7 +296,7 @@ class LMSService {
         };
       }
     } catch (error) {
-      console.error('Error fetching student progress:', error);
+      logger.error('Error fetching student progress', error);
       return { success: false, error };
     }
   }

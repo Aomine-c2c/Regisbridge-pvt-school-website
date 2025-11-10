@@ -1,4 +1,5 @@
 import twilio from 'twilio';
+import { logger } from '@/lib/logger';
 
 // SMS service configuration
 class SMSService {
@@ -32,15 +33,15 @@ class SMSService {
           to: to
         });
 
-        console.log('SMS sent via Twilio:', result.sid);
+        logger.info('SMS sent via Twilio', { sid: result.sid });
         return { success: true, messageId: result.sid };
       } else {
         // Mock SMS sending for development
-        console.log('Mock SMS sent:', { to, message: message.substring(0, 50) + '...' });
+        logger.debug('Mock SMS sent', { to, preview: message.substring(0, 50) + '...' });
         return { success: true, mock: true, messageId: 'mock-' + Date.now() };
       }
     } catch (error) {
-      console.error('SMS sending failed:', error);
+      logger.error('SMS sending failed', error);
       return { success: false, error };
     }
   }

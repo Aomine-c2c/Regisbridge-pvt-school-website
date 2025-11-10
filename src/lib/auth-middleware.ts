@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
+import { config } from './config'
 
 export interface AuthUser {
   userId: string
@@ -25,7 +26,7 @@ export async function verifyAuth(request: NextRequest): Promise<{ user: AuthUser
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'fallback-secret-key'
+      config.jwt.secret
     ) as AuthUser
 
     return { user: decoded, error: null }

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment @edge-runtime/jest-environment
+ */
+
 import { POST } from '../route'
 import { NextRequest } from 'next/server'
 import sgMail from '@sendgrid/mail'

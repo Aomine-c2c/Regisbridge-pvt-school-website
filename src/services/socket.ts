@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import { logger } from '@/lib/logger';
 
 class SocketService {
   private socket: Socket | null = null;
@@ -31,12 +32,12 @@ class SocketService {
     if (!this.socket) return;
 
     this.socket.on('connect', () => {
-      console.log('Connected to chat server');
+      logger.debug('Connected to chat server');
       this.reconnectAttempts = 0;
     });
 
     this.socket.on('disconnect', (reason) => {
-      console.log('Disconnected from chat server:', reason);
+      logger.debug('Disconnected from chat server', reason);
       if (reason === 'io server disconnect') {
         // Server disconnected, try to reconnect
         this.attemptReconnect();
@@ -44,20 +45,20 @@ class SocketService {
     });
 
     this.socket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
+      logger.error('Socket connection error', error);
       this.attemptReconnect();
     });
 
     this.socket.on('reconnect', (attemptNumber) => {
-      console.log('Reconnected to chat server after', attemptNumber, 'attempts');
+      logger.info('Reconnected to chat server', { attemptNumber });
     });
 
     this.socket.on('reconnect_error', (error) => {
-      console.error('Reconnection error:', error);
+      logger.error('Reconnection error', error);
     });
 
     this.socket.on('reconnect_failed', () => {
-      console.error('Failed to reconnect to chat server');
+      logger.error('Failed to reconnect to chat server');
     });
   }
 
@@ -65,7 +66,7 @@ class SocketService {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       setTimeout(() => {
-        console.log(`Attempting to reconnect (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+        logger.debug('Attempting socket reconnect', { attempt: this.reconnectAttempts, max: this.maxReconnectAttempts });
         this.socket?.connect();
       }, 1000 * this.reconnectAttempts); // Exponential backoff
     }
