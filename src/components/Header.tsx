@@ -41,32 +41,32 @@ export default function Header() {
 
   // Grouped navigation items
   const mainMenuItems = [
-    { label: t('nav.home'), id: 'home' },
-    { label: t('nav.about'), id: 'about' },
+    { label: t('Home'), id: 'home' },
+    { label: t('About'), id: 'about' },
   ];
 
   const academicItems = [
-    { label: t('nav.academics'), id: 'academics' },
-    { label: t('nav.boarding'), id: 'boarding' },
-    { label: t('nav.sports'), id: 'sports' },
+    { label: t('Academics'), id: 'academics' },
+    { label: t('Boarding'), id: 'boarding' },
+    { label: t('Sports'), id: 'sports' },
   ];
 
   const admissionsItems = [
-    { label: t('nav.admissions'), id: 'admissions' },
-    { label: t('nav.apply'), id: 'application' },
+    { label: t('Admissions'), id: 'admissions' },
+    { label: t('Apply'), id: 'application' },
   ];
 
   const resourcesItems = [
-    { label: t('nav.calendar'), id: 'calendar' },
-    { label: t('nav.news'), id: 'news' },
-    { label: t('nav.contact'), id: 'contact' },
+    { label: t('Calendar'), id: 'calendar' },
+    { label: t('News'), id: 'news' },
+    { label: t('Contact'), id: 'contact' },
   ];
 
   const allMenuItems = [
     ...mainMenuItems,
     ...academicItems,
     ...admissionsItems,
-    { label: t('nav.portal'), id: 'portal' },
+    { label: t('Portal'), id: 'portal' },
     ...resourcesItems,
   ];
 
