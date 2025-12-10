@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { gradeSeven2020Results } from '@/lib/seed-data-academics';
-import { enrollmentMarch2021, enrollmentSummary } from '@/lib/seed-data-enrollment';
+import { gradeSeven2020Results } from '@/lib/data/seed-data-academics';
+import { enrollmentMarch2021, enrollmentSummary } from '@/lib/data/seed-data-enrollment';
 import { TrendingUp, Users, Award, BookOpen } from 'lucide-react';
 
 export default function DataVisualization() {

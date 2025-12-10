@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy load newsletter component
 const NewsletterSignup = dynamic(() => 
-  import('./NewsletterSignup').then(mod => ({ default: mod.NewsletterSignup })),
+  import('../features/NewsletterSignup').then(mod => ({ default: mod.NewsletterSignup })),
   { ssr: false }
 );
 

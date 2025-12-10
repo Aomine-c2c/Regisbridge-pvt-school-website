@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { MapPin, Phone, Mail, Clock, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import { legalInformation } from '@/lib/seed-data-governance';
+import { legalInformation } from '@/lib/data/seed-data-governance';
 import InteractiveMap from '@/components/ui/InteractiveMap';
 
 interface FormErrors {

@@ -13,7 +13,7 @@ import {
   Search,
   Building2
 } from 'lucide-react';
-import { staffMembers, staffStats } from '@/lib/seed-data-staff';
+import { staffMembers, staffStats } from '@/lib/data/seed-data-staff';
 import { AdminHeader } from './shared/AdminHeader';
 
 export function StaffDirectory() {

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Users, Utensils, Bed, Shield, Maximize2, Pause, Play } from 'lucide-react';
-import { boardingStatistics2021, healthInspectionApril2021 } from '@/lib/seed-data-facilities';
+import { boardingStatistics2021, healthInspectionApril2021 } from '@/lib/data/seed-data-facilities';
 import ImageLightbox from '@/components/ui/ImageLightbox';
 import './BoardingSection.css';
 

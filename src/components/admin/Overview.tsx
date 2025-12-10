@@ -9,9 +9,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
-import { enrollmentMarch2021, enrollmentSummary } from '@/lib/seed-data-enrollment';
-import { staffStats } from '@/lib/seed-data-staff';
-import { feeBreakdown2021 } from '@/lib/seed-data-financial';
+import { enrollmentMarch2021, enrollmentSummary } from '@/lib/data/seed-data-enrollment';
+import { staffStats } from '@/lib/data/seed-data-staff';
+import { feeBreakdown2021 } from '@/lib/data/seed-data-financial';
 
 export function Overview() {
   const { toast } = useToast();

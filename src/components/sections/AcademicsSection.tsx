@@ -9,7 +9,7 @@ import {
   classBranding,
   sportsHouses,
   blockBranding
-} from '@/lib/seed-data-academics';
+} from '@/lib/data/seed-data-academics';
 
 
 export default function AcademicsSection() {

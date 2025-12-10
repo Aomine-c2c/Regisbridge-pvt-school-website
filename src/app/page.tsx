@@ -2,24 +2,25 @@
 
 import dynamic from 'next/dynamic';
 import { memo } from 'react';
-import Header from "@/components/Header"
-import Hero from "@/components/Hero"
-import QuickHighlights from "@/components/QuickHighlights"
-import AboutSection from "@/components/AboutSection"
-import AcademicsSection from "@/components/AcademicsSection"
-import BoardingSection from "@/components/BoardingSection"
-import SportsHub from "@/components/SportsHub"
-import AdmissionsSection from "@/components/AdmissionsSection"
-import EventCalendar from "@/components/EventCalendar"
-import NewsSection from "@/components/NewsSection"
-import FAQSection from "@/components/FAQSection"
-import ContactSection from "@/components/ContactSection"
-import Footer from "@/components/Footer"
+import { Header, Footer } from '@/components/layout'
+import { 
+  Hero, 
+  QuickHighlights, 
+  AboutSection, 
+  AcademicsSection, 
+  BoardingSection, 
+  SportsHub, 
+  AdmissionsSection, 
+  NewsSection, 
+  FAQSection, 
+  ContactSection 
+} from '@/components/sections'
+import EventCalendar from '@/components/features/EventCalendar'
 import { AppProvider } from "@/contexts/AppContext"
 import { useAuth } from '@/contexts/AuthContext'
 
 // Lazy load heavy components to reduce initial bundle size
-const DataVisualization = dynamic(() => import('@/components/DataVisualization'), {
+const DataVisualization = dynamic(() => import('@/components/features/DataVisualization'), {
   loading: () => (
     <div className="py-20 md:py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-6 text-center">

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { schoolPositioning, schoolHistory } from '@/lib/seed-data-governance';
-import { staffingSummaryNewsletter } from '@/lib/seed-data-academics';
+import { schoolPositioning, schoolHistory } from '@/lib/data/seed-data-governance';
+import { staffingSummaryNewsletter } from '@/lib/data/seed-data-academics';
 
 export default function AboutSection() {
   const [counters, setCounters] = useState({ students: 0, teachers: 0, years: 0 });

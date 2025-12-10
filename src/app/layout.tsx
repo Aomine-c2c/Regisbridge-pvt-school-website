@@ -3,13 +3,13 @@ import { Playfair_Display, Poppins, Lato, Merriweather } from 'next/font/google'
 import './globals.css'
 import { Toaster } from "@/components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/providers/ThemeProvider"
 import { AuthProvider } from "@/contexts/AuthContext"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { PWAInstallPrompt } from "@/components/ui/PWAInstallPrompt"
 import { ChatWidget } from "@/components/ui/ChatWidget"
 import { VideoConferenceButton } from "@/components/ui/VideoConferenceButton"
-import { QueryProvider } from "@/components/QueryProvider"
+import { QueryProvider } from "@/components/providers/QueryProvider"
 import ThemeToggle from "@/components/ThemeToggle"
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'

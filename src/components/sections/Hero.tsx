@@ -3,8 +3,8 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import LazyImage from '@/components/ui/LazyImage';
-import { gradeSeven2020Results, staffingSummaryNewsletter } from '@/lib/seed-data-academics';
-import { schoolHistory } from '@/lib/seed-data-governance';
+import { gradeSeven2020Results, staffingSummaryNewsletter } from '@/lib/data/seed-data-academics';
+import { schoolHistory } from '@/lib/data/seed-data-governance';
 
 export default function Hero() {
   const router = useRouter();

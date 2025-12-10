@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import { scrollToSection } from '@/utils/navigation';
 import { Search, Calendar, FileText, ClipboardCheck, CheckCircle } from 'lucide-react';
 import './AdmissionsSection.css';
-import { agm2021, transportFees, bankingDetails, transportSchedule } from '@/lib/seed-data-operations';
+import { agm2021, transportFees, bankingDetails, transportSchedule } from '@/lib/data/seed-data-operations';
 
 export default function AdmissionsSection() {
   const steps = useMemo(() => [

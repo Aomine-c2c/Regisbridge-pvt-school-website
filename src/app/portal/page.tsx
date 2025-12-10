@@ -1,8 +1,7 @@
 'use client'
 
 import StudentPortal from '@/components/StudentPortal'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import { Header, Footer } from '@/components/layout'
 
 export default function PortalPage() {
   return (
