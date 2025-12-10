@@ -2,7 +2,9 @@
 // This provides integration capabilities for external systems
 
 // Next.js API routes - use relative paths in production, localhost in dev
-const API_BASE_URL = typeof window !== 'undefined' 
+import { isBrowser } from '@/lib/platform'
+
+const API_BASE_URL = isBrowser()
   ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '')
   : '';
 

@@ -17,6 +17,7 @@ interface AuthContextType extends AuthState {
   logout: () => Promise<void>;
   clearError: () => void;
   refreshAuth: () => Promise<void>;
+  updateUserData: (updates: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -178,6 +179,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   /**
+   * Update user data in state (for profile updates, etc.)
+   */
+  const updateUserData = (updates: Partial<User>) => {
+    setAuthState(prev => {
+      if (!prev.user) return prev;
+      
+      const updatedUser = { ...prev.user, ...updates };
+      
+      // Update localStorage
+      authService.setUser(updatedUser);
+      
+      return {
+        ...prev,
+        user: updatedUser,
+      };
+    });
+  };
+
+  /**
    * Clear error message
    */
   const clearError = () => {
@@ -191,6 +211,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     clearError,
     refreshAuth,
+    updateUserData,
   };
 
   return (

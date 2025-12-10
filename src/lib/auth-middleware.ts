@@ -46,7 +46,8 @@ export async function requireAdmin(request: NextRequest): Promise<{ user: AuthUs
   
   if (error) return { user: null, error }
   
-  if (user?.role !== 'admin') {
+  // Check for both admin and superadmin roles
+  if (user?.role !== 'admin' && user?.role !== 'superadmin') {
     return {
       user: null,
       error: NextResponse.json(

@@ -2,34 +2,38 @@
  * Navigation utility functions
  * Shared helpers for smooth scrolling and navigation
  */
+import { isBrowser, safeWindow } from '@/lib/platform'
 
 /**
  * Smooth scroll to a section by ID
  * @param sectionId The ID of the section to scroll to
  */
 export const scrollToSection = (sectionId: string): void => {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    const headerOffset = 80; // Account for fixed header height
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  if (!isBrowser()) return
+  const element = document.getElementById(sectionId)
+  if (!element) return
+  try {
+    const headerOffset = 80 // Account for fixed header height
+    const elementPosition = element.getBoundingClientRect().top
+    const offsetPosition = elementPosition + (window.pageYOffset || window.scrollY) - headerOffset
 
     window.scrollTo({
       top: offsetPosition,
       behavior: 'smooth',
-    });
+    })
+  } catch (e) {
+    // If anything fails, attempt a simple focus fallback
+    element.focus?.()
   }
-};
+}
 
 /**
  * Scroll to top of page
  */
 export const scrollToTop = (): void => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
-};
+  if (!isBrowser()) return
+  safeWindow(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+}
 
 /**
  * Check if an element is in viewport
@@ -38,14 +42,15 @@ export const scrollToTop = (): void => {
  * @returns boolean indicating if element is visible
  */
 export const isElementInViewport = (element: HTMLElement, offset: number = 0): boolean => {
-  const rect = element.getBoundingClientRect();
+  if (!isBrowser()) return false
+  const rect = element.getBoundingClientRect()
   return (
     rect.top >= -offset &&
     rect.left >= 0 &&
     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + offset &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-};
+  )
+}
 
 /**
  * Throttle function execution

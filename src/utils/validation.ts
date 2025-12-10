@@ -64,7 +64,7 @@ export const validateEmail = (email: string): ValidationResult => {
 };
 
 export const validatePhone = (phone: string): ValidationResult => {
-  const phonePattern = /^\+?[\d\s\-\(\)]+$/;
+  const phonePattern = /^\+?[\d\s\-()]+$/;
   return validateField(phone, {
     required: true,
     minLength: 10,
@@ -155,7 +155,7 @@ export const applicationValidationRules: Record<string, ValidationRule> = {
     required: true,
     minLength: 10,
     maxLength: 15,
-    pattern: /^\+?[\d\s\-\(\)]+$/,
+    pattern: /^\+?[\d\s\-()]+$/,
   },
   dateOfBirth: {
     required: true,

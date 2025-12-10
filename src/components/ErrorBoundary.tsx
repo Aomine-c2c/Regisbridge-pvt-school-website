@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { isBrowser, safeWindow } from '@/lib/platform';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface Props {
@@ -74,7 +75,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </button>
 
               <button
-                onClick={() => window.location.href = '/'}
+                onClick={() => safeWindow(() => { if (isBrowser()) window.location.href = '/'; })}
                 className="w-full border-2 border-[#1C1A75] text-[#1C1A75] py-3 rounded-lg font-semibold hover:bg-[#1C1A75] hover:text-white transition-colors"
               >
                 Go to Homepage

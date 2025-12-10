@@ -38,7 +38,8 @@ import {
 
 export interface Column<T> {
   key: string;
-  label: string;
+  // allow a string or React node (icons, checkboxes, etc.) in header label
+  label: React.ReactNode;
   sortable?: boolean;
   render?: (item: T) => React.ReactNode;
 }

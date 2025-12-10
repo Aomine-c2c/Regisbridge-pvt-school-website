@@ -22,6 +22,9 @@ This directory contains organized documentation for the Regisbridge School Manag
 ### 🚀 Deployment
 - **[Deployment Guides](deployment/)** - Production deployment instructions
 
+### 📄 Business Documents
+- **[Business Documents Reference](BUSINESS_DOCUMENTS.md)** - Catalog of administrative, financial, and operational documents
+
 ## 🎯 Key Files (Root Directory)
 
 | File | Purpose | Status |
@@ -36,6 +39,7 @@ This directory contains organized documentation for the Regisbridge School Manag
 ```
 docs/
 ├── README.md              # This file - documentation index
+├── BUSINESS_DOCUMENTS.md  # Business documents catalog & integration plan
 ├── phases/                # Phase-by-phase documentation
 │   ├── phase-1-summary.md
 │   ├── phase-2-summary.md
@@ -49,10 +53,11 @@ docs/
 │   ├── checklist.md
 │   ├── admin-testing.md
 │   └── auth-testing.md
-└── deployment/            # Deployment guides
-    ├── vercel.md
-    ├── netlify.md
-    └── production.md
+├── deployment/            # Deployment guides
+│   ├── vercel.md
+│   ├── netlify.md
+│   └── production.md
+└── [Excel/Word files]     # Business documents (excluded from git)
 ```
 
 ## 🔄 Recent Changes

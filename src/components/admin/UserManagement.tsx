@@ -33,6 +33,7 @@ import { Plus, Edit, Trash2, MoreHorizontal, Download, UserCog, CheckCircle, XCi
 import { getAllUsers, createUser, updateUser, deleteUser, exportUsersToCSV } from '@/services/adminService';
 import type { User, UserFormData } from '@/types/admin';
 import { useToast } from '@/hooks/use-toast';
+import { isBrowser, safeWindow } from '@/lib/platform';
 
 export function UserManagement() {
   const { toast } = useToast();
@@ -163,11 +164,22 @@ export function UserManagement() {
   const handleExport = async () => {
     try {
       const blob = await exportUsersToCSV();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `users-${new Date().toISOString().split('T')[0]}.csv`;
-      a.click();
+      if (!isBrowser()) {
+        toast({ title: 'Unavailable', description: 'Export is only available in the browser', variant: 'destructive' });
+        return;
+      }
+
+      safeWindow(() => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `users-${new Date().toISOString().split('T')[0]}.csv`;
+        // append to body to ensure click works in some browsers
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      });
       toast({
         title: 'Success',
         description: 'Users exported successfully',

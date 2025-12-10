@@ -47,7 +47,9 @@ export function PWAInstallPrompt() {
           return; // Skip wiring listeners if on cooldown
         }
       }
-    } catch {}
+    } catch {
+      // Intentionally empty: localStorage may not be available (private mode, SSR)
+    }
 
     let timeoutId: number | undefined;
 
@@ -104,7 +106,9 @@ export function PWAInstallPrompt() {
     // Store dismissal to avoid showing again for some time
     try {
       localStorage.setItem('pwa-prompt-dismissed', Date.now().toString());
-    } catch {}
+    } catch {
+      // Intentionally empty: localStorage may not be available (private mode, SSR)
+    }
     // Restore focus to prior element for accessibility
     previouslyFocused.current?.focus?.();
   };

@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { isBrowser } from '@/lib/platform';
 
 interface Participant {
   id: string;
@@ -51,8 +52,10 @@ export function VideoConference({
   const { toast } = useToast();
 
   useEffect(() => {
-    // Get available devices
-    getDevices();
+    // Get available devices (only in browser)
+    if (isBrowser()) {
+      getDevices();
+    }
 
     // Initialize current user as participant
     setParticipants([{
@@ -72,6 +75,7 @@ export function VideoConference({
   }, [userId, userName]);
 
   const getDevices = async () => {
+    if (!isBrowser()) return;
     try {
       const devices = await navigator.mediaDevices.enumerateDevices();
       setCameras(devices.filter(device => device.kind === 'videoinput'));
@@ -89,6 +93,15 @@ export function VideoConference({
   };
 
   const startLocalStream = async () => {
+    if (!isBrowser()) {
+      toast({
+        title: 'Unavailable',
+        description: 'Media devices are not available in this environment.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       const constraints = {
         video: isVideoOn ? { deviceId: selectedCamera ? { exact: selectedCamera } : undefined } : false,
@@ -104,15 +117,15 @@ export function VideoConference({
 
       setIsConnected(true);
       toast({
-        title: "Connected to meeting",
-        description: "You are now in the video conference.",
+        title: 'Connected to meeting',
+        description: 'You are now in the video conference.',
       });
     } catch (error) {
       console.error('Error starting stream:', error);
       toast({
-        title: "Connection failed",
-        description: "Unable to access camera or microphone.",
-        variant: "destructive",
+        title: 'Connection failed',
+        description: 'Unable to access camera or microphone.',
+        variant: 'destructive',
       });
     }
   };
@@ -141,6 +154,8 @@ export function VideoConference({
   };
 
   const toggleVideo = async () => {
+    if (!isBrowser()) return;
+
     if (!isVideoOn) {
       // Turn video on
       try {
@@ -183,6 +198,8 @@ export function VideoConference({
   };
 
   const toggleScreenShare = async () => {
+    if (!isBrowser()) return;
+
     try {
       if (!isScreenSharing) {
         const screenStream = await navigator.mediaDevices.getDisplayMedia({

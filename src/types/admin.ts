@@ -234,6 +234,8 @@ export interface UserFormData {
   grade?: string;
   studentId?: string;
   phoneNumber?: string;
+  // allow status updates from admin forms (bulk/status changes)
+  status?: 'active' | 'inactive' | 'suspended' | 'pending';
   password?: string;
 }
 

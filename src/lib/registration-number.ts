@@ -61,7 +61,7 @@ export async function generateRegistrationNumber(
   
   try {
     // Find highest sequence number for current year
-    // @ts-ignore - Student model may not exist until migration runs
+    // @ts-expect-error - Student model may not exist until migration runs
     const students = await prisma.student.findMany({
       where: {
         rollNumber: {
@@ -122,7 +122,7 @@ export async function generateUniqueRegistrationNumber(
     const regNumber = await generateRegistrationNumber(config)
     
     // Check if number already exists
-    // @ts-ignore - Student model may not exist until migration runs
+    // @ts-expect-error - Student model may not exist until migration runs
     const existing = await prisma.student.findUnique({
       where: { rollNumber: regNumber },
     })
@@ -212,7 +212,7 @@ export async function getRegistrationStats(
   const pattern = `${prefix}${separator}${yearStr}${separator}`
   
   try {
-    // @ts-ignore - Student model may not exist until migration runs
+    // @ts-expect-error - Student model may not exist until migration runs
     const students = await prisma.student.findMany({
       where: {
         rollNumber: {

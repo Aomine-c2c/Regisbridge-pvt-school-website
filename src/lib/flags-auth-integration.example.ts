@@ -51,6 +51,7 @@ export const identifyWithAuth = dedupe((async () => {
 async function verifyJWT(token: string) {
   // This is a placeholder - use your actual token verification logic
   // from src/lib/auth-middleware.ts
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const jwt = require("jsonwebtoken");
   const secret = process.env.JWT_SECRET || "fallback-secret-key";
   

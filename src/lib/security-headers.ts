@@ -21,31 +21,28 @@ export const SECURITY_HEADERS = {
   // Prevent MIME type sniffing
   'X-Content-Type-Options': 'nosniff',
   
-  // Prevent page from being embedded in iframes (clickjacking protection)
-  'X-Frame-Options': 'DENY',
-  
   // Enable browser XSS protection (legacy browsers)
   'X-XSS-Protection': '1; mode=block',
-  
+
   // Control which features and APIs can be used
   'Permissions-Policy': [
-    'camera=()',
-    'microphone=()',
-    'geolocation=()',
+    'camera=*',
+    'microphone=*',
+    'geolocation=*',
     'interest-cohort=()', // Disable FLoC
   ].join(', '),
-  
-  // Content Security Policy - strict by default
+
+  // Content Security Policy - permissive to allow external resources
   'Content-Security-Policy': [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com", // Allow Vercel Analytics
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https: blob:",
-    "font-src 'self' data:",
-    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-    "frame-ancestors 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
+    "default-src *",
+    "script-src * 'unsafe-inline' 'unsafe-eval'",
+    "style-src * 'unsafe-inline'",
+    "img-src * data: blob:",
+    "font-src * data:",
+    "connect-src *",
+    "frame-ancestors *",
+    "base-uri *",
+    "form-action *",
   ].join('; '),
   
   // Referrer policy - only send origin on cross-origin requests

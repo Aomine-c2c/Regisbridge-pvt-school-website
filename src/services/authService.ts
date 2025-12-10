@@ -3,8 +3,11 @@
  * Handles all authentication-related API calls
  */
 
+import { isBrowser } from '@/lib/platform'
+import { getItem, setItem, removeItem, getJSON, setJSON } from '@/lib/storage'
+
 // Next.js API routes - use relative paths in production, localhost in dev
-const API_BASE_URL = typeof window !== 'undefined' 
+const API_BASE_URL = isBrowser()
   ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '')
   : '';
 
@@ -70,53 +73,60 @@ const USER_KEY = 'user';
  * Store authentication tokens
  */
 export function setTokens(token: string, refreshToken: string): void {
-  localStorage.setItem(TOKEN_KEY, token);
-  localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+  if (!isBrowser()) return
+  try {
+    setItem(TOKEN_KEY, token)
+    setItem(REFRESH_TOKEN_KEY, refreshToken)
+  } catch (e) {
+    // ignore storage errors
+  }
 }
 
 /**
  * Get access token
  */
 export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
+  return getItem(TOKEN_KEY)
 }
 
 /**
  * Get refresh token
  */
 export function getRefreshToken(): string | null {
-  return localStorage.getItem(REFRESH_TOKEN_KEY);
+  return getItem(REFRESH_TOKEN_KEY)
 }
 
 /**
  * Remove all authentication data
  */
 export function clearAuth(): void {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(REFRESH_TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
+  if (!isBrowser()) return
+  try {
+    removeItem(TOKEN_KEY)
+    removeItem(REFRESH_TOKEN_KEY)
+    removeItem(USER_KEY)
+  } catch (e) {
+    // ignore
+  }
 }
 
 /**
  * Store user data
  */
 export function setUser(user: User): void {
-  localStorage.setItem(USER_KEY, JSON.stringify(user));
+  if (!isBrowser()) return
+  try {
+    setJSON(USER_KEY, user)
+  } catch (e) {
+    // ignore
+  }
 }
 
 /**
  * Get stored user data
  */
 export function getUser(): User | null {
-  const userData = localStorage.getItem(USER_KEY);
-  if (!userData) return null;
-  
-  try {
-    return JSON.parse(userData);
-  } catch (error) {
-    console.error('Failed to parse user data:', error);
-    return null;
-  }
+  return getJSON<User>(USER_KEY)
 }
 
 /**
@@ -245,7 +255,7 @@ export async function refreshAccessToken(): Promise<RefreshResponse> {
 
     if (response.ok && result.success && result.data) {
       // Update access token
-      localStorage.setItem(TOKEN_KEY, result.data.token);
+      setItem(TOKEN_KEY, result.data.token);
     }
 
     return result;
@@ -293,7 +303,7 @@ export function isAuthenticated(): boolean {
 /**
  * Get authorization header
  */
-export function getAuthHeader(): { Authorization: string } | {} {
+export function getAuthHeader(): { Authorization: string } | Record<string, never> {
   const token = getToken();
   return token ? { Authorization: `Bearer ${token}` } : {};
 }

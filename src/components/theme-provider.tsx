@@ -3,6 +3,8 @@
 import * as React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { ThemeProviderProps } from "next-themes/dist/types"
+import { isBrowser, safeWindow } from '@/lib/platform'
+import { getItem, setItem } from '@/lib/storage'
 
 type Theme = "dark" | "light" | "system"
 
@@ -19,37 +21,46 @@ export function ThemeProvider({
   value: _value,
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme")
-      return (savedTheme && (savedTheme === "dark" || savedTheme === "light" || savedTheme === "system")
-        ? savedTheme
-        : defaultTheme) as Theme
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (isBrowser()) {
+      try {
+        const savedTheme = getItem('theme')
+        return (savedTheme && (savedTheme === 'dark' || savedTheme === 'light' || savedTheme === 'system')
+          ? (savedTheme as Theme)
+          : (defaultTheme as Theme))
+      } catch (e) {
+        return defaultTheme as Theme
+      }
     }
     return defaultTheme as Theme
   })
 
   useEffect(() => {
-    const root = window.document.documentElement
-    root.classList.remove("light", "dark")
+    if (!isBrowser()) return
+    safeWindow(() => {
+      const root = document.documentElement
+      root.classList.remove('light', 'dark')
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
-      root.classList.add(systemTheme)
-      return
-    }
+      if (theme === 'system') {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        const systemTheme = mq.matches ? 'dark' : 'light'
+        root.classList.add(systemTheme)
+        return
+      }
 
-    root.classList.add(theme)
+      root.classList.add(theme)
+    })
   }, [theme])
 
   const value: ThemeContextType = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem("theme", theme)
-      setTheme(theme)
+    setTheme: (t: Theme) => {
+      try {
+        setItem('theme', t)
+      } catch (e) {
+        // ignore
+      }
+      setThemeState(t)
     },
   }
 

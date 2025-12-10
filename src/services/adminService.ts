@@ -23,31 +23,39 @@ import type {
   PaymentFilter,
 } from '@/types/admin';
 
+import { isBrowser } from '@/lib/platform'
+import { getItem } from '@/lib/storage'
+
 // Next.js API routes - use relative paths in production, localhost in dev
-const API_BASE_URL = typeof window !== 'undefined' 
+const API_BASE_URL = isBrowser()
   ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : '')
   : '';
 
-// Helper function to get auth token
-const getAuthToken = () => {
-  return localStorage.getItem('auth_token');
-};
+// Helper function to get auth token (guarded for SSR)
+const getAuthToken = (): string | null => {
+  return getItem('auth_token')
+}
 
 // Helper function for authenticated requests
 async function authenticatedFetch<T>(
   url: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
-  const token = getAuthToken();
-  
+  const token = getAuthToken()
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options.headers as Record<string, string> | undefined),
+  }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   const response = await fetch(url, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-      ...options.headers,
-    },
-  });
+    headers,
+  })
 
   if (!response.ok) {
     const error = await response.json();
