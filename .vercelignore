@@ -1,0 +1,32 @@
+node_modules
+.env
+.env.local
+.vscode
+.git
+*.log
+dist
+.cache
+server
+media/static/Downloads
+public/Downloads/
+
+# Business Documents (Excel/Word files) - Not needed in production
+docs/**/*.xlsx
+docs/**/*.xls
+docs/**/*.docx
+docs/**/*.doc
+docs/**/*.pdf
+# Keep markdown documentation
+!docs/README.md
+!docs/**/*.md
+
+# Exclude heavy docs and reports from production bundle
+docs/archive/**
+coverage/**
+lcov-report/**
+
+# Exclude local scripts not needed in production
+scripts/**
+
+# Exclude images used only for local docs
+img_*.png

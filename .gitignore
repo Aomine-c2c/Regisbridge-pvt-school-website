@@ -1,0 +1,70 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+server/.env.local
+server/.env.production
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel
+.vercel
+
+# Build outputs
+build
+out
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+.cache
+.temp
+*.tsbuildinfo
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Business Documents (Excel/Word files in docs folder)
+# Keep for reference but exclude from version control to reduce repo size
+docs/**/*.xlsx
+docs/**/*.xls
+docs/**/*.docx
+docs/**/*.doc
+docs/**/*.pdf
+!docs/README.md
+!docs/api/**/*.md
+!docs/deployment/**/*.md
+!docs/phases/**/*.md
+!docs/testing/**/*.md

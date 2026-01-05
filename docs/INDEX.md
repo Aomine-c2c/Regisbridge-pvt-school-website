@@ -1,0 +1,42 @@
+# Documentation Index
+
+This index consolidates the many markdown files into topical groups and points to archives to reduce clutter at the repo root.
+
+## Core Docs
+- [README.md](../README.md)
+- [GETTING_STARTED.md](../GETTING_STARTED.md)
+- [QUICK_START.md](../QUICK_START.md)
+- [QUICK_REFERENCE.md](../QUICK_REFERENCE.md)
+
+## Security
+- [ADMIN_SECURITY.md](../ADMIN_SECURITY.md)
+- [AUTH_SECURITY_COMPLETE.md](../AUTH_SECURITY_COMPLETE.md)
+- [AUTH_SECURITY_QUICKREF.md](../AUTH_SECURITY_QUICKREF.md)
+
+## SEO & Deployment
+- [VERCEL_INTEGRATIONS_GUIDE.md](../VERCEL_INTEGRATIONS_GUIDE.md)
+- [BUILD_FIX_SUMMARY.md](../BUILD_FIX_SUMMARY.md)
+- [COMPLETION_SUMMARY.md](../COMPLETION_SUMMARY.md)
+
+## Testing
+- [TESTING_STRATEGY.md](../TESTING_STRATEGY.md)
+- [TESTING_IMPLEMENTATION_SUMMARY.md](../TESTING_IMPLEMENTATION_SUMMARY.md)
+- [QUALITY_ASSURANCE_REPORT.md](../QUALITY_ASSURANCE_REPORT.md)
+
+## Features & Guides
+- [FEATURE_FLAGS_GUIDE.md](../FEATURE_FLAGS_GUIDE.md)
+- [FEATURE_FLAGS_QUICKSTART.md](../FEATURE_FLAGS_QUICKSTART.md)
+- [CREATE_ADMIN.md](../CREATE_ADMIN.md)
+- [REGISTRATION_NUMBER_SYSTEM.md](../REGISTRATION_NUMBER_SYSTEM.md)
+- [REGISTRATION_NUMBER_QUICKREF.md](../REGISTRATION_NUMBER_QUICKREF.md)
+
+## Database
+- [POSTGRES_SETUP.md](../POSTGRES_SETUP.md)
+- [DATABASE_MIGRATION_GUIDE.md](../DATABASE_MIGRATION_GUIDE.md)
+
+## Deployment & Ops
+- [CRON_SETUP.md](../CRON_SETUP.md)
+- [COMPREHENSIVE_AUDIT_REPORT.md](../COMPREHENSIVE_AUDIT_REPORT.md)
+
+## Archive
+Old or auxiliary notes moved to docs/archive/ to keep the root clean.
