@@ -42,11 +42,12 @@ export default function AdmissionsPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-10 py-5">
         <div 
-          className="relative flex min-h-[480px] flex-col gap-6 rounded-xl bg-cover bg-center items-center justify-center p-4 shadow-xl"
-          style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url("/media/campus-sunset.jpg")' }}
+          className="relative flex min-h-[480px] flex-col gap-6 rounded-xl items-center justify-center p-4 shadow-xl overflow-hidden"
+          style={{ 
+            background: 'linear-gradient(135deg, #5A1F3C 0%, #2E2B7B 50%, #1f1c53 100%)'
+          }}
         >
           <div className="flex flex-col gap-3 text-center z-10 max-w-3xl">
             <span className="text-white/90 text-sm font-bold uppercase tracking-wider">Admissions 2024-2025</span>
