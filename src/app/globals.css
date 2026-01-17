@@ -86,20 +86,18 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    	--background: 0 0% 100%;
+	--foreground: 0 0% 23%;
+	--card: 0 0% 100%;
+	--card-foreground: 0 0% 23%;
+	--popover: 0 0% 100%;
+	--popover-foreground: 0 0% 23%;
+	/* School Brand Colors - Deep Purple/Plum */
+	--primary: 334 50% 24%;           /* #5A1F3C */
+	--primary-foreground: 0 0% 100%;
+	/* Royal/Navy Blue */
+	--secondary: 242 48% 32%;         /* #2E2B7B */
+	--secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
