@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Portal Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hide scrollbar for clean horizontal scroll if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white flex flex-col min-h-screen overflow-x-hidden font-display">
+<!-- Top Navigation Bar -->
+<!-- Modified to use Primary Color as per prompt "Theme Application" -->
+<header class="w-full bg-primary text-white shadow-lg sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Logo & Brand -->
+<div class="flex items-center gap-3">
+<div class="size-8 bg-white/20 rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[24px]">school</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Oakridge Academy</h2>
+</div>
+<!-- Desktop Nav Links -->
+<div class="hidden md:flex flex-1 justify-center gap-8">
+<a class="text-white text-sm font-bold border-b-2 border-white pb-0.5" href="#">Dashboard</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Academics</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Financials</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Calendar</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Boarding</a>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-4">
+<!-- Icons -->
+<div class="flex gap-2">
+<button class="flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<!-- Profile -->
+<div class="flex items-center gap-2 cursor-pointer rounded-full p-1 pr-3 hover:bg-white/10 transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 border-2 border-white/30" data-alt="Portrait of a parent user smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKbqoseEuY5DRChPMSjk-_J73GJow5dqhBvOoGSDcwbaZOwJGAqDs0u4WJQrjerYpmmwwtiVniBMsP3fZIX4Lc1e5kNb_5O7i36yMB9bgiG9D6nG-AOI1Kcku4eV4N4q4uCv8u63DEJda32E24T2hfVvoSRmuCULey_keFV36LRbVWa87jcKL2_OCCBZ1ukMohCgUXWnwS2e-Iomq-WMGNnELf4T69IOOGFrHSwvoFnMdwVyDriPK5M3zN-5-rVOjtSD-BgptRKHs");'></div>
+<span class="text-sm font-medium hidden sm:block">J. Anderson</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Page Heading & Student Switcher -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] text-[#111318] dark:text-white">
+                    Welcome back, <span class="text-primary dark:text-blue-400">Mr. &amp; Mrs. Anderson</span>
+</h1>
+<p class="text-[#616f89] dark:text-gray-400 text-base font-normal flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                    Viewing: <span class="font-semibold text-[#111318] dark:text-white">James Anderson (Year 10)</span>
+</p>
+</div>
+<button class="group flex items-center justify-center gap-2 h-10 px-4 bg-white dark:bg-gray-800 border border-[#dbdfe6] dark:border-gray-700 rounded-lg text-[#111318] dark:text-white text-sm font-bold shadow-sm hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">swap_horiz</span>
+<span>Switch Student</span>
+</button>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column (Main Data) -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Financials Action Panel -->
+<section class="rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] text-primary">account_balance</span>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">warning</span>
+<h3 class="text-[#616f89] dark:text-gray-400 text-sm font-bold uppercase tracking-wider">Financial Status</h3>
+</div>
+<p class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">$4,500.00 <span class="text-sm font-normal text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full ml-2">Overdue</span></p>
+<p class="text-[#616f89] dark:text-gray-400 text-sm font-normal">Term 3 Tuition &amp; Boarding Fees. <span class="font-medium text-[#111318] dark:text-white">Due Oct 31, 2023.</span></p>
+</div>
+<button class="flex items-center justify-center gap-2 h-10 px-6 bg-primary hover:bg-blue-700 text-white text-sm font-bold rounded-lg shadow-md shadow-blue-200 dark:shadow-none transition-all w-full sm:w-auto">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Pay Now</span>
+</button>
+</div>
+<!-- Mini Ledger -->
+<div class="mt-6 pt-4 border-t border-[#f0f2f4] dark:border-gray-700">
+<div class="flex justify-between items-center text-xs text-[#616f89] dark:text-gray-400">
+<span>Last payment: $1,200 (Sep 15)</span>
+<a class="font-medium text-primary hover:underline" href="#">View History</a>
+</div>
+</div>
+</section>
+<!-- Academic Performance Chart -->
+<section class="rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm flex-1">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-[#111318] dark:text-white text-lg font-bold">Academic Performance</h3>
+<p class="text-[#616f89] dark:text-gray-400 text-sm">Term 3 Results Overview</p>
+</div>
+<div class="flex items-center gap-2 bg-[#f0f2f4] dark:bg-gray-700 px-3 py-1 rounded-full">
+<span class="text-xs font-bold text-[#111318] dark:text-white uppercase tracking-wider">Term Avg:</span>
+<span class="text-lg font-bold text-primary">A-</span>
+</div>
+</div>
+<!-- Chart Container -->
+<div class="w-full h-[240px] flex items-end justify-between gap-4 sm:gap-8 px-2">
+<!-- Math -->
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-[#f0f2f4] dark:bg-gray-700 rounded-t-lg overflow-hidden h-[200px] flex items-end">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-all duration-500 rounded-t-lg relative" style="height: 92%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-[#111318] dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">92%</div>
+</div>
+</div>
+<p class="text-[#616f89] dark:text-gray-400 text-xs sm:text-sm font-bold truncate w-full text-center">Math</p>
+</div>
+<!-- Physics -->
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-[#f0f2f4] dark:bg-gray-700 rounded-t-lg overflow-hidden h-[200px] flex items-end">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-all duration-500 rounded-t-lg relative" style="height: 78%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-[#111318] dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">78%</div>
+</div>
+</div>
+<p class="text-[#616f89] dark:text-gray-400 text-xs sm:text-sm font-bold truncate w-full text-center">Physics</p>
+</div>
+<!-- Eng Lit -->
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-[#f0f2f4] dark:bg-gray-700 rounded-t-lg overflow-hidden h-[200px] flex items-end">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-all duration-500 rounded-t-lg relative" style="height: 85%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-[#111318] dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">85%</div>
+</div>
+</div>
+<p class="text-[#616f89] dark:text-gray-400 text-xs sm:text-sm font-bold truncate w-full text-center">Eng Lit</p>
+</div>
+<!-- Bio -->
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-[#f0f2f4] dark:bg-gray-700 rounded-t-lg overflow-hidden h-[200px] flex items-end">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-all duration-500 rounded-t-lg relative" style="height: 88%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-[#111318] dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">88%</div>
+</div>
+</div>
+<p class="text-[#616f89] dark:text-gray-400 text-xs sm:text-sm font-bold truncate w-full text-center">Bio</p>
+</div>
+<!-- History -->
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-[#f0f2f4] dark:bg-gray-700 rounded-t-lg overflow-hidden h-[200px] flex items-end">
+<div class="w-full bg-primary/80 group-hover:bg-primary transition-all duration-500 rounded-t-lg relative" style="height: 74%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-[#111318] dark:text-white opacity-0 group-hover:opacity-100 transition-opacity">74%</div>
+</div>
+</div>
+<p class="text-[#616f89] dark:text-gray-400 text-xs sm:text-sm font-bold truncate w-full text-center">History</p>
+</div>
+</div>
+<div class="mt-4 flex justify-end">
+<a class="text-sm text-primary font-medium hover:underline flex items-center gap-1" href="#">
+                            View Full Report Card <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</section>
+</div>
+<!-- Right Column (Sidebar Widgets) -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Circulars Widget -->
+<section class="rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col h-full max-h-[400px]">
+<div class="px-5 py-4 border-b border-[#f0f2f4] dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
+<h3 class="text-[#111318] dark:text-white text-base font-bold">Latest Circulars</h3>
+<a class="text-xs text-primary font-semibold hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col overflow-y-auto no-scrollbar">
+<!-- Circular Item 1 -->
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-dashed border-[#f0f2f4] dark:border-gray-700" href="#">
+<div class="size-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-[#111318] dark:text-white truncate">Term 3 Boarding Requirements</p>
+<span class="text-xs text-[#616f89] dark:text-gray-400">Oct 24 • Administration</span>
+</div>
+</a>
+<!-- Circular Item 2 -->
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-dashed border-[#f0f2f4] dark:border-gray-700" href="#">
+<div class="size-10 rounded-lg bg-blue-100 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-[#111318] dark:text-white truncate">Sports Day Schedule</p>
+<span class="text-xs text-[#616f89] dark:text-gray-400">Oct 20 • Sports Dept</span>
+</div>
+</a>
+<!-- Circular Item 3 -->
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" href="#">
+<div class="size-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-[#111318] dark:text-white truncate">Parent-Teacher Meeting Slots</p>
+<span class="text-xs text-[#616f89] dark:text-gray-400">Oct 18 • Academics</span>
+</div>
+</a>
+</div>
+</section>
+<!-- Teacher Messaging Widget -->
+<section class="rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
+<div class="px-5 py-4 border-b border-[#f0f2f4] dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
+<h3 class="text-[#111318] dark:text-white text-base font-bold">Teacher Contacts</h3>
+</div>
+<div class="p-2">
+<!-- Teacher 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Teacher portrait Mrs. Higgins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJE8OoIiNBeIgNEnRsGvWhuZj6zjbJyNNEBVv3NXql55f7uXJQdm3mPFfz17_8aEfKBAUFMU6DVphYGFM4GlukomjET7pdmA7mDtS605-qxEC2TEE__GcvW2QENYU5Or-DspHqPcY2TVz10c9u1CaXaFo0pHYxJDRqDl7gBbrzx6ApC3OCBLLZpPP81S0w53maieqLvliJlEg6VUm44BSyV5TpO5YAZzQNE8HtgSfD0os4ockOorwabBgVSfj3qL1Fj213te18vEk");'>
+</div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111318] dark:text-white">Mrs. Higgins</p>
+<p class="text-xs text-[#616f89] dark:text-gray-400">Form Tutor</p>
+</div>
+</div>
+<button class="size-8 rounded-full bg-[#f0f2f4] dark:bg-gray-600 text-[#111318] dark:text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+<!-- Teacher 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Teacher portrait Mr. Davidson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyNoJxiGeKrGfTb0myGtxhLnOr98BBzc-81RxG263TRKrAFkBjCttNrJ2lG-t8gLgA3YkK0-bQFt1XTKhgXdkcecRo_82YWcRnY2ZoDBbD2EBR2TNpwX-KGrSsiuXlP9gOGf-Nw-oBm2Sr4I79YYNnPWM_UNLIbPjz3_ZTaq6CdneWOVktS6o_xpUnqQvDlkzUie9t18ViDGJNNh2kCj6IKwO7BNlXd2jsqOvvXUnuzDhPKr9YXC_8hNwnoVzKqkHqwtj_YYJolyY");'>
+</div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-gray-300 border-2 border-white dark:border-gray-800 rounded-full"></span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111318] dark:text-white">Mr. Davidson</p>
+<p class="text-xs text-[#616f89] dark:text-gray-400">Mathematics</p>
+</div>
+</div>
+<button class="size-8 rounded-full bg-[#f0f2f4] dark:bg-gray-600 text-[#111318] dark:text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Upcoming Events Mini -->
+<section class="rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden p-5">
+<h3 class="text-[#111318] dark:text-white text-base font-bold mb-4">Upcoming Events</h3>
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-primary/10 rounded-lg text-primary">
+<span class="text-[10px] font-bold uppercase">Oct</span>
+<span class="text-lg font-bold leading-none">28</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111318] dark:text-white">Rugby vs. St. John's</p>
+<p class="text-xs text-[#616f89] dark:text-gray-400">14:00 - Main Field</p>
+</div>
+</div>
+<div class="flex gap-3 items-center">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-primary/10 rounded-lg text-primary">
+<span class="text-[10px] font-bold uppercase">Nov</span>
+<span class="text-lg font-bold leading-none">02</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111318] dark:text-white">PTA Meeting</p>
+<p class="text-xs text-[#616f89] dark:text-gray-400">18:00 - School Hall</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

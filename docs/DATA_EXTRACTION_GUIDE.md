@@ -5,14 +5,22 @@ This document tracks the extraction of real data from business documents into th
 ## Document Processing Status
 
 ### ✅ Completed
+<<<<<<< HEAD
 - Financial Report 2021-2022 (Income & Expenditure)
+=======
+- None yet
+>>>>>>> b2053dde4165e456e1bde01f50f133c67b9c6e84
 
 ### 🔄 In Progress
 - School Constitution (basic info extraction)
 
 ### ⏳ Pending
 - Fee structures (Excel files)
+<<<<<<< HEAD
 - Additional financial records
+=======
+- Financial records (Income/Expenditure)
+>>>>>>> b2053dde4165e456e1bde01f50f133c67b9c6e84
 - Staff information
 - Student records
 
@@ -72,12 +80,16 @@ This document tracks the extraction of real data from business documents into th
 ## 3. Financial Records (Income & Expenditure)
 
 **Files (2019-2022 records):**
+<<<<<<< HEAD
 - ✅ Yearly Income and Expenditure 2021-2022 (processed)
+=======
+>>>>>>> b2053dde4165e456e1bde01f50f133c67b9c6e84
 - Monthly expenditure files (multiple)
 - Term income and expenditure files
 - Budget files (2020, 2021)
 - Salary schedules
 
+<<<<<<< HEAD
 **Data Extracted (2021-2022):**
 - [x] Annual income by category
 - [x] Annual expenditure by category
@@ -100,6 +112,21 @@ This document tracks the extraction of real data from business documents into th
 - [ ] Add financial dashboard with charts and analytics
 - [ ] Implement CSV/PDF export functionality
 - [ ] Add budget vs actual comparison features
+=======
+**Data to Extract:**
+- [ ] Monthly income by category
+- [ ] Monthly expenditure by category
+- [ ] Revenue trends (2019-2022)
+- [ ] Major expense categories
+- [ ] Budget vs actual analysis
+
+**Actions:**
+1. Create database schema for financial records
+2. Extract and aggregate data by year/month
+3. Create seed file with historical data
+4. Update admin dashboard with real statistics
+5. Create financial reports component
+>>>>>>> b2053dde4165e456e1bde01f50f133c67b9c6e84
 
 ---
 

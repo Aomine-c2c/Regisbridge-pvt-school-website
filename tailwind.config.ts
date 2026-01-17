@@ -3,7 +3,6 @@ import animate from "tailwindcss-animate";
 import typography from "@tailwindcss/typography";
 
 export default {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -21,6 +20,7 @@ export default {
     },
     extend: {
       colors: {
+        // Existing shadcn colors (keep for compatibility)
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -63,7 +63,15 @@ export default {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
-        }
+        },
+        
+        // New design system colors
+        'design-primary': '#1152d4',
+        'design-primary-dark': '#0d3d9f',
+        'design-primary-light': '#4a7de8',
+        'background-light': '#f6f6f8',
+        'background-dark': '#101622',
+        'text-dark': '#111318',
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],

@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Ekhaya",
+    "about": "Mayelana",
+    "academics": "Imfundo",
+    "boarding": "Ukuhlala",
+    "sports": "Imidlalo",
+    "admissions": "Ukwamukelwa",
+    "apply": "Faka isicelo",
+    "calendar": "Ikhalenda",
+    "news": "Izindaba",
+    "portal": "I-portal",
+    "contact": "Xhumana nathi"
+  },
+  "hero": {
+    "title": "Ukunika amandla ezingqondweni, Ukubumba ikusasa",
+    "subtitle": "Regisbridge Private School - Isikole esihlukile sosuku nokuhlala eZimbabwe",
+    "cta": "Hlola Izinhlelo Zethu"
+  },
+  "about": {
+    "title": "Mayelana neRegisbridge",
+    "subtitle": "Ifa Lokuhle Ekufundiseni",
+    "description": "Regisbridge Private School ibinikeza imfundo ephakeme iminyaka engaphezu kwamashumi amabili, ihlanganisa ubunzima bezifundo nokuthuthukiswa komuntu endaweni enakekelayo.",
+    "mission": "Injongo Yethu",
+    "missionText": "Ukunikeza imfundo ephelele ethuthukisa ukufuna ukwazi, ubuqotho, namakhono obuholi kubafundi bethu.",
+    "vision": "Umbono Wethu",
+    "visionText": "Ukuba yisikhungo esihamba phambili semfundo eZimbabwe, esaziwa ngobuhle bezifundo nokuthuthukiswa komuntu."
+  },
+  "academics": {
+    "title": "Ubuhle Bezifundo",
+    "subtitle": "Ikharikhulamu Ephelele Yempumelelo",
+    "description": "Ikharikhulamu yethu ihlanganisa ikharikhulamu yeCambridge International nezidingo zendawo, iqinisekisa ukuthi abafundi balungiselelwe amathuba endawo nawamazwe ngamazwe.",
+    "grades": "Amabanga 1-7",
+    "forms": "Amafomu 1-3",
+    "subjects": "Izifundo Eziyinhloko",
+    "subjectsList": ["Izibalo", "IsiNgisi", "Isayensi", "Izifundo Zomphakathi", "Imfundo Yenkolo", "Imfundo Yomzimba", "Ubuciko", "Umculo"]
+  },
+  "boarding": {
+    "title": "Ukuphila Kokuhlala",
+    "subtitle": "Ikhaya Kude Nekhaya",
+    "description": "Izindawo zethu zokuhlala zinikeza indawo ephephile enakekelayo lapho abafundi bethuthukisa ukuzimela, umthwalo wemfanelo, nobungani bempilo yonke.",
+    "facilities": "Izindawo Zanamuhla",
+    "facilitiesList": ["Amakamelo okulala anethezekile", "Indlu yokudla", "Izindawo zokufunda", "Amakamelo okungcebeleka", "Izindawo zemidlalo", "Ukunakekelwa kwezempilo"],
+    "activities": "Imisebenzi Yangaphandle",
+    "activitiesList": ["Iklabhu yenkulumo-mpikiswano", "Inhlangano yemidlalo yeshashalazi", "Imiqhudelwano yomculo", "Amaqembu emidlalo", "Umsebenzi womphakathi", "Imicimbi yamasiko"]
+  },
+  "contact": {
+    "title": "Xhumana Nathi",
+    "subtitle": "Thintana Nathi",
+    "address": "3502 Turf, Ngezi, Mhondoro, Zimbabwe",
+    "phone": "Ucingo: +263-4-123-4567",
+    "email": "I-imeyili: info@regisbridge.ac.zw",
+    "hours": "Amalowa Ehofisi: Mso-Fri 8:00 AM - 4:00 PM",
+    "form": {
+      "name": "Igama Eliphelele",
+      "email": "Ikheli Le-imeyili",
+      "subject": "Isihloko",
+      "message": "Umlayezo",
+      "send": "Thumela Umlayezo"
+    }
+  },
+  "footer": {
+    "description": "Regisbridge Private School - Ukunika amandla ezingqondweni, ukubumba ikusasa kusukela ngo-2000.",
+    "quickLinks": "Izixhumanisi Ezisheshayo",
+    "contact": "Ulwazi Lokuxhumana",
+    "social": "Silandele",
+    "copyright": "© 2024 Regisbridge Private School. Wonke amalungelo agodliwe."
+  }
+}

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Portal Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#800000", // Maroon
+                        "primary-hover": "#5c0000",
+                        "secondary": "#C0C0C0", // Silver base
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .silver-card-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 50%, #e5e7eb 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white h-screen flex overflow-hidden font-display">
+<aside class="w-72 bg-primary text-white hidden md:flex flex-col shadow-2xl z-20 shrink-0">
+<div class="h-20 flex items-center px-6 gap-3 border-b border-white/10">
+<div class="size-10 bg-white rounded-lg flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[28px]">school</span>
+</div>
+<div>
+<h2 class="text-lg font-bold leading-none tracking-tight">Oakridge</h2>
+<span class="text-xs font-medium opacity-70 uppercase tracking-wider">Academy</span>
+</div>
+</div>
+<nav class="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
+<div class="px-2 mb-2 text-xs font-semibold text-white/50 uppercase tracking-wider">Menu</div>
+<a class="flex items-center gap-3 px-3 py-3 bg-white/10 text-white rounded-lg transition-colors border-l-4 border-white" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+<span class="text-sm font-medium">Academics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+<span class="text-sm font-medium">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[22px]">calendar_month</span>
+<span class="text-sm font-medium">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[22px]">bed</span>
+<span class="text-sm font-medium">Boarding</span>
+</a>
+<div class="px-2 mt-6 mb-2 text-xs font-semibold text-white/50 uppercase tracking-wider">Communication</div>
+<a class="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[22px]">forum</span>
+<span class="text-sm font-medium">Messages</span>
+<span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/10 bg-black/10">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-white/30" data-alt="Portrait of a parent user smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKbqoseEuY5DRChPMSjk-_J73GJow5dqhBvOoGSDcwbaZOwJGAqDs0u4WJQrjerYpmmwwtiVniBMsP3fZIX4Lc1e5kNb_5O7i36yMB9bgiG9D6nG-AOI1Kcku4eV4N4q4uCv8u63DEJda32E24T2hfVvoSRmuCULey_keFV36LRbVWa87jcKL2_OCCBZ1ukMohCgUXWnwS2e-Iomq-WMGNnELf4T69IOOGFrHSwvoFnMdwVyDriPK5M3zN-5-rVOjtSD-BgptRKHs");'></div>
+<div class="min-w-0">
+<p class="text-sm font-bold truncate">J. Anderson</p>
+<p class="text-xs text-white/60 truncate">Parent ID: 8992</p>
+</div>
+<span class="material-symbols-outlined text-white/60 ml-auto text-[20px]">logout</span>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+<header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center justify-between px-4 sm:px-8 z-10 shrink-0">
+<button class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex flex-col">
+<h1 class="text-lg font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
+<p class="text-xs text-gray-500">Welcome to the Parent Portal</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1.5 border border-gray-200 dark:border-gray-600">
+<span class="material-symbols-outlined text-[18px] text-gray-500 mr-2">search</span>
+<input class="bg-transparent border-none text-sm w-32 focus:ring-0 p-0 text-gray-700 placeholder-gray-400" placeholder="Search..." type="text"/>
+</div>
+<div class="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
+<button class="relative flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 transition-colors">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-2 size-2 bg-primary rounded-full border-2 border-white dark:border-gray-800"></span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 transition-colors">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#f8f9fa] dark:bg-[#0b1120]">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+<div>
+<h1 class="text-2xl font-bold text-[#111318] dark:text-white">
+                            Welcome back, <span class="text-primary dark:text-red-400">Mr. &amp; Mrs. Anderson</span>
+</h1>
+<div class="flex items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">Autumn Term 2023</span>
+<span class="text-gray-400 text-xs">•</span>
+<p class="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-1">
+                                Viewing: <span class="font-semibold text-gray-900 dark:text-white">James Anderson (Year 10)</span>
+</p>
+</div>
+</div>
+<button class="group flex items-center justify-center gap-2 h-10 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-white text-sm font-bold shadow-sm hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">swap_horiz</span>
+<span>Switch Student</span>
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 flex flex-col gap-6">
+<section class="silver-card-gradient rounded-xl border border-gray-300 dark:border-gray-600 p-6 shadow-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/40 to-transparent rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+<div class="absolute top-4 right-4 p-2 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[140px] text-black">account_balance</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-white/50 rounded-md shadow-sm border border-gray-200">
+<span class="material-symbols-outlined text-primary text-[20px] block">payments</span>
+</div>
+<h3 class="text-gray-700 dark:text-gray-800 text-sm font-bold uppercase tracking-wider">Fee Statement</h3>
+</div>
+<div class="px-3 py-1 bg-red-100 border border-red-200 text-red-700 rounded-full text-xs font-bold uppercase flex items-center gap-1">
+<span class="size-2 rounded-full bg-red-600 animate-pulse"></span>
+                                        Action Required
+                                    </div>
+</div>
+<div class="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-6">
+<div class="flex flex-col">
+<p class="text-gray-500 text-xs font-medium uppercase tracking-wide mb-1">Total Outstanding</p>
+<p class="text-gray-900 text-4xl font-black tracking-tight leading-none">$4,500.00</p>
+<p class="text-gray-600 text-sm mt-2 font-medium">Term 3 Tuition &amp; Boarding Fees</p>
+<p class="text-red-700 text-xs font-semibold mt-1">Due Date: Oct 31, 2023</p>
+</div>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 h-11 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold rounded-lg shadow-lg shadow-red-900/20 transition-all transform hover:-translate-y-0.5">
+<span>Pay Securely</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="mt-6 pt-4 border-t border-gray-300/60 flex justify-between items-center text-xs text-gray-600 font-medium">
+<span>Last payment: $1,200 (Sep 15)</span>
+<a class="text-primary hover:text-primary-hover underline decoration-primary/30 underline-offset-2" href="#">View Transaction History</a>
+</div>
+</div>
+</section>
+<section class="silver-card-gradient rounded-xl border border-gray-300 dark:border-gray-600 p-6 shadow-md relative overflow-hidden flex-1">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+<div class="flex justify-between items-center mb-6 relative z-10">
+<div class="flex items-center gap-2">
+<div class="p-1.5 bg-white/50 rounded-md shadow-sm border border-gray-200">
+<span class="material-symbols-outlined text-gray-700 text-[20px] block">bar_chart</span>
+</div>
+<div>
+<h3 class="text-gray-800 text-lg font-bold leading-none">Academic Results</h3>
+<p class="text-gray-500 text-xs font-medium mt-1">Term 3 Overview</p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-white/60 border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Term Avg:</span>
+<span class="text-xl font-black text-primary">A-</span>
+</div>
+</div>
+<div class="w-full h-[240px] flex items-end justify-between gap-2 sm:gap-6 px-2 relative z-10">
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-gray-300/50 rounded-t-lg overflow-hidden h-[200px] flex items-end shadow-inner">
+<div class="w-full bg-primary group-hover:bg-primary-hover transition-all duration-500 rounded-t-lg relative shadow-lg" style="height: 92%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">92%</div>
+</div>
+</div>
+<p class="text-gray-600 text-xs sm:text-sm font-bold truncate w-full text-center">Math</p>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-gray-300/50 rounded-t-lg overflow-hidden h-[200px] flex items-end shadow-inner">
+<div class="w-full bg-primary group-hover:bg-primary-hover transition-all duration-500 rounded-t-lg relative shadow-lg" style="height: 78%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">78%</div>
+</div>
+</div>
+<p class="text-gray-600 text-xs sm:text-sm font-bold truncate w-full text-center">Physics</p>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-gray-300/50 rounded-t-lg overflow-hidden h-[200px] flex items-end shadow-inner">
+<div class="w-full bg-primary group-hover:bg-primary-hover transition-all duration-500 rounded-t-lg relative shadow-lg" style="height: 85%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">85%</div>
+</div>
+</div>
+<p class="text-gray-600 text-xs sm:text-sm font-bold truncate w-full text-center">Eng Lit</p>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-gray-300/50 rounded-t-lg overflow-hidden h-[200px] flex items-end shadow-inner">
+<div class="w-full bg-primary group-hover:bg-primary-hover transition-all duration-500 rounded-t-lg relative shadow-lg" style="height: 88%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">88%</div>
+</div>
+</div>
+<p class="text-gray-600 text-xs sm:text-sm font-bold truncate w-full text-center">Bio</p>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="relative w-full bg-gray-300/50 rounded-t-lg overflow-hidden h-[200px] flex items-end shadow-inner">
+<div class="w-full bg-primary group-hover:bg-primary-hover transition-all duration-500 rounded-t-lg relative shadow-lg" style="height: 74%;">
+<div class="absolute -top-8 w-full text-center text-xs font-bold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">74%</div>
+</div>
+</div>
+<p class="text-gray-600 text-xs sm:text-sm font-bold truncate w-full text-center">History</p>
+</div>
+</div>
+<div class="mt-4 flex justify-end pt-3 border-t border-gray-300/60">
+<a class="text-xs font-bold text-primary uppercase tracking-wide hover:underline flex items-center gap-1" href="#">
+                                    View Full Report Card <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</section>
+</div>
+<div class="lg:col-span-1 flex flex-col gap-6">
+<section class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col h-full max-h-[400px]">
+<div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800">
+<h3 class="text-gray-900 dark:text-white text-base font-bold">Latest Circulars</h3>
+<a class="text-xs text-primary font-semibold hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col overflow-y-auto">
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-dashed border-gray-100 dark:border-gray-700" href="#">
+<div class="size-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-gray-900 dark:text-white truncate">Term 3 Boarding Requirements</p>
+<span class="text-xs text-gray-500">Oct 24 • Administration</span>
+</div>
+</a>
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-dashed border-gray-100 dark:border-gray-700" href="#">
+<div class="size-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-gray-900 dark:text-white truncate">Sports Day Schedule</p>
+<span class="text-xs text-gray-500">Oct 20 • Sports Dept</span>
+</div>
+</a>
+<a class="flex gap-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" href="#">
+<div class="size-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex flex-col gap-0.5 min-w-0">
+<p class="text-sm font-semibold text-gray-900 dark:text-white truncate">PTA Meeting Slots</p>
+<span class="text-xs text-gray-500">Oct 18 • Academics</span>
+</div>
+</a>
+</div>
+</section>
+<section class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
+<div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800">
+<h3 class="text-gray-900 dark:text-white text-base font-bold">Quick Contact</h3>
+</div>
+<div class="p-2">
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center border border-gray-200" data-alt="Teacher portrait Mrs. Higgins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJE8OoIiNBeIgNEnRsGvWhuZj6zjbJyNNEBVv3NXql55f7uXJQdm3mPFfz17_8aEfKBAUFMU6DVphYGFM4GlukomjET7pdmA7mDtS605-qxEC2TEE__GcvW2QENYU5Or-DspHqPcY2TVz10c9u1CaXaFo0pHYxJDRqDl7gBbrzx6ApC3OCBLLZpPP81S0w53maieqLvliJlEg6VUm44BSyV5TpO5YAZzQNE8HtgSfD0os4ockOorwabBgVSfj3qL1Fj213te18vEk");'>
+</div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+</div>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">Mrs. Higgins</p>
+<p class="text-xs text-gray-500">Form Tutor</p>
+</div>
+</div>
+<button class="size-8 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center border border-gray-200" data-alt="Teacher portrait Mr. Davidson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyNoJxiGeKrGfTb0myGtxhLnOr98BBzc-81RxG263TRKrAFkBjCttNrJ2lG-t8gLgA3YkK0-bQFt1XTKhgXdkcecRo_82YWcRnY2ZoDBbD2EBR2TNpwX-KGrSsiuXlP9gOGf-Nw-oBm2Sr4I79YYNnPWM_UNLIbPjz3_ZTaq6CdneWOVktS6o_xpUnqQvDlkzUie9t18ViDGJNNh2kCj6IKwO7BNlXd2jsqOvvXUnuzDhPKr9YXC_8hNwnoVzKqkHqwtj_YYJolyY");'>
+</div>
+<span class="absolute bottom-0 right-0 size-2.5 bg-gray-300 border-2 border-white dark:border-gray-800 rounded-full"></span>
+</div>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">Mr. Davidson</p>
+<p class="text-xs text-gray-500">Mathematics</p>
+</div>
+</div>
+<button class="size-8 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-white flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</div>
+</section>
+<section class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden p-5">
+<h3 class="text-gray-900 dark:text-white text-base font-bold mb-4">Upcoming Events</h3>
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center group">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="text-[10px] font-bold uppercase">Oct</span>
+<span class="text-lg font-bold leading-none">28</span>
+</div>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">Rugby vs. St. John's</p>
+<p class="text-xs text-gray-500">14:00 - Main Field</p>
+</div>
+</div>
+<div class="flex gap-3 items-center group">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="text-[10px] font-bold uppercase">Nov</span>
+<span class="text-lg font-bold leading-none">02</span>
+</div>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">PTA Meeting</p>
+<p class="text-xs text-gray-500">18:00 - School Hall</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

@@ -13,18 +13,37 @@ model User {
   password    String
   firstName   String
   lastName    String
-  role        String
+  role        UserRole
   grade       String?  
-  studentId   String?  
+  studentId   String?  @unique
   phoneNumber String?  
-  status      String   @default("active")
+  status      UserStatus @default(ACTIVE)
   permissions Json?    
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  lastLoginAt DateTime?
   
   // Relations
   student     Student?
   teacherSubjects Subject[] @relation("TeacherSubjects")
+  
+  @@index([email])
+  @@index([role])
+  @@index([status])
+}
+
+enum UserRole {
+  ADMIN
+  TEACHER
+  STUDENT
+  PARENT
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING
 }
 
 model Student {
@@ -106,7 +125,7 @@ model Attendance {
   studentId String
   student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   date      DateTime @db.Date
-  status    String   // present, absent, late, excused
+  status    AttendanceStatus // PRESENT, ABSENT, LATE, EXCUSED
   notes     String?
   markedBy  String
   markedAt  DateTime @default(now())
@@ -120,6 +139,13 @@ model Attendance {
   @@index([status])
 }
 
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
 model Assignment {
   id          String   @id @default(cuid())
   title       String
@@ -129,8 +155,8 @@ model Assignment {
   grade       String
   dueDate     DateTime
   totalPoints Int
-  assignmentType String // homework, quiz, project, exam
-  status      String   @default("active") // active, archived
+  assignmentType AssignmentType // HOMEWORK, QUIZ, PROJECT, EXAM
+  status      AssignmentStatus @default(ACTIVE) // ACTIVE, ARCHIVED
   createdBy   String
   
   // Relations
@@ -143,6 +169,19 @@ model Assignment {
   @@index([grade])
   @@index([dueDate])
   @@index([status])
+  @@index([assignmentType])
+}
+
+enum AssignmentType {
+  HOMEWORK
+  QUIZ
+  PROJECT
+  EXAM
+}
+
+enum AssignmentStatus {
+  ACTIVE
+  ARCHIVED
 }
 
 model AssignmentSubmission {
@@ -160,7 +199,7 @@ model AssignmentSubmission {
   feedback     String?  @db.Text
   gradedAt     DateTime?
   gradedBy     String?
-  status       String   @default("submitted") // submitted, graded, late, missing
+  status       SubmissionStatus @default(SUBMITTED) // SUBMITTED, GRADED, LATE, MISSING
   
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -171,17 +210,24 @@ model AssignmentSubmission {
   @@index([status])
 }
 
+enum SubmissionStatus {
+  SUBMITTED
+  GRADED
+  LATE
+  MISSING
+}
+
 model FeePayment {
   id            String   @id @default(cuid())
   studentId     String
   student       Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   amount        Float
-  feeType       String   // tuition, boarding, exam, transport, other
+  feeType       FeeType  // TUITION, BOARDING, EXAM, TRANSPORT, OTHER
   term          String
   academicYear  String
-  status        String   // paid, pending, overdue, partial
+  status        PaymentStatus // PAID, PENDING, OVERDUE, PARTIAL
   paymentDate   DateTime?
-  paymentMethod String?  // cash, bank_transfer, mobile_money, card
+  paymentMethod PaymentMethod? // CASH, BANK_TRANSFER, MOBILE_MONEY, CARD
   receiptNumber String?  @unique
   transactionId String?
   dueDate       DateTime
@@ -198,11 +244,34 @@ model FeePayment {
   @@index([dueDate])
   @@index([academicYear, term])
   @@index([receiptNumber])
+  @@index([feeType])
+}
+
+enum FeeType {
+  TUITION
+  BOARDING
+  EXAM
+  TRANSPORT
+  OTHER
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  OVERDUE
+  PARTIAL
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  MOBILE_MONEY
+  CARD
 }
 
 model FinancialReport {
   id            String   @id @default(cuid())
-  reportType    String   // income_expenditure, balance_sheet, cash_flow, budget
+  reportType    ReportType // INCOME_EXPENDITURE, BALANCE_SHEET, CASH_FLOW, BUDGET
   title         String
   periodStart   DateTime @db.Date
   periodEnd     DateTime @db.Date
@@ -222,7 +291,7 @@ model FinancialReport {
   netPosition   Json     // Currency[]
   
   // Approval tracking
-  status        String   @default("draft") // draft, pending_approval, approved, archived
+  status        ReportStatus @default(DRAFT) // DRAFT, PENDING_APPROVAL, APPROVED, ARCHIVED
   approvalData  Json?    // Approval signatures and dates
   
   // Metadata
@@ -238,3 +307,18 @@ model FinancialReport {
   @@index([status])
   @@index([createdBy])
 }
+
+enum ReportType {
+  INCOME_EXPENDITURE
+  BALANCE_SHEET
+  CASH_FLOW
+  BUDGET
+}
+
+enum ReportStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  ARCHIVED
+}
+

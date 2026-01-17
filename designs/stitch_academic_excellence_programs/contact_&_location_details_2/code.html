@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us - Prestige Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-slate-200 dark:border-b-slate-800 bg-white dark:bg-slate-900 px-6 py-4 md:px-10 lg:px-40">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-4xl">school</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Prestige Academy</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Home</a>
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">About Us</a>
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Academics</a>
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Boarding</a>
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Admissions</a>
+<a class="text-slate-900 dark:text-slate-100 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Contact</a>
+</nav>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary hover:bg-primary/90 text-white text-sm font-bold tracking-wide transition-colors">
+<span class="truncate">Apply Now</span>
+</button>
+</div>
+<div class="lg:hidden">
+<button class="text-slate-900 dark:text-white p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Hero Section -->
+<div class="w-full bg-cover bg-center bg-no-repeat relative" data-alt="School campus main building architecture with blue sky" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDO2q4l0Yk9S8v4ODeYq4M-bfhMaA7TPNGZbbaKJ5Uyfm7xjW7dGxgy03_M5UShmIB19xv2m7g5eaAimyEJ4JwyjuoWfMl0HcHliq1Z7zTrBQqDTjfmhpZxf75SOo0ZAtQrevpwo3N1QDfo9r-FLx0HdtUMIgQn5T52JkEQTlk0_jexMtclZec2oRuwThb6VJoID44Hu-p6l0tfLJZY67OkQOWWc0ghobVCKa8lA6pUsLWTcK0iyT2a1nXHZ7UwY_Ep_2E3Sqz1qu0");'>
+<div class="absolute inset-0 bg-slate-900/60"></div>
+<div class="relative px-6 py-20 md:px-10 lg:px-40 flex flex-col items-center justify-center min-h-[400px] text-center">
+<h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4">
+                    Get in Touch
+                </h1>
+<p class="text-slate-200 text-lg md:text-xl font-normal max-w-2xl leading-relaxed">
+                    We are here to help you with any questions about our curriculum, boarding facilities, or admissions process. Connect with us today.
+                </p>
+<div class="mt-8 flex flex-col sm:flex-row gap-4">
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-primary/90 text-white text-base font-bold tracking-wide transition-all shadow-lg">
+                        Book a Campus Tour
+                    </button>
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white text-base font-bold tracking-wide transition-all">
+                        View FAQ
+                    </button>
+</div>
+</div>
+</div>
+<main class="layout-container flex flex-col px-6 md:px-10 lg:px-40 py-12 gap-16">
+<!-- Intro & Contact Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left: Contact Form -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Send us a message</h2>
+<p class="text-slate-600 dark:text-slate-400">Fill out the form below and our team will get back to you shortly.</p>
+</div>
+<form class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="name">Parent Name</label>
+<input class="h-12 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-4 text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary" id="name" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="email">Email Address</label>
+<input class="h-12 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-4 text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary" id="email" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="phone">Phone Number</label>
+<input class="h-12 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-4 text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary" id="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="grade">Student Grade (Optional)</label>
+<select class="h-12 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-4 text-base text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary dark:bg-slate-800" id="grade">
+<option disabled="" selected="" value="">Select Grade</option>
+<option>Kindergarten</option>
+<option>Grade 1-6</option>
+<option>Grade 7-9</option>
+<option>Grade 10-12</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="subject">Subject</label>
+<select class="h-12 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-4 text-base text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary dark:bg-slate-800" id="subject">
+<option>Admissions Inquiry</option>
+<option>Fees &amp; Finance</option>
+<option>Boarding Facilities</option>
+<option>Other</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="message">Message</label>
+<textarea class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent p-4 text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary dark:focus:border-primary resize-none" id="message" placeholder="How can we help you?" rows="4"></textarea>
+</div>
+<button class="mt-2 flex h-12 w-full items-center justify-center rounded-lg bg-primary hover:bg-primary/90 text-white font-bold tracking-wide transition-all shadow-md" type="submit">
+                            Submit Inquiry
+                        </button>
+</form>
+</div>
+<!-- Right: Info Sidebar -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<!-- Quick Info Card -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col gap-6">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                            Visit Us
+                        </h3>
+<div class="space-y-4">
+<div>
+<h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Physical Address</h4>
+<p class="text-slate-900 dark:text-slate-100 leading-relaxed">
+                                    123 Education Lane<br/>Prestige City, PC 54321<br/>United Kingdom
+                                </p>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Mailing Address</h4>
+<p class="text-slate-900 dark:text-slate-100 leading-relaxed">
+                                    PO Box 8899<br/>Prestige City, PC 54321
+                                </p>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Office Hours</h4>
+<ul class="text-slate-900 dark:text-slate-100 leading-relaxed space-y-1">
+<li class="flex justify-between"><span>Monday - Friday</span> <span>07:30 - 16:30</span></li>
+<li class="flex justify-between"><span>Saturday</span> <span>08:00 - 12:00</span></li>
+<li class="flex justify-between text-slate-500"><span>Sunday</span> <span>Closed</span></li>
+</ul>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 dark:border-slate-700">
+<h4 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Follow Us</h4>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors" href="#">
+<!-- Simple icon replacement for social media -->
+<svg aria-hidden="true" class="size-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path></svg>
+</a>
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors" href="#">
+<svg aria-hidden="true" class="size-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465C9.673 2.013 10.03 2 12.48 2h-.165zm-3.77 1.795c-.95.043-1.505.195-2.059.412a3.3 3.3 0 00-1.226.797c-.432.433-.7.863-.797 1.226-.217.554-.369 1.109-.412 2.06-.043 1.042-.054 1.366-.054 4.053v.092c0 2.687.01 3.01.054 4.053.043.95.195 1.505.412 2.06.208.536.5.938.797 1.226.433.432.863.7 1.226.797.554.217 1.109.369 2.06.412 1.042.043 1.366.054 4.053.054h.092c2.687 0 3.01-.01 4.053-.054.95-.043 1.505-.195 2.06-.412.536-.208.938-.5 1.226-.797.432-.433.7-.863.797-1.226.217-.554.369-1.109.412-2.06.043-1.042.054-1.366.054-4.053v-.092c0-2.687-.01-3.01-.054-4.053-.043-.95-.195-1.505-.412-2.06a3.3 3.3 0 00-.797-1.226 3.3 3.3 0 00-1.226-.797c-.554-.217-1.109-.369-2.06-.412-1.042-.043-1.366-.054-4.053-.054h-.092c-2.687 0-3.01.01-4.053.054zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.615a3.52 3.52 0 100 7.04 3.52 3.52 0 000-7.04zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</a>
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors" href="#">
+<svg aria-hidden="true" class="size-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<!-- Visit CTA -->
+<div class="relative overflow-hidden rounded-xl p-8 bg-primary text-white">
+<div class="relative z-10 flex flex-col gap-4">
+<h3 class="text-2xl font-bold">Experience Our Campus</h3>
+<p class="text-primary-100 dark:text-slate-200">
+                                Book a personal tour to see our facilities and meet our faculty. Tours are available every Tuesday and Thursday.
+                            </p>
+<button class="w-fit rounded-lg bg-white py-2 px-4 text-sm font-bold text-primary hover:bg-slate-100 transition-colors">
+                                Schedule a Tour
+                            </button>
+</div>
+<!-- Decorative circle -->
+<div class="absolute -right-12 -bottom-12 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
+<div class="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-white/10 blur-xl"></div>
+</div>
+</div>
+</div>
+<!-- Department Section -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Department Contacts</h2>
+<p class="text-slate-600 dark:text-slate-400">Reach out directly to specific departments for faster assistance.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Admissions Card -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-32 w-full bg-cover bg-center" data-alt="Students walking in a hallway carrying books" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqKtXSMr5fcIUj230-J_1A05V09SApa9q1qsgA2q5v9L6YAfP_Y5gsCX17Wemcu2TczyBpDU7f_lvcBhr5-KeLxwTRxo4ntI0UvFzFIOu_Jlatpzf7kD_UBRYPUdjxYnrk8m5t1J2TuF6GibAXGPCSZhYc_WKnktXi68Mu21emJK8m_CMYcKj-NIS3XJvGC4pipvrfIsX1kKLT1D_7pndYJejkO27RDMnuRokeJXTM2ARh8cT7I4wj6RgfoCpq1FvEHB2WhtfO4QA");'></div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Admissions Office</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">For enrollment inquiries, applications, and campus tours.</p>
+</div>
+<div class="flex flex-col gap-2 mt-auto">
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="mailto:admissions@school.edu">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+                                    admissions@school.edu
+                                </a>
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="tel:+1234567890">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+                                    +123 456 7890
+                                </a>
+</div>
+</div>
+</div>
+<!-- Accounts Card -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-32 w-full bg-cover bg-center" data-alt="Close up of a calculator and financial documents on a desk" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOBlVoFh5XUuPkgarJtJcQHWjoz4SoqscK-XyYputBiYC2JfOKhMlcNeovcqTYN-sgewAIkXqKxzvWM9mH_dSdiIcYQb_pnAwgdi3VK42nwhyQD1nAryZu97EtmZq-1b3ZBcaV1TUqS5lHjqBwuw7lG3mi0WtksDOo_Q-6cBZuKBONO6Ck_8BzGlU7Gb_3sQZbRqCbyNDJAYkE4D5TveA9gFN0y8wkhUPzf0xkSgodlEoo9N2WXLLIRhf-0ecyabh4NnEMOGEn1lY");'></div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Accounts Department</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">For tuition fees, billing, scholarships and financial aid.</p>
+</div>
+<div class="flex flex-col gap-2 mt-auto">
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="mailto:finance@school.edu">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+                                    finance@school.edu
+                                </a>
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="tel:+1234567891">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+                                    +123 456 7891
+                                </a>
+</div>
+</div>
+</div>
+<!-- General Inquiries Card -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+<div class="h-32 w-full bg-cover bg-center" data-alt="School reception desk with logo on wall" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCCTBDNtpMngeTniz40_OuLN_DCNDpi3ktsV4gFWfzGBKxYq-2XpC4HDxNBM82VAGMYvH6eOhSJ1xDOWiFyAmFjrHEjMY2fl034E9wU3fb54oV7zh0_MP3qq1miW_dIXU2tjOyBL63d_oCPa5Qk_kHHKw1v9_hY5ZeQWyjcst82hsgrrvDmy6d_G4U2vgt0dw7kl7UueODUi3mhTh2H-IxPH687Iev_rHfvUsMsvsALeuk6nC5QGHjAe_E-1x3Lfd8e3k9nVf4-Og");'></div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">General Inquiries</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">For all other questions and general school information.</p>
+</div>
+<div class="flex flex-col gap-2 mt-auto">
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="mailto:info@school.edu">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+                                    info@school.edu
+                                </a>
+<a class="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="tel:+1234567892">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+                                    +123 456 7892
+                                </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Section -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Our Location</h2>
+<p class="text-slate-600 dark:text-slate-400">Easily accessible from the main highway with ample visitor parking.</p>
+</div>
+<div class="w-full h-[450px] rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 relative">
+<!-- Static Map Image as Placeholder for Google Map -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Map showing location of Prestige Academy in Prestige City" data-location="Prestige City" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtB4EdjmR4pf33vjDkOprxfvzJzz5RzvHSj_lIYTwPGjGPM97ZlpjUFYnOy3P8JH6I6jFvTq8HEpn0gW9nwdriCukljhdmUxTguIzTl8a17Srj_FAOmIK60_JXgE4gd83YJbrNeuiejxqSlI9HweCByM1TGOH6i35lJpUysp5hn-QkC-5RS3dv_wTtjfZiACYiS7JOYyFC5RNWHUvo8leR5ONegT88CXSElybly3vKk6hfiGuAGyIPZw_Y5GlmJ1UWPrXXSAgkSj0");'></div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/5 transition-colors cursor-pointer group">
+<button class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-6 py-3 rounded-full shadow-lg font-bold flex items-center gap-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-primary">map</span>
+                            Open in Google Maps
+                        </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 px-6 md:px-10 lg:px-40">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-lg">Prestige Academy</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm text-center md:text-right">
+                    © 2023 Prestige Academy. All rights reserved. <br class="hidden md:block"/>
+                    Privacy Policy | Terms of Service
+                </p>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>St. Prestige Academy - Premium Education</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1152d4",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem", 
+              "lg": "0.5rem", 
+              "xl": "0.75rem", 
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom Utilities if needed */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center justify-between px-6 lg:px-20 py-4 max-w-[1400px] mx-auto w-full">
+<div class="flex items-center gap-4">
+<div class="size-10 text-primary">
+<span class="material-symbols-outlined text-4xl">school</span>
+</div>
+<h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-tight">St. Prestige Academy</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-8">
+<a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-[#111318] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Campus Life</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#111318] dark:text-white text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+<span class="truncate">Portal Login</span>
+</button>
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-md hover:bg-blue-700 transition-colors">
+<span class="truncate">Apply Now</span>
+</button>
+</div>
+</div>
+<!-- Mobile Menu Icon -->
+<div class="lg:hidden">
+<span class="material-symbols-outlined cursor-pointer text-[#111318] dark:text-white">menu</span>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<div class="relative w-full">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center bg-no-repeat" data-alt="Beautiful drone shot of a classic university campus with red brick buildings and green lawns" style='background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQ_Ni0SWq31BC0e5oqgSxptFY7xDGo163maE8qAftSbQURW4uXTR2tJh1eJmS4EpG1RE49mmVVQj5lINGEQLeP_eb1VdS_mX-aayIWN8rLVO72MFUvgSgv6YT7sj_L1qIWChnh1keOw9B0Yhx06FkNqnM_VY2-owHfCwLoD0rDtfku97DKZxzxtVeLk_P4MysGDH6CqKF2kG4z1I0Pqk9Hwz7bnhyMWVqdoskLTHyM_KHKbZnLh8ouX2S22i7jR51qi4mc0nJJfhU");'>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center min-h-[600px] px-6 py-20 text-center max-w-[1400px] mx-auto">
+<div class="flex flex-col gap-6 max-w-3xl">
+<span class="text-white/90 font-medium tracking-widest text-sm uppercase">Est. 1974</span>
+<h1 class="text-white text-4xl md:text-6xl font-black leading-tight tracking-tight">
+                        Excellence in Education. Character for Life.
+                    </h1>
+<p class="text-gray-200 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
+                        Nurturing future leaders from Early Childhood through A-Level in a world-class boarding environment. Experience the St. Prestige difference.
+                    </p>
+<div class="flex flex-wrap gap-4 justify-center mt-4">
+<button class="flex items-center justify-center rounded-lg h-12 px-8 bg-primary text-white text-base font-bold shadow-lg hover:bg-blue-700 hover:-translate-y-0.5 transition-all">
+                            Apply Now
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-12 px-8 bg-white/10 backdrop-blur-md border border-white/30 text-white text-base font-bold hover:bg-white/20 transition-all">
+                            Book a Tour
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats Section -->
+<div class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+<div class="max-w-[1200px] mx-auto px-6 lg:px-20 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="flex flex-col items-center text-center gap-1 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<div class="p-3 bg-primary/10 rounded-full mb-2 text-primary">
+<span class="material-symbols-outlined">school</span>
+</div>
+<p class="text-3xl font-bold tracking-tight text-primary">100%</p>
+<p class="text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wide">Pass Rate</p>
+</div>
+<div class="flex flex-col items-center text-center gap-1 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<div class="p-3 bg-primary/10 rounded-full mb-2 text-primary">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<p class="text-3xl font-bold tracking-tight text-primary">1:10</p>
+<p class="text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wide">Teacher Ratio</p>
+</div>
+<div class="flex flex-col items-center text-center gap-1 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<div class="p-3 bg-primary/10 rounded-full mb-2 text-primary">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+<p class="text-3xl font-bold tracking-tight text-primary">98%</p>
+<p class="text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wide">Uni Acceptance</p>
+</div>
+<div class="flex flex-col items-center text-center gap-1 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<div class="p-3 bg-primary/10 rounded-full mb-2 text-primary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<p class="text-3xl font-bold tracking-tight text-primary">50+</p>
+<p class="text-gray-500 dark:text-gray-400 font-medium text-sm uppercase tracking-wide">Years of Excellence</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Academic Pathways -->
+<section class="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+<div>
+<h2 class="text-3xl font-bold text-[#111318] dark:text-white leading-tight">Academic Pathways</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Comprehensive curriculum tailored for every stage of development.</p>
+</div>
+<a class="text-primary font-bold flex items-center hover:underline" href="#">
+                    View Full Curriculum <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<div class="flex flex-col gap-6">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Young children painting in a bright art classroom" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDh5D6im1DXqooIwexZBct8UbDIOsGBzRoYY5Mmqsk3x9wc-urBs_MeoPgJKdbsUtqbVwnMcFJMwIbZk7Qi3aaiD2s0nm4sDhOQZDXyTzu9wS_sXeWOEWqdx1sDbcun-6ncG5ZRoRZWCK3HmIEaHV1ptsuO77qYXZk3oGV_qChapKcIadZL_V4LNuW-uRstaSnDdwiDxfWCIgsiIc4Sif-xzGs5Rw0a0Gn7k8MDI9CwhSgphxkbDJjrH3IVA0g2wZq63BigvT_fe7Q");'>
+</div>
+</div>
+<div class="md:w-2/3 p-8 flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-blue-100 dark:bg-blue-900/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Ages 3-5</span>
+</div>
+<h3 class="text-2xl font-bold text-[#111318] dark:text-white mb-3">Early Childhood Development</h3>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Our ECD program nurtures curiosity and creativity through play-based learning. We focus on social-emotional growth, laying a strong foundation for future academic success in a warm, caring environment.
+                            </p>
+<button class="self-start text-primary font-bold text-sm uppercase tracking-wide flex items-center group-hover:translate-x-1 transition-transform">
+                                Explore ECD <span class="material-symbols-outlined text-base ml-1">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Elementary students working on a science project" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmKZQ4-3GUZPSJu6PEAIs_fmiksD7Z33N46SZs87GPN601noHJspY9mG52M_jiU2HRJkSe9l11jwF9olH-ZWUZ5DXbilYaQV79XE5zbK3ZUXen89mYhm8a1fEoV4VrsIuWj9ks0oNFr6m_ufNiUGy9iGD57wp9v_TMIQcU4qEiSmemrkjYU2gUlP5_ftjs37FTQbhVlXMtE0zBN9-wL1sDshZHZc0BgNuLDWWHBJOJQzOoX-7fS89cZQ7bE0NK8k7a8lQFFIcfvY4");'>
+</div>
+</div>
+<div class="md:w-2/3 p-8 flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-blue-100 dark:bg-blue-900/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Ages 6-12</span>
+</div>
+<h3 class="text-2xl font-bold text-[#111318] dark:text-white mb-3">Primary School</h3>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Building core competencies in literacy, numeracy, and critical thinking. Our primary curriculum encourages students to ask questions, solve problems, and develop a lifelong love for learning.
+                            </p>
+<button class="self-start text-primary font-bold text-sm uppercase tracking-wide flex items-center group-hover:translate-x-1 transition-transform">
+                                Explore Primary <span class="material-symbols-outlined text-base ml-1">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="High school students studying in a modern library" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlzzJQ3vVJ7sYS1MLMS_L_6EV289Unc9SaoKasZ927Q_J8MJWpW3CmPpdgV3AOijVni7db5N9I64yPkuSs0EPEQ5JxSo5EXHYvxFKFg5TDlReIalCbsL_1YsYfMexyI9ID-EjiW2GvOPUILQfCe24fcBpUOzxA9tCkHmktqwFtuOtEtJaytSGcrW_o9Y6bhPi6nzBQ3Q3jPwLimDD31sgn0a0K9-5SV9T26m6i6dNAKNWDg9Holtj-oBmQh9AlnMLwgBiFB041HR4");'>
+</div>
+</div>
+<div class="md:w-2/3 p-8 flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-blue-100 dark:bg-blue-900/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Ages 13-18</span>
+</div>
+<h3 class="text-2xl font-bold text-[#111318] dark:text-white mb-3">High School &amp; A-Level</h3>
+<p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Preparing young adults for top-tier universities and leadership roles. Our rigorous academic program is complemented by sports, arts, and service, shaping well-rounded global citizens.
+                            </p>
+<button class="self-start text-primary font-bold text-sm uppercase tracking-wide flex items-center group-hover:translate-x-1 transition-transform">
+                                Explore High School <span class="material-symbols-outlined text-base ml-1">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Boarding Feature -->
+<section class="bg-[#101622] text-white py-20 relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="max-w-[1200px] mx-auto px-6 lg:px-20 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="order-2 lg:order-1">
+<span class="text-primary font-bold tracking-widest uppercase mb-4 block">Boarding Life</span>
+<h2 class="text-4xl font-bold mb-6 leading-tight">A Home Away From Home</h2>
+<p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                            Our boarding facilities offer a safe, supportive, and enriching environment where students learn independence and camaraderie. With modern dormitories, dedicated house parents, and a weekend activity schedule, boarders forge friendships that last a lifetime.
+                        </p>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-gray-200">Modern, secure accommodation</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-gray-200">24/7 mentorship and pastoral care</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-gray-200">Structured academic study hours</span>
+</li>
+</ul>
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-white text-[#111318] text-sm font-bold hover:bg-gray-200 transition-colors">
+                            Discover Boarding
+                        </button>
+</div>
+<div class="order-1 lg:order-2 relative">
+<div class="rounded-2xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white/10">
+<div class="aspect-[4/3] bg-cover bg-center" data-alt="Students chatting in a comfortable boarding house common room" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJP5-C9z7cXQUALx4JNZPXDP5pW-Ji9RnVGNZukZA-HcmigzK8oKVdmWxKfZWZ57d2Dfu1evPjPGpsSg8FFN-jg71IwrLi27h_tAwPgjU6YAvgjAl_phmZOe8S-RUI3GT61SoayBNHPK55TjDMy-F-Fqf1PiqwXnMr_ZoJi-ilmhT-ruk-jLMMXKJJdjOzSgL3BTlLcRgmsiHyB4vj_9NhSfMDV3lwVBreSUFIGd34N6oaooiYvbgPNxencNbnJA_hDwixY--VnGE");'>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest News & Events Preview -->
+<section class="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto w-full bg-white dark:bg-gray-900 my-12 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">Latest News</h2>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View All News</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- News Item 1 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-video relative">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Students holding a trophy on a sports field" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFxdIbLC4D1pJzc62-7b5yEfZ5Ie2q5BvIuYx-oa0teNAM5PLsTPKJKNei16oBorzGeZefEOOzntIXTmdW71gXkljpQ426XUiN3_qqCZibHZqktijKH0aFMKlB8iN5wYIMn5j4aDakNlFmoCiqYZJk7C_XPLCoZWaXZKLYG5j1HTNs04N0_hw3ha1_Teo5YG8s54jRSg5CRqtDNQBlZOvc2ZpQwp7oihUOEMvvg5JP2rlRqiHYbaWcLEO2Ynb78LVP68hm9ickEcU");'>
+</div>
+<div class="absolute bottom-2 left-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded">Sports</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">October 24, 2023</p>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors">Rugby First XV Wins National Championship</h3>
+</div>
+<!-- News Item 2 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-video relative">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Students presenting a robot in a science fair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCIIcztXqdbKm2DUQeA424Vu8UqC85Z0BonX9VJSEsOh3JWyBFZNjlEygmc4o3qsw7CduZUvaTZFcVlZ74-zrBeFRyALan0pg-npsHemNFdElcUedce9DFqc3UhKCkvuzx7937x6tlIVP-OCBgAL78wUWFXkd3kYjLhc5H4_eu9feZpEOnVEqcWN83c-GJPNJgoOctOQKekYNm210p2vs6BK2s0rar7-hjTt4B5dBhtP0HSrBZclPSTOl38sUmTt1d-m9O82YGjfVw");'>
+</div>
+<div class="absolute bottom-2 left-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">Academics</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">October 18, 2023</p>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors">Robotics Team Qualifies for Worlds</h3>
+</div>
+<!-- News Item 3 -->
+<div class="flex flex-col gap-3 group cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-video relative">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Audience applauding at a school theater performance" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGjybtm3zP_emcmrW_KJ8RRwE5yhrHsehCVmFussEKb22kG3M6e2DFoRUK0Vjf6KIjEGebYlUuskSBYrbCPJv7-flZydBN48YJcvP3EqHt1aU7DIodeENFaMkTPB6pnM4JSiKv0d1t4Qm-MduC_39z8BjcXWFZbOd48HiohbevOtCYyVkrGTWN9D1nxoeIWqFaLU4xqfstRVdHAJgroPRxutZpGy7j2HxErZhe3NF-ITA6rRYwy3lQ5AkXljyD7CpqaL0zUeih8_Y");'>
+</div>
+<div class="absolute bottom-2 left-2 bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">Arts</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-medium">October 10, 2023</p>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors">Annual Winter Concert Dates Announced</h3>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto w-full">
+<h2 class="text-center text-3xl font-bold text-[#111318] dark:text-white mb-12">From Our Community</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 relative">
+<span class="material-symbols-outlined absolute top-6 right-6 text-gray-200 dark:text-gray-700 text-6xl select-none">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 relative z-10">"The academic rigor combined with the supportive environment has truly transformed our son. He is confident, articulate, and ready for university."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Portrait of a smiling parent" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAie-9I1iiri2Az1G5gLXjhdrPEOP1seQknAWXrfjmwAIAmJ6z6hDZ444pqBotBOboFDPHJ0tRk7kwvtQ0i17QMKzLKMzBy97A4jnbmnh6WtKI6qUanqOnV_LWveqrs_oyVjlFjaDgQKkHHrF5daV7R52z6Sld0WAurWtmmtQKNAJ0qUGonuW1XmX_qZLRYbB72RW2oA1XsoGfDn7KiIDD3A3qLj7A1jJ7weg2_nZPwKZdVrcWFzlPvFZk2Nbxn58nqEqaid9z7lug");'>
+</div>
+</div>
+<div>
+<p class="font-bold text-[#111318] dark:text-white text-sm">Sarah Jenkins</p>
+<p class="text-gray-400 text-xs">Parent, Class of '24</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 relative">
+<span class="material-symbols-outlined absolute top-6 right-6 text-gray-200 dark:text-gray-700 text-6xl select-none">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 relative z-10">"Boarding at St. Prestige was the best decision of my life. The friendships I made here are like family to me now."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Portrait of a young male alumni" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAQIKC1oZ--d0ldyqXyCZxXsKyd-GOuROwlknIMJOAOe0ZAngZ0tS37Z0hOFo1km__nrNWKRKXJxDeQpN4FMOabnwDfoFIGfKVJavS-DUYKTx4zGpR6dgdFpOuc_O2O0Hp2G_r4PfciO3b_F9Cb_oqeBIuL2yMgHawwkcc0Lt6QNW-RCgg5UlpR6DLI-e_9nVdjPV7TEPUukulDRZ7kyBpYuSUAHY1aX1BnZnWfiwoJSwapEj1EO_FsCXx-9a7OfsxJjbBfP0-5Zmk");'>
+</div>
+</div>
+<div>
+<p class="font-bold text-[#111318] dark:text-white text-sm">Michael Chang</p>
+<p class="text-gray-400 text-xs">Alumni, Class of '18</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 relative">
+<span class="material-symbols-outlined absolute top-6 right-6 text-gray-200 dark:text-gray-700 text-6xl select-none">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 relative z-10">"We focus on the whole child. It's not just about grades, but about character, integrity, and contribution to society."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Portrait of the headmistress" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAWgI3LbFKeBNIw5MLkW2oJUWT0F6V63ga9cdGJwsm-Rt1zi9MeG70Gv_-Ghu5d-4Umdo1vfXiddzgUOzS8vi5LnCCTgUiTU4Y7ue4OzdOk9kzxvWvqnLA4kRWwDZ-pDYAKO728ZGtdGGfapL_1dTLGqkxVSwr8FXWsWIV25fqPvaHmy2_L-4059r_yGyTKxkckbGQx4AMYt7FnMbSYtaaLbUy0Cp7ZXARCSQ3gnkyi-v1qY1lj3pirYUZHEM7YHL1I-RMjm7HFCek");'>
+</div>
+</div>
+<div>
+<p class="font-bold text-[#111318] dark:text-white text-sm">Dr. Eleanor Rigby</p>
+<p class="text-gray-400 text-xs">Head of School</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Strip -->
+<section class="bg-primary py-16 px-6 text-center">
+<h2 class="text-white text-3xl font-bold mb-4">Start Your Journey Today</h2>
+<p class="text-white/80 max-w-2xl mx-auto mb-8 text-lg">Applications for the next academic year are now open. Secure your child's place at St. Prestige Academy.</p>
+<div class="flex flex-wrap gap-4 justify-center">
+<button class="bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">Apply Now</button>
+<button class="bg-primary border border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">Contact Admissions</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pt-16 pb-8">
+<div class="max-w-[1200px] mx-auto px-6 lg:px-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<span class="font-bold text-lg text-[#111318] dark:text-white">St. Prestige</span>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">
+                            Empowering students to achieve academic excellence and personal growth since 1974.
+                        </p>
+<div class="flex gap-4">
+<!-- Social Placeholders -->
+<div class="size-8 rounded bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-colors cursor-pointer">
+<span class="text-xs font-bold">FB</span>
+</div>
+<div class="size-8 rounded bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-colors cursor-pointer">
+<span class="text-xs font-bold">IG</span>
+</div>
+<div class="size-8 rounded bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-colors cursor-pointer">
+<span class="text-xs font-bold">LN</span>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-[#111318] dark:text-white mb-6">Quick Links</h4>
+<ul class="space-y-3">
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Admissions</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Curriculum</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-[#111318] dark:text-white mb-6">Community</h4>
+<ul class="space-y-3">
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">News &amp; Events</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Alumni Network</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Parent Portal</a></li>
+<li><a class="text-gray-500 dark:text-gray-400 text-sm hover:text-primary transition-colors" href="#">Staff Login</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-[#111318] dark:text-white mb-6">Contact</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5">location_on</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm">123 Academic Avenue, Scholars District, Cityville</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">call</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm">+1 (555) 123-4567</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">mail</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm">admissions@stprestige.edu</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-400 text-sm">© 2023 St. Prestige Academy. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-gray-400 text-xs hover:text-gray-600 dark:hover:text-gray-300" href="#">Privacy Policy</a>
+<a class="text-gray-400 text-xs hover:text-gray-600 dark:hover:text-gray-300" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

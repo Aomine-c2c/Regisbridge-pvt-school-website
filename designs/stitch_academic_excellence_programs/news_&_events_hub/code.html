@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>News &amp; Events Hub - Premium School</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#d41121",
+              "primary-dark": "#b00e1b",
+              "secondary": "#896165",
+              "background-light": "#f8f6f6",
+              "background-dark": "#221012",
+              "surface-light": "#ffffff",
+              "surface-dark": "#2d1b1e",
+              "silver-light": "#f3f4f6",
+              "silver-dark": "#374151",
+            },
+            fontFamily: {
+              "display": ["Public Sans", "sans-serif"],
+              "sans": ["Public Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181112] dark:text-gray-100 flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="w-full bg-surface-light dark:bg-surface-dark border-b border-[#f4f0f0] dark:border-gray-800 relative z-50">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-3">
+<div class="flex items-center justify-between">
+<!-- Logo -->
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined !text-3xl">school</span>
+</div>
+<h2 class="text-[#181112] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">St. Ignatius College</h2>
+</div>
+<!-- Desktop Menu -->
+<nav class="hidden lg:flex items-center gap-9">
+<a class="text-[#181112] dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Admissions</a>
+<a class="text-[#181112] dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Academics</a>
+<a class="text-[#181112] dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Boarding</a>
+<a class="text-primary text-sm font-bold" href="#">News &amp; Events</a>
+<a class="text-[#181112] dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Contact</a>
+</nav>
+<!-- Action Buttons -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#896165] text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg leading-5 bg-[#f4f0f0] dark:bg-gray-800 text-[#181112] dark:text-white placeholder-[#896165] focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm" placeholder="Search" type="text"/>
+</div>
+<button class="hidden sm:flex items-center justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark transition-colors text-white text-sm font-bold">
+                        Portal Login
+                    </button>
+<!-- Mobile Menu Button -->
+<button class="lg:hidden text-[#181112] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="flex-grow flex flex-col items-center w-full">
+<!-- Hero Section -->
+<section class="w-full relative bg-cover bg-center bg-no-repeat min-h-[400px] flex items-center justify-center" data-alt="Students studying on campus lawn" style="background-image: linear-gradient(rgba(34, 16, 18, 0.6), rgba(34, 16, 18, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZWnINs1qbn8ikbGXetG5WKnjwprSS7a1U2U3VOSayS20iYEirm_wTwZD7sXHNTupapMIxtDYahpdO_7O-DCz3urQqRVvSvwxS9t4F5jS5dIvdYvXZhoHs-CPuin4fUpP1RSBQPHonXAMmbOmZJLSmy3TVF8UpEDrpwkZpyq3-LD5W5kUB3ygjdqOSgQE-3yX5oDa_hrZzlTWp5icoMVK4tHPkr_73eoEWoxkU4S56Ssnk76IfXOxIfvdxf7ySopUWOXTCPQ5nya0');">
+<div class="max-w-[960px] px-4 text-center">
+<h1 class="text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em] mb-4">
+                    News &amp; Events Hub
+                </h1>
+<p class="text-gray-200 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
+                    Stay connected with the vibrant life of our school community, from academic achievements to upcoming fixtures.
+                </p>
+</div>
+</section>
+<!-- Content Container -->
+<div class="w-full max-w-[1280px] px-4 md:px-10 py-10">
+<!-- Controls: Tabs & Filters -->
+<div class="flex flex-col gap-8 mb-10">
+<!-- Top Row: Tabs & View Toggle -->
+<div class="flex flex-col md:flex-row justify-between items-center border-b border-[#e6dbdc] dark:border-gray-700 pb-0 gap-4">
+<!-- Tabs -->
+<div class="flex gap-8 w-full md:w-auto overflow-x-auto">
+<a class="group flex flex-col items-center justify-center border-b-[3px] border-primary pb-3 px-2 cursor-pointer transition-all" href="#">
+<span class="text-primary dark:text-primary text-base font-bold tracking-[0.015em] flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">newspaper</span> Latest News
+                            </span>
+</a>
+<a class="group flex flex-col items-center justify-center border-b-[3px] border-transparent hover:border-gray-300 pb-3 px-2 cursor-pointer transition-all" href="#">
+<span class="text-[#896165] group-hover:text-primary dark:text-gray-400 dark:group-hover:text-white text-base font-bold tracking-[0.015em] flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span> Upcoming Events
+                            </span>
+</a>
+</div>
+<!-- Optional View/Sort Controls (Desktop) -->
+<div class="hidden md:flex items-center gap-2 pb-2">
+<span class="text-sm text-[#896165] dark:text-gray-400 font-medium mr-2">Sort by:</span>
+<select class="bg-transparent border-none text-sm font-bold text-[#181112] dark:text-white focus:ring-0 cursor-pointer">
+<option>Most Recent</option>
+<option>Oldest</option>
+</select>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap gap-3">
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-[#181112] text-white px-5 transition-transform hover:scale-105 active:scale-95 shadow-sm">
+<span class="text-sm font-medium">All</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-gray-800 border border-[#e6dbdc] dark:border-gray-700 hover:border-primary hover:text-primary dark:hover:text-primary px-5 transition-all hover:shadow-md">
+<span class="text-[#181112] dark:text-gray-200 text-sm font-medium">Academics</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-gray-800 border border-[#e6dbdc] dark:border-gray-700 hover:border-primary hover:text-primary dark:hover:text-primary px-5 transition-all hover:shadow-md">
+<span class="text-[#181112] dark:text-gray-200 text-sm font-medium">Sports</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-gray-800 border border-[#e6dbdc] dark:border-gray-700 hover:border-primary hover:text-primary dark:hover:text-primary px-5 transition-all hover:shadow-md">
+<span class="text-[#181112] dark:text-gray-200 text-sm font-medium">The Arts</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-gray-800 border border-[#e6dbdc] dark:border-gray-700 hover:border-primary hover:text-primary dark:hover:text-primary px-5 transition-all hover:shadow-md">
+<span class="text-[#181112] dark:text-gray-200 text-sm font-medium">Boarding Life</span>
+</button>
+</div>
+</div>
+<!-- News Grid Section -->
+<div class="mb-16">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-[#181112] dark:text-white">Featured Updates</h3>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+<!-- News Card 1 -->
+<article class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-shadow duration-300 border border-[#f0f0f0] dark:border-gray-800">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded shadow-sm z-10">
+                                Academics
+                            </div>
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Students holding certificates in a hall" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHyxp8TKy3-InHcH1FE0vIOzbu6UkAXhMgQ-gIkVRz9rj137JB0obPfx8FP4K384LtKu7caZAEXg2AeMRB2evlkUfbcduCXYRHnNevVunf36Re0xBp5UFjUPYF1JIFXmkNDZh5f6C3fwozYhtGqnlO8ULZKycl_5e5lmiNMprl5FzGDPFojK4CfauDjRvMSB2_1Lhr1rCpzptHyU9CLzK8hGXF95lm7JuJx9agHFJ614sN8Tlgzwu78zBD9pU5AVFh3u9akQaNljM');">
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6">
+<div class="flex items-center gap-2 mb-3 text-xs font-semibold text-secondary uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 12, 2023
+                            </div>
+<h3 class="text-xl font-bold text-[#181112] dark:text-white leading-tight mb-3 group-hover:text-primary transition-colors">
+                                A-Level Results: Class of 2023 Achieves Record Highs
+                            </h3>
+<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                                Our students have once again demonstrated academic excellence with a 98% pass rate across all subjects, setting a new benchmark for the region.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<a class="inline-flex items-center text-primary font-bold text-sm hover:underline" href="#">
+                                    Read Full Story <span class="material-symbols-outlined ml-1 text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- News Card 2 -->
+<article class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-shadow duration-300 border border-[#f0f0f0] dark:border-gray-800">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded shadow-sm z-10">
+                                Sports
+                            </div>
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Rugby team huddle on grass field" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8V7LyIipklfS2YpqOEHK7JWSuiZi-GKnEnjwv-1J350ZEndaxYZTeoy9GbQ59t2-9Q9x3Axwok1zHurDdZfyFX0MDAouLACe-6EdUJxF9bsW2fCKtclHen2_fAtYBRZGOzlzpOQgEn7FWF-fxJqIwKYPk3vnUiPxHF18jjPkqClHqoa_ATJmip-RjD430wDCL0rhbiImT_S4cEITM1CvRMQ4HB8m4NajJ0g-3C0y9Iw1XmVX_UhFUXMVtkuaTIQF0uQ-qvhOhyjg');">
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6">
+<div class="flex items-center gap-2 mb-3 text-xs font-semibold text-secondary uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 10, 2023
+                            </div>
+<h3 class="text-xl font-bold text-[#181112] dark:text-white leading-tight mb-3 group-hover:text-primary transition-colors">
+                                1st XV Rugby Team Secures Regional Championship
+                            </h3>
+<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                                In a thrilling final match against St. Johns, our 1st XV team showed incredible resilience to bring home the trophy.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<a class="inline-flex items-center text-primary font-bold text-sm hover:underline" href="#">
+                                    Read Full Story <span class="material-symbols-outlined ml-1 text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- News Card 3 -->
+<article class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-shadow duration-300 border border-[#f0f0f0] dark:border-gray-800">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded shadow-sm z-10">
+                                The Arts
+                            </div>
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Abstract art painting with vibrant colors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD70Epzi-m7p3ENYSDCaKw-npXSYtg4dSwTrtijs91ucsZ_BZPN33TxffnQIjmO6bBcjlw-lYq9t0VULXucG2mRwXCyo9JgvU7SlrZ_Z4sJpaeLO2Qo2M-I8VO2OItwbDWOfsCX6InnwQRgsoAlTrsPFC8N8q7j3t8QYUWjn13Gq-Ihb4wd3-TAn6D6U-Px_liyZs-PAr0mjMv-KPAf9n8Q1gh2l0vRl5gIypCGkQLqmomX0nYvPn1DYH2b4N2FT2fLyUXSMy-i2-k');">
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6">
+<div class="flex items-center gap-2 mb-3 text-xs font-semibold text-secondary uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 05, 2023
+                            </div>
+<h3 class="text-xl font-bold text-[#181112] dark:text-white leading-tight mb-3 group-hover:text-primary transition-colors">
+                                Annual Spring Art Exhibition Opening Night
+                            </h3>
+<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                                Join us for an evening of creativity as we showcase the exceptional work of our A-Level and GCSE art students.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<a class="inline-flex items-center text-primary font-bold text-sm hover:underline" href="#">
+                                    Read Full Story <span class="material-symbols-outlined ml-1 text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Events List Section -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+<h3 class="text-2xl font-bold text-[#181112] dark:text-white">Upcoming Calendar</h3>
+<a class="text-primary font-bold text-sm hover:underline hidden md:inline-block" href="#">View Full Calendar</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Event Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<!-- Date Box -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-silver-light dark:bg-silver-dark rounded-lg border border-gray-200 dark:border-gray-600">
+<span class="text-primary font-black text-2xl leading-none">15</span>
+<span class="text-gray-500 dark:text-gray-300 font-bold text-sm uppercase mt-1">NOV</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Sports</span>
+</div>
+<h4 class="text-lg font-bold text-[#181112] dark:text-white mb-2 leading-tight">Annual Rugby Derby vs. St. John's</h4>
+<div class="flex flex-col gap-1 text-sm text-gray-600 dark:text-gray-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 14:00 - 17:00
+                                </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Main Oval
+                                </div>
+</div>
+</div>
+<button class="hidden sm:flex self-center flex-shrink-0 items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">event</span>
+</button>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<!-- Date Box -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-silver-light dark:bg-silver-dark rounded-lg border border-gray-200 dark:border-gray-600">
+<span class="text-primary font-black text-2xl leading-none">22</span>
+<span class="text-gray-500 dark:text-gray-300 font-bold text-sm uppercase mt-1">NOV</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-purple-500"></span>
+<span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Arts</span>
+</div>
+<h4 class="text-lg font-bold text-[#181112] dark:text-white mb-2 leading-tight">Winter Choral Concert</h4>
+<div class="flex flex-col gap-1 text-sm text-gray-600 dark:text-gray-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 18:30 - 20:30
+                                </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span> School Chapel
+                                </div>
+</div>
+</div>
+<button class="hidden sm:flex self-center flex-shrink-0 items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">event</span>
+</button>
+</div>
+<!-- Event Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<!-- Date Box -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-silver-light dark:bg-silver-dark rounded-lg border border-gray-200 dark:border-gray-600">
+<span class="text-primary font-black text-2xl leading-none">05</span>
+<span class="text-gray-500 dark:text-gray-300 font-bold text-sm uppercase mt-1">DEC</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Boarding</span>
+</div>
+<h4 class="text-lg font-bold text-[#181112] dark:text-white mb-2 leading-tight">End of Term Boarders Dinner</h4>
+<div class="flex flex-col gap-1 text-sm text-gray-600 dark:text-gray-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 19:00 - 21:00
+                                </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Dining Hall
+                                </div>
+</div>
+</div>
+<button class="hidden sm:flex self-center flex-shrink-0 items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">event</span>
+</button>
+</div>
+<!-- Event Card 4 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<!-- Date Box -->
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-silver-light dark:bg-silver-dark rounded-lg border border-gray-200 dark:border-gray-600">
+<span class="text-primary font-black text-2xl leading-none">10</span>
+<span class="text-gray-500 dark:text-gray-300 font-bold text-sm uppercase mt-1">DEC</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-red-500"></span>
+<span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">General</span>
+</div>
+<h4 class="text-lg font-bold text-[#181112] dark:text-white mb-2 leading-tight">School Breaks for Winter Holidays</h4>
+<div class="flex flex-col gap-1 text-sm text-gray-600 dark:text-gray-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">schedule</span> All Day
+                                </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Campus Wide
+                                </div>
+</div>
+</div>
+<button class="hidden sm:flex self-center flex-shrink-0 items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">event</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="flex justify-center pb-10">
+<button class="flex items-center justify-center px-8 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-[#181112] dark:text-white font-bold rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm">
+                    Load More Updates
+                </button>
+</div>
+</div>
+<!-- Newsletter Section -->
+<section class="w-full bg-[#181112] dark:bg-black text-white py-16 px-4">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row items-center gap-10">
+<div class="flex-1 text-center md:text-left">
+<h2 class="text-3xl font-bold mb-3">Subscribe to the Headmaster's Weekly</h2>
+<p class="text-gray-400 text-lg">Don't miss a beat. Get the latest news, fixtures, and achievements delivered directly to your inbox every Friday.</p>
+</div>
+<div class="flex-1 w-full max-w-md">
+<form class="flex gap-2">
+<input class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter your email address" type="email"/>
+<button class="bg-primary hover:bg-primary-dark text-white font-bold px-6 py-3 rounded-lg transition-colors whitespace-nowrap" type="button">
+                            Sign Up
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-light dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 py-10">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+<span class="font-bold text-[#181112] dark:text-white">St. Ignatius College</span>
+</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div>
+                © 2023 St. Ignatius College. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

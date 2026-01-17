@@ -1,0 +1,20 @@
+.admissions-step {
+  animation: slide-up 0.5s ease-out;
+}
+
+.admissions-step-0 { animation-delay: 0s; }
+.admissions-step-1 { animation-delay: 0.2s; }
+.admissions-step-2 { animation-delay: 0.4s; }
+.admissions-step-3 { animation-delay: 0.6s; }
+.admissions-step-4 { animation-delay: 0.8s; }
+
+.progress-bar {
+  width: 100%;
+  animation: progressFill 2s ease-out forwards;
+}
+
+.progress-bar-0 { animation-delay: 0s; }
+.progress-bar-1 { animation-delay: 0.5s; }
+.progress-bar-2 { animation-delay: 1s; }
+.progress-bar-3 { animation-delay: 1.5s; }
+.progress-bar-4 { animation-delay: 2s; }
