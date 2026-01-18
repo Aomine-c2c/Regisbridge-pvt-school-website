@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Faculty &amp; Staff Directory - Premium Academy</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd0f0f",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                        "silver-border": "#e6dbdb",
+                        "text-main": "#181111",
+                        "text-muted": "#896161",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .sans-text {
+            font-family: 'Noto Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-text-main group/design-root overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-silver-border">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 sm:h-20">
+<!-- Logo & Name -->
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined text-[32px]">school</span>
+</div>
+<h1 class="text-xl sm:text-2xl font-bold tracking-tight text-text-main">Sterling Academy</h1>
+</div>
+<!-- Desktop Menu -->
+<div class="hidden lg:flex items-center gap-8">
+<nav class="flex items-center gap-6 sans-text text-sm font-medium text-text-main">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<a class="hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="hover:text-primary transition-colors" href="#">Academics</a>
+<a class="hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-primary font-bold" href="#">Directory</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<button class="bg-primary hover:bg-[#a00c0c] text-white px-5 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-colors sans-text shadow-sm">
+                        Apply Now
+                    </button>
+</div>
+<!-- Mobile Menu Button -->
+<button class="lg:hidden p-2 text-text-main">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col gap-3 max-w-3xl">
+<h2 class="text-4xl sm:text-5xl font-black text-text-main leading-tight tracking-tight">Faculty &amp; Staff Directory</h2>
+<p class="text-text-muted text-lg sm:text-xl font-normal leading-relaxed">Meet the dedicated educators and professionals shaping the future of our students through excellence in teaching and care.</p>
+</div>
+<!-- Controls Section: Search & Tabs -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-silver-border pb-1">
+<!-- Tabs -->
+<div class="overflow-x-auto pb-1 -mb-px">
+<div class="flex gap-6 sm:gap-8 min-w-max">
+<a class="flex flex-col items-center border-b-[3px] border-primary pb-3 px-1" href="#">
+<span class="text-primary text-base font-bold tracking-wide">All</span>
+</a>
+<a class="flex flex-col items-center border-b-[3px] border-transparent hover:border-silver-border pb-3 px-1 transition-colors group" href="#">
+<span class="text-text-muted group-hover:text-text-main text-base font-medium tracking-wide">Administration</span>
+</a>
+<a class="flex flex-col items-center border-b-[3px] border-transparent hover:border-silver-border pb-3 px-1 transition-colors group" href="#">
+<span class="text-text-muted group-hover:text-text-main text-base font-medium tracking-wide">ECD</span>
+</a>
+<a class="flex flex-col items-center border-b-[3px] border-transparent hover:border-silver-border pb-3 px-1 transition-colors group" href="#">
+<span class="text-text-muted group-hover:text-text-main text-base font-medium tracking-wide">Primary</span>
+</a>
+<a class="flex flex-col items-center border-b-[3px] border-transparent hover:border-silver-border pb-3 px-1 transition-colors group" href="#">
+<span class="text-text-muted group-hover:text-text-main text-base font-medium tracking-wide">Secondary</span>
+</a>
+<a class="flex flex-col items-center border-b-[3px] border-transparent hover:border-silver-border pb-3 px-1 transition-colors group" href="#">
+<span class="text-text-muted group-hover:text-text-main text-base font-medium tracking-wide">A-Level</span>
+</a>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="w-full lg:w-auto lg:min-w-[320px] mb-4 lg:mb-0">
+<label class="relative flex items-center group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-none bg-white py-2.5 pl-10 pr-3 text-text-main placeholder:text-text-muted/70 ring-1 ring-inset ring-silver-border focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 sans-text shadow-sm" placeholder="Search by name, role..." type="text"/>
+</label>
+</div>
+</div>
+<!-- Staff Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Professional portrait of Dr. Alistair Sterling in a suit" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgx0R7a05emm6GNzBJF0HxiSpSjyMWOJj2qBeGN_hnQf5FwugvlmOhfAJd0REtzOxIirMda6d7q43d77X8IqIMn3Pmyn8NDBCxZkyDAHg-qj5ckTP7_n3jN5_TY5NpP8HX3k7mJ6KW1nac9JIJHK-B84o2SX0zfyUbEcFXVVPfd3tNJMLSSE4DTKERTpbLtaQqDNamN4me_pTUjbQ0zwTAMtQld1jPgVUct5HoB_5ey-RhntRKsW7IsE2BE2Q4RKStLwsyfjjvdoI");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Dr. Alistair Sterling</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Head of School</p>
+<p class="text-text-muted text-sm mt-1">Administration</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Mrs. Sarah Jenkins smiling in professional attire" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDpKB8CR9JZ89vYYWGaVZ4tfCG_kNbgF7rr15njq2GdezoRsMHqdLchx11C5zaXS_Ow0MwhB_umneh7yq4VZHVihsRP2iUyO12uJ6cCFpLhxSZoWxmWZ12ifdmeJ_IbgcXTxIWWwGTQYQi7h7z_ABY_4ECzXrmN74K7G_ZvlCE_hCdPL2r24QpjNPnLeHbZ9IY5ii33v-ZVk4BI2llldU2Y0gjBvi99zaxArtowERzkZ8vYVpzU3I1yCqn-5jB1Vygkl7YBkGY__pw");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Mrs. Sarah Jenkins</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Head of Science</p>
+<p class="text-text-muted text-sm mt-1">A-Level • Science Dept</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Mr. David Omondi in casual academic wear" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCcYo9Y0Faa6JKR9Bbl21KkRkeO7g6_HsR7PzuCG7PUgoyDqSo3XIiw_jSE8akAdJjNpa95-0TXTjB_yrWA_1yeufmFYUp6BU9Nl-xixH2JqtFcQoyeUlAlpmwn7t7AXVRscEoqf_f203H0RQlDnslSnLxlLqyG05U47knkHXFJIyM1HKH1bqdFPJ8mbIl84Z3i8ZldYgzHyXLKNP_lG0jd5tBO3N75J87KQJZaMeuYsq_hpDXY9jwPH264NxTduW7PJfFI92uuX0s");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Mr. David Omondi</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Director of Boarding</p>
+<p class="text-text-muted text-sm mt-1">Boarding • Pastoral Care</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Ms. Elena Rodriguez smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiXvs-hMOfzXWIUOG5sev_T6tzBHE9T5ghKGN6mWvrJkZaPRAr_g8fO-l8J5dszoPg4KE7zggM7hALjNILYyeaUqG6uR0h6I-QMLsrx8Aoj5O1pxAw2tF2jDdYYc6L7GiNlEa8Hcpa1PN5YOapqa4t0zxghES7FNz3-gWrMn4FDpCtOl86Gih4kY7MRDVLw47_rRqGbjyDlOL5LAw1w8HwXmyaRHB0w5N7sO2ewwhgTGCONO1G3eLA8wzrdhx8oyhgiofivy8SOuE");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Ms. Elena Rodriguez</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Head of Arts</p>
+<p class="text-text-muted text-sm mt-1">Secondary • Creative Arts</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Mr. James Chen with glasses" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANRddjh-7UN69REo2meNIYtN06PfsMwG7XLZJlPLoUjcScZmBD1rDW5qGMC6qzaibRMNOnpH4fiRSIGBF5wB7IPJMFSdrJuiKYCpGvZaQMqKcXPHGvTL12kGH1mdIODRp4pF65LtbSfEt_C_rX4muDU1CZg0mVcNBDhERjs-7Iy8c0LGQMSOvh6z9cwuB8jfULWekELBiQB8fh5f_F2kBcHZk1eMyQt9-qaQ1xxjHV1GO2mGikjuszW5PRL1YKms5pkoEuHRA2PNg");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Mr. James Chen</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Mathematics Lead</p>
+<p class="text-text-muted text-sm mt-1">Primary • Mathematics</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Mrs. Rebecca Thorne" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCgGuktInS8BKS_6nHtl7zTK2e6NW8GD1skUppLRDwOP0LBXYeLAGqdvN-dDb84ziuQeLkkKUf_d4ZfbsP5lGfO0xLVrPgmJ9jH5Y-M-ZvV-1kfYc0W173gZ33jin3p99CmpUa6IGaPcsMinaqZNfr_zmkbdX1XgDkZca0iVbuTsG_cXvAyzk617MinUK0qIuXEm5ulHhpTed6eVZOJ9e2WyXFFrdojv0LUq1JCFSS68OsUYsgo3a-gnDrzfCiRtEzefp13aqwVBHQ");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Mrs. Rebecca Thorne</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Head of ECD</p>
+<p class="text-text-muted text-sm mt-1">Early Childhood Development</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Mr. Marcus Johnson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChk9z_CJesjJ2KSpdsFOJZhmwgP5SdSqBhJMJrEdjs7bsTQ5ezNjL1HV-qwqPDz4xU9BFDCOmRMs7qbHm8xbBK2LBmTAwwTuoB17eegeo9oO_AZaldxVcgs1Djtduh13HXDt0lMnZfiJ_7wWusUFLbulc7lFNPTIQld-oIpNyxKH6FPGiP1RpSlmOZhOtasJDuPPjniJ4lvA3U01MMKgZoM3vPq3zx3ZEB0-RJs4OeZzVwZrCeEo0nTY00CQNEzJcSxBOaxTFhqmc");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Mr. Marcus Johnson</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">Athletics Director</p>
+<p class="text-text-muted text-sm mt-1">All Departments • Sports</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="group flex flex-col bg-white rounded-lg border border-silver-border overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-[4/3] w-full bg-cover bg-center bg-no-repeat" data-alt="Portrait of Ms. Hannah Lee" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDLob2CCCJ8mV8VBRZZ59A8b3gPAzoCmoFZPSwbceSlPO-_VntJaj_i7gE_N0cgW9wH-5z2v7hMqMmo2oVIWpwEisBioBbcHG5Hv_afWXUHmgxamXqKII6JB5G2-BmoYXqsqWKzydZ17dantRR1vyn6GL6Z9_Zs41wne7qkyRcdcntdRh2pmBcj4ckH89pgmRs1xpWugefGgU4bnfozw1WK6_khxjUsT5v1c3bnOBUyZfwDOaoFpatfGRaoEFRbtfY5wIBlUDzBzI");'>
+</div>
+<div class="flex flex-col p-5 gap-4 flex-grow">
+<div>
+<h3 class="text-xl font-bold text-text-main leading-tight mb-1">Ms. Hannah Lee</h3>
+<p class="text-primary font-medium text-sm uppercase tracking-wider sans-text">School Librarian</p>
+<p class="text-text-muted text-sm mt-1">Library Services</p>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary/5 hover:bg-primary hover:text-white text-primary px-4 py-2 text-sm font-bold transition-all border border-primary/10 hover:border-primary sans-text">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Contact
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="flex justify-center mt-8">
+<button class="flex items-center gap-2 text-text-muted hover:text-primary font-medium text-sm sans-text transition-colors">
+<span>Load More Staff</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f4f0f0] dark:bg-[#1a0c0c] border-t border-silver-border mt-12 py-12">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[24px]">school</span>
+<span class="text-text-muted font-bold text-lg">Sterling Academy</span>
+</div>
+<div class="flex gap-6 text-sm text-text-muted sans-text">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Contact Support</a>
+</div>
+<div class="text-sm text-text-muted sans-text">
+                    © 2024 Sterling Academy. All rights reserved.
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

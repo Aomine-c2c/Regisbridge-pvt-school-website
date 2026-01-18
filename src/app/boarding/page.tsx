@@ -1,211 +1,195 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
-import { MaterialIcon } from '@/components/ui/material-icon';
-import { BadgeNew } from '@/components/ui/badge-new';
+import PremiumHeader from '@/components/layout/PremiumHeader';
+import PremiumFooter from '@/components/layout/PremiumFooter';
 
-/**
- * Boarding & Pastoral Care Page
- * Simplified version showcasing boarding facilities and support
- */
+const BOARDING_HOUSES = [
+  {
+    name: 'Churchill House',
+    capacity: '80 Students',
+    age: 'Years 7-11',
+    image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800',
+    housemaster: 'Mr. David Thompson',
+  },
+  {
+    name: 'Windsor House',
+    capacity: '75 Students',
+    age: 'Years 12-13',
+    image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800',
+    housemaster: 'Mrs. Sarah Parker',
+  },
+  {
+    name: 'Victoria House',
+    capacity: '70 Students',
+    age: 'Years 7-11',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+    housemaster: 'Dr. Michael Chen',
+  },
+];
 
 export default function BoardingPage() {
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between px-10 py-3 max-w-[1200px] mx-auto">
-          <div className="flex items-center gap-4">
-            <MaterialIcon icon="school" size="4xl" className="text-design-primary" />
-            <h2 className="text-lg font-bold">Regisbridge Academy</h2>
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/page-new" className="text-sm font-medium hover:text-design-primary transition-colors">Home</Link>
-            <Link href="/academics" className="text-sm font-medium hover:text-design-primary transition-colors">Academics</Link>
-            <Link href="/admissions" className="text-sm font-medium hover:text-design-primary transition-colors">Admissions</Link>
-            <Link href="/boarding" className="text-design-primary font-bold text-sm">Boarding</Link>
-          </nav>
-          <Link href="/admissions" className="flex items-center justify-center rounded-lg h-9 px-4 bg-design-primary hover:bg-design-primary-dark text-white text-sm font-bold transition-colors">
-            Apply Now
-          </Link>
-        </div>
-      </header>
+    <div className="relative flex min-h-screen w-full flex-col bg-white">
+      <PremiumHeader />
 
-      {/* Hero */}
-      <section className="relative w-full bg-background-dark text-white py-20 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-design-primary/20 rounded-full blur-3xl pointer-events-none" />
-        
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <main>
+        {/* Hero */}
+        <section
+          className="relative w-full min-h-[500px] flex items-center justify-center bg-cover bg-center"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(11,31,59,0.7), rgba(11,31,59,0.85)), url("https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1600")',
+          }}
+        >
+          <div className="max-w-[960px] px-4 text-center relative z-10">
+            <h1 className="text-white text-4xl md:text-6xl font-black leading-tight mb-6">
+              A Home Away From Home
+            </h1>
+            <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              Our boarding program provides a safe, nurturing environment where students develop independence, lifelong friendships, and a strong sense of community.
+            </p>
+          </div>
+        </section>
+
+        {/* Overview */}
+        <section className="py-20 max-w-[1200px] mx-auto px-4 sm:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <BadgeNew variant="primary" className="mb-4">Boarding Life</BadgeNew>
-              <h1 className="text-4xl lg:text-5xl font-black mb-6">A Home Away From Home</h1>
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Our boarding facilities offer a safe, supportive, and enriching environment where students learn independence and camaraderie. With modern dormitories, dedicated house parents, and a weekend activity schedule, boarders forge friendships that last a lifetime.
-              </p>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <MaterialIcon icon="check_circle" className="text-design-primary" />
-                  <span>Modern, secure accommodation</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <MaterialIcon icon="check_circle" className="text-design-primary" />
-                  <span>24/7 mentorship and pastoral care</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <MaterialIcon icon="check_circle" className="text-design-primary" />
-                  <span>Structured academic study hours</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <MaterialIcon icon="check_circle" className="text-design-primary" />
-                  <span>Weekend excursions and activities</span>
-                </li>
-              </ul>
-              <Link href="/admissions" className="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-white text-text-dark font-bold hover:bg-gray-200 transition-colors">
-                Explore Boarding Options
-              </Link>
-            </div>
-            
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white/10">
-                <div className="aspect-[4/3] bg-gray-700" />
+              <h2 className="text-brand-gold font-bold uppercase tracking-wider text-sm mb-3">
+                Boarding Life
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Excellence in Pastoral Care
+              </h3>
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p>
+                  With over 300 boarders from across the country and around the world, Regisbridge Academy offers a truly international boarding experience.
+                </p>
+                <p>
+                  Our three purpose-built boarding houses provide comfortable, modern accommodation with dedicated house staff who ensure every student feels supported and valued.
+                </p>
+                <p>
+                  From structured study periods to exciting weekend activities, our boarding program is designed to create a balanced, enriching experience.
+                </p>
               </div>
+            </div>
+            <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
+              <Image
+                src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800"
+                alt="Boarding house common room"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Boarding Houses */}
-      <section className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-text-dark dark:text-white mb-4">Our Boarding Houses</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Students are placed in one of four boarding houses, each with its own identity, traditions, and house parent team.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { name: 'Phoenix House', color: 'red', icon: 'local_fire_department', students: '65 Boarders' },
-            { name: 'Eagle House', color: 'blue', icon: 'flight', students: '68 Boarders' },
-            { name: 'Lion House', color: 'amber', icon: 'pets', students: '62 Boarders' },
-            { name: 'Dragon House', color: 'emerald', icon: 'spa', students: '70 Boarders' }
-          ].map((house, i) => (
-            <div key={i} className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
-              <div className={`w-12 h-12 rounded-full bg-${house.color}-100 dark:bg-${house.color}-900/30 flex items-center justify-center mb-4`}>
-                <MaterialIcon icon={house.icon} className={`text-${house.color}-600 dark:text-${house.color}-400`} />
-              </div>
-              <h3 className="text-xl font-bold text-text-dark dark:text-white mb-2">{house.name}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">{house.students}</p>
+        {/* Boarding Houses */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-10">
+            <div className="text-center mb-16">
+              <h2 className="text-brand-gold font-bold uppercase tracking-wider text-sm mb-3">
+                Our Houses
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Three Distinguished Boarding Houses
+              </h3>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Daily Schedule */}
-      <section className="py-16 px-6 lg:px-20 bg-slate-50 dark:bg-slate-900">
-        <div className="max-w-[960px] mx-auto">
-          <h2 className="text-3xl font-bold text-text-dark dark:text-white mb-8 text-center">Typical Boarding Day</h2>
-          
-          <div className="grid grid-cols-[100px_1fr] gap-4 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {BOARDING_HOUSES.map((house, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow"
+                >
+                  <div className="relative h-48">
+                    <Image
+                      src={house.image}
+                      alt={house.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-2xl font-bold text-gray-900 mb-4">{house.name}</h4>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-brand-navy text-[18px]">groups</span>
+                        <span>{house.capacity}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-brand-navy text-[18px]">school</span>
+                        <span>{house.age}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-brand-navy text-[18px]">person</span>
+                        <span>Housemaster: {house.housemaster}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Facilities & Activities */}
+        <section className="py-20 max-w-[1200px] mx-auto px-4 sm:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              ['6:30 AM', 'Wake-up bell'],
-              ['7:00 AM', 'Breakfast in dining hall'],
-              ['8:00 AM', 'Morning classes begin'],
-              ['12:30 PM', 'Lunch break'],
-              ['1:30 PM', 'Afternoon classes'],
-              ['4:00 PM', 'Co-curricular activities & sports'],
-              ['6:00 PM', 'Dinner'],
-              ['7:00 PM', 'Supervised study time'],
-              ['9:00 PM', 'Free time / relaxation'],
-              ['10:00 PM', 'Lights out (varies by age group)']
-            ].map((item, i) => (
-              <div key={i} className="contents">
-                <div className="text-design-primary font-bold text-sm">{item[0]}</div>
-                <div className="text-gray-700 dark:text-gray-300 border-l-2 border-gray-200 dark:border-gray-700 pl-4">{item[1]}</div>
+              {
+                icon: 'bed',
+                title: 'Comfortable Accommodation',
+                description: 'Modern rooms with ensuite facilities, study desks, and ample storage space.',
+              },
+              {
+                icon: 'restaurant',
+                title: 'Nutritious Dining',
+                description: 'Full board with varied, healthy meals prepared by our expert catering team.',
+              },
+              {
+                icon: 'sports_soccer',
+                title: 'Weekend Activities',
+                description: 'Sports, trips, and social events to ensure weekends are engaging and fun.',
+              },
+              {
+                icon: 'health_and_safety',
+                title: '24/7 Pastoral Support',
+                description: 'Dedicated staff on hand round-the-clock to support student wellbeing.',
+              },
+            ].map((facility, index) => (
+              <div key={index} className="flex gap-4 p-6 bg-white rounded-xl border border-gray-200">
+                <div className="w-12 h-12 rounded-full bg-brand-navy/10 flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-brand-navy text-[24px]">{facility.icon}</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2">{facility.title}</h4>
+                  <p className="text-gray-600">{facility.description}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Pastoral Care */}
-      <section className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-text-dark dark:text-white mb-6">Pastoral Care & Wellbeing</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              Every boarder is assigned a house parent and tutor who monitor their academic progress, emotional wellbeing, and social development. Our dedicated pastoral care team includes counselors, nurses, and chaplains.
+        {/* CTA */}
+        <section className="bg-brand-navy py-16 text-center">
+          <div className="max-w-[960px] mx-auto px-4">
+            <h2 className="text-white text-3xl font-bold mb-4">Experience Boarding at Regisbridge</h2>
+            <p className="text-gray-200 mb-8 text-lg max-w-2xl mx-auto">
+              Visit us to tour our boarding houses and meet our dedicated staff.
             </p>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MaterialIcon icon="favorite" className="text-red-500 mt-1" />
-                <div>
-                  <h4 className="font-bold text-text-dark dark:text-white mb-1">Health & Medical</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">On-campus clinic with registered nurse available 24/7</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MaterialIcon icon="psychology" className="text-blue-500 mt-1" />
-                <div>
-                  <h4 className="font-bold text-text-dark dark:text-white mb-1">Counseling Services</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Professional counselors for academic and personal support</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MaterialIcon icon="phone" className="text-emerald-500 mt-1" />
-                <div>
-                  <h4 className="font-bold text-text-dark dark:text-white mb-1">Parent Communication</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Weekly updates via parent portal and regular calls</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold text-text-dark dark:text-white mb-6">Weekend Activities</h3>
-            <ul className="space-y-3">
-              {[
-                'City excursions and cultural trips',
-                'Sports tournaments and outdoor adventures',
-                'Movie nights and game tournaments',
-                'Shopping trips and recreational activities',
-                'Community service projects',
-                'Special event celebrations'
-              ].map((activity, i) => (
-                <li key={i} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                  <MaterialIcon icon="check_circle" className="text-design-primary" size="xs" />
-                  <span>{activity}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-design-primary py-16 text-center">
-        <div className="max-w-[800px] mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-4">Experience Boarding Life</h2>
-          <p className="text-white/90 mb-8 text-lg">
-            Schedule a visit to tour our boarding facilities and meet our house parents.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/admissions" className="bg-white text-design-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
-              Apply for Boarding
-            </Link>
-            <Link href="/contact" className="bg-design-primary border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-design-primary-dark transition-colors">
-              Book a Tour
+            <Link
+              href="/contact"
+              className="bg-brand-gold hover:bg-brand-gold-dark text-brand-navy px-8 py-3 rounded-lg font-bold transition-colors inline-flex items-center justify-center"
+            >
+              Schedule a Visit
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Footer */}
-      <footer className="bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800 py-12">
-        <div className="max-w-[1200px] mx-auto px-6 text-center text-sm text-gray-500">
-          © 2024 Regisbridge Academy. All rights reserved.
-        </div>
-      </footer>
+      <PremiumFooter />
     </div>
   );
 }

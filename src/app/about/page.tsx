@@ -1,86 +1,114 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
-import { MaterialIcon } from '@/components/ui/material-icon';
+import PremiumHeader from '@/components/layout/PremiumHeader';
+import PremiumFooter from '@/components/layout/PremiumFooter';
+import { Timeline } from '@/components';
 
-/**
- * About Page - Our Institution
- * Based on about_our_institution_1 template
- * 
- * Sections:
- * 1. Hero - Legacy of Excellence
- * 2. Stats Strip (Founded, Pass Rate, Boarders, Campus Size)
- * 3. Mission, Vision & Values
- * 4. Heritage Timeline
- * 5. Leadership Team
- * 6. CTA Section 
- */
+const TIMELINE_EVENTS = [
+  {
+    year: '1974',
+    title: 'Foundation Established',
+    description: 'Regisbridge Academy opened its doors with just 50 students and 5 teachers, driven by a vision to provide quality education in the region.',
+    icon: 'school',
+  },
+  {
+    year: '1990',
+    title: 'Boarding Facilities Opened',
+    description: 'To accommodate students from across the country, we inaugurated our first boarding house, fostering a diverse and inclusive community.',
+    icon: 'home',
+  },
+  {
+    year: '2010',
+    title: 'A-Level Program Launch',
+    description: 'Expanding our academic offerings, we introduced the Advanced Level curriculum, paving the way for our graduates to enter top global universities.',
+    icon: 'workspace_premium',
+  },
+  {
+    year: '2024',
+    title: 'Innovation Hub & STEM Center',
+    description: 'Embracing the future, we launched a state-of-the-art STEM center and Innovation Hub, ensuring our students are ready for the digital age.',
+    icon: 'science',
+  },
+];
+
+const LEADERSHIP = [
+  {
+    name: 'Dr. James Sterling',
+    title: 'Headmaster',
+    image: 'https://i.pravatar.cc/300?img=12',
+    description: 'Leading with 20+ years of experience in international education.',
+  },
+  {
+    name: 'Sarah Jenkins',
+    title: 'Chair of the Board',
+    image: 'https://i.pravatar.cc/300?img=47',
+  },
+  {
+    name: 'Michael Chen',
+    title: 'Board Governor',
+    image: 'https://i.pravatar.cc/300?img=33',
+  },
+  {
+    name: 'Elena Rodriguez',
+    title: 'Board Governor',
+    image: 'https://i.pravatar.cc/300?img=45',
+  },
+];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
-      {/* Simplified Header - will integrate with existing later */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
-        <div className="flex items-center justify-between px-10 py-4 max-w-[1280px] mx-auto w-full">
-          <div className="flex items-center gap-4 text-text-dark dark:text-white">
-            <MaterialIcon icon="school" size="4xl" className="text-design-primary" />
-            <h2 className="text-lg font-bold">Regisbridge Academy</h2>
-          </div>
-          <div className="hidden lg:flex flex-1 justify-end gap-8 items-center">
-            <nav className="flex items-center gap-9">
-              <Link href="/page-new" className="text-sm font-medium hover:text-design-primary transition-colors">Home</Link>
-              <Link href="/about" className="text-sm font-medium text-design-primary font-bold">About Us</Link>
-              <Link href="#" className="text-sm font-medium hover:text-design-primary transition-colors">Admissions</Link>
-              <Link href="#" className="text-sm font-medium hover:text-design-primary transition-colors">Academics</Link>
-              <Link href="#" className="text-sm font-medium hover:text-design-primary transition-colors">Boarding</Link>
-              <Link href="#" className="text-sm font-medium hover:text-design-primary transition-colors">Contact</Link>
-            </nav>
-            <Link href="/admissions" className="h-10 px-6 bg-design-primary hover:bg-design-primary-dark text-white rounded-lg font-bold transition-colors flex items-center">
-              Apply Now
-            </Link>
-          </div>
-          <div className="lg:hidden">
-            <MaterialIcon icon="menu" className="cursor-pointer" />
-          </div>
-        </div>
-      </header>
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+      <PremiumHeader />
 
       <main>
-        {/* 1. HERO SECTION */}
-        <section className="w-full bg-background-light dark:bg-background-dark">
+        {/* Hero Section */}
+        <section className="w-full bg-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10 py-12 lg:py-20">
             <div className="flex flex-col-reverse lg:flex-row gap-12 items-center">
-              {/* Content */}
               <div className="flex flex-col gap-6 flex-1 text-center lg:text-left">
                 <div className="flex flex-col gap-4">
-                  <span className="text-[#D4AF37] font-bold tracking-wider uppercase text-sm">Est. 1974</span>
-                  <h1 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-text-dark dark:text-white">
-                    A Legacy of <span className="text-design-primary relative inline-block">Excellence
-                      <span className="absolute bottom-1 left-0 w-full h-2 bg-[#D4AF37]/20 -z-10"></span>
+                  <span className="text-brand-gold font-bold tracking-wider uppercase text-sm">
+                    Est. 1974
+                  </span>
+                  <h1 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900">
+                    A Legacy of{' '}
+                    <span className="text-brand-navy relative inline-block">
+                      Excellence
+                      <span className="absolute bottom-1 left-0 w-full h-2 bg-brand-gold/20 -z-10"></span>
                     </span>
                   </h1>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                  <p className="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                     Welcome to Regisbridge Academy. For nearly 50 years, we have nurtured future leaders through a unique blend of academic rigor, character development, and world-class boarding facilities.
                   </p>
                 </div>
                 <div className="flex gap-4 justify-center lg:justify-start pt-4">
-                  <button className="h-12 px-8 bg-design-primary hover:bg-design-primary-dark text-white rounded-lg font-bold transition-all shadow-lg hover:shadow-xl">
+                  <Link
+                    href="/about/headmaster"
+                    className="h-12 px-8 bg-brand-navy hover:bg-brand-navy-dark text-white rounded-lg font-bold transition-all shadow-lg hover:shadow-xl inline-flex items-center justify-center"
+                  >
                     Headmaster's Welcome
-                  </button>
-                  <button className="h-12 px-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-[#D4AF37] text-text-dark dark:text-white rounded-lg font-bold transition-all flex items-center gap-2 group">
+                  </Link>
+                  <Link
+                    href="/campus-tour"
+                    className="h-12 px-8 bg-white border border-gray-200 hover:border-brand-gold text-gray-900 rounded-lg font-bold transition-all inline-flex items-center justify-center gap-2 group"
+                  >
                     <span>Virtual Tour</span>
-                    <MaterialIcon icon="arrow_forward" className="text-[#D4AF37] group-hover:translate-x-1 transition-transform" size="sm" />
-                  </button>
+                    <span className="material-symbols-outlined text-brand-gold group-hover:translate-x-1 transition-transform text-[20px]">
+                      arrow_forward
+                    </span>
+                  </Link>
                 </div>
               </div>
-              
-              {/* Image */}
               <div className="flex-1 w-full">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] group">
-                  <div className="absolute inset-0 bg-design-primary/10 group-hover:bg-transparent transition-colors z-10"></div>
-                  <div 
-                    className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: 'url("/media/campus-building.jpg")' }}
+                  <div className="absolute inset-0 bg-brand-navy/10 group-hover:bg-transparent transition-colors z-10"></div>
+                  <Image
+                    src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200"
+                    alt="Regisbridge Academy campus aerial view"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               </div>
@@ -88,72 +116,73 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 2. STATS STRIP */}
-        <section className="bg-design-primary py-12 text-white">
+        {/* Stats Strip */}
+        <section className="bg-brand-navy py-12 text-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
               <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-[#D4AF37]">1974</span>
+                <span className="text-4xl lg:text-5xl font-black text-brand-gold">1974</span>
                 <span className="text-sm font-medium uppercase tracking-wider opacity-80">Founded</span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-[#D4AF37]">100%</span>
+                <span className="text-4xl lg:text-5xl font-black text-brand-gold">100%</span>
                 <span className="text-sm font-medium uppercase tracking-wider opacity-80">Pass Rate</span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-[#D4AF37]">300+</span>
+                <span className="text-4xl lg:text-5xl font-black text-brand-gold">300+</span>
                 <span className="text-sm font-medium uppercase tracking-wider opacity-80">Boarders</span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-[#D4AF37]">50+</span>
+                <span className="text-4xl lg:text-5xl font-black text-brand-gold">50+</span>
                 <span className="text-sm font-medium uppercase tracking-wider opacity-80">Acres of Campus</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 3. MISSION, VISION & VALUES */}
-        <section className="py-20 bg-background-light dark:bg-background-dark">
+        {/* Mission, Vision, Values */}
+        <section className="py-20 bg-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
             <div className="text-center mb-16">
-              <h2 className="text-[#D4AF37] font-bold uppercase tracking-wider text-sm mb-3">Our Guiding Principles</h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-text-dark dark:text-white">Mission, Vision & Values</h3>
-              <div className="w-20 h-1 bg-design-primary mx-auto mt-6 rounded-full"></div>
+              <h2 className="text-brand-gold font-bold uppercase tracking-wider text-sm mb-3">
+                Our Guiding Principles
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Mission, Vision & Values</h3>
+              <div className="w-20 h-1 bg-brand-navy mx-auto mt-6 rounded-full"></div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Mission Card */}
-              <div className="p-8 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-design-primary to-[#D4AF37]"></div>
-                <div className="mb-6 w-14 h-14 rounded-full bg-design-primary/10 flex items-center justify-center text-design-primary group-hover:bg-design-primary group-hover:text-white transition-colors">
-                  <MaterialIcon icon="lightbulb" size="lg" />
+              {/* Mission */}
+              <div className="p-8 rounded-xl bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy to-brand-gold"></div>
+                <div className="mb-6 w-14 h-14 rounded-full bg-brand-navy/10 flex items-center justify-center text-brand-navy group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[28px]">lightbulb</span>
                 </div>
-                <h4 className="text-xl font-bold mb-3 text-text-dark dark:text-white">Our Mission</h4>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <h4 className="text-xl font-bold mb-3 text-gray-900">Our Mission</h4>
+                <p className="text-gray-600 leading-relaxed">
                   To empower young minds with critical thinking skills and moral integrity necessary to thrive in a global society, fostering a lifelong love for learning.
                 </p>
               </div>
 
-              {/* Vision Card */}
-              <div className="p-8 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-design-primary to-[#D4AF37]"></div>
-                <div className="mb-6 w-14 h-14 rounded-full bg-design-primary/10 flex items-center justify-center text-design-primary group-hover:bg-design-primary group-hover:text-white transition-colors">
-                  <MaterialIcon icon="public" size="lg" />
+              {/* Vision */}
+              <div className="p-8 rounded-xl bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy to-brand-gold"></div>
+                <div className="mb-6 w-14 h-14 rounded-full bg-brand-navy/10 flex items-center justify-center text-brand-navy group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[28px]">public</span>
                 </div>
-                <h4 className="text-xl font-bold mb-3 text-text-dark dark:text-white">Our Vision</h4>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <h4 className="text-xl font-bold mb-3 text-gray-900">Our Vision</h4>
+                <p className="text-gray-600 leading-relaxed">
                   To be the premier institution in the region, recognized globally for academic excellence, holistic development, and producing compassionate leaders.
                 </p>
               </div>
 
-              {/* Values Card */}
-              <div className="p-8 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-design-primary to-[#D4AF37]"></div>
-                <div className="mb-6 w-14 h-14 rounded-full bg-design-primary/10 flex items-center justify-center text-design-primary group-hover:bg-design-primary group-hover:text-white transition-colors">
-                  <MaterialIcon icon="diamond" size="lg" />
+              {/* Values */}
+              <div className="p-8 rounded-xl bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy to-brand-gold"></div>
+                <div className="mb-6 w-14 h-14 rounded-full bg-brand-navy/10 flex items-center justify-center text-brand-navy group-hover:bg-brand-navy group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined text-[28px]">diamond</span>
                 </div>
-                <h4 className="text-xl font-bold mb-3 text-text-dark dark:text-white">Our Values</h4>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <h4 className="text-xl font-bold mb-3 text-gray-900">Our Values</h4>
+                <p className="text-gray-600 leading-relaxed">
                   We are guided by Integrity, Discipline, Compassion, and Excellence. These pillars support every aspect of student life and our community interactions.
                 </p>
               </div>
@@ -161,193 +190,92 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 4. HERITAGE TIMELINE */}
-        <section className="py-20 bg-slate-50 dark:bg-[#0d121c] relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/50 dark:from-slate-900/50 to-transparent pointer-events-none"></div>
-          
-          <div className="max-w-[960px] mx-auto px-4 sm:px-10 relative z-10">
-            <div className="flex flex-col md:flex-row gap-12">
-              {/* Left Column - Header & Image */}
-              <div className="md:w-1/3">
-                <h2 className="text-[#D4AF37] font-bold uppercase tracking-wider text-sm mb-3">Our Heritage</h2>
-                <h3 className="text-3xl md:text-4xl font-bold text-text-dark dark:text-white mb-6">A History of Distinction</h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-8">
-                  From our humble beginnings to becoming a leading educational institution, our journey has been defined by a commitment to growth and excellence.
-                </p>
-                <div 
-                  className="hidden md:block w-full h-64 rounded-lg bg-cover bg-center shadow-lg"
-                  style={{ backgroundImage: 'url("/media/heritage-photo.jpg")' }}
-                />
-              </div>
-
-              {/* Right Column - Timeline */}
-              <div className="md:w-2/3 pl-0 md:pl-8">
-                <div className="relative border-l-2 border-slate-200 dark:border-slate-700 ml-3 space-y-12">
-                  {/* 1975 */}
-                  <div className="relative pl-8">
-                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#D4AF37] border-2 border-white dark:border-background-dark shadow-sm"></div>
-                    <span className="text-design-primary font-bold text-lg block mb-1">1974</span>
-                    <h4 className="text-xl font-bold text-text-dark dark:text-white mb-2">Foundation Established</h4>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      Regisbridge Academy opened its doors with just 50 students and 5 teachers, driven by a vision to provide quality education in the region.
-                    </p>
-                  </div>
-
-                  {/* 1990 */}
-                  <div className="relative pl-8">
-                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white dark:bg-background-dark border-2 border-design-primary"></div>
-                    <span className="text-design-primary font-bold text-lg block mb-1">1990</span>
-                    <h4 className="text-xl font-bold text-text-dark dark:text-white mb-2">Boarding Facilities Opened</h4>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      To accommodate students from across the country, we inaugurated our first boarding house, fostering a diverse and inclusive community.
-                    </p>
-                  </div>
-
-                  {/* 2010 */}
-                  <div className="relative pl-8">
-                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white dark:bg-background-dark border-2 border-design-primary"></div>
-                    <span className="text-design-primary font-bold text-lg block mb-1">2010</span>
-                    <h4 className="text-xl font-bold text-text-dark dark:text-white mb-2">A-Level Program Launch</h4>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      Expanding our academic offerings, we introduced the Advanced Level curriculum, paving the way for our graduates to enter top global universities.
-                    </p>
-                  </div>
-
-                  {/* 2023 */}
-                  <div className="relative pl-8">
-                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white dark:bg-background-dark border-2 border-design-primary"></div>
-                    <span className="text-design-primary font-bold text-lg block mb-1">2023</span>
-                    <h4 className="text-xl font-bold text-text-dark dark:text-white mb-2">Innovation Hub & Future Wings</h4>
-                    <p className="text-slate-600 dark:text-slate-400">
-                      Embracing the future, we launched a state-of-the-art STEM center and Innovation Hub, ensuring our students are ready for the digital age.
-                    </p>
-                  </div>
-                </div>
-              </div>
+        {/* Heritage Timeline */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
+            <div className="text-center mb-16">
+              <h2 className="text-brand-gold font-bold uppercase tracking-wider text-sm mb-3">
+                Our Heritage
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">A History of Distinction</h3>
             </div>
+            <Timeline events={TIMELINE_EVENTS} />
           </div>
         </section>
 
-        {/* 5. LEADERSHIP SECTION */}
-        <section className="py-20 bg-background-light dark:bg-background-dark">
+        {/* Leadership Section */}
+        <section className="py-20 bg-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
             <div className="text-center mb-16">
-              <h2 className="text-[#D4AF37] font-bold uppercase tracking-wider text-sm mb-3">Our Leadership</h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-text-dark dark:text-white">Guided by Excellence</h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
+              <h2 className="text-brand-gold font-bold uppercase tracking-wider text-sm mb-3">
+                Our Leadership
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Guided by Excellence</h3>
+              <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
                 Our institution is led by a team of dedicated professionals committed to the holistic development of every student.
               </p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* Headmaster */}
-              <div className="flex flex-col items-center text-center group">
-                <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-slate-100 dark:border-slate-800 group-hover:border-[#D4AF37] transition-colors shadow-lg">
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-700" />
-                </div>
-                <h4 className="text-xl font-bold text-text-dark dark:text-white">Dr. James Sterling</h4>
-                <span className="text-design-primary font-medium mb-2">Headmaster</span>
-                <p className="text-sm text-slate-500 dark:text-slate-400 px-4">
-                  Leading with 20+ years of experience in international education.
-                </p>
-              </div>
-
-              {/* Board Members */}
-              {['Sarah Jenkins - Chair of the Board', 'Michael Chen - Board Governor', 'Elena Rodriguez - Board Governor'].map((member, index) => (
+              {LEADERSHIP.map((leader, index) => (
                 <div key={index} className="flex flex-col items-center text-center group">
-                  <div className="w-40 h-40 rounded-full overflow-hidden mb-6 border-4 border-slate-100 dark:border-slate-800 group-hover:border-design-primary/50 transition-colors">
-                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700" />
+                  <div className={`${index === 0 ? 'w-48 h-48' : 'w-40 h-40'} rounded-full overflow-hidden mb-6 border-4 border-gray-100 ${index === 0 ? 'group-hover:border-brand-gold' : 'group-hover:border-brand-navy/50'} transition-colors shadow-lg`}>
+                    <Image
+                      src={leader.image}
+                      alt={leader.name}
+                      width={index === 0 ? 192 : 160}
+                      height={index === 0 ? 192 : 160}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
-                  <h4 className="text-lg font-bold text-text-dark dark:text-white">{member.split(' - ')[0]}</h4>
-                  <span className="text-slate-500 dark:text-slate-400 font-medium mb-1 text-sm">{member.split(' - ')[1]}</span>
+                  <h4 className={`${index === 0 ? 'text-xl' : 'text-lg'} font-bold text-gray-900`}>
+                    {leader.name}
+                  </h4>
+                  <span className={`${index === 0 ? 'text-brand-navy' : 'text-gray-500'} font-medium mb-2 text-sm`}>
+                    {leader.title}
+                  </span>
+                  {leader.description && (
+                    <p className="text-sm text-gray-500 px-4">{leader.description}</p>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* 6. CTA SECTION */}
-        <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#D4AF37 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-          
+        {/* CTA Section */}
+        <section className="bg-gray-900 text-white py-20 relative overflow-hidden">
+          {/* Dot pattern background */}
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: 'radial-gradient(#C9A227 1px, transparent 1px)',
+              backgroundSize: '30px 30px',
+            }}
+          ></div>
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10 text-center relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-6">Join the Regisbridge Family</h2>
-            <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
               Experience an education that goes beyond the classroom. Applications for the next academic year are now open.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/admissions" className="h-14 px-10 bg-design-primary hover:bg-design-primary-dark text-white rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-design-primary/50 flex items-center justify-center">
+              <Link
+                href="/admissions"
+                className="h-14 px-10 bg-brand-navy hover:bg-brand-navy-dark text-white rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-brand-navy/50 inline-flex items-center justify-center"
+              >
                 Apply for Admission
               </Link>
-              <button className="h-14 px-10 bg-transparent border-2 border-white hover:border-[#D4AF37] hover:text-[#D4AF37] text-white rounded-lg font-bold text-lg transition-all">
+              <Link
+                href="/contact"
+                className="h-14 px-10 bg-transparent border-2 border-white hover:border-brand-gold hover:text-brand-gold text-white rounded-lg font-bold text-lg transition-all inline-flex items-center justify-center"
+              >
                 Download Prospectus
-              </button>
+              </Link>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer - Simplified */}
-      <footer className="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <MaterialIcon icon="school" className="text-design-primary" size="lg" />
-                <span className="font-bold text-lg">Regisbridge Academy</span>
-              </div>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-                Nurturing excellence since 1974. A place where tradition meets innovation.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
-                <li><Link href="/about" className="hover:text-design-primary">About Us</Link></li>
-                <li><Link href="/admissions" className="hover:text-design-primary">Admissions</Link></li>
-                <li><Link href="/academics" className="hover:text-design-primary">Academics</Link></li>
-                <li><Link href="/campus-life" className="hover:text-design-primary">Campus Life</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
-                <li className="flex items-start gap-2">
-                  <MaterialIcon icon="location_on" className="text-[#D4AF37]" size="xs" />
-                  123 Education Lane, Academic City
-                </li>
-                <li className="flex items-center gap-2">
-                  <MaterialIcon icon="phone" className="text-[#D4AF37]" size="xs" />
-                  +1 (555) 123-4567
-                </li>
-                <li className="flex items-center gap-2">
-                  <MaterialIcon icon="email" className="text-[#D4AF37]" size="xs" />
-                  admissions@regisbridge.edu
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Newsletter</h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Subscribe to get the latest news and updates.</p>
-              <div className="flex gap-2">
-                <input 
-                  className="flex-1 bg-slate-100 dark:bg-slate-800 border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-design-primary" 
-                  placeholder="Your email" 
-                  type="email"
-                />
-                <button className="bg-design-primary text-white rounded-lg px-3 py-2 text-sm hover:bg-design-primary-dark">Go</button>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-            <p>© 2024 Regisbridge Academy. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link href="/privacy" className="hover:text-slate-600 dark:hover:text-slate-200">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-slate-600 dark:hover:text-slate-200">Terms of Service</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <PremiumFooter />
     </div>
   );
 }

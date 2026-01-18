@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alumni Network &amp; Registration - Prestige Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#d41111",
+              "background-light": "#f8f6f6",
+              "background-dark": "#181111", // Deep charcoal/black base
+              "surface-dark": "#271c1c", // Slightly lighter for cards
+              "silver-accent": "#b99d9d", // Muted silver/gray for text/borders
+            },
+            fontFamily: {
+              "display": ["Noto Serif", "serif"],
+              "sans": ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#392828] bg-background-dark/95 backdrop-blur px-10 py-3 shadow-lg">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-4xl">school</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">Prestige Academy</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 hidden md:flex">
+<div class="flex items-center gap-9">
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Home</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">About</a>
+<a class="text-white text-sm font-bold leading-normal border-b-2 border-primary pb-1" href="#">Alumni</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Events</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Contact</a>
+</div>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-red-700 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Portal Login</span>
+</button>
+</div>
+<button class="md:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative">
+<div class="relative flex min-h-[560px] flex-col items-center justify-center px-4 py-20 text-center">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0 h-full w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/60 to-background-dark/40 z-10"></div>
+<div class="h-full w-full bg-cover bg-center" data-alt="University graduates throwing caps in the air during a ceremony" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5VbdJ8tBvChsCqpRT62NGK67WXxa4BXjvoQFOKbhkG11OkrQcTjlXTzIZKofFwdxyiEtmXz59CnBRgFbK65p0dFt-WBWTi5qX2ztio9rTFO_EUq3Mi_sPBr3I50xbZ5_mv8dUaUNca3eshzj--cNvE3Bk7K24AOj-ExDy8UgxqiJQVi5c2vpc6Xq5udoJ1aSZ56sv4nSMTTdYWSenSKC_1of9plmCQKFeCx8IXqItK89gbLlDceqdHsPelEheC6Pa8JUtkC3sDrc');"></div>
+</div>
+<div class="relative z-20 flex max-w-[800px] flex-col gap-6 items-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+                            Since 1924
+                        </div>
+<h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight drop-shadow-xl font-display">
+                            Legacy of Excellence
+                        </h1>
+<p class="text-silver-accent text-lg md:text-xl font-normal leading-relaxed max-w-2xl drop-shadow-md">
+                            Welcome home. Reconnect with peers, mentor the next generation, and continue the tradition of distinction that defines Prestige Academy.
+                        </p>
+<div class="flex gap-4 mt-4">
+<a class="flex cursor-pointer items-center justify-center rounded-lg h-12 px-8 bg-primary hover:bg-red-700 text-white text-base font-bold transition-all shadow-lg shadow-primary/20" href="#register">
+                                Join Network
+                            </a>
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-12 px-8 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-base font-bold transition-all backdrop-blur-sm">
+                                View Events
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Registration Form Section -->
+<section class="py-16 px-4 md:px-10 flex justify-center bg-background-dark" id="register">
+<div class="w-full max-w-[960px] bg-surface-dark border border-[#392828] rounded-xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+<!-- Decorative silver accent -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-silver-accent/40 to-transparent"></div>
+<div class="mb-10 text-center">
+<h2 class="text-white text-3xl font-bold mb-3">Join the Alumni Database</h2>
+<p class="text-silver-accent">Update your details to receive invitations to exclusive reunions and networking events.</p>
+</div>
+<form class="flex flex-col gap-6">
+<!-- Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Full Name</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] px-4 text-base font-normal leading-normal transition-colors" placeholder="e.g. Eleanor Rigby" type="text"/>
+</label>
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Email Address</p>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-[#6e5858] text-lg">mail</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] pl-10 pr-4 text-base font-normal leading-normal transition-colors" placeholder="name@example.com" type="email"/>
+</div>
+</label>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Graduation Year</p>
+<select class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] px-4 text-base font-normal leading-normal transition-colors">
+<option disabled="" selected="" value="">Select Year</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="2021">2021</option>
+<option value="2020">2020</option>
+<option value="older">Older...</option>
+</select>
+</label>
+<label class="flex flex-col flex-1 md:col-span-2">
+<p class="text-white text-sm font-medium leading-normal pb-2">University Attended</p>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-[#6e5858] text-lg">school</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] pl-10 pr-4 text-base font-normal leading-normal transition-colors" placeholder="e.g. Oxford University" type="text"/>
+</div>
+</label>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Current Industry</p>
+<select class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] px-4 text-base font-normal leading-normal transition-colors">
+<option disabled="" selected="" value="">Select Industry</option>
+<option value="finance">Finance &amp; Banking</option>
+<option value="medicine">Medicine &amp; Health</option>
+<option value="tech">Technology</option>
+<option value="law">Law</option>
+<option value="arts">Arts &amp; Culture</option>
+</select>
+</label>
+<label class="flex flex-col flex-1">
+<p class="text-white text-sm font-medium leading-normal pb-2">Job Title</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-1 focus:ring-primary border border-[#543b3b] bg-[#1e1515] focus:border-primary h-12 placeholder:text-[#6e5858] px-4 text-base font-normal leading-normal transition-colors" placeholder="e.g. Senior Consultant" type="text"/>
+</label>
+</div>
+<div class="pt-4 flex justify-end">
+<button class="flex min-w-[200px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-red-700 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/20 transition-all">
+                                Complete Registration
+                            </button>
+</div>
+</form>
+</div>
+</section>
+<!-- Stay Connected & Mentorship -->
+<section class="py-16 px-4 md:px-10 bg-[#120d0d]">
+<div class="max-w-[1200px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+<div>
+<h2 class="text-white text-3xl font-bold mb-2">Stay Connected</h2>
+<p class="text-silver-accent max-w-lg">Join us for upcoming reunions, networking mixers, and charity galas.</p>
+</div>
+<a class="text-primary font-bold hover:text-white transition-colors flex items-center gap-1" href="#">
+                            View all events <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<!-- Event Card 1 -->
+<div class="group bg-surface-dark border border-[#392828] rounded-xl overflow-hidden hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-48 bg-cover bg-center relative" data-alt="People mingling at a formal evening event with warm lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuABx9-K4IsTL2SXAvAQHxcKyJf8YokjgHUXUDkEqRAj1gRZSrdESh8VDVPQIFmJ2aDNnFEBNXXs4c6z5CPaC7symDg6pIsjs-I6M_YbxPqD7Vfo1UBm2_ZYS0cYJVn9g_xXNp7IVKHYrULJN77VjX6OXYBwqsHFqT3KTHz03YNDpRkqwrv9iN28-fzslqYwUXwvykvwL8FH_VwcEWRDjKdJSjsVfSopYyKY8vPiDwOzEqh0ZHjeG0FWSv0JjOAbNGwi5q-c2tOFGOI');">
+<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded">NOV 12</div>
+</div>
+<div class="p-6">
+<h3 class="text-white text-lg font-bold mb-2 group-hover:text-primary transition-colors">Annual Winter Gala</h3>
+<p class="text-silver-accent text-sm mb-4">A black-tie evening of networking and fundraising for the scholarship fund.</p>
+<div class="flex items-center text-xs text-[#8c7474]">
+<span class="material-symbols-outlined text-sm mr-1">location_on</span>
+                                    The Grand Hall
+                                </div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="group bg-surface-dark border border-[#392828] rounded-xl overflow-hidden hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-48 bg-cover bg-center relative" data-alt="Group of friends talking outdoors at a casual reunion event" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYsNdjRBEFhj7iun3LLMAJlsPADFtHmP0mIC_VP7DRilAfOQtq5J_q4vdgMkuljpYb8MNczCTK9Nsc89GRTdHQJIOXMywJkN6RKk6Ql6mHVbBxYJ5etySh9-uZqU6FZYfFK2-uYKSEV57A3sEqqVpq0su3UCtEqW76JsfWcto3XURRiKdBrCglohWwwNEjtaVuxhtdeTshlJKiSQXVQi6QA6RAPwFLCE8vPZ3M8JHmNgK-2Oe8B8jFGkaP0ioRKpqL0KXF0TSFz6c');">
+<div class="absolute top-4 left-4 bg-background-dark/80 text-white text-xs font-bold px-3 py-1 rounded border border-white/10">DEC 05</div>
+</div>
+<div class="p-6">
+<h3 class="text-white text-lg font-bold mb-2 group-hover:text-primary transition-colors">Class of '14 Reunion</h3>
+<p class="text-silver-accent text-sm mb-4">Celebrating 10 years since graduation. Drinks, music, and memories.</p>
+<div class="flex items-center text-xs text-[#8c7474]">
+<span class="material-symbols-outlined text-sm mr-1">location_on</span>
+                                    Alumni Courtyard
+                                </div>
+</div>
+</div>
+<!-- Mentorship CTA Card -->
+<div class="bg-gradient-to-br from-surface-dark to-[#2a1515] border border-primary/30 rounded-xl p-8 flex flex-col justify-center items-center text-center relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+<div class="size-12 rounded-full bg-primary/20 flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-2xl">handshake</span>
+</div>
+<h3 class="text-white text-xl font-bold mb-2">Mentorship Program</h3>
+<p class="text-silver-accent text-sm mb-6">Guide a current A-Level student through their university application and career choices.</p>
+<button class="w-full py-3 px-4 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm transition-all">
+                                Become a Mentor
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Alumni Spotlight Grid -->
+<section class="py-20 px-4 md:px-10 bg-background-dark relative">
+<!-- Background Pattern -->
+<div class="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+<div class="max-w-[1200px] mx-auto relative z-10">
+<div class="text-center mb-16">
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-2 block">Success Stories</span>
+<h2 class="text-white text-4xl font-bold">Alumni Spotlights</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Spotlight 1 -->
+<div class="flex flex-col gap-4">
+<div class="w-full aspect-[4/5] rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Portrait of a confident professional woman in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGeLJPd-ECY4GYlmoktmiCDhZYORmhXhS5K_hbD2hfuYtL7GQQ2itjeC-rK-bycRlqOnef2ylkCPWQPHH9PEq2pQn2IJFifsnK962pcTDuCAT6R4YV199sCTYpOLGBd3YlLnSaL6ifvWqwceGweQxgtI4BM0HWIxU7Qa2jUlcRuLIlgdYcBudQZTTYEl7uZTcVPO-13-Qwe8OD7F4NHLDC3rVYHfbl2ikcts-OKeEtk2rNC7m3BxekGkk-A2nA9Rypm5aAi7UIVEA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Dr. Sarah Jensen</h4>
+<p class="text-silver-accent text-xs uppercase tracking-wider">Class of '08 • Neurosurgeon</p>
+</div>
+</div>
+<p class="text-silver-accent text-sm italic border-l-2 border-primary pl-3">
+                                "The discipline I learned at the Academy was instrumental in my medical training."
+                            </p>
+</div>
+<!-- Spotlight 2 -->
+<div class="flex flex-col gap-4 lg:mt-12">
+<div class="w-full aspect-[4/5] rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Portrait of a male business executive in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_ukqYOjfPckJRwwxNXrra4MLnexUziM413usTD8C7Ptfw-DCxxWWspdsjYOMhxlpvJHsXch_OYPRHDx--PCp_4Nzy_NiBQBDyz-3CtPHkx3FzQODpKgttsYlCjeLbsUMwD1VBzf1OU_fjnJEAglIi5GIWNB2g7NLIM35Xf0zAAeyjrwlz6V-fOz5q2CkGmb44OvuHNmBI0zYyaRwZQMA3fP0lSi9kZGrD84SnSd6Sv3ofWqbk35DUsY9a0jfg1pP0NpMFiPhMafQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Marcus Thorne</h4>
+<p class="text-silver-accent text-xs uppercase tracking-wider">Class of '12 • Fintech CEO</p>
+</div>
+</div>
+<p class="text-silver-accent text-sm italic border-l-2 border-primary pl-3">
+                                "Prestige gave me the network that eventually became my first investors."
+                            </p>
+</div>
+<!-- Spotlight 3 -->
+<div class="flex flex-col gap-4">
+<div class="w-full aspect-[4/5] rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Portrait of a creative female artist in a studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW4jCOoFxw-Qn8DWGrYOmiqAaZbL-SuhDgGTAPpKgv3FH_zCiK60f-bUcy6UKTYUMPzX_EXhdwX_S-suIvQGsTCfWPH0fVmph71RAyPWD8IgSGyAUdJDlwO7NAtK3TocrKJC9iN_x0JcBjr0XNyaNkqSBEyYEHTFnGcvadNd86PTIdsuAl-bZJ7QsCNeRfnKllLo4kzTIhelMoJIcFfwQlRilujkG5VJG8eUB5HE_kqJbJExuxebVjHSlYrhp-H0XHZzdcAUGC6io"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Elena Rodriguez</h4>
+<p class="text-silver-accent text-xs uppercase tracking-wider">Class of '15 • Architect</p>
+</div>
+</div>
+<p class="text-silver-accent text-sm italic border-l-2 border-primary pl-3">
+                                "My art teacher saw potential in me when I didn't see it in myself."
+                            </p>
+</div>
+<!-- Spotlight 4 -->
+<div class="flex flex-col gap-4 lg:mt-12">
+<div class="w-full aspect-[4/5] rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Portrait of a distinguished older man in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnBQVJwZARqy3MvXLo82co9KVsZ-AxlTBuXChXdJAC3hJfmFKesUwfjXFgjd0FvJsMfUoO180w0DwyEy0xtB_ZABLvSXHqwTUbXVF2iRfZh4HiTL1wBCH73MBeSSJi329u5uI9h8_xyXdGc2Y6zrgs-Kjf1iP7nfjQojjRyD5tfhDADEGTQTpae0KAwQccOOJSxA6MLldQ6Nb1Ewfm16xIoDcf4zYDvL6siIo0barWRa_IzFb5oE6GoirTUun8SXefbHVqH-DEaMQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-100"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">James Alcott</h4>
+<p class="text-silver-accent text-xs uppercase tracking-wider">Class of '85 • Diplomat</p>
+</div>
+</div>
+<p class="text-silver-accent text-sm italic border-l-2 border-primary pl-3">
+                                "Service to others is the greatest lesson I took from these halls."
+                            </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-[#120d0d] border-t border-[#392828] text-white py-12 px-10">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-1">
+<div class="flex items-center gap-2 text-white mb-4">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined">school</span>
+</div>
+<h2 class="text-white text-lg font-bold">Prestige Academy</h2>
+</div>
+<p class="text-silver-accent text-sm leading-relaxed">
+                        Educating leaders since 1924. A community built on excellence, integrity, and lifelong learning.
+                    </p>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-widest text-[#6e5858]">Explore</h4>
+<ul class="space-y-2 text-sm text-silver-accent">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Admissions</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Academics</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Boarding</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-widest text-[#6e5858]">Alumni</h4>
+<ul class="space-y-2 text-sm text-silver-accent">
+<li><a class="hover:text-primary transition-colors" href="#">My Profile</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Events Calendar</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Mentorship</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Donate</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-widest text-[#6e5858]">Contact</h4>
+<ul class="space-y-2 text-sm text-silver-accent">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-sm mt-0.5">location_on</span>
+<span>123 Scholar Way,<br/>Cambridge, UK</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">call</span>
+<span>+44 20 7946 0123</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span>alumni@prestige.edu</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-[#392828] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-[#6e5858]">
+<p>© 2023 Prestige Academy. All rights reserved.</p>
+<div class="flex gap-4 mt-4 md:mt-0">
+<a class="hover:text-white" href="#">Privacy Policy</a>
+<a class="hover:text-white" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

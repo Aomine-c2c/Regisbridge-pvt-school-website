@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>News Article Detail View - St. Mary's Academy</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#d41121",
+                "background-light": "#f8f6f6",
+                "background-dark": "#221012",
+                "silver": "#E5E7EB",
+                },
+                fontFamily: {
+                "display": ["Newsreader", "serif"],
+                "sans": ["Noto Sans", "sans-serif"],
+                },
+                borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181112] dark:text-white antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-silver dark:border-gray-800 bg-white dark:bg-[#1a0f10] px-10 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-[#181112] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">St. Mary's Academy</h2>
+</div>
+<nav class="flex items-center gap-9 hidden lg:flex">
+<a class="text-[#181112] dark:text-gray-200 text-base font-medium hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="text-[#181112] dark:text-gray-200 text-base font-medium hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-[#181112] dark:text-gray-200 text-base font-medium hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-primary text-base font-bold underline decoration-2 underline-offset-4" href="#">News</a>
+<a class="text-[#181112] dark:text-gray-200 text-base font-medium hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="hidden md:flex items-center justify-center text-[#896165] hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-red-700 transition-colors shadow-lg shadow-primary/20">
+<span class="truncate">Apply Now</span>
+</button>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="flex flex-col items-center pb-20">
+<!-- Hero Section with Overlay -->
+<div class="w-full relative h-[60vh] min-h-[500px] flex items-end justify-center overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Students debating in a grand hall with wood paneling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD86_toukkweJEo6affWvuXhgZmRn33Lzu5cVQM0-E0cAxpB-YOxzIwJRY8Gt5tSZY4Uh12gjidpB8FZeYPuRwBv9iJtnS1RGph6-9h7y-WCwSFToTT5Mgsw6rIpXYf5nd69kqzSbu0PlKEc_fNGB0nehebRz3VwiPmAiPsCu-e9RKEksXpnkfKf3aEz4375tTRyDsdauiJbVshZe80ElSnXr4Z4PE9sFfBPqFsH-BF-a6Ln-Eo1H3rjXW_4kuHtvSTdyxFHpczzjo");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent"></div>
+<div class="relative z-10 w-full max-w-[1200px] px-6 pb-12 lg:pb-16 text-white">
+<div class="flex flex-col gap-4 animate-fade-in-up">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/30">Academic Excellence</span>
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/30">News</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight max-w-4xl drop-shadow-md">
+                            Annual A-Level Debate Team Secures National Victory at Oxford
+                        </h1>
+<div class="flex flex-wrap items-center gap-4 text-sm md:text-base font-normal opacity-90 mt-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>October 24, 2023</span>
+</div>
+<span class="hidden sm:inline">•</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span>By Sarah Jenkins, Head of English</span>
+</div>
+<span class="hidden sm:inline">•</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+<span>5 min read</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Breadcrumbs -->
+<div class="w-full max-w-[1200px] px-6 py-6 border-b border-gray-200 dark:border-gray-700 mb-8">
+<div class="flex flex-wrap items-center gap-2 text-sm">
+<a class="text-gray-500 hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[18px]">home</span>
+                        Home
+                    </a>
+<span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">News</a>
+<span class="material-symbols-outlined text-[16px] text-gray-400">chevron_right</span>
+<span class="text-primary font-medium">Debate Team Victory</span>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full max-w-[1200px] px-6">
+<!-- Main Article Column -->
+<article class="lg:col-span-8 flex flex-col gap-8">
+<!-- Intro Paragraph -->
+<p class="text-xl md:text-2xl leading-relaxed font-medium text-gray-800 dark:text-gray-100 border-l-4 border-primary pl-6 py-1">
+                        The annual National Schools Debate Championship concluded yesterday evening with a resounding victory for our Upper Sixth form team. Against a backdrop of intense competition from over fifty schools nationwide, our students demonstrated exceptional rhetorical skill and critical thinking.
+                    </p>
+<!-- Article Body -->
+<div class="prose prose-lg prose-headings:font-display prose-p:font-display prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-headings:text-primary max-w-none text-lg leading-loose">
+<p>
+                            It was a tense final round held in the historic chambers of the Oxford Union. Our team, comprised of James Thornton, Priya Patel, and Michael Chang, faced off against the defending champions on the topic of "The Role of Artificial Intelligence in Modern Education." Their arguments were not only well-researched but delivered with the poise and articulation that St. Mary's has come to be known for.
+                        </p>
+<!-- Inline Image -->
+<figure class="my-10 rounded-xl overflow-hidden shadow-xl">
+<div class="w-full h-auto aspect-video bg-cover bg-center" data-alt="Debate team holding a gold trophy on stage smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-mwyobcs8116Ubqnekg55xQtij11eKj8HuqKKLal_DBEM5n2d9kNpFbsHHOKwLsVS5EsiKhzUyOmFBavydJYgDdzhBvSQdfGdGrJJTCsur3p3gfSLHNVfXViuwFrMLHcxPLkyrlmygjDY-lHSpVEgBLhzZFa1Ij9SgQ5BSd-WlKve8mreGC1_WQm0Arl89DB0KU4bp55vzMljJgyZwuMn4Hg8a1YEu15LS4G45xneQqax-oder4lhwcjrlrXf4Li1aSFvfUPJjbs");'>
+</div>
+<figcaption class="bg-gray-50 dark:bg-[#1a0f10] p-4 text-sm text-center text-gray-500 italic border-t border-gray-100 dark:border-gray-800">
+                                 The winning team receiving the Chancellor's Cup.
+                             </figcaption>
+</figure>
+<h3 class="text-2xl font-bold mb-4 mt-8">Preparation Meets Opportunity</h3>
+<p>
+                            "We've been preparing for this moment since the start of the academic year," remarked Sarah Jenkins, Head of English and the team's faculty advisor. "The students have sacrificed their lunch breaks and weekends to refine their arguments. This victory is a testament to their dedication and the rigorous intellectual environment we cultivate here at the Academy."
+                        </p>
+<!-- Pull Quote -->
+<blockquote class="p-8 my-8 bg-primary/5 rounded-2xl border border-primary/20 relative">
+<span class="material-symbols-outlined absolute top-4 left-4 text-4xl text-primary/20">format_quote</span>
+<p class="text-2xl italic font-serif text-primary text-center relative z-10">
+                                "The ability to articulate complex ideas under pressure is perhaps the most valuable skill we will take away from St. Mary's."
+                            </p>
+<footer class="text-center mt-4 text-sm font-bold uppercase tracking-widest text-gray-500">— Priya Patel, Team Captain</footer>
+</blockquote>
+<p>
+                            The victory ensures that St. Mary's will host the regional qualifiers next spring, bringing aspiring debaters from across the county to our campus. This event will align perfectly with the opening of our new Humanities Wing, scheduled for completion in January 2024.
+                        </p>
+<p>
+                            Beyond the trophy, each member of the winning team has been awarded a scholarship for their upcoming university studies, generously sponsored by the Alumni Association.
+                        </p>
+</div>
+<!-- Tags Section -->
+<div class="mt-8 pt-8 border-t border-silver dark:border-gray-700">
+<h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Filed Under</h4>
+<div class="flex flex-wrap gap-3">
+<a class="px-4 py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-full text-sm font-semibold transition-all duration-300" href="#">#Achievements</a>
+<a class="px-4 py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-full text-sm font-semibold transition-all duration-300" href="#">#DebateTeam</a>
+<a class="px-4 py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-full text-sm font-semibold transition-all duration-300" href="#">#UpperSchool</a>
+<a class="px-4 py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-full text-sm font-semibold transition-all duration-300" href="#">#AcademicExcellence</a>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="mt-8 p-8 bg-background-light dark:bg-[#2a1517] rounded-xl border border-silver dark:border-gray-800 flex flex-col md:flex-row items-center justify-between gap-6">
+<div>
+<h3 class="text-xl font-bold text-primary mb-2">Interested in our Academic Programs?</h3>
+<p class="text-gray-600 dark:text-gray-300">Discover how St. Mary's nurtures talent and critical thinking.</p>
+</div>
+<button class="flex whitespace-nowrap min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-6 bg-primary text-white text-base font-bold hover:bg-red-800 transition-colors shadow-lg">
+                            Request Prospectus
+                        </button>
+</div>
+</article>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Share Widget -->
+<div class="bg-white dark:bg-[#1a0f10] p-6 rounded-xl shadow-sm border border-silver dark:border-gray-800">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">share</span>
+                            Share this Article
+                        </h3>
+<div class="flex gap-2">
+<button class="flex-1 h-10 rounded-lg bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="font-sans font-bold text-sm">FB</span>
+</button>
+<button class="flex-1 h-10 rounded-lg bg-[#1DA1F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="font-sans font-bold text-sm">TW</span>
+</button>
+<button class="flex-1 h-10 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="font-sans font-bold text-sm">LN</span>
+</button>
+<button class="flex-1 h-10 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center hover:bg-gray-300 transition-colors">
+<span class="material-symbols-outlined text-sm">mail</span>
+</button>
+</div>
+</div>
+<!-- Related News -->
+<div class="bg-white dark:bg-[#1a0f10] p-6 rounded-xl shadow-sm border border-silver dark:border-gray-800">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold">Related News</h3>
+<a class="text-xs font-bold text-primary uppercase tracking-wide hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-6">
+<!-- Item 1 -->
+<a class="group flex gap-4 items-start" href="#">
+<div class="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Abstract view of modern building architecture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjei2kw6lBVjHu4SxO03kEaGMxP0pnIhLO52pY5IG5J5lbb-9YohLYHJjG9Msnso_p_dgOEA6e479hWtKkWilQAKxokOEE69wYSTe1LZXasL7Pvx6CjlNheEDf4tw5lyVh_K_B7GoeD870mJnfpaPtJKk13P6J4fXaxPA-kTt9G-vHa0Y75xO3xAvr8nOqfDJ1MR8KqWHzsIBn46Cd1V_Rob5R4tGsAVni0u8kYnkWjoDxlJwP4yJlQIYMlD_lgCi_i_ld7xIc-ko");'>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-primary mb-1 block">Academics</span>
+<h4 class="text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">New Science Wing Construction Begins Next Month</h4>
+<span class="text-xs text-gray-400 mt-2 block">Oct 15, 2023</span>
+</div>
+</a>
+<!-- Item 2 -->
+<a class="group flex gap-4 items-start" href="#">
+<div class="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Students playing soccer on a green field" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCx3O7-ztgvmpcpBvQmo5c44Ybo1ia_dnUpPr8jmv_0e7zdmt8q-q9IrKaX86zyHj3P5xbHkxkXeQZuFuwJQPkujgPgAu-Sgr25KMOWDj1ErB2H6CT9jy0AlpnoBv1qTTUyMZPx_fZVHDEnb0iDxEI_kgd5V6Pv8Hpe2m4lPA64cmJcgj3lEWNxrADFtvOjKnzteOoH50_Mq0835KMd26uOUaA83T5rifS1FlCdLU2lWJ3r3CvXEMv-dYui76xfVHzX4xxVueo5q54");'>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-primary mb-1 block">Sports</span>
+<h4 class="text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">Girls Soccer Team Qualifies for State Finals</h4>
+<span class="text-xs text-gray-400 mt-2 block">Oct 10, 2023</span>
+</div>
+</a>
+<!-- Item 3 -->
+<a class="group flex gap-4 items-start" href="#">
+<div class="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Close up of violin being played" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2tGvMelWehmPAOGm5cqjVyxh6wNf7yYfW_6KVgky7LVDQMW_FQqi9ZkgN0ievQI0d3yaDRSCpYc7dabFXRc8fg036ntABy-jl1jCnKeZ3E51e5PWJstQVH-lCHjpkjA_9PwYBCKNEDrcYOsQLBk3zyinBHu0qNnNzf2GbWoxlfiOISluv9B11_r29j3KI5IjMuX3L6iKMEL8QCKFn2ziEuphOEM3vO8ie5AX_vY74-yhhf2Gr2EknT2Z-lebeMptX0GQ_UaU7dZ4");'>
+</div>
+</div>
+<div>
+<span class="text-xs font-bold text-primary mb-1 block">Arts</span>
+<h4 class="text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">Fall Orchestral Concert Dates Announced</h4>
+<span class="text-xs text-gray-400 mt-2 block">Sep 28, 2023</span>
+</div>
+</a>
+</div>
+</div>
+<!-- Newsletter Signup -->
+<div class="bg-primary p-6 rounded-xl shadow-lg text-white relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<h3 class="text-lg font-bold mb-2 relative z-10">Stay Updated</h3>
+<p class="text-white/80 text-sm mb-4 relative z-10">Subscribe to our weekly newsletter for the latest updates from St. Mary's.</p>
+<form class="flex flex-col gap-3 relative z-10">
+<input class="w-full h-10 rounded-lg px-4 text-gray-900 border-none focus:ring-2 focus:ring-white/50 bg-white/90 placeholder:text-gray-500" placeholder="Your email address" type="email"/>
+<button class="w-full h-10 rounded-lg bg-[#221012] text-white font-bold text-sm hover:bg-[#180c0d] transition-colors flex items-center justify-center gap-2" type="submit">
+                                Subscribe
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+</div>
+<!-- Back Link -->
+<a class="flex items-center justify-center w-full py-4 text-gray-500 hover:text-primary transition-colors gap-2 font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        Back to All News
+                    </a>
+</aside>
+</div>
+</main>
+<!-- Footer (Simplified) -->
+<footer class="bg-background-dark text-white pt-16 pb-8 border-t-4 border-primary">
+<div class="w-full max-w-[1200px] mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<div>
+<h2 class="text-xl font-bold leading-none">St. Mary's Academy</h2>
+<p class="text-white/60 text-sm mt-1">Excellence in Education since 1895</p>
+</div>
+</div>
+<div class="flex gap-6">
+<a class="text-white/70 hover:text-white transition-colors" href="#">Privacy</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">Terms</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">Contact</a>
+</div>
+</div>
+<div class="text-center md:text-left text-white/40 text-sm border-t border-white/10 pt-8">
+                    © 2023 St. Mary's Academy. All rights reserved.
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

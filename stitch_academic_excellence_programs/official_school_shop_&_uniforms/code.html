@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Official School Shop &amp; Uniforms</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111", // Maroon
+                        "primary-dark": "#a00d0d",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#181111", // Deep Charcoal
+                        "surface-dark": "#251a1a", // Slightly lighter for cards
+                        "silver": "#C0C0C0",
+                        "silver-dark": "#8a8a8a",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Noto Serif", serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden">
+<div class="flex min-h-screen flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-[#392828] bg-[#181111]/95 backdrop-blur-md px-6 py-4 md:px-10">
+<div class="flex items-center gap-8">
+<!-- Logo -->
+<a class="flex items-center gap-3 text-white group" href="#">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">St. Prestige Academy</h2>
+<span class="text-xs text-silver-dark font-sans uppercase tracking-widest">Official Store</span>
+</div>
+</a>
+<!-- Nav Links (Desktop) -->
+<nav class="hidden lg:flex items-center gap-8 pl-8">
+<a class="text-white hover:text-primary transition-colors text-sm font-medium" href="#">Home</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium" href="#">Uniforms</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium" href="#">Sportswear</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium" href="#">Stationery</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium" href="#">House Gear</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="hidden md:flex relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-silver-dark group-focus-within:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="h-10 w-64 rounded-full border border-[#392828] bg-[#251a1a] pl-10 pr-4 text-sm text-white placeholder-silver-dark focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="Search blazers, ties..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#251a1a] text-silver hover:bg-[#392828] hover:text-white transition-colors">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#251a1a] text-silver hover:bg-[#392828] hover:text-white transition-colors group">
+<span class="material-symbols-outlined group-hover:icon-fill">shopping_cart</span>
+<span class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-sm">2</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar -->
+<aside class="hidden w-64 flex-col border-r border-[#392828] bg-[#181111] lg:flex">
+<div class="flex flex-1 flex-col overflow-y-auto px-6 py-8">
+<!-- Categories -->
+<div class="mb-10">
+<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-silver-dark font-sans">Departments</h3>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined icon-fill text-[20px]">grid_view</span>
+<span class="text-sm font-medium">All Products</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-silver hover:bg-[#251a1a] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">checkroom</span>
+<span class="text-sm font-medium">Uniforms</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-silver hover:bg-[#251a1a] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+<span class="text-sm font-medium">Sportswear</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-silver hover:bg-[#251a1a] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="text-sm font-medium">Stationery</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-silver hover:bg-[#251a1a] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">local_mall</span>
+<span class="text-sm font-medium">Merchandise</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- House Filter -->
+<div class="mb-10">
+<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-silver-dark font-sans">Filter by House</h3>
+<ul class="flex flex-col gap-3">
+<li class="flex items-center gap-3 cursor-pointer group">
+<span class="h-4 w-4 rounded-full bg-red-600 ring-2 ring-offset-2 ring-offset-[#181111] ring-transparent group-hover:ring-red-600 transition-all"></span>
+<span class="text-sm text-silver group-hover:text-white transition-colors">Windsor</span>
+</li>
+<li class="flex items-center gap-3 cursor-pointer group">
+<span class="h-4 w-4 rounded-full bg-blue-600 ring-2 ring-offset-2 ring-offset-[#181111] ring-transparent group-hover:ring-blue-600 transition-all"></span>
+<span class="text-sm text-silver group-hover:text-white transition-colors">Stuart</span>
+</li>
+<li class="flex items-center gap-3 cursor-pointer group">
+<span class="h-4 w-4 rounded-full bg-green-600 ring-2 ring-offset-2 ring-offset-[#181111] ring-transparent group-hover:ring-green-600 transition-all"></span>
+<span class="text-sm text-silver group-hover:text-white transition-colors">Tudor</span>
+</li>
+<li class="flex items-center gap-3 cursor-pointer group">
+<span class="h-4 w-4 rounded-full bg-yellow-500 ring-2 ring-offset-2 ring-offset-[#181111] ring-transparent group-hover:ring-yellow-500 transition-all"></span>
+<span class="text-sm text-silver group-hover:text-white transition-colors">Hanover</span>
+</li>
+</ul>
+</div>
+<!-- Service Highlight -->
+<div class="mt-auto rounded-xl bg-[#251a1a] p-4 border border-[#392828]">
+<div class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+<h4 class="text-sm font-bold text-white mb-1">Dorm Delivery</h4>
+<p class="text-xs text-silver-dark">Free delivery to all boarding houses for orders over $50.</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Hero Section -->
+<div class="relative w-full h-[320px] md:h-[400px] overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Students walking in school hallway wearing uniform" style="background-image: linear-gradient(to right, rgba(24, 17, 17, 0.9) 0%, rgba(24, 17, 17, 0.4) 50%, rgba(24, 17, 17, 0.1) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoGLj658UP1mlQO_p7zMpmzgvknP3ZuQOnsYYZPh1ctwbB28bAL43_AuBXjgmHAvC-2q4FphVetefUqI9yGAHJ8umfpym3qf65eCHQzgr0Kce_AZugNCpZieFxV7E5SIyK6WTcgV8PP4waYXNkthP5jhUJ4Xrdsf-TYsgn_xP5_BL3afou3xmC7oyCcwryIh4WT52CjeAu67ZC6J3fdnew91KvtArTW4aU1zVqILLjJqlydVZSPtl6lwp7PM2F88y8hc9NXvC7_qA');">
+</div>
+<div class="relative z-10 flex h-full flex-col justify-center px-6 md:px-12 max-w-4xl">
+<span class="mb-3 inline-block w-fit rounded-full bg-primary/90 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white shadow-sm">
+                            New Academic Year
+                        </span>
+<h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-white mb-4">
+                            Wear Your Pride
+                        </h1>
+<p class="text-lg text-gray-200 max-w-xl mb-8 font-light">
+                            Premium quality uniforms and sportswear tailored for the distinguished student. Pre-order your winter essentials today.
+                        </p>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20">
+                                Shop Uniforms
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white hover:bg-white/10 transition-colors backdrop-blur-sm">
+                                View House Gear
+                            </button>
+</div>
+</div>
+</div>
+<div class="p-6 md:p-10">
+<!-- Section Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold text-white mb-1">Featured Collection</h2>
+<p class="text-silver-dark text-sm">Essentials for the upcoming term.</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-2 rounded-lg bg-[#251a1a] border border-[#392828] p-1">
+<button class="p-1.5 rounded bg-[#392828] text-white shadow-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span></button>
+<button class="p-1.5 rounded text-silver hover:text-white"><span class="material-symbols-outlined text-[20px]">view_list</span></button>
+</div>
+<select class="h-10 rounded-lg border-none bg-[#251a1a] text-sm text-white focus:ring-1 focus:ring-primary pl-3 pr-8">
+<option>Sort by: Recommended</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<span class="absolute left-3 top-3 z-10 rounded bg-primary px-2 py-1 text-xs font-bold text-white">Best Seller</span>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Premium navy blue school blazer hanging" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHqtBXMgyuQ24Z6TpmUDxSzLgVGgfPT8pzUKV6hOvPhItSW6d3FE8rE4FH6DQJsrnww-LukKMkh9vrdsKrlfstj6FQNoIBIZjs7b16pgHjKj_YYCkwErf7HKVbQsggwV-43NoN0m3-CYeYbjpbIco3xeC5pGnZvmH2cRXAmAsga4OrAQ9FJPSd79FAg3zVLpdnZDzZmwdZ5vk6v_GauyFq7mmY-1QcDxmd45FJ8YJmUvbKN1KRMalqX4_7hyBhCLfLlqN0FBtgsv0');">
+</div>
+<!-- Quick Add Overlay -->
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">Senior Honours Blazer</h3>
+<p class="text-xs text-silver-dark mb-3">Formal Wear • Senior School</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$145.00</span>
+<div class="flex gap-1">
+<span class="h-3 w-3 rounded-full bg-blue-900 border border-white/20"></span>
+<span class="h-3 w-3 rounded-full bg-black border border-white/20"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Striped school tie folded neatly" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1-7tilETCkz6V6qrXfz45MNy7vsl6M1NsdpSwQLDUJJx2n3KsPTN_r9vnjAwJbSTfOEuUVeF-B-PC-7tuVV-CVAY6BdZvuLwRpgH_QTPAE_FQ_K52Zsa818c4zM0CO97FSfnDl4QsJ9QVrlP5bcIOFQ79yN4WoHSQe7o6eJN0bUYysFv-Efhn1CZ37beNC2uah1zQhkgCgPuqECLg0QqwpJH4XEN6_cx16Pc-SJp_jUo-tq9_q-aknxTSbtN8qPjEKkisC_mD_0Q');">
+</div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">House Silk Tie</h3>
+<p class="text-xs text-silver-dark mb-3">Accessories • All Houses</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$35.00</span>
+<div class="flex gap-1">
+<span class="h-3 w-3 rounded-full bg-red-600 border border-white/20"></span>
+<span class="h-3 w-3 rounded-full bg-blue-600 border border-white/20"></span>
+<span class="h-3 w-3 rounded-full bg-green-600 border border-white/20"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<span class="absolute left-3 top-3 z-10 rounded bg-white/10 backdrop-blur-md px-2 py-1 text-xs font-bold text-white">Low Stock</span>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="White collared shirt folded" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8xJ8g5Qg93iZkNf29y5ihNZhRk_HN_rA9dNu-TcM58fveV66JxSQvLPmwpVnuUY40legdufIW13dU9RTORIrPe8Z2Dg9t1qDXsk5zJWXZG_Ohfdgv8iQ-O1Y0j95-RaTwv2zX1CRUfccyHfd61dd67BUVjDL-luuDICr7hlGpgD89eXT4J31SbZ6wQ0-2MonnV_I14Y8bOCUvmgw-GZhCEoyOHNlQ7NfahWs7dd80h63gYAai-KNEzYkPkNT-iA6YG9p9pA2tUt0');">
+</div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">Oxford Cotton Shirt (2pk)</h3>
+<p class="text-xs text-silver-dark mb-3">Uniforms • Junior &amp; Senior</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$45.00</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Generic white sneakers for sports" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBlvNBNeYpmU800nY0ifMj9QwjOIDYe3bfamYmCALcOGwzRjE95Q95ZRabzhRKD-MJQ-aJvybTWIFr0Wa3HIDFmV8Tcp3t4aIJLGHsnQDTujsegYd2OMjHgencuGshDywcv1egGUi6PVLTEIidagrU_ur45p3RbBu3XhDDBy3JJ0uhfyotZT_1b6mrKWXKrkEQx4-aHTY1SyUfUYnLBRTknZlKo9rkfilx65SxfF6Bl_Fc6kGPdbSAnWuIN3w0GAQI3OCuaPAQLPkY');">
+</div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">Pro-Court Tennis Shoes</h3>
+<p class="text-xs text-silver-dark mb-3">Sportswear • Unisex</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$89.00</span>
+</div>
+</div>
+</div>
+<!-- Product Card 5 (Stationery) -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Leather notebook and fountain pen on desk" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFpD8QZqXasmu9v_KqwR665SicMq-zXlbjeXJd11kssTu6fqhI6Z82rVW9rusCQG1Kn2XDVJU-ymlHBWCfYEkctO2ip_DXb_PTszQu-RRLnQkJytgTXzdDBpPeAFYtnT6D0nsJvbKGb8RF4fofzOFQwDBHI3zUJdPuUSYWLswJH8N_A_kg89T8RlyhAGwIiJQ_NKnD8xPCTwI25vRNvwQ8MXFDzkkbQdQdRUrpM0xO8Dgnx6rdBHauznoGR5AW0iO30vCNE088SRc');">
+</div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">Academy Crest Notebook</h3>
+<p class="text-xs text-silver-dark mb-3">Stationery • Hardcover</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$18.00</span>
+</div>
+</div>
+</div>
+<!-- Product Card 6 (House Gear - Scarf) -->
+<div class="group relative flex flex-col rounded-xl bg-[#251a1a] border border-[#392828] overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-black/50">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-[#2a2020]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Folded knitted wool scarf" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAU0QGgzI-GfcL36XudqXWjv-NQDWaqQcKgiXX0sZv4fhb4fqIv9iyUlJZLYZG5UlQmkjkVgIAksvWJBzxfB_YOZ2rDd7bFu-f2nVnhZBDx-eG-W87anKMEL91knWoxcPCHVgpZ-yfJd7wjaeN_Nxt1yibx0vHfz9wSI1L0lBuDY_vdndVOuvYBBiDsrZJg-wlCFIUzTUrcqz_CERKNoV5jCH7c0vrGHamuZW0jG30y2CiA3sACBRfQ6hW3QJj151A5rIE1zY5owCw');">
+</div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[90%] bg-white text-background-dark font-bold text-sm py-2.5 rounded shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                                    Add to Cart
+                                </button>
+</div>
+<div class="flex flex-col p-4">
+<h3 class="text-lg font-bold text-white mb-1 line-clamp-1">Merino Wool House Scarf</h3>
+<p class="text-xs text-silver-dark mb-3">House Gear • Winter</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-lg font-bold text-primary">$55.00</span>
+<div class="flex gap-1">
+<span class="h-3 w-3 rounded-full bg-red-600 border border-white/20"></span>
+<span class="h-3 w-3 rounded-full bg-yellow-500 border border-white/20"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Delivery & Info Banner -->
+<div class="mt-16 rounded-2xl bg-gradient-to-r from-[#251a1a] to-[#181111] border border-[#392828] p-8 md:p-12 relative overflow-hidden">
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div>
+<h2 class="text-2xl font-bold text-white mb-4">Convenient Delivery Options</h2>
+<p class="text-silver mb-8 max-w-md">We ensure your gear arrives ready for the school day. Choose the method that suits your schedule.</p>
+<div class="flex flex-col gap-4">
+<label class="flex items-center gap-4 p-4 rounded-xl border border-[#392828] bg-[#181111]/50 cursor-pointer hover:border-primary/50 transition-colors group">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div>
+<h4 class="font-bold text-white text-sm">Click &amp; Collect</h4>
+<p class="text-xs text-silver-dark">Available from the Main Hall reception (8am - 5pm).</p>
+</div>
+<div class="ml-auto">
+<input class="text-primary focus:ring-primary bg-transparent border-silver-dark" name="delivery" type="radio"/>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl border border-[#392828] bg-[#181111]/50 cursor-pointer hover:border-primary/50 transition-colors group">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">bed</span>
+</div>
+<div>
+<h4 class="font-bold text-white text-sm">Dormitory Delivery</h4>
+<p class="text-xs text-silver-dark">Direct to student's room. Orders before 2pm delivered same day.</p>
+</div>
+<div class="ml-auto">
+<input class="text-primary focus:ring-primary bg-transparent border-silver-dark" name="delivery" type="radio"/>
+</div>
+</label>
+</div>
+</div>
+<div class="hidden md:flex justify-center relative">
+<!-- Abstract decorative elements -->
+<div class="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-4 max-w-sm">
+<div class="flex gap-4 p-4 rounded-lg bg-[#2a2020] border border-[#392828] shadow-lg">
+<div class="h-12 w-12 rounded bg-cover bg-center" data-alt="Blazer thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDW3RsO9aorBnP84HlIX4X_-P_DXxT-1ucgUDAIm-2JoBSucsloV2mUfP0OpwiFdEWIKCZtGH4hr_fkoZbCV9aDK5_60FMHu2-YqDnlAE30T2jLLuAedR3Capp7zgLV-2z4p4j0Hl-OR4q3ReF9U-9HPzpSMrjFfbkaGt5p8Wc6CI0_1x3bFBMsavNTWq09I6EPsVES4HZUEYR-niXMUEUO0AUSw2vU7V-_mcwBfNqWgoxNAY2F5TqvXX8NXLM6Tb5U74qD3jpxIK8');"></div>
+<div>
+<div class="h-2 w-24 bg-white/10 rounded mb-2"></div>
+<div class="h-2 w-16 bg-white/10 rounded"></div>
+</div>
+<div class="ml-auto text-primary font-bold text-xs">Ready</div>
+</div>
+<div class="flex gap-4 p-4 rounded-lg bg-[#2a2020] border border-[#392828] shadow-lg translate-x-4">
+<div class="h-12 w-12 rounded bg-cover bg-center" data-alt="Tie thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDx37QwrGEOMd4BYT6VnAaDTGLU1J6r9Rrd57ezrRDlF72HWLEdrMjJ9S47Lr6lDmzHEgg3JoVf_PKnjzss_b0W7TAcljpmv_AZn4eDPG3tvpGOf37x3YEZsW2o2cWEyDHK2YBryvROR-PmmWMpfml7saXs_5k3A9lev5G4ntpw-Rd_E1u0Fqaw82ryuKEeZVKENUneHjN0KKX37XxgD5KoExL_3VRFzUcv32cCbgMAJvDjclTCm_WpFDTBouJQ-dRIxmajeIV6X9w');"></div>
+<div>
+<div class="h-2 w-24 bg-white/10 rounded mb-2"></div>
+<div class="h-2 w-16 bg-white/10 rounded"></div>
+</div>
+<div class="ml-auto text-primary font-bold text-xs">Processing</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Preview -->
+<footer class="mt-16 border-t border-[#392828] pt-8 pb-4">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-silver-dark">
+<p>© 2024 St. Prestige Academy. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-white" href="#">Returns Policy</a>
+<a class="hover:text-white" href="#">Size Guide</a>
+<a class="hover:text-white" href="#">Contact Bursar</a>
+</div>
+</div>
+</footer>
+</div>
+</main>
+</div>
+</div>
+</body></html>

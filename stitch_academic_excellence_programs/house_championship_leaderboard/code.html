@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>House Championship Leaderboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                        "silver-light": "#F3F4F6",
+                        "silver-dark": "#374151",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for table if needed */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white font-display min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-[#181111] border-b border-[#f4f0f0] dark:border-[#333] px-4 md:px-10 py-3 shadow-sm">
+<div class="max-w-7xl mx-auto flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-4 text-[#181111] dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">St. Ivory Academy</h2>
+</div>
+<!-- Desktop Menu -->
+<div class="hidden lg:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Houses</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Sports</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-silver-light dark:bg-silver-dark text-[#181111] dark:text-white text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+<span>Term 3 2024</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-md hover:bg-red-700 transition-colors">
+<span>Login</span>
+</button>
+</div>
+</div>
+<!-- Mobile Menu Icon -->
+<button class="lg:hidden text-[#181111] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-10 py-8">
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div class="flex min-w-72 flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold text-sm tracking-widest uppercase mb-1">
+<span class="material-symbols-outlined text-lg">emoji_events</span>
+                    Official Leaderboard
+                </div>
+<h1 class="text-[#181111] dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]">House Championship</h1>
+<p class="text-gray-600 dark:text-gray-400 text-lg font-normal">Term 3 Standings &amp; Statistics</p>
+</div>
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-lg">update</span>
+                Last updated: Today, 09:00 AM
+            </div>
+</div>
+<!-- Leaderboard Hero Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+<!-- 1st Place (Spans 2 cols on large, full width) -->
+<div class="lg:col-span-4 relative group overflow-hidden rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 mix-blend-multiply z-10"></div>
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1577979749830-f1d742b96791?q=80&amp;w=2574&amp;auto=format&amp;fit=crop')] bg-cover bg-center" data-alt="Majestic red phoenix illustration background"></div>
+<div class="relative z-20 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex flex-col md:flex-row items-center gap-6">
+<!-- Crest -->
+<div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-yellow-400/50">
+<span class="material-symbols-outlined text-6xl md:text-7xl text-primary">local_fire_department</span>
+</div>
+<div class="text-center md:text-left">
+<div class="inline-flex items-center gap-1 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded mb-2">
+<span class="material-symbols-outlined text-sm">trophy</span> CURRENT LEADER
+                            </div>
+<h2 class="text-white text-4xl font-black tracking-tight mb-1">Phoenix House</h2>
+<p class="text-white/90 text-lg italic">"From the ashes, we rise."</p>
+</div>
+</div>
+<div class="flex flex-col items-center md:items-end">
+<span class="text-white/80 text-sm font-bold uppercase tracking-widest">Total Points</span>
+<div class="text-white text-6xl md:text-7xl font-black tracking-tighter drop-shadow-md">1,250</div>
+<div class="flex items-center gap-2 text-white/90 bg-white/10 px-3 py-1 rounded-full mt-2 backdrop-blur-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> +45 this week
+                        </div>
+</div>
+</div>
+</div>
+<!-- Runners Up Grid -->
+<!-- Lion -->
+<div class="bg-white dark:bg-[#1f1a1a] p-6 rounded-xl shadow-md border-t-4 border-gray-400 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute top-2 right-2 text-gray-300 font-black text-6xl opacity-20 z-0">2</div>
+<div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4 z-10 text-gray-700 dark:text-gray-300 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">pets</span>
+</div>
+<h3 class="text-xl font-bold mb-1 z-10">Lion House</h3>
+<p class="text-4xl font-black text-primary mb-2 z-10">1,100</p>
+<span class="text-xs text-gray-500 font-medium z-10">Trailing by 150 pts</span>
+</div>
+<!-- Eagle -->
+<div class="bg-white dark:bg-[#1f1a1a] p-6 rounded-xl shadow-md border-t-4 border-amber-700 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute top-2 right-2 text-gray-300 font-black text-6xl opacity-20 z-0">3</div>
+<div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4 z-10 text-gray-700 dark:text-gray-300 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">flight</span>
+</div>
+<h3 class="text-xl font-bold mb-1 z-10">Eagle House</h3>
+<p class="text-4xl font-black text-primary mb-2 z-10">980</p>
+<span class="text-xs text-gray-500 font-medium z-10">Trailing by 270 pts</span>
+</div>
+<!-- Falcon -->
+<div class="bg-white dark:bg-[#1f1a1a] p-6 rounded-xl shadow-md border-t-4 border-blue-900 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute top-2 right-2 text-gray-300 font-black text-6xl opacity-20 z-0">4</div>
+<div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4 z-10 text-gray-700 dark:text-gray-300 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">rocket_launch</span>
+</div>
+<h3 class="text-xl font-bold mb-1 z-10">Falcon House</h3>
+<p class="text-4xl font-black text-primary mb-2 z-10">945</p>
+<span class="text-xs text-gray-500 font-medium z-10">Trailing by 305 pts</span>
+</div>
+</div>
+<!-- Two Column Section: Stats & Graph -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-12">
+<!-- Table Section -->
+<div class="xl:col-span-2 bg-white dark:bg-[#1f1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col">
+<div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
+<h3 class="text-xl font-bold">Category Breakdown</h3>
+<button class="text-primary text-sm font-bold hover:underline">View Full Report</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full min-w-[600px] text-left">
+<thead>
+<tr class="bg-silver-light dark:bg-silver-dark/30 text-xs uppercase tracking-wider text-gray-600 dark:text-gray-300">
+<th class="p-4 font-bold rounded-tl-lg">House</th>
+<th class="p-4 font-semibold text-right">Academics</th>
+<th class="p-4 font-semibold text-right">Sports</th>
+<th class="p-4 font-semibold text-right">Arts</th>
+<th class="p-4 font-semibold text-right">Discipline</th>
+<th class="p-4 font-bold text-right text-primary rounded-tr-lg">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800 text-sm">
+<!-- Phoenix Row -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="p-4 font-bold flex items-center gap-3">
+<span class="size-2 rounded-full bg-red-500"></span> Phoenix
+                                </td>
+<td class="p-4 text-right">450</td>
+<td class="p-4 text-right">380</td>
+<td class="p-4 text-right">220</td>
+<td class="p-4 text-right text-green-600 font-bold">+200</td>
+<td class="p-4 text-right font-black text-base">1,250</td>
+</tr>
+<!-- Lion Row -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="p-4 font-bold flex items-center gap-3">
+<span class="size-2 rounded-full bg-gray-500"></span> Lion
+                                </td>
+<td class="p-4 text-right">410</td>
+<td class="p-4 text-right">400</td>
+<td class="p-4 text-right">190</td>
+<td class="p-4 text-right text-green-600 font-bold">+100</td>
+<td class="p-4 text-right font-black text-base">1,100</td>
+</tr>
+<!-- Eagle Row -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="p-4 font-bold flex items-center gap-3">
+<span class="size-2 rounded-full bg-amber-700"></span> Eagle
+                                </td>
+<td class="p-4 text-right">390</td>
+<td class="p-4 text-right">250</td>
+<td class="p-4 text-right">240</td>
+<td class="p-4 text-right text-green-600 font-bold">+100</td>
+<td class="p-4 text-right font-black text-base">980</td>
+</tr>
+<!-- Falcon Row -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="p-4 font-bold flex items-center gap-3">
+<span class="size-2 rounded-full bg-blue-900"></span> Falcon
+                                </td>
+<td class="p-4 text-right">320</td>
+<td class="p-4 text-right">310</td>
+<td class="p-4 text-right">280</td>
+<td class="p-4 text-right text-red-500 font-bold">-35</td>
+<td class="p-4 text-right font-black text-base">945</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Graph Section -->
+<div class="bg-white dark:bg-[#1f1a1a] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-xl font-bold">Term Trajectory</h3>
+<p class="text-gray-500 text-sm mt-1">Weekly point accumulation</p>
+</div>
+<div class="flex gap-2 text-xs">
+<span class="flex items-center gap-1"><span class="w-3 h-1 bg-primary rounded-full"></span> Phoenix</span>
+<span class="flex items-center gap-1"><span class="w-3 h-1 bg-gray-400 rounded-full"></span> Others</span>
+</div>
+</div>
+<!-- Static CSS Graph Visualization -->
+<div class="flex-1 min-h-[250px] relative flex items-end justify-between gap-2 px-2 pb-6 border-b border-l border-gray-200 dark:border-gray-700">
+<!-- Y Axis Labels absolute positioned -->
+<div class="absolute -left-0 top-0 bottom-6 flex flex-col justify-between text-[10px] text-gray-400 -translate-x-full pr-2 py-1">
+<span>1500</span>
+<span>1000</span>
+<span>500</span>
+<span>0</span>
+</div>
+<!-- SVG Lines Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none pb-6 pl-2" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Phoenix Line (Red) -->
+<path d="M0,80 Q25,70 50,40 T100,10" fill="none" stroke="#d41111" stroke-linecap="round" stroke-width="3" vector-effect="non-scaling-stroke"></path>
+<!-- Lion Line (Gray) -->
+<path d="M0,85 Q25,75 50,55 T100,30" fill="none" stroke="#9ca3af" stroke-dasharray="4,4" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<!-- Eagle Line (Gray) -->
+<path d="M0,90 Q25,85 50,65 T100,45" fill="none" stroke="#d1d5db" stroke-dasharray="2,2" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- X Axis Labels (Weeks) -->
+<div class="absolute bottom-0 left-0 w-full flex justify-between text-[10px] text-gray-400 px-2">
+<span>Wk 1</span>
+<span>Wk 3</span>
+<span>Wk 6</span>
+<span>Wk 9</span>
+<span>Finals</span>
+</div>
+<!-- Decorative Bars for visual filling -->
+<div class="w-full h-full flex items-end justify-between gap-4 opacity-5 z-0">
+<div class="w-1/5 bg-primary h-[20%] rounded-t"></div>
+<div class="w-1/5 bg-primary h-[40%] rounded-t"></div>
+<div class="w-1/5 bg-primary h-[60%] rounded-t"></div>
+<div class="w-1/5 bg-primary h-[80%] rounded-t"></div>
+<div class="w-1/5 bg-primary h-[95%] rounded-t"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Member of the Month Section -->
+<div class="mb-12">
+<h2 class="text-[#181111] dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em] mb-6 border-l-4 border-primary pl-4">House Stars of the Month</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="flex flex-col items-center bg-white dark:bg-[#1f1a1a] p-6 rounded-lg border border-[#e6dbdb] dark:border-gray-800 text-center hover:shadow-md transition-shadow">
+<div class="relative mb-4">
+<div class="w-20 h-20 rounded-full bg-cover bg-center border-4 border-primary" data-alt="Portrait of student Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATi01xMj8E3w74j1P09YlF31I33Ny8lS3_OO_3Fz2IgsncoWIGZnOHkETBqRBTM8vt1W_ept-s3AI2NQ0DFLAQ1weIfy9WOrjcU7rBByoP0rl0Qsxssjy-3ouCHopwik04KpNjE4SY8g9_wj3uA_GlMIAxC_LJ0od5lEpSiIoU5g9bgJmFpeXr5uPqS5x96NMCGvFLktAwIC6PnXZF3dd28b446ZBDnUERgOhjKR4xPsmbVZXhoQycqVnfPGvCjCg6cqGqdODVwdM");'></div>
+<div class="absolute -bottom-2 -right-1 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white dark:border-gray-900">PHX</div>
+</div>
+<h3 class="font-bold text-lg leading-tight">Sarah Jenkins</h3>
+<p class="text-sm text-gray-500 mb-3">Year 11</p>
+<p class="text-xs text-gray-600 dark:text-gray-300 italic leading-relaxed">"Scored highest in the regional mathematics olympiad, earning 50 points."</p>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col items-center bg-white dark:bg-[#1f1a1a] p-6 rounded-lg border border-[#e6dbdb] dark:border-gray-800 text-center hover:shadow-md transition-shadow">
+<div class="relative mb-4">
+<div class="w-20 h-20 rounded-full bg-cover bg-center border-4 border-gray-400" data-alt="Portrait of student James Miller" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuKo9zNIqQmo3B5u84cpgFpKBFr3jxeZyFbhQqVsaL6xsPP3LnmV_cdg4m4xKQ_GEMBydBw3QJpBLLO7o2oABf5wgJ2a06I3Pk2JwJx8VqM6-9Rp3LPdwqmBQ4_TLscrRp_gEGZnGDZ6M4-tEiGGZoT7r7A-W4x84MWrRFILT9oWtDfQuc-ruAeKFHl6LiHsUoou7ZMIRELfHVk_Y4JpIul3JMwboG2q3rmAb8KMznLwsZMZUa6I9v4rP7w6P90LDhQ2i4Yl1e12k");'></div>
+<div class="absolute -bottom-2 -right-1 bg-gray-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white dark:border-gray-900">LION</div>
+</div>
+<h3 class="font-bold text-lg leading-tight">James Miller</h3>
+<p class="text-sm text-gray-500 mb-3">Year 9</p>
+<p class="text-xs text-gray-600 dark:text-gray-300 italic leading-relaxed">"Outstanding leadership during the inter-house rugby tournament."</p>
+</div>
+<!-- Card 3 -->
+<div class="flex flex-col items-center bg-white dark:bg-[#1f1a1a] p-6 rounded-lg border border-[#e6dbdb] dark:border-gray-800 text-center hover:shadow-md transition-shadow">
+<div class="relative mb-4">
+<div class="w-20 h-20 rounded-full bg-cover bg-center border-4 border-amber-700" data-alt="Portrait of student Emily Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBej5U0t1tqGv4kBtqAv68LDRezTWJiNBcEwCpZhZywyESyOPNrX52fHK9UwIBBCxRPRLyvzpNpzPWEecpR7CyiEmWS3TQLfKMKtRl7zhVAgeg7DJIWMTGffSI826VZ2y8I0aFsBCtMFk9llNJO2SZu1RmSdCcZDfeVCqTHqdUzxXwrFd2rrI3f4B_sGn8aBihkuXnOisuYRLJgucfOs-Vdej758YciPeaMPf8Fw9rmUcnQKuLMRSdC6C7pANGfEgC5Q7xGnZspgZc");'></div>
+<div class="absolute -bottom-2 -right-1 bg-amber-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white dark:border-gray-900">EGL</div>
+</div>
+<h3 class="font-bold text-lg leading-tight">Emily Chen</h3>
+<p class="text-sm text-gray-500 mb-3">Year 13</p>
+<p class="text-xs text-gray-600 dark:text-gray-300 italic leading-relaxed">"Curated the winning art exhibition piece for the spring gala."</p>
+</div>
+<!-- Card 4 -->
+<div class="flex flex-col items-center bg-white dark:bg-[#1f1a1a] p-6 rounded-lg border border-[#e6dbdb] dark:border-gray-800 text-center hover:shadow-md transition-shadow">
+<div class="relative mb-4">
+<div class="w-20 h-20 rounded-full bg-cover bg-center border-4 border-blue-900" data-alt="Portrait of student Michael Ross" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDXk15stxyjATUgQPhDJb5WqwjKlHzacfJeeaaozTGaZ_Cqe9Xf-zyKGthFGaPp3oG27V1AKbgO15LNjOid0dM-GMIs6jXuApu9AdC97TqDAHzFriuKKt6ZeDQcMU6ikv2DEQegWLqJRrczmRIeWv0AvNg_AxavjELMtTt-kn0GOJ0FYvqefah29K0eXsZYiI4acm6QEKg-8YQYU0FDUn4NB8aS-kxZ3EJOmyV0e2zb-022tGnHwSeRI_dHUq1AVWSUhEeXQbYq1qQ");'></div>
+<div class="absolute -bottom-2 -right-1 bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white dark:border-gray-900">FAL</div>
+</div>
+<h3 class="font-bold text-lg leading-tight">Michael Ross</h3>
+<p class="text-sm text-gray-500 mb-3">Year 7</p>
+<p class="text-xs text-gray-600 dark:text-gray-300 italic leading-relaxed">"Perfect attendance and exemplary conduct record for the entire term."</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="border-t border-[#f4f0f0] dark:border-gray-800 bg-white dark:bg-[#181111] py-8">
+<div class="max-w-7xl mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-sm text-gray-500">
+                © 2024 St. Ivory Academy. Excellence in Education.
+            </div>
+<div class="flex gap-6 text-sm font-medium">
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#">Terms of Use</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#">Staff Portal</a>
+</div>
+</div>
+</footer>
+</body></html>

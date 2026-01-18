@@ -1,252 +1,354 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import PremiumHeader from '@/components/layout/PremiumHeader';
+import PremiumFooter from '@/components/layout/PremiumFooter';
+import SkipToContent from '@/components/SkipToContent';
+import StatCard from '@/components/home/StatCard';
+import PathwayCard from '@/components/home/PathwayCard';
+import NewsCarousel from '@/components/home/NewsCarousel';
+import TestimonialCard from '@/components/home/TestimonialCard';
+import NewsletterSignup from '@/components/home/NewsletterSignup';
+import FAQSection from '@/components/home/FAQSection';
+import VirtualTour from '@/components/home/VirtualTour';
+import FeeCalculator from '@/components/home/FeeCalculator';
+import EventsCalendar from '@/components/home/EventsCalendar';
+import { ScrollReveal } from '@/hooks/useScrollAnimation';
+import { trackCTAClick } from '@/lib/analytics';
 import Link from 'next/link';
-import { 
-  Hero, 
-  QuickHighlights 
-} from '@/components/sections'
-import { AppProvider } from "@/contexts/AppContext"
-import { useAuth } from '@/contexts/AuthContext'
-import BackToTop from '@/components/BackToTop'
+import Image from 'next/image';
 
-const Header = dynamic(() => import('@/components/layout/Header'), { ssr: false })
-const Footer = dynamic(() => import('@/components/layout/Footer'), { ssr: false })
+const STATS = [
+  { icon: 'school', value: '100%', label: 'Pass Rate' },
+  { icon: 'groups', value: '1:10', label: 'Teacher Ratio' },
+  { icon: 'history_edu', value: '98%', label: 'Uni Acceptance' },
+  { icon: 'verified', value: '50+', label: 'Years of Excellence' },
+];
 
-// Lazy load only what's needed on home
-const AboutSection = dynamic(() => import('@/components/sections/AboutSection'), {
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />
-});
+const PATHWAYS = [
+  {
+    id: 'ecd',
+    badge: 'Ages 3-5',
+    title: 'Early Childhood Development',
+    description: 'Our ECD program nurtures curiosity and creativity through play-based learning. We focus on social-emotional growth, laying a strong foundation for future academic success in a warm, caring environment.',
+    image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800',
+    imageAlt: 'Early childhood students engaged in creative play-based learning activities',
+    link: '/academics#ecd',
+    linkText: 'Explore ECD',
+  },
+  {
+    id: 'primary',
+    badge: 'Ages 6-12',
+    title: 'Primary School',
+    description: 'Building core competencies in literacy, numeracy, and critical thinking. Our primary curriculum encourages students to ask questions, solve problems, and develop a lifelong love for learning.',
+    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800',
+    imageAlt: 'Primary school students working together in a bright classroom',
+    link: '/academics#primary',
+    linkText: 'Explore Primary',
+  },
+  {
+    id: 'secondary',
+    badge: 'Ages 13-18',
+    title: 'High School & A-Level',
+    description: 'Preparing young adults for top-tier universities and leadership roles. Our rigorous academic program is complemented by sports, arts, and service, shaping well-rounded global citizens.',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800',
+    imageAlt: 'High school students collaborating in a modern learning environment',
+    link: '/academics#secondary',
+    linkText: 'Explore High School',
+  },
+];
+
+const NEWS_ITEMS = [
+  {
+    href: '/news/rugby-championship',
+    image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600',
+    imageAlt: 'Rugby team celebrating championship victory',
+    category: 'Sports',
+    categoryColor: 'blue' as const,
+    date: '2026-01-15',
+    title: 'Rugby First XV Wins National Championship',
+  },
+  {
+    href: '/news/robotics-worlds',
+    image: 'https://images.unsplash.com/photo-1563191599-47f0930f32c1?w=600',
+    imageAlt: 'Students working on advanced robotics project',
+    category: 'Academics',
+    categoryColor: 'purple' as const,
+    date: '2026-01-10',
+    title: 'Robotics Team Qualifies for Worlds',
+  },
+  {
+    href: '/news/winter-concert',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600',
+    imageAlt: 'Students performing at the winter concert',
+    category: 'Arts',
+    categoryColor: 'amber' as const,
+    date: '2026-01-05',
+    title: 'Annual Winter Concert Dates Announced',
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote: 'The academic rigor combined with the supportive environment has truly transformed our son. He is confident, articulate, and ready for university.',
+    name: 'Sarah Jenkins',
+    role: 'Parent, Class of \'24',
+    avatar: 'https://i.pravatar.cc/150?img=47',
+  },
+  {
+    quote: 'Boarding at Regisbridge was the best decision of my life. The friendships I made here are like family to me now.',
+    name: 'Michael Chang',
+    role: 'Alumni, Class of \'18',
+    avatar: 'https://i.pravatar.cc/150?img=12',
+  },
+  {
+    quote: 'We focus on the whole child. It\'s not just about grades, but about character, integrity, and contribution to society.',
+    name: 'Dr. Eleanor Rigby',
+    role: 'Head of School',
+    avatar: 'https://i.pravatar.cc/150?img=49',
+  },
+];
 
 export default function Home() {
-  const { user } = useAuth()
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
-    <AppProvider>
-      <div className="min-h-screen bg-white">
-        <Header />
-        <main id="main-content">
-          {/* 1. HERO - First Impression */}
-          <Hero />
-          
-          {/* 2. CHOOSE YOUR PATH - Interactive Journey Selector */}
-          <section className="py-24 bg-gradient-to-b from-[#FFFDF7] via-white to-gray-50">
-            <div className="container mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#1C1A75] mb-4">
-                  Choose Your Journey
-                </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Explore what matters most to you
-                </p>
-              </div>
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
+      <SkipToContent />
+      {/* Navigation */}
+      <PremiumHeader />
 
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {/* Path A: Academic Excellence */}
-                <Link href="/academics" 
-                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1C1A75] to-[#2C2A95] p-10 cursor-pointer hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-[#1C1A75]/50"
-                >
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500" />
-                  <div className="relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/20 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/30 transition-colors">
-                      <svg className="w-8 h-8 text-[#D4AF37]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Academic Excellence</h3>
-                    <p className="text-white/80 mb-8 leading-relaxed">
-                      Explore our curriculum, teaching methods, and academic achievements. Perfect for parents focused on educational outcomes.
-                    </p>
-                    <div className="flex items-center gap-2 text-[#D4AF37] font-semibold group-hover:gap-4 transition-all">
-                      <span>Explore Academics</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* Path B: Campus Life */}
-                <div className="grid gap-4">
-                  <Link href="/campus-life/sports" 
-                    className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#D4AF37] to-[#C8A74A] p-6 cursor-pointer hover:scale-105 transition-all duration-500 shadow-xl hover:shadow-[#D4AF37]/50"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 5.3L15.35 11H8.65L11 5.3M12 18.7L9.65 13H14.35L12 18.7Z" />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-xl font-bold text-[#1C1A75] mb-1">Sports & Activities</h4>
-                        <p className="text-[#1C1A75]/70 text-sm">Excellence on the field →</p>
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link href="/campus-life/boarding" 
-                    className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#2C2A95] to-[#1C1A75] p-6 cursor-pointer hover:scale-105 transition-all duration-500 shadow-xl hover:shadow-[#1C1A75]/50"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-6 h-6 text-[#D4AF37]" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 3L2 12H5V20H19V12H22L12 3M12 7.7L17 12.7V18H7V12.7L12 7.7Z" />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-xl font-bold text-white mb-1">Boarding Life</h4>
-                        <p className="text-white/70 text-sm">A home away from home →</p>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Quick Access Links */}
-              <div className="mt-12 flex flex-wrap justify-center gap-4">
-                <Link href="/admissions"
-                  className="px-6 py-3 rounded-lg bg-white border-2 border-[#1C1A75]/20 text-[#1C1A75] font-semibold hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all"
-                >
-                  📝 Admissions
-                </Link>
-                <button
-                  onClick={() => scrollToSection('news')}
-                  className="px-6 py-3 rounded-lg bg-white border-2 border-[#1C1A75]/20 text-[#1C1A75] font-semibold hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all"
-                >
-                  📰 Latest News
-                </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="px-6 py-3 rounded-lg bg-white border-2 border-[#1C1A75]/20 text-[#1C1A75] font-semibold hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all"
-                >
-                  💬 Contact Us
-                </button>
-              </div>
-            </div>
-          </section>
-
-          {/* 3. QUICK HIGHLIGHTS - Key Stats */}
-          <QuickHighlights />
-
-          {/* 4. ABOUT - Who We Are */}
-          <div className="bg-white">
-            <AboutSection />
-          </div>
-          
-          {/* Section Divider */}
-          <div className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
-            <div className="container mx-auto px-6">
-              <div className="flex items-center justify-center">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#1C1A75]/20 to-transparent"></div>
-                <div className="mx-4 h-3 w-3 rotate-45 bg-[#D4AF37]/30"></div>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#1C1A75]/20 to-transparent"></div>
-              </div>
+      <main id="main-content" role="main">
+      {/* Hero Section */}
+      <section aria-label="Hero" className="relative w-full">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600"
+            alt="Regisbridge Academy campus aerial view"
+            fill
+            priority
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 dark:from-black/60 dark:to-black/80" />
+        </div>
+        
+        {/* Decorative blur circles */}
+        <div className="absolute top-20 right-20 w-96 h-96 bg-brand-gold/20 rounded-full blur-3xl pointer-events-none z-0" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none z-0" />
+        
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[600px] px-6 py-20 text-center max-w-[1400px] mx-auto">
+          <div className="flex flex-col gap-6 max-w-3xl">
+            <p className="text-white/90 font-medium tracking-widest text-sm uppercase">
+              Est. <time dateTime="1974">1974</time>
+            </p>
+            <h1 className="text-white text-4xl md:text-6xl font-black leading-tight tracking-tight">
+              Regisbridge Academy: Excellence in Education. Character for Life.
+            </h1>
+            <p className="text-gray-200 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
+              Nurturing future leaders from Early Childhood through A-Level in a world-class boarding
+              environment. Experience the Regisbridge difference.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center mt-4">
+              <Link
+                href="/admissions"
+                onClick={() => trackCTAClick('Apply Now', 'Hero')}
+                className="flex items-center justify-center rounded-lg h-12 px-8 bg-brand-gold text-brand-navy text-base font-bold shadow-lg hover:bg-brand-gold-dark hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 transition-all"
+              >
+                Apply Now
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => trackCTAClick('Book a Tour', 'Hero')}
+                className="flex items-center justify-center rounded-lg h-12 px-8 bg-white/10 backdrop-blur-md border border-white/30 text-white text-base font-bold hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition-all"
+              >
+                Book a Tour
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* ========== PATH A: ACADEMIC EXCELLENCE ========== */}
-          <div id="academic-path" className="bg-white">
-            
-            {/* 5. ACADEMICS - Curriculum & Teaching */}
-            <div className="bg-white">
-              <AcademicsSection />
-            </div>
-
-            {/* 6. DATA - Performance Metrics */}
-            <div className="bg-gradient-to-b from-white to-gray-50">
-              {isAdmin ? (
-                <DataVisualization />
-              ) : (
-                !loading && <AdminCTA />
-              )}
-            </div>
-
-            {/* Academic Path Transition */}
-            <div className="py-20 bg-gradient-to-b from-gray-50 to-white">
-              <div className="container mx-auto px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1C1A75] mb-3">Beyond the Classroom</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">Holistic development through sports and boarding</p>
-                <div className="w-24 h-1 mx-auto mt-6 rounded-full bg-gradient-to-r from-[#1C1A75] via-[#D4AF37] to-[#1C1A75]"></div>
-              </div>
-            </div>
+      {/* Stats Section */}
+      <section id="stats" aria-label="Key Statistics" className="bg-white border-b border-gray-100">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {STATS.map((stat, index) => (
+              <StatCard key={index} {...stat} />
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* ========== PATH B: CAMPUS LIFE ========== */}
-          <div id="campus-life-path">
-            
-            {/* 7. SPORTS - Athletics & Activities */}
-            <div className="bg-white">
-              <SportsHub />
+      {/* Academic Pathways */}
+      <section id="academic-pathways" aria-label="Academic Programs" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+        <ScrollReveal animation="fadeInUp">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                Academic Pathways
+              </h2>
+              <p className="text-gray-500 mt-2 text-lg">
+                Comprehensive curriculum tailored for every stage of development.
+              </p>
             </div>
+            <Link
+              href="/academics"
+              className="text-brand-primary font-bold flex items-center gap-1 hover:underline hover:text-brand-primary-dark transition-colors"
+            >
+              View Full Curriculum <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+            </Link>
+          </div>
+        </ScrollReveal>
 
-            {/* 8. BOARDING - Residential Life */}
-            <div className="bg-gradient-to-b from-white to-gray-50">
-              <BoardingSection />
+        {/* Pathway Cards */}
+        <ul className="flex flex-col gap-6" role="list">
+          {PATHWAYS.map((pathway, index) => (
+            <li key={pathway.id}>
+              <ScrollReveal animation="fadeInUp" delay={index * 150}>
+                <PathwayCard {...pathway} />
+              </ScrollReveal>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Boarding Feature Section */}
+      <section id="boarding" aria-label="Boarding Life" className="bg-brand-navy text-white py-20 relative overflow-hidden">
+        {/* Decorative blur effects */}
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <ScrollReveal animation="fadeInLeft">
+                <span className="text-brand-gold font-bold tracking-widest uppercase mb-4 block">
+                  Boarding Life
+                </span>
+                <h2 className="text-4xl font-bold mb-6 leading-tight">A Home Away From Home</h2>
+              <p className="text-gray-100 mb-6 text-lg leading-relaxed">
+                Our boarding facilities offer a safe, supportive, and enriching environment where
+                students learn independence and camaraderie. With modern dormitories, dedicated house
+                parents, and a weekend activity schedule, boarders forge friendships that last a
+                lifetime.
+              </p>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-brand-gold" aria-hidden="true">check_circle</span>
+                  <span className="text-gray-100">Modern, secure accommodation</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-brand-gold" aria-hidden="true">check_circle</span>
+                  <span className="text-gray-100">24/7 mentorship and pastoral care</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-brand-gold" aria-hidden="true">check_circle</span>
+                  <span className="text-gray-100">Structured academic study hours</span>
+                </li>
+              </ul>
+              <Link
+                href="/boarding"
+                className="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-brand-gold text-brand-navy text-sm font-bold hover:bg-brand-gold-dark focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 focus:ring-offset-brand-navy transition-colors"
+              >
+                Discover Boarding
+              </Link>
+              </ScrollReveal>
             </div>
-
-            {/* Campus Life Transition */}
-            <div className="py-20 bg-gradient-to-b from-gray-50 to-white">
-              <div className="container mx-auto px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1C1A75] mb-3">What's Happening</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">Stay connected with our community</p>
-                <div className="w-24 h-1 mx-auto mt-6 rounded-full bg-gradient-to-r from-[#1C1A75] via-[#D4AF37] to-[#1C1A75]"></div>
+            <ScrollReveal animation="fadeInRight" delay={200}>
+            <div className="order-1 lg:order-2 relative">
+              <div className="rounded-2xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white/10 relative aspect-[4/3]">
+                <Image
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
+                  alt="Students engaged in boarding life activities"
+                  fill
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </div>
-
-            {/* 9. NEWS - Latest Updates */}
-            <div className="bg-white">
-              <NewsSection />
-            </div>
-
-            {/* 10. CALENDAR - Upcoming Events */}
-            <div className="bg-gradient-to-b from-white to-gray-50">
-              <EventCalendar />
-            </div>
+            </ScrollReveal>
           </div>
+        </div>
+      </section>
 
-          {/* ========== SHARED: JOIN US ========== */}
-          <div className="py-20 bg-gradient-to-b from-gray-50 via-[#FFFDF7] to-white">
-            <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1C1A75] mb-3">Ready to Join Regisbridge?</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Take the next step in your educational journey</p>
-              <div className="w-24 h-1 mx-auto mt-6 rounded-full bg-gradient-to-r from-[#1C1A75] via-[#D4AF37] to-[#1C1A75]"></div>
-            </div>
+{/* Latest News */}
+      <section id="news" aria-label="Latest News" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto bg-white my-12 rounded-3xl shadow-sm border border-gray-100">
+        <ScrollReveal animation="fadeInUp">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-900">Latest News</h2>
+            <Link href="/news" className="text-brand-primary text-sm font-bold hover:underline hover:text-brand-primary-dark transition-colors">
+              View All News
+            </Link>
           </div>
+        </ScrollReveal>
+        <NewsCarousel items={NEWS_ITEMS} />
+      </section>
 
-          {/* 11. ADMISSIONS - Application Process */}
-          <div className="bg-white">
-            <AdmissionsSection />
-          </div>
-          
-          {/* 12. FAQ - Common Questions */}
-          <div className="bg-gray-50">
-            <FAQSection />
-          </div>
+      {/* Virtual Tour */}
+      <VirtualTour />
 
-          {/* Final Section Divider */}
-          <div className="py-20 bg-gradient-to-b from-gray-50 to-white">
-            <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1C1A75] mb-3">Get in Touch</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">We're here to answer your questions</p>
-              <div className="w-24 h-1 mx-auto mt-6 rounded-full bg-gradient-to-r from-[#1C1A75] via-[#D4AF37] to-[#1C1A75]"></div>
-            </div>
-          </div>
+      {/* Events Calendar */}
+      <EventsCalendar />
 
-          {/* 13. CONTACT - Reach Out */}
-          <div className="bg-gradient-to-b from-white to-gray-50">
-            <ContactSection />
-          </div>
-        </main>
-        <Footer />
-        <BackToTop />
-      </div>
-    </AppProvider>
-  )
+      {/* Fee Calculator */}
+      <FeeCalculator />
+
+      {/* Testimonials */}
+      <section id="testimonials" aria-label="Community Testimonials" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+        <ScrollReveal animation="fadeInUp">
+          <h2 className="text-center text-3xl font-bold text-gray-900 mb-12">
+            From Our Community
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {TESTIMONIALS.map((testimonial, index) => (
+            <ScrollReveal key={index} animation="fadeInUp" delay={index * 150}>
+              <TestimonialCard {...testimonial} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Newsletter Signup */}
+      <section className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+        <ScrollReveal animation="fadeInUp">
+          <NewsletterSignup />
+        </ScrollReveal>
+      </section>
+
+      {/* CTA Strip */}
+      <section id="cta" aria-label="Call to Action" className="bg-brand-navy py-16 px-6 text-center">
+        <h2 className="text-white text-3xl font-bold mb-4">Start Your Journey Today</h2>
+        <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg">
+          Applications for the next academic year are now open. Secure your child's place at
+          Regisbridge Academy.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            href="/admissions"
+            onClick={() => trackCTAClick('Apply Now', 'Footer CTA')}
+            className="bg-brand-gold text-brand-navy px-8 py-3 rounded-lg font-bold hover:bg-brand-gold-dark focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 focus:ring-offset-brand-navy transition-colors"
+          >
+            Apply Now
+          </Link>
+          <Link
+            href="/contact"
+            onClick={() => trackCTAClick('Contact Admissions', 'Footer CTA')}
+            className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-primary transition-colors"
+          >
+            Contact Admissions
+          </Link>
+        </div>
+      </section>
+      </main>
+
+      {/* Footer */}
+      <PremiumFooter />
+    </div>
+  );
 }

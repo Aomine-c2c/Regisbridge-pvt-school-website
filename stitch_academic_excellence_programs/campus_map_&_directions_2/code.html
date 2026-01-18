@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campus Map &amp; Directions - St. Marks Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700;900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd0f0f",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for the legend if needed */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+        .marker-pulse {
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(189, 15, 15, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(189, 15, 15, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(189, 15, 15, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white font-display overflow-x-hidden flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-[#1a0d0d]/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="size-10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl">school</span>
+</div>
+<h2 class="text-[#181111] dark:text-white text-xl font-bold leading-tight tracking-tight">St. Marks Academy</h2>
+</div>
+<!-- Desktop Nav -->
+<div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-6">
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Campus Life</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-red-800 transition-colors text-white text-sm font-bold shadow-sm">
+<span>Apply Now</span>
+</button>
+</div>
+<!-- Mobile Menu Icon -->
+<div class="lg:hidden text-[#181111] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 py-8 md:py-12">
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="flex flex-col gap-2">
+<h1 class="text-4xl md:text-5xl font-black text-[#181111] dark:text-white tracking-tight">Campus Map &amp; Directions</h1>
+<p class="text-gray-600 dark:text-gray-300 text-lg">Navigate our 50-acre grounds and world-class facilities.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-[#181111] dark:text-white text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined mr-2 text-lg">calendar_month</span>
+                        Book a Tour
+                    </button>
+<button class="flex items-center justify-center rounded-lg h-10 px-5 bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-bold">
+<span class="material-symbols-outlined mr-2 text-lg">download</span>
+                        Download PDF
+                    </button>
+</div>
+</div>
+<!-- Campus Map Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+<!-- Map Container -->
+<div class="lg:col-span-8 xl:col-span-9 relative group overflow-hidden rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 bg-white">
+<div class="relative w-full aspect-[4/3] md:aspect-[16/9]">
+<div class="w-full h-full bg-cover bg-center" data-alt="3D illustrated aerial view of a university campus with green lawns and red brick buildings" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEVYvWloqr3oBOoX-fi7yiBsjAhZ-pxBAp7rLRx0UuTGNAvKQmW-qKnUVX2CPpCGmi6X7btjGkbaeY-Xy2VcyZuZXLGJwA-k63-zVwZBqU_OMZtvNWFD5l9TG0jan3MCx0MQJA-fR3yDIgUkC86OECg_yaI7HLnig-6W5IXiQnTpCEERgiuXgJM60bk8kWbgoVQHaAkfkJDAJzG1TfqRFzAzVjlWGH35kxFqunP62AI0ltf4LvkYP3DDan9eFe5y_k87X0yqeNpGM");'>
+<div class="absolute inset-0 bg-black/5"></div> <!-- Overlay for contrast -->
+</div>
+<!-- Interactive Markers (Simulated positions) -->
+<div class="absolute top-[30%] left-[20%] z-10">
+<button class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:scale-110 transition-transform marker-pulse group/marker">
+                                1
+                                <span class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-max px-3 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/marker:opacity-100 transition-opacity">Administration</span>
+</button>
+</div>
+<div class="absolute top-[45%] left-[55%] z-10">
+<button class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:scale-110 transition-transform marker-pulse group/marker">
+                                3
+                                <span class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-max px-3 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/marker:opacity-100 transition-opacity">Senior School</span>
+</button>
+</div>
+<div class="absolute bottom-[20%] right-[25%] z-10">
+<button class="relative flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white font-bold text-sm shadow-md hover:scale-110 transition-transform marker-pulse group/marker">
+                                5
+                                <span class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-max px-3 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/marker:opacity-100 transition-opacity">Sports Fields</span>
+</button>
+</div>
+<div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-medium text-gray-600">
+                            Click markers for details
+                        </div>
+</div>
+</div>
+<!-- Sidebar Legend -->
+<div class="lg:col-span-4 xl:col-span-3 flex flex-col h-full">
+<div class="bg-gray-100 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 h-full flex flex-col shadow-sm">
+<div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-t-xl">
+<h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">map</span>
+                                Map Legend
+                            </h3>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2">
+<div class="space-y-1">
+<!-- Legend Item 1 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">1</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Administration Block</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Reception, Admissions, Finance</span>
+</div>
+</button>
+<!-- Legend Item 2 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">2</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Junior School</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Grades 1-7, Early Learning</span>
+</div>
+</button>
+<!-- Legend Item 3 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">3</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Senior School &amp; A-Level Center</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Classrooms, Science Labs</span>
+</div>
+</button>
+<!-- Legend Item 4 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">4</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Boarding Houses</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Boys (North), Girls (South)</span>
+</div>
+</button>
+<!-- Legend Item 5 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">5</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Aquatic Center &amp; Sports Fields</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Pool, Rugby, Tennis Courts</span>
+</div>
+</button>
+<!-- Legend Item 6 -->
+<button class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm transition-all text-left group">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-white border border-gray-300 text-gray-500 font-bold text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">6</span>
+<div>
+<span class="block text-sm font-bold text-gray-900 dark:text-white">Chapel &amp; Performing Arts</span>
+<span class="block text-xs text-gray-500 dark:text-gray-400">Main Hall, Music Rooms</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- How to Find Us Section -->
+<div class="mb-12">
+<h2 class="text-2xl font-bold text-[#181111] dark:text-white mb-6 flex items-center gap-3">
+                    How to Find Us
+                    <div class="h-px bg-gray-200 flex-1 ml-4"></div>
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Column 1: Google Map Embed -->
+<div class="bg-white dark:bg-gray-800 p-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="w-full h-full min-h-[300px] rounded-lg overflow-hidden bg-gray-100 relative">
+<!-- Placeholder for actual Google Maps iframe -->
+<iframe allowfullscreen="" class="w-full h-full absolute inset-0 border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.063672057989!2d-122.4194!3d37.7749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2sTwitter+HQ!5e0!3m2!1sen!2sus!4v1530907293847" title="School Location Map">
+</iframe>
+</div>
+</div>
+<!-- Column 2: Driving Directions -->
+<div class="flex flex-col gap-4">
+<div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">directions_car</span>
+                                Driving Directions
+                            </h3>
+<div class="space-y-4">
+<div>
+<h4 class="font-bold text-sm text-gray-900 dark:text-white">From City Center (N1 Highway)</h4>
+<p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-relaxed">
+                                        Take Exit 24 towards Oak Avenue. Turn left at the first traffic light onto St. Marks Drive. Continue straight for 2km. The main gate will be on your right.
+                                    </p>
+</div>
+<div class="w-full h-px bg-gray-100 dark:bg-gray-700"></div>
+<div>
+<h4 class="font-bold text-sm text-gray-900 dark:text-white">From International Airport</h4>
+<p class="text-sm text-gray-600 dark:text-gray-300 mt-1 leading-relaxed">
+                                        Follow signs for R21 South. Merge onto the N1 North. Take the Elm Street off-ramp and turn right. Follow the signs for "St. Marks Academy".
+                                    </p>
+</div>
+</div>
+<a class="inline-flex items-center gap-1 text-sm font-bold text-primary mt-4 hover:underline" href="#">
+                                Open in Google Maps 
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Column 3: Transport & Security Contact -->
+<div class="flex flex-col gap-6">
+<!-- Public Transport -->
+<div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">train</span>
+                                Public Transport
+                            </h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gray-400 mt-0.5">directions_bus</span>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">Bus Route 45 &amp; 45A</p>
+<p class="text-xs text-gray-500">Stops directly outside Main Gate.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gray-400 mt-0.5">tram</span>
+<div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">Metro Rail</p>
+<p class="text-xs text-gray-500">Central Station is a 5-minute taxi ride away.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Contact / Security Card -->
+<div class="bg-primary text-white p-6 rounded-xl shadow-md relative overflow-hidden">
+<!-- Decorative background pattern -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
+<h3 class="font-bold text-lg mb-4 flex items-center gap-2 relative z-10">
+<span class="material-symbols-outlined">security</span>
+                                Security &amp; Reception
+                            </h3>
+<div class="space-y-4 relative z-10">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-white/20 rounded-lg">
+<span class="material-symbols-outlined text-xl">call</span>
+</div>
+<div>
+<p class="text-xs text-white/80 font-medium uppercase tracking-wide">24hr Security Gate</p>
+<p class="text-lg font-bold">+1 (555) 010-9988</p>
+</div>
+</div>
+<div class="w-full h-px bg-white/20"></div>
+<div class="flex items-center gap-3">
+<div class="p-2 bg-white/20 rounded-lg">
+<span class="material-symbols-outlined text-xl">desk</span>
+</div>
+<div>
+<p class="text-xs text-white/80 font-medium uppercase tracking-wide">Main Reception</p>
+<p class="text-lg font-bold">+1 (555) 010-9900</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Simple -->
+<footer class="bg-background-light dark:bg-[#1a0d0d] border-t border-gray-200 dark:border-gray-800 py-8 px-10">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2024 St. Marks Academy. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-gray-500 hover:text-primary text-sm font-medium" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-primary text-sm font-medium" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

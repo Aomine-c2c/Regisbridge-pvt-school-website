@@ -2,15 +2,19 @@
 
 import * as React from 'react'
 
-// Dark mode disabled - light mode only
+//Dark mode disabled - light mode only
 // Stub to prevent import errors
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-// Stub hook to prevent errors in components that still reference it
-export const useTheme = () => ({
-  theme: 'light' as const,
-  setTheme: () => { },
-  themes: ['light'] as const
-})
+// Proper hook implementation to prevent errors in components that reference it
+export function useTheme() {
+  const [theme] = React.useState('light' as const);
+  
+  return {
+    theme,
+    setTheme: () => {},
+    themes: ['light'] as const
+  };
+}

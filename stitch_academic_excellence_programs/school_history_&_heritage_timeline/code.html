@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>School History &amp; Heritage Timeline</title>
+<!-- Google Fonts: Newsreader -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                        "silver": "#C0C0C0",
+                        "parchment": "#F9F9F7",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] dark:text-gray-100 antialiased overflow-x-hidden">
+<!-- Navigation -->
+<div class="relative w-full z-50 bg-white/95 dark:bg-[#1a0d0d]/95 backdrop-blur-sm border-b border-[#f4f0f0] dark:border-white/10 sticky top-0">
+<div class="layout-container flex justify-center">
+<header class="flex w-full max-w-[1200px] items-center justify-between px-6 py-4 lg:px-10">
+<div class="flex items-center gap-4 text-[#181111] dark:text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-xl lg:text-2xl font-bold leading-tight tracking-tight">St. Mary's Academy</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+<div class="flex items-center gap-8">
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Heritage</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-red-700 transition-colors text-white text-sm font-bold shadow-md">
+<span class="truncate">Apply Now</span>
+</button>
+</div>
+<div class="lg:hidden">
+<button class="p-2 text-[#181111] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+</div>
+</div>
+<!-- Hero Section -->
+<section class="relative flex min-h-[70vh] w-full flex-col justify-center items-center overflow-hidden bg-black">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
+<div class="w-full h-full bg-cover bg-center bg-no-repeat grayscale opacity-80 scale-105" data-alt="Vintage black and white photo of the original school building facade from 1920" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCuxdkWokCq8GYxeG1Dz6abTVeLSal1ihjIgCuSXsDADLeYWnrAhY6ibyHR-ZlRO6UfAyZ8eID4a2uU2qB5-E-TaIu3AmUuRZyye9imb6UBK1MMv9mv3nUBLxgSWnu3TbFXKpRR4pYWoqDJDzUO4lhT6kB3od2dEc9e5mIFmZvEV7EjrSXJuaWfCbhV62I03idRxXhko5Byn-4vfGvK3Nc-EA5DEmFEmwqEByl9ktSCpheuO1yr_Mn5pdbyxn85LLAdgJewgoOZn4U");'>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span class="text-xs font-medium tracking-wider uppercase">Est. 1920</span>
+</div>
+<h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight drop-shadow-xl">
+                A Century of Excellence
+            </h1>
+<p class="text-gray-200 text-lg md:text-xl max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                Educating leaders with integrity and honor for over 100 years. Explore the rich history and enduring heritage of our institution.
+            </p>
+<div class="pt-4">
+<span class="material-symbols-outlined text-white/50 text-4xl animate-bounce">keyboard_arrow_down</span>
+</div>
+</div>
+</section>
+<!-- Intro Text -->
+<section class="w-full bg-parchment dark:bg-background-dark py-16 px-6 border-b border-gray-200 dark:border-white/5">
+<div class="max-w-4xl mx-auto text-center">
+<h2 class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Our Journey</h2>
+<p class="text-2xl md:text-3xl lg:text-4xl font-serif italic text-[#181111] dark:text-white leading-normal">
+                "We are not merely makers of history. We are made by history."
+            </p>
+<div class="mt-6 w-16 h-1 bg-primary mx-auto rounded-full"></div>
+<p class="mt-8 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                From our humble beginnings in a single schoolhouse to a sprawling campus of innovation, walk through the moments that defined St. Mary's Academy.
+            </p>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="relative w-full py-20 bg-background-light dark:bg-background-dark overflow-hidden">
+<div class="layout-container max-w-[1000px] mx-auto px-4 relative">
+<!-- Central Spine (Desktop) -->
+<div class="absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-silver to-transparent -translate-x-1/2 hidden md:block"></div>
+<!-- Left Spine (Mobile) -->
+<div class="absolute left-8 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-silver to-transparent md:hidden"></div>
+<!-- Timeline Item: 1920 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+<!-- Content Left -->
+<div class="w-full md:w-5/12 pl-16 md:pl-0 md:text-right md:pr-12 order-2 md:order-1">
+<span class="inline-block text-primary text-5xl font-black tracking-tighter mb-2 opacity-90">1920</span>
+<h3 class="text-xl font-bold text-[#181111] dark:text-white mb-3">The Foundation</h3>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                        St. Mary's Academy was founded by Rev. Thomas Miller. The cornerstone was laid on a brisk autumn morning, marking the beginning of a legacy devoted to academic rigor and moral fortitude.
+                    </p>
+</div>
+<!-- Node Center -->
+<div class="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 md:top-6 size-6 bg-primary rounded-full border-4 border-white dark:border-[#221010] shadow-[0_0_0_2px_#d41111] z-10 order-1 md:order-2"></div>
+<!-- Image Right -->
+<div class="w-full md:w-5/12 pl-16 md:pl-12 order-3 md:order-3 mt-6 md:mt-0">
+<div class="relative p-1 bg-white dark:bg-gray-800 border-2 border-primary shadow-xl rounded-sm rotate-1 group-hover:rotate-0 transition-transform duration-500">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center sepia-[.3]" data-alt="Black and white historical photo of men in suits laying the cornerstone of a brick building" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSVI4BOKmTd1P54KMrZTOtObuQ0vnhweNQa1CjmC-k2DSzCUwDe9UMFGswzRAtqZLPS0zFFU2EVP-svdrUbF1_DsD0FidGMXtdncNYQ39uXn7rsP6chbrCI2FZ_TvIwMR-s5CNr00bUfB2tuy-D972I_3IFD6w6Q_MD9zqLXgxcpvefkZwRDUhYBQFCBneTH6zE6Ltr7tFG1NfSNhe-WUjOn80FjGyjRsa4hQIzxVzhrxtqCSJL3MoG0aQ_txxuiKlz0fY4TAbByw");'></div>
+</div>
+<div class="absolute -bottom-3 -right-3 bg-white dark:bg-gray-800 px-3 py-1 shadow-md border border-gray-200 dark:border-gray-700">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Archive No. 001</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item: 1955 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+<!-- Image Left -->
+<div class="w-full md:w-5/12 pl-16 md:pr-12 order-3 md:order-1 mt-6 md:mt-0">
+<div class="relative p-1 bg-white dark:bg-gray-800 border-2 border-primary shadow-xl rounded-sm -rotate-1 group-hover:rotate-0 transition-transform duration-500">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center grayscale-[0.5]" data-alt="Vintage style photo of a large brick boarding house building with students walking in front" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBoNaOB7tg0eWvd-27Jq5FlpTJyGrtjxFkMH-IDC3MrpuU-rvj-f2PiQsxMh8W0B1gzSvYtLrJL4cObAy8LenQAxV0IxmbTz3eUqvmJp3wY_mDNSEtEdpCxqFtfUMNfRcUOk9_x8GOvY9pf6UzsrebAtQ9OinBUUOzSR-9wcLgY5CFB_ceSTzOeg72vJVZRtEPyR-jiYXSIa16jhheQpo3fkiGD0a_pD38SOVubg89laFlVyeBbXvxqNjxychD0XPWm2F_BYz8qDDQ");'></div>
+</div>
+<div class="absolute -bottom-3 -left-3 bg-white dark:bg-gray-800 px-3 py-1 shadow-md border border-gray-200 dark:border-gray-700">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Archive No. 042</span>
+</div>
+</div>
+</div>
+<!-- Node Center -->
+<div class="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 md:top-6 size-6 bg-primary rounded-full border-4 border-white dark:border-[#221010] shadow-[0_0_0_2px_#d41111] z-10 order-1 md:order-2"></div>
+<!-- Content Right -->
+<div class="w-full md:w-5/12 pl-16 md:pl-12 order-2 md:order-3">
+<span class="inline-block text-primary text-5xl font-black tracking-tighter mb-2 opacity-90">1955</span>
+<h3 class="text-xl font-bold text-[#181111] dark:text-white mb-3">Boarding House Opens</h3>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                        The expansion era brought students from across the country. The opening of Miller Hall provided a home away from home, fostering a tight-knit community spirit that remains today.
+                    </p>
+</div>
+</div>
+<!-- Timeline Item: 1984 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+<!-- Content Left -->
+<div class="w-full md:w-5/12 pl-16 md:pl-0 md:text-right md:pr-12 order-2 md:order-1">
+<span class="inline-block text-primary text-5xl font-black tracking-tighter mb-2 opacity-90">1984</span>
+<h3 class="text-xl font-bold text-[#181111] dark:text-white mb-3">Science Wing Inauguration</h3>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                        Embracing modernization, the Academy unveiled state-of-the-art laboratories. This marked a pivotal shift towards STEM excellence, producing generations of doctors and engineers.
+                    </p>
+</div>
+<!-- Node Center -->
+<div class="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 md:top-6 size-6 bg-primary rounded-full border-4 border-white dark:border-[#221010] shadow-[0_0_0_2px_#d41111] z-10 order-1 md:order-2"></div>
+<!-- Image Right -->
+<div class="w-full md:w-5/12 pl-16 md:pl-12 order-3 md:order-3 mt-6 md:mt-0">
+<div class="relative p-1 bg-white dark:bg-gray-800 border-2 border-primary shadow-xl rounded-sm rotate-1 group-hover:rotate-0 transition-transform duration-500">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Retro photo from the 1980s showing students in lab coats using microscopes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUPvYJT8Ijr9tyZ0Ohfat1w-izUtGSZpGHX3NdBF_HS8iRj3gMoMXRcjnqP2u2y7r-BsO1PYZkyFcTkJrEWu0k9Bbcp0joZvyqFb9ioCRBFty86GnJPQSACswDBLWWVyGGGfWIF0dAQ7dtJQoHg_lxmCo9KJkT5z22HCEAbbbGedHr24OoBTRrvWT5qzS5j316QtyjZYJU63mcgpfMB2Q383yFCQVf09eGjwn5Lemu1sup8Mfyio6GzWskVnNqO4-5PNgYuesSPDE");'></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item: 2002 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group">
+<!-- Image Left -->
+<div class="w-full md:w-5/12 pl-16 md:pr-12 order-3 md:order-1 mt-6 md:mt-0">
+<div class="relative p-1 bg-white dark:bg-gray-800 border-2 border-primary shadow-xl rounded-sm -rotate-1 group-hover:rotate-0 transition-transform duration-500">
+<div class="aspect-[4/3] w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Students using early 2000s computers in a library setting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBzKiUnq8TI7vKBu7RKyJzJVDdQ_yjmeeb8muuY0pzMEHHRUhDWtpDmuRoPJZwmzp7l5nXnF4avKwtvSWNdPSkHZKeyBzGusJDG6P0si66mztM2iN79IjE8JAnSKCMQwKaIYHKZoTzm5hCBpL3uILp9-DSHzQyJ39TYx-1sMBkHJJhqkE2rBdlrxtuvJEEUW2u6gMymDMuexvyTnSfVWBPr9jd7IVo8yF7YcZKg7Rmek4ShF0LWhh3Pek4ID-MFW7Bp0P1rOVBKU8");'></div>
+</div>
+</div>
+</div>
+<!-- Node Center -->
+<div class="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 md:top-6 size-6 bg-primary rounded-full border-4 border-white dark:border-[#221010] shadow-[0_0_0_2px_#d41111] z-10 order-1 md:order-2"></div>
+<!-- Content Right -->
+<div class="w-full md:w-5/12 pl-16 md:pl-12 order-2 md:order-3">
+<span class="inline-block text-primary text-5xl font-black tracking-tighter mb-2 opacity-90">2002</span>
+<h3 class="text-xl font-bold text-[#181111] dark:text-white mb-3">The Digital Age</h3>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                        St. Mary's was among the first in the region to integrate a fully connected digital campus, launching the Computer Science department and the new Media Resource Center.
+                    </p>
+</div>
+</div>
+<!-- Timeline Item: Present Day -->
+<div class="relative flex flex-col items-center justify-center mb-12">
+<div class="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 size-8 bg-white border-4 border-primary rounded-full z-10 flex items-center justify-center">
+<div class="size-3 bg-primary rounded-full"></div>
+</div>
+<div class="w-full pl-16 md:pl-0 mt-12 text-center md:max-w-2xl">
+<span class="inline-block text-primary text-5xl font-black tracking-tighter mb-2 opacity-90">Today</span>
+<h3 class="text-2xl font-bold text-[#181111] dark:text-white mb-4">A Global Campus</h3>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg mb-8">
+                        Today, St. Mary's Academy stands as a beacon of holistic education, with diverse students from over 30 countries. We continue to honor our traditions while preparing leaders for tomorrow's challenges.
+                    </p>
+<div class="relative p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-2xl rounded-lg mx-auto max-w-3xl">
+<div class="aspect-[16/9] w-full overflow-hidden rounded">
+<div class="w-full h-full bg-cover bg-center" data-alt="Modern aerial drone shot of the school campus with students graduating on the green lawn" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAzRo43WuYB8kAAFWj4ETmN41edKTtJvJx6fZFxWlzoMym7bLl-nVbktmsedbersw3mzNnzLJFLVZi4jFeEeYzwGrnd_FCFBfX_S2s_6cOpxZ8_DiKxSnJIRn237xGfJtg5o1gm93K4iy5cvFX3W1V-UwcQv3zVgvoExsGtADgIh_ugmo1bEnWwKuAxVfVCW9NWQS0dNoFoqzk4i0btfeKmYEUTubYbMxMa69PSaVt41TlHppD1kerYXE0jH4IS9DCRXbPwN52xiH4");'></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Heritage Gallery Section -->
+<section class="w-full py-20 bg-white dark:bg-[#1a0d0d] border-t border-gray-100 dark:border-white/5">
+<div class="layout-container max-w-[1200px] mx-auto px-6">
+<div class="flex flex-col items-center text-center mb-12">
+<h2 class="text-3xl md:text-4xl font-bold text-[#181111] dark:text-white mb-4">Heritage Gallery</h2>
+<div class="w-20 h-1 bg-primary rounded-full mb-6"></div>
+<p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
+                    Artifacts, crests, and uniforms that have defined our visual identity throughout the decades.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Gallery Item 1 -->
+<div class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center cursor-pointer hover:shadow-xl transition-all duration-300 hover:border-primary/30">
+<div class="h-40 w-full flex items-center justify-center mb-4">
+<div class="size-32 bg-contain bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110" data-alt="Close up of an embroidered vintage school crest patch on fabric" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMynD8QkpjvY-JeZGmEkqPLDRfB9PggGTnyUUQXEiLG8PqfDIiCCvSG7_2wd31R9DQZsbb0uVsAssgdwP7SUMxRR4J06nM3TXzDUEQp17qPjFa5QM5vyT9nNkRbQ5LJOyIEHkBOt4SpY5xn1bVAdPdLGK2TaAjqAaXdpB9G_1K3P-nfSuE4jiGwPDd6Z6WcGvi5Caxt0CfVLa3wPTNXlTc4Or3mK7AWWEWd3j-w6yLFDzesiJUmyUqlbVqOtSW6XQSUm1jKT4OVl8");'></div>
+</div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">Original Crest (1920)</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Hand-stitched wool</p>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</div>
+</div>
+<!-- Gallery Item 2 -->
+<div class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center cursor-pointer hover:shadow-xl transition-all duration-300 hover:border-primary/30">
+<div class="h-40 w-full flex items-center justify-center mb-4">
+<div class="size-32 rounded-full overflow-hidden border-4 border-silver/30">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Vintage photo of a school blazer with brass buttons" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBQeL6Q42vN7s4MZauAvbwUck9R8EK3bGCF5RMXx1tbfCm8-QH7VdDTkuK2YOj3iRzwMZp9j4i01dFLaGLJ9iRWY_-5SWolSldbZuzzldU7H5-sBRekhHzaoRk8xHfD2AGL1CW-bSHHQ48RzvNqFbe4k6zG6MX6JsIk1PfS5327oz5GbpJikjc9SpQuudvlf0-g2eNFQMHPTUnsEKginlAGwz3fCMjaJeRTNfdFkTtWtDQ5XbZlP1jPzWF6lpFnjZ2ayXN_jgPZ_I");'></div>
+</div>
+</div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">Standard Uniform (1960)</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">The introduction of blazers</p>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</div>
+</div>
+<!-- Gallery Item 3 -->
+<div class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center cursor-pointer hover:shadow-xl transition-all duration-300 hover:border-primary/30">
+<div class="h-40 w-full flex items-center justify-center mb-4">
+<div class="h-full w-full bg-contain bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110" data-alt="Antique gold school medal with ribbon on velvet background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSSegt_ywMPfFuU1y10vnvqVOUUEyqflMfQA7XlzVQmmCEcztu-yGIUrilMQ1nvMhLe0Lpeq42E41zfRgzsGwMd3bXBScZFUMtG6wG9o8tBgvTz5VrHhPGucJi-s70_j-46OGLVsVOxLJRvS-qoDASvtLXL-jJ-WEpZDfmGGSLHdxXwNHSXeLyg9mmAJlbWn0HlBkvWOcz6hAXlaF-n-jKNudpD7ETv4Juhy97LIGganG9yb1f4D-yEHsiDS2ql1VbVnCnqrPls-o");'></div>
+</div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">Prefect's Medal</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Awarded for leadership</p>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</div>
+</div>
+<!-- Gallery Item 4 -->
+<div class="group relative overflow-hidden rounded-xl bg-background-light dark:bg-background-dark border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center cursor-pointer hover:shadow-xl transition-all duration-300 hover:border-primary/30">
+<div class="h-40 w-full flex items-center justify-center mb-4">
+<div class="w-full h-full bg-cover bg-center rounded-lg transition-transform duration-500 group-hover:scale-110" data-alt="Old leather bound school yearbook on a wooden desk" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCKIMMZy2C_lzFAt3YVRuw9IOAO233m3V3OwAhH5zQxvLD61M6whOOY_OMZ5jTicb9iOihMBHtz0NHqVym7xDauUzIK_zFj00f8YN_OmjGQT_TAuP77mTbixfjd46m8iJZ71Ya5Uf1X05OE-jEcMJa4ZGs-Da9bzVSXvo1wlPyGpHSSFr3_ueXWgVd2I4ywRFSH4T-frOboWUgJCS6DOK945hKMn6XbvHfykZtbQxIipnOVFvu_Vwad4mKebyWNxhUcSDgrtKhgmZY");'></div>
+</div>
+<h3 class="text-lg font-bold text-[#181111] dark:text-white mb-1">First Yearbook</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Volume 1, 1924</p>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<button class="inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 text-base font-bold tracking-wide">
+<span class="mr-2">Visit the Full Archive</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#181111] text-white py-12 border-t border-primary border-t-4">
+<div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 text-white mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<h2 class="text-lg font-bold">St. Mary's Academy</h2>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed">
+                    Nurturing minds, building character, and fostering community since 1920.
+                </p>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-wider text-primary">Quick Links</h4>
+<ul class="space-y-2 text-sm text-gray-300">
+<li><a class="hover:text-white transition-colors" href="#">History</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Leadership</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Alumni</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-wider text-primary">Contact</h4>
+<ul class="space-y-2 text-sm text-gray-300">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">location_on</span>
+                        123 Heritage Lane, Cambridge
+                    </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">call</span>
+                        +1 (555) 123-4567
+                    </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">mail</span>
+                        admissions@stmarys.edu
+                    </li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-sm uppercase tracking-wider text-primary">Connect</h4>
+<div class="flex gap-4">
+<a class="size-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="text-xs">FB</span>
+</a>
+<a class="size-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="text-xs">TW</span>
+</a>
+<a class="size-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="text-xs">IG</span>
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-center text-xs text-gray-500">
+            © 2023 St. Mary's Academy. All rights reserved.
+        </div>
+</footer>
+</body></html>

@@ -3,6 +3,7 @@ import animate from "tailwindcss-animate";
 import typography from "@tailwindcss/typography";
 
 export default {
+  darkMode: ['class', '[data-mode="light"]'], // Disabled - light mode only
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -81,18 +82,31 @@ export default {
           ring: 'hsl(var(--sidebar-ring))'
         },
         
-        // New design system colors
-        'design-primary': '#1152d4',
-        'design-primary-dark': '#0d3d9f',
-        'design-primary-light': '#4a7de8',
-        'background-light': '#f6f6f8',
-        'background-dark': '#101622',
-        'text-dark': '#111318',
+        // Elite Education Color System
+        'brand-navy': '#0B1F3B',
+        'brand-navy-light': '#162D4A',
+        'brand-navy-dark': '#061220',
+        'brand-gold': '#C9A227',
+        'brand-gold-light': '#D4B347',
+        'brand-gold-dark': '#A38620',
+        'brand-white': '#FFFFFF',
+        'brand-grey': '#F4F6F8',
+        'brand-text': '#2E2E2E',
+        // Backward compatibility
+        'brand-primary': '#0B1F3B',
+        'brand-primary-dark': '#061220',
+        'brand-primary-light': '#162D4A',
       },
       fontFamily: {
+        // Primary fonts for school branding
+        heading: ['Playfair Display', 'serif'],
+        body: ['Inter', 'sans-serif'],
+        // Default families
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
-        sans: ['Poppins', 'Lato', 'Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'Merriweather', 'serif'],
+        // Display font for special use
+        display: ['Playfair Display', 'serif'],
       },
 
       borderRadius: {

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Library &amp; Resources - Hillside Academy</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111", // Maroon
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010", // Dark warm charcoal/brown
+                        "accent-silver": "#b99d9d",
+                        "surface-dark": "#2c1818",
+                        "border-dark": "#543b3b",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-border-dark bg-background-dark/95 backdrop-blur px-10 py-3 shadow-md">
+<div class="flex items-center gap-4 text-white">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">school</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">Hillside Academy</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-accent-silver hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Home</a>
+<a class="text-accent-silver hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Academics</a>
+<a class="text-white text-sm font-medium leading-normal border-b-2 border-primary pb-1" href="#">Library</a>
+<a class="text-accent-silver hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Boarding</a>
+<a class="text-accent-silver hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Portal</a>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center overflow-hidden rounded-lg size-10 bg-surface-dark hover:bg-border-dark text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center overflow-hidden rounded-lg size-10 bg-surface-dark hover:bg-border-dark text-white transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center w-full px-4 md:px-10 py-6">
+<div class="w-full max-w-[1200px] flex flex-col gap-8">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap items-center gap-2 text-sm">
+<a class="text-accent-silver hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-border-dark">/</span>
+<a class="text-accent-silver hover:text-primary transition-colors" href="#">Student Portal</a>
+<span class="text-border-dark">/</span>
+<span class="text-white font-medium">Digital Library &amp; Resources</span>
+</div>
+<!-- Hero Search Section -->
+<div class="relative rounded-xl overflow-hidden min-h-[320px] flex flex-col items-center justify-center text-center p-8 bg-surface-dark border border-border-dark shadow-xl">
+<!-- Background with Overlay -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-overlay" data-alt="Interior of a classic library with wooden shelves and books" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChMstdfZCElzp0vnSIqXxQdih5nP_5cluGd7BQxDsMb90IGaapRuBR_HEvvIYWAejEjX-pmEtkA7Be7JsIaC9WgIFXzY3Lr_CYf4iCsZoXscdeqYuB7FenyZAVKeOY4dJx0sXHvoD42lVoE3rOKsuZN0BliZ05qfuRAMfdXlgFWi8Ge0FPwA9W01Pv7lqeRxtjunlpAM5NfE2WO8ZZhe0SMCh_oapQkvnPi17YDn9MDsdEfW6PpXaAjglnJvRI5oA3VmNyaoBdYk4");'>
+</div>
+<div class="absolute inset-0 z-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent"></div>
+<div class="relative z-10 flex flex-col gap-4 max-w-2xl w-full items-center">
+<div class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-primary/30">
+                            Academic Catalog
+                        </div>
+<h1 class="text-white text-4xl md:text-5xl font-black tracking-tight font-display mb-2">
+                            Explore Knowledge
+                        </h1>
+<p class="text-accent-silver text-lg mb-6 max-w-lg font-light">
+                            Access over 50,000 e-books, journals, and past exam papers directly from the Hillside archives.
+                        </p>
+<div class="w-full max-w-xl flex items-stretch h-14 rounded-lg shadow-lg overflow-hidden border border-border-dark focus-within:border-primary transition-colors">
+<div class="bg-[#1a0f0f] flex items-center justify-center pl-4 text-accent-silver">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="flex-1 bg-[#1a0f0f] text-white placeholder-accent-silver/50 border-none focus:ring-0 h-full px-4 text-base" placeholder="Search by title, author, ISBN, or subject..." type="text"/>
+<button class="bg-primary hover:bg-red-700 text-white font-bold px-8 h-full transition-colors flex items-center gap-2">
+<span>Search</span>
+</button>
+</div>
+<div class="mt-4 flex gap-4 text-xs text-accent-silver">
+<span>Suggested:</span>
+<a class="hover:text-primary underline decoration-primary/50" href="#">IGCSE Math</a>
+<a class="hover:text-primary underline decoration-primary/50" href="#">Shakespeare</a>
+<a class="hover:text-primary underline decoration-primary/50" href="#">Biology 9700</a>
+</div>
+</div>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column (Content) -->
+<div class="lg:col-span-8 flex flex-col gap-10">
+<!-- E-Books Carousel Section -->
+<section>
+<div class="flex items-center justify-between mb-5 px-1">
+<h2 class="text-white text-2xl font-bold font-display flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full block"></span>
+                                    E-Books &amp; Periodicals
+                                </h2>
+<a class="text-primary text-sm font-bold hover:text-white transition-colors flex items-center gap-1" href="#">
+                                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="relative -mx-4 px-4 md:mx-0 md:px-0">
+<div class="flex overflow-x-auto hide-scrollbar gap-5 pb-4 snap-x">
+<!-- Book 1 -->
+<div class="flex flex-col gap-3 min-w-[160px] w-[160px] snap-start group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-lg bg-surface-dark border border-border-dark overflow-hidden relative shadow-md group-hover:shadow-primary/20 transition-all group-hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Cover of a classic book with leather binding" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaevFgkzyYQSnrbDrSHacsrIeIt5aHtmen6dxjryutnXq5Ug_MTW300dxJT8clG3OIyeGdsubOU4AUJod970PYXeJ_AbhdL-E9h6z4vuElYTQBtDRN7J-la3OgDheRSzgLPsKOOF-KWZvy52SnfX2BlKBSkVEzBTtUxnEOg51UfPW1IMcW8qUj7Rz0wArOD4Zfzb9j8LcpX3VxzoamzIC9f9mA-3R8bPzmXRtr3IOC5hCNHqhj_DXHIK5v8quHvB-74U3Jzeh4qtI");'></div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+</div>
+<div>
+<h3 class="text-white text-sm font-bold leading-tight mb-1 group-hover:text-primary transition-colors">Advanced Physics</h3>
+<p class="text-accent-silver text-xs">R. Muncaster</p>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="flex flex-col gap-3 min-w-[160px] w-[160px] snap-start group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-lg bg-surface-dark border border-border-dark overflow-hidden relative shadow-md group-hover:shadow-primary/20 transition-all group-hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Textbook cover featuring biological illustrations" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaG7NZhamKm02UcGEtUq9Zql9mKdGSCkd1ehFUni6iIsaIdBC9CEDlWRpyRCsHvYUoMGvEM-4TZINjdxbfFRXelhwODtJE8pMLzn-ULENG5L0rvP-Nh_T-kvyHb0AHknok7uhVXnV8MgmjWJF8HmFW9YAuhEXfzaflVcHRarNWWgBxA5_CmiiF6lZXuAL-Ejc2hoMivNOLd_VpCL6pEY5O9OiOzgdAV_nfYY1W1PvDhfq53v0JqAAXKLsXTaDyCT5TZTRkGLfK4Kk");'></div>
+</div>
+<div>
+<h3 class="text-white text-sm font-bold leading-tight mb-1 group-hover:text-primary transition-colors">IGCSE Biology</h3>
+<p class="text-accent-silver text-xs">D. Hayward</p>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="flex flex-col gap-3 min-w-[160px] w-[160px] snap-start group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-lg bg-surface-dark border border-border-dark overflow-hidden relative shadow-md group-hover:shadow-primary/20 transition-all group-hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Cover of Pride and Prejudice" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC--0URIVk0pCkx_ZeOfb-vWszrMEjmYIewazXYKX17J5fg8MeWTKCzrieQP4KUJRDKUg_MzqSnpMHOj5tWwU5Rl09KR2ttf9vNudhA60uTGOy5p0EwMb_JDmCpMiYAHdYH2uiPw3325-rEcGBy2crP9g0doTsAq4v_VTsRhmKMIxq9SQjNVIMNPvJkkWr7YWrspPOqW1QE46y69WVkvvVhQbP22rjQvdIRmMeQzRfOBLxLjdRdGcnZN6lRV4gsgn5IA6YyTenssGw");'></div>
+</div>
+<div>
+<h3 class="text-white text-sm font-bold leading-tight mb-1 group-hover:text-primary transition-colors">Pride &amp; Prejudice</h3>
+<p class="text-accent-silver text-xs">Jane Austen</p>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="flex flex-col gap-3 min-w-[160px] w-[160px] snap-start group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-lg bg-surface-dark border border-border-dark overflow-hidden relative shadow-md group-hover:shadow-primary/20 transition-all group-hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Abstract geometric cover art for a math book" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDukEdynXF11RE55LNDBkXvBbcNfcGAsBubXDyb9vkln3qvLf50avcl7HAStR7lqQ-vh7FznAQ2sOHu-fldT6vh_72fKn9aLEwIzKPJtRnIFyfAkvUU8aGAb1DdPyFro9A83NLmQFbaJTNlSsbBAofYlJblFHTNZic_uM3jP7LCHv3hFAfG9_FP0STX0LLFXuruJ4JRGFt9aD8PMa94A7GwGQnnJtTPoNESZDm2WkH9SEQ9szmpDxqs6lqCTQlsJftb-NyJh2bq8RU");'></div>
+</div>
+<div>
+<h3 class="text-white text-sm font-bold leading-tight mb-1 group-hover:text-primary transition-colors">Pure Mathematics 1</h3>
+<p class="text-accent-silver text-xs">Cambridge Press</p>
+</div>
+</div>
+<!-- Book 5 -->
+<div class="flex flex-col gap-3 min-w-[160px] w-[160px] snap-start group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-lg bg-surface-dark border border-border-dark overflow-hidden relative shadow-md group-hover:shadow-primary/20 transition-all group-hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Minimalist book cover about history" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJKJmcB62tra9pRucDpBJc3vhBptsjbiXZp4J4zFK0aWPzXgeybr8lxktvU25gDyCJWdoRn7x7cyP4h4SoARhgKfnjha_CFagwrmKk1pKsejFR58DrZdL118o9CQ1z761bTZD-oy3Fm-GzZHb5DyLD-M3nNxEXSGScoRwGImQAUkSxez39oENLggkKJnYEnDXA29XRWQ6SwLO_eDEKiE-iEy_EnLK96gsKjqOg4pcz9fsnxqjC4dfBvhrsI6lAKoFeQz8fc0jsRyI");'></div>
+</div>
+<div>
+<h3 class="text-white text-sm font-bold leading-tight mb-1 group-hover:text-primary transition-colors">Modern World History</h3>
+<p class="text-accent-silver text-xs">Ben Walsh</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Past Papers Section -->
+<section>
+<div class="flex items-center justify-between mb-5 px-1">
+<h2 class="text-white text-2xl font-bold font-display flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full block"></span>
+                                    Past Exam Papers
+                                </h2>
+<div class="flex gap-2">
+<select class="bg-surface-dark border border-border-dark text-white text-sm rounded px-3 py-1.5 focus:border-primary focus:ring-0">
+<option>2023</option>
+<option>2022</option>
+<option>2021</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Category Card: A Level -->
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="bg-[#361e1e] px-6 py-3 border-b border-border-dark flex justify-between items-center">
+<h3 class="text-white font-bold text-lg">A-Level Resources</h3>
+<span class="text-xs font-medium bg-primary/20 text-primary px-2 py-1 rounded">Form 6</span>
+</div>
+<div class="divide-y divide-border-dark">
+<!-- Item -->
+<div class="px-6 py-4 flex items-center justify-between hover:bg-[#361e1e]/50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="bg-border-dark/30 p-2 rounded text-accent-silver group-hover:text-white group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm group-hover:text-primary transition-colors">Chemistry Paper 4 (Structured Questions)</p>
+<p class="text-accent-silver text-xs mt-0.5">November 2023 • 9701/42 • 1.4 MB</p>
+</div>
+</div>
+<button class="text-accent-silver hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Item -->
+<div class="px-6 py-4 flex items-center justify-between hover:bg-[#361e1e]/50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="bg-border-dark/30 p-2 rounded text-accent-silver group-hover:text-white group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm group-hover:text-primary transition-colors">Economics Paper 2 (Data Response)</p>
+<p class="text-accent-silver text-xs mt-0.5">November 2023 • 9708/22 • 980 KB</p>
+</div>
+</div>
+<button class="text-accent-silver hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Category Card: IGCSE -->
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="bg-[#361e1e] px-6 py-3 border-b border-border-dark flex justify-between items-center">
+<h3 class="text-white font-bold text-lg">IGCSE Resources</h3>
+<span class="text-xs font-medium bg-primary/20 text-primary px-2 py-1 rounded">Form 4</span>
+</div>
+<div class="divide-y divide-border-dark">
+<!-- Item -->
+<div class="px-6 py-4 flex items-center justify-between hover:bg-[#361e1e]/50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="bg-border-dark/30 p-2 rounded text-accent-silver group-hover:text-white group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm group-hover:text-primary transition-colors">Mathematics Paper 2 (Extended)</p>
+<p class="text-accent-silver text-xs mt-0.5">June 2023 • 0580/22 • 2.1 MB</p>
+</div>
+</div>
+<button class="text-accent-silver hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Sidebar) -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<!-- Study Room Booking Widget -->
+<div class="bg-surface-dark rounded-xl border border-border-dark shadow-lg p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">meeting_room</span>
+<h3 class="text-white font-bold text-lg">Study Room Booking</h3>
+</div>
+<!-- Calendar Visual -->
+<div class="mb-5">
+<div class="flex justify-between items-center mb-3">
+<span class="text-white font-bold text-sm">October 2023</span>
+<div class="flex gap-1">
+<button class="text-accent-silver hover:text-white"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="text-accent-silver hover:text-white"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-accent-silver">
+<span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center text-sm font-medium">
+<span class="text-accent-silver/30">28</span>
+<span class="text-accent-silver/30">29</span>
+<span class="text-accent-silver/30">30</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">1</span>
+<span class="bg-primary text-white rounded aspect-square flex items-center justify-center cursor-pointer shadow-md shadow-primary/30">2</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">3</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">4</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">5</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">6</span>
+<span class="text-white hover:bg-border-dark rounded aspect-square flex items-center justify-center cursor-pointer">7</span>
+</div>
+</div>
+<!-- Slots List -->
+<div class="space-y-2 mb-5">
+<p class="text-xs text-accent-silver mb-2 uppercase tracking-wider font-bold">Available Slots (Oct 2)</p>
+<button class="w-full flex justify-between items-center p-3 rounded bg-background-dark border border-border-dark hover:border-primary transition-all group">
+<span class="text-white text-sm font-medium">09:00 - 10:00 AM</span>
+<span class="text-xs text-green-500 font-bold bg-green-500/10 px-2 py-0.5 rounded">Open</span>
+</button>
+<button class="w-full flex justify-between items-center p-3 rounded bg-background-dark border border-border-dark hover:border-primary transition-all group opacity-50 cursor-not-allowed">
+<span class="text-accent-silver text-sm font-medium decoration-line-through">10:00 - 11:00 AM</span>
+<span class="text-xs text-red-500 font-bold bg-red-500/10 px-2 py-0.5 rounded">Booked</span>
+</button>
+<button class="w-full flex justify-between items-center p-3 rounded bg-background-dark border border-border-dark hover:border-primary transition-all group">
+<span class="text-white text-sm font-medium">11:00 - 12:00 PM</span>
+<span class="text-xs text-green-500 font-bold bg-green-500/10 px-2 py-0.5 rounded">Open</span>
+</button>
+</div>
+<button class="w-full bg-primary hover:bg-red-700 text-white font-bold py-3 rounded-lg text-sm transition-colors shadow-lg shadow-primary/20">
+                                Reserve Slot
+                            </button>
+</div>
+<!-- Quick Links Sidebar -->
+<div class="bg-surface-dark rounded-xl border border-border-dark shadow-lg p-6">
+<h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">link</span> Quick Links
+                            </h3>
+<ul class="space-y-3">
+<li>
+<a class="flex items-center gap-3 p-2 rounded hover:bg-background-dark transition-colors group" href="#">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center shrink-0">
+<span class="text-black font-serif font-black text-xs">J</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-sm font-medium group-hover:text-primary transition-colors">JSTOR Database</p>
+<p class="text-accent-silver text-xs">Academic journals &amp; books</p>
+</div>
+<span class="material-symbols-outlined text-accent-silver text-sm group-hover:text-white">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded hover:bg-background-dark transition-colors group" href="#">
+<div class="w-8 h-8 rounded bg-[#004f95] flex items-center justify-center shrink-0">
+<span class="text-white font-serif font-black text-xs">B</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-sm font-medium group-hover:text-primary transition-colors">Britannica School</p>
+<p class="text-accent-silver text-xs">Encyclopedia articles</p>
+</div>
+<span class="material-symbols-outlined text-accent-silver text-sm group-hover:text-white">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-2 rounded hover:bg-background-dark transition-colors group" href="#">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center shrink-0">
+<span class="text-blue-500 font-sans font-bold text-sm">G</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-sm font-medium group-hover:text-primary transition-colors">Google Scholar</p>
+<p class="text-accent-silver text-xs">Scholarly literature</p>
+</div>
+<span class="material-symbols-outlined text-accent-silver text-sm group-hover:text-white">open_in_new</span>
+</a>
+</li>
+</ul>
+<div class="mt-5 pt-5 border-t border-border-dark">
+<a class="text-accent-silver text-xs hover:text-white flex items-center gap-2 justify-center" href="#">
+<span class="material-symbols-outlined text-base">help</span>
+                                    Need help with research?
+                                </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-border-dark bg-background-dark py-8 text-center text-accent-silver text-sm">
+<p>© 2024 Hillside Academy. All Rights Reserved.</p>
+</footer>
+</div>
+</body></html>

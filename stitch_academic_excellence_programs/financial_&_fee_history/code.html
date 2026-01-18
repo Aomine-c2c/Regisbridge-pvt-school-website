@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial &amp; Fee History - Parent Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "primary-dark": "#990c0c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                        "silver-100": "#f3f4f6",
+                        "silver-200": "#e5e7eb",
+                        "silver-300": "#d1d5db",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "sans": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 min-h-screen flex flex-col font-display">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white dark:bg-[#1a1a1a] border-b border-silver-200 dark:border-gray-800 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center gap-4">
+<div class="text-primary size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">school</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-xl font-bold tracking-tight">Parent Portal</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-center gap-8">
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Academics</a>
+<a class="text-primary font-bold text-sm leading-normal border-b-2 border-primary pb-0.5" href="#">Finances</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Boarding</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium" href="#">Calendar</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center justify-center rounded-lg h-9 px-4 bg-primary hover:bg-primary-dark text-white text-sm font-bold transition-colors shadow-sm">
+                        Profile
+                    </button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-silver-200 dark:ring-gray-700 cursor-pointer" data-alt="Parent profile picture portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyQWCE5E6G6aMyTiKYzwsjzMwplM4u09DBXJ_vlc-TD6HDdigbq1eUYGya6_zDO9qMlyGs_8h0ggWrNK3xfOrXDzNsHhKDauaQAPWUpnQjjQklm_KRnELqFv5a7CcGz1JqRsSVnfUfjlIKFpFWqLnYb3kUr8KU0YKa5ozlmGnGgzKi6Sg595Z7e68cVuyBjdM3kxsD_-tx-YcFHSfEk8N19se3x5dF5mEVxV1PETwbbn9CX0yOwHo1S5R4EaII7xsvTMngaD00E5U");'>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="flex mb-6">
+<ol class="inline-flex items-center space-x-1 md:space-x-3">
+<li class="inline-flex items-center">
+<a class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400" href="#">
+<span class="material-symbols-outlined text-lg mr-2">home</span>
+                        Home
+                    </a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-gray-400 text-lg">chevron_right</span>
+<a class="ml-1 text-sm font-medium text-gray-500 hover:text-primary md:ml-2 dark:text-gray-400" href="#">Parent Portal</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-gray-400 text-lg">chevron_right</span>
+<span class="ml-1 text-sm font-medium text-primary md:ml-2">Financial &amp; Fee History</span>
+</div>
+</li>
+</ol>
+</nav>
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<h1 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white tracking-tight mb-2">Financial &amp; Fee History</h1>
+<p class="text-gray-500 dark:text-gray-400 text-lg max-w-2xl">Manage tuition fees, view transaction history, and download receipts for the academic year.</p>
+</div>
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-full border border-silver-200 dark:border-gray-700 shadow-sm">
+<span class="material-symbols-outlined text-lg text-green-600">lock</span>
+                Secure 256-bit SSL Encrypted
+            </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Summary & Transactions (Span 2) -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Financial Summary Card -->
+<div class="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm border border-silver-200 dark:border-gray-800 overflow-hidden relative">
+<!-- Decorative top border -->
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<div class="p-6 md:p-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="space-y-1">
+<p class="text-gray-500 dark:text-gray-400 font-medium">Current Outstanding Balance</p>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl md:text-5xl font-black text-primary tracking-tight">$4,500.00</span>
+<span class="text-gray-400 text-lg font-medium">USD</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 min-w-[200px]">
+<div class="flex items-center gap-2 text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-3 py-1.5 rounded-md w-fit">
+<span class="material-symbols-outlined text-lg">warning</span>
+<span class="text-sm font-bold">Due: 15 Sep 2023</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white h-12 px-6 rounded-lg font-bold text-base shadow-md transition-all transform active:scale-95 group">
+<span class="material-symbols-outlined group-hover:animate-pulse">credit_card</span>
+                                    Pay Fees Now
+                                </button>
+<div class="flex justify-center gap-3 mt-1 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+<!-- Payment icons represented by simple colored blocks for demo purposes or SVG placeholders -->
+<span class="text-[10px] text-gray-400 font-medium uppercase tracking-wide">Securely accepted via</span>
+<span class="text-xs font-bold text-blue-800">VISA</span>
+<span class="text-xs font-bold text-orange-600">MasterCard</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Stats Footer -->
+<div class="bg-silver-100 dark:bg-gray-800/50 px-6 py-4 border-t border-silver-200 dark:border-gray-800 grid grid-cols-2 md:grid-cols-3 gap-4">
+<div>
+<p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Last Payment</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">$1,500.00 (01 Sept)</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Academic Term</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">Term 3, 2023</p>
+</div>
+<div class="hidden md:block">
+<p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Student ID</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">ST-2023-8894</p>
+</div>
+</div>
+</div>
+<!-- Transaction History -->
+<div class="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm border border-silver-200 dark:border-gray-800">
+<div class="p-6 border-b border-silver-200 dark:border-gray-800 flex flex-wrap justify-between items-center gap-4">
+<h3 class="text-xl font-bold text-gray-900 dark:text-white">Transaction History</h3>
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
+<input class="pl-9 pr-4 py-2 h-9 text-sm rounded-lg border border-silver-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none w-48 md:w-64" placeholder="Search transactions..." type="text"/>
+</div>
+<button class="flex items-center gap-1 px-3 h-9 rounded-lg border border-silver-300 dark:border-gray-700 text-sm font-medium hover:bg-silver-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                                Filter
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-silver-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-400 text-xs uppercase font-bold tracking-wider border-b border-silver-200 dark:border-gray-800">
+<th class="px-6 py-4 rounded-tl-lg">Date</th>
+<th class="px-6 py-4">Description</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4 text-right">Amount</th>
+<th class="px-6 py-4 text-center">Receipt</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-silver-200 dark:divide-gray-800">
+<!-- Row 1 -->
+<tr class="hover:bg-silver-50 dark:hover:bg-gray-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">01 Sept 2023</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-medium text-gray-900 dark:text-white">Bank Transfer Payment</span>
+<span class="text-xs text-gray-500">Ref: TRF-9928371</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                                            Payment
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-medium text-green-600 dark:text-green-400 whitespace-nowrap">
+                                        -$1,500.00
+                                    </td>
+<td class="px-6 py-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20" title="Download Receipt">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-silver-50 dark:hover:bg-gray-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">28 Aug 2023</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-medium text-gray-900 dark:text-white">Term 3 Tuition Fee</span>
+<span class="text-xs text-gray-500">Inv: #INV-2023-003</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                            Tuition
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        $3,000.00
+                                    </td>
+<td class="px-6 py-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20" title="Download Invoice">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-silver-50 dark:hover:bg-gray-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">28 Aug 2023</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-medium text-gray-900 dark:text-white">Boarding Facility Fee</span>
+<span class="text-xs text-gray-500">Inv: #INV-2023-004</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
+                                            Boarding
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        $1,200.00
+                                    </td>
+<td class="px-6 py-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20" title="Download Invoice">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-silver-50 dark:hover:bg-gray-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">28 Aug 2023</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-medium text-gray-900 dark:text-white">General Levy &amp; Amenities</span>
+<span class="text-xs text-gray-500">Inv: #INV-2023-005</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                            General
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        $300.00
+                                    </td>
+<td class="px-6 py-4 text-center">
+<button class="text-gray-400 hover:text-primary transition-colors p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20" title="Download Invoice">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-silver-200 dark:border-gray-800 flex justify-center">
+<button class="text-primary hover:text-primary-dark font-medium text-sm flex items-center gap-1 transition-colors">
+                            View all transactions
+                            <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar (Span 1) -->
+<div class="space-y-6">
+<!-- Fee Structure Card -->
+<div class="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm border border-silver-200 dark:border-gray-800">
+<div class="p-5 border-b border-silver-200 dark:border-gray-800 bg-silver-100 dark:bg-gray-800/50 rounded-t-xl">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+<h3 class="font-bold text-gray-900 dark:text-white">Fee Structure Breakdown</h3>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Current Term: Term 3, 2023</p>
+</div>
+<div class="p-5 space-y-4">
+<div class="flex justify-between items-center pb-3 border-b border-silver-100 dark:border-gray-800">
+<span class="text-sm text-gray-600 dark:text-gray-300">Tuition</span>
+<span class="font-semibold text-gray-900 dark:text-white">$3,000.00</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-silver-100 dark:border-gray-800">
+<span class="text-sm text-gray-600 dark:text-gray-300">Boarding</span>
+<span class="font-semibold text-gray-900 dark:text-white">$1,200.00</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-silver-100 dark:border-gray-800">
+<span class="text-sm text-gray-600 dark:text-gray-300">General Levy</span>
+<span class="font-semibold text-gray-900 dark:text-white">$300.00</span>
+</div>
+<div class="pt-2 flex justify-between items-center">
+<span class="text-base font-bold text-primary">Total Term Fees</span>
+<span class="text-lg font-black text-gray-900 dark:text-white">$4,500.00</span>
+</div>
+</div>
+<div class="px-5 pb-5">
+<a class="block w-full text-center text-xs font-medium text-gray-500 hover:text-primary transition-colors underline" href="#">View Full Fee Schedule 2023-2024</a>
+</div>
+</div>
+<!-- Contact Finance Office -->
+<div class="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm border border-silver-200 dark:border-gray-800 p-5">
+<h3 class="font-bold text-gray-900 dark:text-white mb-3 text-sm">Need Assistance?</h3>
+<p class="text-sm text-gray-500 mb-4 leading-relaxed">For questions regarding invoices or payment plans, please contact the Bursar's office.</p>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-silver-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">call</span>
+</div>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">+1 (555) 123-4567</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-silver-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">mail</span>
+</div>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-300">finance@school.edu</span>
+</div>
+</div>
+</div>
+<!-- Advertisement / Notice -->
+<div class="rounded-xl overflow-hidden relative group h-48 cursor-pointer shadow-sm">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Children playing sports on a green field" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBheJ-4NrK4ZaiFsT78yamEKHux19-lcunkPGLaEFITgSkPI7xDrHYszGXUYqh-jhAIfPgmNujwnWHSZ4T86mFMdNdcG2pCsrhfFMGIAMU5ttg2x4tNYLbpvH6SX8smGeoN2CTWEBJToCUj1v7ioxU2YKkRjiiM3C8HFbBXNkv5Bcv1ihoA9H04WiQa1j_Y3VmQvY_2jpfwsXoYdTQPsBz85IwCil58Yq3Q9NM1scIYZalqdq8iJOnaR3vUkIEs2s0EVPKuFfHeey4");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5">
+<h4 class="text-white font-bold text-lg leading-tight mb-1">Annual Fund Drive</h4>
+<p class="text-gray-200 text-xs mb-3">Support our new sports complex initiative.</p>
+<span class="text-white text-xs font-bold underline">Learn More</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto bg-white dark:bg-[#1a1a1a] border-t border-silver-200 dark:border-gray-800 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-gray-500">© 2023 Premium Private School. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</body></html>

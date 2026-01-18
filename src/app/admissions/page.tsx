@@ -1,300 +1,256 @@
 'use client';
 
+import PremiumHeader from '@/components/layout/PremiumHeader';
+import PremiumFooter from '@/components/layout/PremiumFooter';
 import Link from 'next/link';
-import { MaterialIcon } from '@/components/ui/material-icon';
 import { useState } from 'react';
 
-/**
- * Admissions & Enrollment Page
- * Based on admissions_&_enrollment_1 template
- * 
- * Key sections:
- * - Hero with CTA buttons
- * - Application process steps
- * - Fee structure (collapsible tables)
- * - Resources downloads
- * - FAQ section
- * - Final CTA
- */
-
-export default function AdmissionsPage() {
-  const [dayScholarOpen, setDayScholarOpen] = useState(true);
-  const [boardingOpen, setBoardingOpen] = useState(false);
+export default function EnhancedAdmissionsPage() {
+  const [selectedLevel, setSelectedLevel] = useState('all');
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between px-10 py-3 max-w-[1200px] mx-auto">
-          <div className="flex items-center gap-4">
-            <MaterialIcon icon="school" size="4xl" className="text-design-primary" />
-            <h2 className="text-lg font-bold hidden sm:block">Regisbridge Academy</h2>
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/page-new" className="text-sm font-medium hover:text-design-primary transition-colors">Home</Link>
-            <Link href="/academics" className="text-sm font-medium hover:text-design-primary transition-colors">Academics</Link>
-            <Link href="/admissions" className="text-design-primary font-bold text-sm">Admissions</Link>
-            <Link href="/student-life" className="text-sm font-medium hover:text-design-primary transition-colors">Campus Life</Link>
-          </nav>
-          <Link href="/parent" className="flex items-center justify-center rounded-lg h-9 px-4 bg-design-primary hover:bg-design-primary-dark text-white text-sm font-bold transition-colors">
-            Parent Portal
-          </Link>
-        </div>
-      </header>
+    <div className="relative flex w-full flex-col bg-background-light dark:bg-background-dark min-h-screen">
+      <PremiumHeader />
 
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-10 py-5">
-        <div 
-          className="relative flex min-h-[480px] flex-col gap-6 rounded-xl items-center justify-center p-4 shadow-xl overflow-hidden"
-          style={{ 
-            background: 'linear-gradient(135deg, #5A1F3C 0%, #2E2B7B 50%, #1f1c53 100%)'
+      {/* Hero Section */}
+      <div className="@container w-full bg-white dark:bg-background-dark">
+        <div
+          className="flex min-h-[450px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-8 md:p-16 relative"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1600")',
           }}
         >
-          <div className="flex flex-col gap-3 text-center z-10 max-w-3xl">
-            <span className="text-white/90 text-sm font-bold uppercase tracking-wider">Admissions 2024-2025</span>
-            <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight drop-shadow-sm">
-              Begin Your Journey to Excellence
+          <div className="relative z-10 flex flex-col gap-4 text-center max-w-4xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-2 mb-4 text-slate-200 text-sm font-medium">
+              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+              <span>/</span>
+              <span className="text-white">Admissions</span>
+            </div>
+            <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
+              Join Regisbridge Academy
             </h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto mt-2">
-              We are now accepting applications for Early Childhood through A-Level. Join a community dedicated to academic rigor and character development.
+            <p className="text-slate-100 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+              Begin your journey to academic excellence. Applications for 2026-2027 are now open.
             </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 z-10 mt-4">
-            <Link href="#apply" className="flex min-w-[160px] items-center justify-center rounded-lg h-12 px-6 bg-design-primary hover:bg-design-primary-dark text-white text-base font-bold transition-all shadow-lg">
-              Start Application
-            </Link>
-            <button className="flex min-w-[160px] items-center justify-center rounded-lg h-12 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 text-base font-bold transition-all">
-              Download Prospectus
-            </button>
+            <div className="flex flex-wrap gap-4 justify-center mt-4">
+              <Link
+                href="/admissions/apply"
+                className="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-brand-navy text-white font-bold hover:bg-brand-navy-dark transition-colors shadow-lg"
+              >
+                Start Application
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-white/10 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white/20 transition-all"
+              >
+                Schedule Tour
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col max-w-[960px] w-full mx-auto px-4 md:px-10 pb-20">
-        {/* Application Process */}
-        <div className="mt-8">
-          <h2 className="text-slate-900 dark:text-white text-[28px] font-bold leading-tight pb-6 pt-5">Application Process</h2>
-          
-          <div className="grid grid-cols-[40px_1fr] gap-x-4">
-            {/* Step 1 */}
-            <div className="flex flex-col items-center gap-1 pt-1">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-design-primary/10 text-design-primary">
-                <MaterialIcon icon="mail" size="md" />
-              </div>
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-full min-h-[40px] grow"></div>
-            </div>
-            <div className="flex flex-1 flex-col pb-8 pt-1">
-              <p className="text-slate-900 dark:text-white text-lg font-bold">Submit Inquiry</p>
-              <p className="text-slate-500 dark:text-slate-400 text-base mt-1">
-                Fill out our <Link href="#" className="text-design-primary underline">inquiry form</Link> to receive our digital prospectus and schedule a call with our admissions team.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="flex flex-col items-center gap-1">
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-4"></div>
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800">
-                <MaterialIcon icon="tour" size="md" className="text-slate-700 dark:text-slate-300" />
-              </div>
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-full min-h-[40px] grow"></div>
-            </div>
-            <div className="flex flex-1 flex-col pb-8 pt-1">
-              <p className="text-slate-900 dark:text-white text-lg font-bold">Campus Tour</p>
-              <p className="text-slate-500 dark:text-slate-400 text-base mt-1">
-                Visit our campus to experience the environment firsthand. Tours are available weekdays at 10:00 AM.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="flex flex-col items-center gap-1">
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-4"></div>
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800">
-                <MaterialIcon icon="edit_note" size="md" className="text-slate-700 dark:text-slate-300" />
-              </div>
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-full min-h-[40px] grow"></div>
-            </div>
-            <div className="flex flex-1 flex-col pb-8 pt-1">
-              <p className="text-slate-900 dark:text-white text-lg font-bold">Online Assessment</p>
-              <p className="text-slate-500 dark:text-slate-400 text-base mt-1">
-                Applicants for Grade 1 and above must complete an age-appropriate entrance assessment covering Math and English.
-              </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="flex flex-col items-center gap-1">
-              <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-4"></div>
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800">
-                <MaterialIcon icon="groups" size="md" className="text-slate-700 dark:text-slate-300" />
-              </div>
-            </div>
-            <div className="flex flex-1 flex-col pb-4 pt-1">
-              <p className="text-slate-900 dark:text-white text-lg font-bold">Final Interview</p>
-              <p className="text-slate-500 dark:text-slate-400 text-base mt-1">
-                A meeting with the Head of School to discuss your child's aspirations and how we can support their journey.
-              </p>
-            </div>
-          </div>
+      {/* Admissions Process */}
+      <section className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-4">Admissions Process</h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Our streamlined admission process ensures we find the right fit for every student
+          </p>
         </div>
 
-        {/* Fee Structure */}
-        <div className="mt-12">
-          <div className="flex items-center justify-between pb-6 pt-5">
-            <h2 className="text-slate-900 dark:text-white text-[28px] font-bold">Fee Structure</h2>
-            <span className="px-3 py-1 rounded-full bg-design-primary/10 text-design-primary text-xs font-bold">2024-2025</span>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {/* Day Scholar Fees */}
-            <details open={dayScholarOpen} className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-              <summary className="flex items-center justify-between p-5 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                <div className="flex items-center gap-3">
-                  <MaterialIcon icon="school" className="text-design-primary" />
-                  <h3 className="text-lg font-bold">Day Scholar Fees</h3>
-                </div>
-                <MaterialIcon icon="expand_more" className="transform group-open:rotate-180 transition-transform text-slate-500" />
-              </summary>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
-                    <tr>
-                      <th className="px-6 py-4 font-semibold">Grade Level</th>
-                      <th className="px-6 py-4 font-semibold">Termly Tuition</th>
-                      <th className="px-6 py-4 font-semibold">Annual Tuition</th>
-                      <th className="px-6 py-4 font-semibold">Development Levy</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-                    {[
-                      ['Early Childhood (ECD)', '$2,400', '$7,200', '$500'],
-                      ['Primary (Grades 1-7)', '$3,800', '$11,400', '$750'],
-                      ['Secondary (Forms 1-4)', '$4,500', '$13,500', '$1,000'],
-                      ['Sixth Form (A-Level)', '$5,100', '$15,300', '$1,000']
-                    ].map((row, i) => (
-                      <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                        <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{row[0]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[1]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[2]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[3]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            { step: '01', title: 'Inquiry', description: 'Submit an initial inquiry form or schedule a campus visit' },
+            { step: '02', title: 'Application', description: 'Complete the online application with required documents' },
+            { step: '03', title: 'Assessment', description: 'Student assessment and parent interview' },
+            { step: '04', title: 'Enrollment', description: 'Receive decision and complete enrollment' },
+          ].map((item, index) => (
+            <div key={index} className="relative">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all">
+                <div className="text-5xl font-black text-brand-navy/10 mb-4">{item.step}</div>
+                <h3 className="text-xl font-bold text-[#111318] dark:text-white mb-3">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{item.description}</p>
               </div>
-            </details>
-
-            {/* Boarding Fees */}
-            <details className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-              <summary className="flex items-center justify-between p-5 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                <div className="flex items-center gap-3">
-                  <MaterialIcon icon="bedroom_parent" className="text-design-primary" />
-                  <h3 className="text-lg font-bold">Boarding Fees (Full Board)</h3>
-                </div>
-                <MaterialIcon icon="expand_more" className="transform group-open:rotate-180 transition-transform text-slate-500" />
-              </summary>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
-                    <tr>
-                      <th className="px-6 py-4 font-semibold">Grade Level</th>
-                      <th className="px-6 py-4 font-semibold">Boarding Fee (Termly)</th>
-                      <th className="px-6 py-4 font-semibold">Tuition + Boarding</th>
-                      <th className="px-6 py-4 font-semibold">Laundry & Medical</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-                    {[
-                      ['Primary (Grades 3-7)', '$3,200', '$7,000', 'Included'],
-                      ['Secondary & A-Level', '$4,000', '$8,500 - $9,100', 'Included']
-                    ].map((row, i) => (
-                      <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                        <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{row[0]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[1]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[2]}</td>
-                        <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{row[3]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </details>
-          </div>
+              {index < 3 && (
+                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-brand-navy/30" />
+              )}
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* Resources */}
-        <div className="mt-12">
-          <h2 className="text-slate-900 dark:text-white text-[28px] font-bold pb-6 pt-5">Admissions Resources</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Entry Points */}
+      <section className="py-16 px-6 lg:px-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-12 text-center">
+            Entry Points & Requirements
+          </h2>
+
+          <div className="space-y-6">
             {[
-              { icon: 'picture_as_pdf', color: 'red', title: '2024 Prospectus', desc: 'Detailed guide to curriculum and life at Regisbridge.' },
-              { icon: 'calendar_month', color: 'blue', title: 'Academic Calendar', desc: 'Term dates, holidays, and key events for the year.' },
-              { icon: 'menu_book', color: 'emerald', title: 'Boarding Handbook', desc: 'Rules, packing lists, and weekend activity info.' }
-            ].map((resource, i) => (
-              <div key={i} className="flex flex-col gap-4 p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow group cursor-pointer">
-                <div className={`size-10 rounded-lg bg-${resource.color}-100 dark:bg-${resource.color}-900/30 flex items-center justify-center text-${resource.color}-600 dark:text-${resource.color}-400`}>
-                  <MaterialIcon icon={resource.icon} />
+              {
+                level: 'Early Childhood (Ages 3-5)',
+                requirements: ['Birth certificate', 'Medical records', 'Previous school reports (if applicable)'],
+                deadline: 'Rolling admissions',
+              },
+              {
+                level: 'Primary School (Year 1-6)',
+                requirements: ['Academic transcripts', 'Teacher recommendations', 'Entrance assessment'],
+                deadline: 'January 31, 2026',
+              },
+              {
+                level: 'Secondary School (Year 7-11)',
+                requirements: ['Academic transcripts', '2 teacher recommendations', 'Entrance exam', 'Student essay'],
+                deadline: 'February 15, 2026',
+              },
+              {
+                level: 'Sixth Form (Year 12-13)',
+                requirements: ['IGCSE results', 'Academic references', 'Personal statement', 'Interview'],
+                deadline: 'March 1, 2026',
+              },
+            ].map((entry, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
+              >
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                  <h3 className="text-xl font-bold text-[#111318] dark:text-white">{entry.level}</h3>
+                  <span className="px-4 py-2 bg-brand-navy/10 text-brand-navy rounded-lg text-sm font-bold">
+                    Deadline: {entry.deadline}
+                  </span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white">{resource.title}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{resource.desc}</p>
-                </div>
-                <div className="mt-auto flex items-center gap-2 text-design-primary font-medium text-sm group-hover:underline">
-                  <span>Download PDF</span>
-                  <MaterialIcon icon="download" size="xs" />
+                  <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Required Documents:</p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {entry.requirements.map((req, i) => (
+                      <li key={i} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                        <span className="material-symbols-outlined text-brand-navy text-sm">check_circle</span>
+                        {req}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* FAQ */}
-        <div className="mt-12">
-          <h2 className="text-slate-900 dark:text-white text-[28px] font-bold pb-6 pt-5">Frequently Asked Questions</h2>
-          <div className="flex flex-col gap-4">
-            {[
-              { q: 'What is the student-to-teacher ratio?', a: 'Our average class size is 18 students, ensuring personalized attention. In A-Level classes, the ratio is typically 8:1 for specialized subjects.' },
-              { q: 'Do you offer scholarships or financial aid?', a: 'Yes, we offer merit-based scholarships for academic, sports, and arts excellence. Applications for scholarships must be submitted by January 31st for the following academic year.' },
-              { q: 'Can international students apply?', a: 'Absolutely. Regisbridge Academy welcomes students from over 30 countries. We assist with student visa applications and offer comprehensive ELL support for non-native English speakers.' }
-            ].map((faq, i) => (
-              <details key={i} className="group bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-                <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-slate-900 dark:text-white">
-                  <span>{faq.q}</span>
-                  <MaterialIcon icon="expand_more" className="text-slate-400 transition-transform group-open:rotate-180" size="sm" />
-                </summary>
-                <div className="px-4 pb-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                  {faq.a}
+      {/* Fees & Financial Aid */}
+      <section className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-6">Tuition Fees</h2>
+            <div className="space-y-4">
+              {[
+                { level: 'Early Childhood', fee: '$8,500' },
+                { level: 'Primary School', fee: '$12,000' },
+                { level: 'Secondary School', fee: '$15,000' },
+                { level: 'Sixth Form', fee: '$16,500' },
+                { level: 'Boarding (Additional)', fee: '$18,000' },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <span className="font-semibold text-gray-700 dark:text-gray-300">{item.level}</span>
+                  <span className="text-xl font-bold text-brand-navy">{item.fee}/year</span>
                 </div>
+              ))}
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+              * Fees include uniforms, textbooks, and most extracurricular activities
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-6">Financial Aid</h2>
+            <div className="bg-brand-navy/5 p-6 rounded-xl border border-brand-navy/10 mb-6">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                We believe that financial circumstances should not be a barrier to an excellent education. Regisbridge offers need-based scholarships and flexible payment plans.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-brand-navy text-sm mt-0.5">check_circle</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Merit-based scholarships up to 50%</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-brand-navy text-sm mt-0.5">check_circle</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Need-based financial aid available</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-brand-navy text-sm mt-0.5">check_circle</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Sibling discounts offered</span>
+                </li>
+              </ul>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-lg h-12 px-6 bg-brand-navy text-white font-bold hover:bg-brand-navy-dark transition-colors"
+            >
+              Contact Financial Aid Office
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-16 px-6 lg:px-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-[900px] mx-auto">
+          <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-12 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            {[
+              {
+                q: 'When should I apply?',
+                a: 'We recommend applying 6-12 months before your desired start date. Priority deadlines vary by entry level.',
+              },
+              {
+                q: 'Can international students apply?',
+                a: 'Yes! We welcome international students and provide visa support documentation for accepted students.',
+              },
+              {
+                q: 'What is the student-teacher ratio?',
+                a: 'Our average student-teacher ratio is 1:10, ensuring personalized attention for every student.',
+              },
+              {
+                q: 'Do you offer campus tours?',
+                a: 'Yes, we offer guided campus tours throughout the year. Contact our admissions office to schedule a visit.',
+              },
+            ].map((faq, index) => (
+              <details
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700"
+              >
+                <summary className="font-bold text-gray-900 dark:text-white cursor-pointer flex items-center justify-between">
+                  {faq.q}
+                  <span className="material-symbols-outlined text-brand-gold">expand_more</span>
+                </summary>
+                <p className="mt-3 text-gray-600 dark:text-gray-400">{faq.a}</p>
               </details>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Final CTA */}
-        <div className="mt-20 mb-10 p-8 md:p-12 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-design-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-          <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-design-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-          
-          <div className="relative z-10 flex flex-col gap-3 text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-bold">Ready to take the next step?</h2>
-            <p className="text-slate-300 max-w-md">Secure your child's place at one of the country's leading educational institutions. Spaces are limited.</p>
-          </div>
-          
-          <div className="relative z-10 flex flex-col sm:flex-row gap-3">
-            <Link href="#apply" className="flex min-w-[160px] items-center justify-center rounded-lg h-12 px-6 bg-design-primary hover:bg-design-primary-dark text-white text-base font-bold transition-all shadow-lg">
-              Apply Online
-            </Link>
-            <Link href="/contact" className="flex min-w-[160px] items-center justify-center rounded-lg h-12 px-6 bg-transparent border border-white/20 hover:bg-white/10 text-white text-base font-bold transition-all">
-              Contact Admissions
-            </Link>
-          </div>
-        </div>
-      </div>
+      {/* CTA */}
+      <section className="bg-brand-navy py-16 px-6 text-center">
+        <h2 className="text-white text-3xl font-bold mb-4">Ready to Apply?</h2>
+        <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+          Take the first step towards an exceptional education at Regisbridge Academy.
+        </p>
+        <Link
+          href="/admissions/apply"
+          className="inline-flex items-center justify-center bg-white text-brand-navy px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
+        >
+          Start Your Application
+        </Link>
+      </section>
 
-      {/* Footer */}
-      <footer className="w-full bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-12 px-4 md:px-10">
-        <div className="max-w-[1200px] mx-auto text-center text-sm text-slate-500">
-          © 2024 Regisbridge Academy. All rights reserved.
-        </div>
-      </footer>
+      <PremiumFooter />
     </div>
   );
 }

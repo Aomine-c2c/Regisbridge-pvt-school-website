@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Wellness &amp; Support Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "primary-dark": "#a30d0d",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                        "silver": "#e5e7eb",
+                        "silver-light": "#f3f4f6",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="bg-white dark:bg-[#2a1d1d] border-b border-[#f4f0f0] dark:border-[#3a2828] sticky top-0 z-50">
+<div class="layout-container flex justify-center w-full">
+<div class="layout-content-container flex flex-col max-w-[1280px] w-full px-4 lg:px-10 py-3">
+<div class="flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-[#181111] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">St. George's College</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Academics</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Admissions</a>
+<a class="text-[#181111] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Boarding</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary" href="#">Support Hub</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-[#f4f0f0] dark:bg-[#3a2828]">
+<div class="text-[#896161] flex border-none items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#181111] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-[#896161] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-primary-dark transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Parent Portal</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<main class="flex-grow">
+<div class="layout-container flex flex-col items-center">
+<!-- Hero Section -->
+<div class="w-full relative bg-cover bg-center bg-no-repeat min-h-[400px] flex flex-col items-center justify-center text-center p-8" data-alt="Calm students studying in a green campus garden" style='background-image: linear-gradient(rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuA78nIUhoXYpJdalZ1KewTeoGAJV9mBI1-pdDNwN27ayW9mDnr-Bs0Dnrsq-0bnQcijUUeRt9BmymVa0-xSQjt8u8KcH51FwzxY_E5_MZUVp2yeKGs-VcSkUrKIzdTKSSFeUOBO9qSPSuipUUt-lUJ5tNninWYTz0NyfXANVAQDD0USFTjttnJqg9Szo8ZvzC656dq5h4IkCt_u74-YSIaHVoXXyUHyoHcCCOOuF0TJ4N7f6KG1HCI1A--DNjh_HvuouA749j-EmBY");'>
+<div class="max-w-3xl flex flex-col gap-4 animate-fade-in-up">
+<div class="w-16 h-1 bg-primary mx-auto rounded-full mb-2"></div>
+<h1 class="text-primary text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                            Your Wellbeing Matters
+                        </h1>
+<p class="text-[#4a4a4a] text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto font-body">
+                            A safe, confidential space for support, guidance, and personal growth at St. George's. We are here to listen and help you thrive.
+                        </p>
+</div>
+</div>
+<!-- Content Container with Sidebar Layout -->
+<div class="layout-content-container w-full max-w-[1280px] px-4 lg:px-10 py-12 flex flex-col lg:flex-row gap-10">
+<!-- Left Column: Main Content -->
+<div class="flex-1 flex flex-col gap-12">
+<!-- Introduction/Mission -->
+<section>
+<h2 class="text-[#181111] dark:text-white text-3xl font-bold mb-6 border-l-4 border-primary pl-4">Our Support Services</h2>
+<p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
+                                At St. George's, we believe that emotional health is just as important as academic success. Our dedicated team provides a range of services designed to support you through every challenge.
+                            </p>
+<!-- Service Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white dark:bg-[#2a1d1d] rounded-xl shadow-sm border border-gray-100 dark:border-[#3a2828] p-6 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">psychology</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Mental Health Support</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        Professional counseling for anxiety, stress, and emotional wellbeing with licensed therapists.
+                                    </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-[#2a1d1d] rounded-xl shadow-sm border border-gray-100 dark:border-[#3a2828] p-6 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">diversity_3</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Peer Mentoring</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        Connect with senior students who offer advice, friendship, and guidance on navigating school life.
+                                    </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-[#2a1d1d] rounded-xl shadow-sm border border-gray-100 dark:border-[#3a2828] p-6 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Guidance Counseling</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        Academic planning, university application support, and subject choice guidance.
+                                    </p>
+</div>
+</div>
+</section>
+<!-- Confidential Session CTA -->
+<section class="w-full">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-silver-light to-white dark:from-[#2a1d1d] dark:to-[#1a1010] border border-silver dark:border-[#3a2828] shadow-lg">
+<div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="flex flex-col md:flex-row items-center p-8 md:p-10 gap-8">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-xl">lock</span>
+<span class="uppercase tracking-wider text-xs font-bold text-primary">Private &amp; Confidential</span>
+</div>
+<h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">Book a Confidential Session</h3>
+<p class="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-0">
+                                            Need someone to talk to? Our counselors are available for private, one-on-one sessions. Your privacy is our priority.
+                                        </p>
+</div>
+<div class="flex-shrink-0">
+<button class="flex items-center justify-center gap-2 rounded-lg h-12 px-8 bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-lg shadow-primary/20 transition-all transform hover:-translate-y-0.5">
+<span>Book Appointment</span>
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Wellness Resources Grid -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-[#181111] dark:text-white text-2xl font-bold border-l-4 border-primary pl-4">Wellness Resources</h2>
+<a class="text-primary text-sm font-bold flex items-center hover:underline" href="#">
+                                    View All Resources
+                                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Resource 1 -->
+<a class="group flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-[#3a2828] bg-white dark:bg-[#2a1d1d] hover:border-primary/50 transition-colors" href="#">
+<div class="min-w-12 h-12 rounded-lg bg-red-50 dark:bg-red-900/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white text-lg group-hover:text-primary transition-colors">Managing Exam Stress</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">Techniques for staying calm and focused during exam periods. Download PDF guide.</p>
+</div>
+</a>
+<!-- Resource 2 -->
+<a class="group flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-[#3a2828] bg-white dark:bg-[#2a1d1d] hover:border-primary/50 transition-colors" href="#">
+<div class="min-w-12 h-12 rounded-lg bg-red-50 dark:bg-red-900/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white text-lg group-hover:text-primary transition-colors">Study-Life Balance</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">Tips for maintaining a healthy routine while keeping up with academics.</p>
+</div>
+</a>
+<!-- Resource 3 -->
+<a class="group flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-[#3a2828] bg-white dark:bg-[#2a1d1d] hover:border-primary/50 transition-colors" href="#">
+<div class="min-w-12 h-12 rounded-lg bg-red-50 dark:bg-red-900/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">bed</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white text-lg group-hover:text-primary transition-colors">Sleep Hygiene Guide</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">Why sleep matters and how to improve your sleep quality starting tonight.</p>
+</div>
+</a>
+<!-- Resource 4 -->
+<a class="group flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-[#3a2828] bg-white dark:bg-[#2a1d1d] hover:border-primary/50 transition-colors" href="#">
+<div class="min-w-12 h-12 rounded-lg bg-red-50 dark:bg-red-900/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">self_improvement</span>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white text-lg group-hover:text-primary transition-colors">Mindfulness Basics</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">Simple breathing exercises and mindfulness practices for daily life.</p>
+</div>
+</a>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar -->
+<aside class="w-full lg:w-80 flex flex-col gap-6 lg:shrink-0">
+<!-- Emergency Contact Widget -->
+<div class="bg-primary rounded-xl p-6 text-white shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 -mt-6 -mr-6 w-24 h-24 bg-white/10 rounded-full"></div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-3xl">emergency</span>
+<h3 class="text-xl font-bold font-display">Emergency Support</h3>
+</div>
+<p class="text-white/90 text-sm mb-6">If you or someone you know is in immediate danger or needs urgent help.</p>
+<div class="flex flex-col gap-3">
+<a class="flex items-center justify-between bg-white/20 hover:bg-white/30 transition-colors rounded-lg p-3" href="tel:+1234567890">
+<span class="font-bold text-sm">Crisis Line (24/7)</span>
+<span class="material-symbols-outlined text-sm">call</span>
+</a>
+<a class="flex items-center justify-between bg-white/20 hover:bg-white/30 transition-colors rounded-lg p-3" href="tel:+1234567890">
+<span class="font-bold text-sm">School Nurse</span>
+<span class="material-symbols-outlined text-sm">medical_services</span>
+</a>
+<a class="flex items-center justify-between bg-white/20 hover:bg-white/30 transition-colors rounded-lg p-3" href="tel:+1234567890">
+<span class="font-bold text-sm">Head of Boarding</span>
+<span class="material-symbols-outlined text-sm">home</span>
+</a>
+</div>
+</div>
+<!-- Quote/Inspiration Widget -->
+<div class="bg-silver-light dark:bg-[#2a1d1d] border border-silver dark:border-[#3a2828] rounded-xl p-6 text-center">
+<span class="material-symbols-outlined text-4xl text-primary/40 mb-3">format_quote</span>
+<blockquote class="text-lg font-display italic text-gray-800 dark:text-gray-200 mb-4">
+                                "You don't have to control your thoughts. You just have to stop letting them control you."
+                            </blockquote>
+<cite class="text-sm font-bold text-primary not-italic">— Dan Millman</cite>
+</div>
+<!-- Quick Links -->
+<div class="bg-white dark:bg-[#2a1d1d] border border-gray-200 dark:border-[#3a2828] rounded-xl p-6">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 font-display">Quick Links</h3>
+<ul class="space-y-3">
+<li>
+<a class="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_right</span>
+                                        Report Bullying
+                                    </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_right</span>
+                                        Medical Center Hours
+                                    </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_right</span>
+                                        Chaplaincy Services
+                                    </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_right</span>
+                                        Parent Resources
+                                    </a>
+</li>
+</ul>
+</div>
+<!-- Image Widget -->
+<div class="rounded-xl overflow-hidden relative h-48 bg-gray-200">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Students laughing together on a bench in the school park" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPf0FxniKieWw7mmi88R8eLXKCjAOUyZLtzoa5ROG2XrcjiLB_tzHeZZ9Ez3EiIwktX8IHqQcvV3uidpsLjGRhl0GBBrq36mTHaL9mMUKnCxequrGek9j-QIpnU5Ms9Rr52V38Ow7yNBjE0QNq_xN_yOc4Ii9q_GsSn_71AEZ6bdZCkpEpzzsQ7QteaVk-x-K0SQCVAh1hztzKowjEYyqDyBAaWbtuwqJPsKV9GyHwAidCtw_52VrMRFpUlhY70OzhHghrUS6Gag4");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+<p class="text-white font-bold text-sm">Building a stronger community together.</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#181111] text-white py-12 mt-12">
+<div class="layout-container flex justify-center w-full px-4 lg:px-10">
+<div class="layout-content-container max-w-[1280px] w-full grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-2xl text-primary">school</span>
+<h2 class="text-xl font-bold font-display">St. George's College</h2>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
+                            Empowering students to achieve excellence in a nurturing and inclusive environment.
+                        </p>
+<div class="flex gap-4">
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="text-gray-400 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-bold font-display mb-4 text-white">Contact</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li>123 Education Lane</li>
+<li>Harare, Zimbabwe</li>
+<li>+263 123 456 789</li>
+<li>info@stgeorges.ac.zw</li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold font-display mb-4 text-white">Legal</h4>
+<ul class="space-y-2 text-sm text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Use</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Safeguarding Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="w-full text-center mt-12 border-t border-gray-800 pt-6 text-xs text-gray-500">
+                © 2024 St. George's College. All rights reserved.
+            </div>
+</footer>
+</div>
+</body></html>

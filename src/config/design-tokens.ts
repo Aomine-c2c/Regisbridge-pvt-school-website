@@ -13,43 +13,43 @@
 export const designTokens = {
   // Color Palette
   colors: {
-    // Primary Colors - Deep Purple/Plum (from school blazers, hats, logo)
+    // Primary Colors - Navy Blue (Elite Education)
     primary: {
-      DEFAULT: '#5A1F3C',      // Deep Purple/Plum - Main brand color
-      dark: '#3d1429',         // Darker shade for hover states
-      light: '#7a2e52',        // Lighter shade for backgrounds
-      50: '#faf5f7',
-      100: '#f4e6ed',
-      200: '#e8cdd9',
-      300: '#d9a8bb',
-      400: '#a85479',
-      500: '#5A1F3C',
-      600: '#3d1429',
-      700: '#2d0f1e',
-      800: '#1e0a14',
-      900: '#0f050a',
+      DEFAULT: '#0B1F3B',      // Navy Blue - Main brand color
+      dark: '#061220',         // Darker shade for hover states
+      light: '#162D4A',        // Lighter shade for backgrounds
+      50: '#f4f6f9',
+      100: '#e8ecf2',
+      200: '#d1d9e5',
+      300: '#a8b8d1',
+      400: '#7088b5',
+      500: '#0B1F3B',
+      600: '#061220',
+      700: '#040d18',
+      800: '#030910',
+      900: '#010408',
     },
 
-    // Secondary Colors - Royal/Navy Blue (from logo outline, ties, motto)
+    // Secondary/Accent Colors - Gold (Prestige)
     secondary: {
-      DEFAULT: '#2E2B7B',      // Royal/Navy Blue - Secondary brand color
-      dark: '#1f1c53',         // Darker shade
-      light: '#4542a8',        // Lighter shade
-      50: '#f5f5fc',
-      100: '#e8e7f7',
-      200: '#d1cfed',
-      300: '#b5b2e2',
-      400: '#7873c4',
-      500: '#2E2B7B',
-      600: '#1f1c53',
-      700: '#17143d',
-      800: '#0f0d28',
-      900: '#080714',
+      DEFAULT: '#C9A227',      // Gold - Accent color
+      dark: '#A38620',         // Darker shade
+      light: '#D4B347',        // Lighter shade
+      50: '#fdfbf3',
+      100: '#faf6e5',
+      200: '#f5edcc',
+      300: '#eed fa8',
+      400: '#ddc56b',
+      500: '#C9A227',
+      600: '#A38620',
+      700: '#7a6418',
+      800: '#524310',
+      900: '#292108',
     },
     
     // Background Colors
-    backgroundLight: '#f6f6f8',   // Light mode background
-    backgroundDark: '#101622',    // Dark mode background
+    backgroundLight: '#ffffff',   // Pure white
+    backgroundGrey: '#F4F6F8',    // Light grey for sections
     
     // Surface Colors
     surface: {
@@ -63,7 +63,7 @@ export const designTokens = {
     
     // Text Colors
     text: {
-      dark: '#3A3A3A',         // Charcoal (from uniform skirts, shorts, shoes)
+      dark: '#2E2E2E',         // Primary text
       light: '#616f89',
       muted: '#9ca3af',
       secondary: '#4b5563',       // Secondary text
