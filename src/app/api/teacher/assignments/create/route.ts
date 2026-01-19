@@ -73,9 +73,6 @@ export async function POST(request: NextRequest) {
                     select: {
                         name: true,
                         code: true,
-                        _count: {
-                            select: { students: true }
-                        }
                     },
                 },
             },
