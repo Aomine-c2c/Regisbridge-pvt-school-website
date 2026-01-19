@@ -5,9 +5,9 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
 
-  // ESLint configuration - warnings don't fail build
+  // ESLint configuration
   eslint: {
-    ignoreDuringBuilds: true, // Disable linting during production builds
+    ignoreDuringBuilds: false, // Enable linting during builds
     dirs: ['src'],
   },
 
