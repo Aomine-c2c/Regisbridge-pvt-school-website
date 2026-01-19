@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       where: { id: payload.userId },
     })
 
-    if (!user || user.status !== 'active') {
+    if (!user || user.status !== 'ACTIVE') {
       return NextResponse.json(
         { success: false, message: 'User not found or inactive' },
         { status: 401 }

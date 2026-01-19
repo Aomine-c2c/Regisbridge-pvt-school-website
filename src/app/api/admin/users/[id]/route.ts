@@ -112,17 +112,18 @@ export async function PUT(
         }
 
         // Build update data
-        const updateData: Partial<{
-            email: string;
-            firstName: string;
-            lastName: string;
-            role: string;
-            grade: string | null;
-            studentId: string | null;
-            phoneNumber: string | null;
-            status: string;
-            password: string;
-        }> = {}
+        const updateData: {
+            email?: string;
+            password?: string;
+            firstName?: string;
+            lastName?: string;
+            role?: string;
+            grade?: string | null;
+            studentId?: string | null;
+            phoneNumber?: string | null;
+            status?: string;
+        } = {}
+        
         if (email) updateData.email = email
         if (firstName) updateData.firstName = firstName
         if (lastName) updateData.lastName = lastName
@@ -135,7 +136,7 @@ export async function PUT(
 
         const updatedUser = await prisma.user.update({
             where: { id: params.id },
-            data: updateData,
+            data: updateData as any,
             select: {
                 id: true,
                 email: true,

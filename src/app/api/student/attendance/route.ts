@@ -57,20 +57,15 @@ export async function GET(request: NextRequest) {
 
         const attendance = await prisma.attendance.findMany({
             where,
-            include: {
-                subject: {
-                    select: { name: true, code: true }
-                }
-            },
             orderBy: { date: 'desc' },
         })
 
         // Calculate statistics
         const total = attendance.length
-        const present = attendance.filter(a => a.status === 'present').length
-        const absent = attendance.filter(a => a.status === 'absent').length
-        const late = attendance.filter(a => a.status === 'late').length
-        const excused = attendance.filter(a => a.status === 'excused').length
+        const present = attendance.filter(a => a.status === 'PRESENT').length
+        const absent = attendance.filter(a => a.status === 'ABSENT').length
+        const late = attendance.filter(a => a.status === 'LATE').length
+        const excused = attendance.filter(a => a.status === 'EXCUSED').length
 
         return NextResponse.json({
             success: true,

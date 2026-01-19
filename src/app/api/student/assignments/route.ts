@@ -32,7 +32,6 @@ export async function GET(request: NextRequest) {
 
         const { searchParams } = new URL(request.url)
         const studentId = searchParams.get('studentId') || auth.userId
-        const status = searchParams.get('status') // 'pending', 'submitted', 'graded'
 
         // Only allow students to view their own assignments
         if (auth.role === 'student' && studentId !== auth.userId) {
@@ -49,7 +48,7 @@ export async function GET(request: NextRequest) {
                         some: { id: studentId }
                     }
                 }
-            },
+            } as any,
             include: {
                 subject: {
                     select: { name: true, code: true }
@@ -59,7 +58,7 @@ export async function GET(request: NextRequest) {
                     select: {
                         id: true,
                         submittedAt: true,
-                        grade: true,
+                        score: true,
                         feedback: true,
                         status: true,
                     }

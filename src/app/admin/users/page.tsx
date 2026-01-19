@@ -3,12 +3,10 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users } from 'lucide-react'
 import UserManagement from '@/components/admin/UserManagement'
 
 export default function AdminUsersPage() {
-    const { user, logout } = useAuth()
+    const { logout } = useAuth()
     const router = useRouter()
 
     const handleLogout = () => {

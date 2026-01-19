@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
                 grade: grade || null,
                 studentId: studentId || null,
                 phoneNumber: phoneNumber || null,
-                status: 'active',
+                status: 'ACTIVE',
             },
             select: {
                 id: true,

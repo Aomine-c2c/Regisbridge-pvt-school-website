@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email, name, interests } = value
+    const { email, name } = value
 
     // Check if already subscribed
     if (subscribers.has(email.toLowerCase())) {

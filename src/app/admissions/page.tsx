@@ -3,10 +3,8 @@
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
 import Link from 'next/link';
-import { useState } from 'react';
 
 export default function EnhancedAdmissionsPage() {
-  const [selectedLevel, setSelectedLevel] = useState('all');
 
   return (
     <div className="relative flex w-full flex-col bg-background-light dark:bg-background-dark min-h-screen">

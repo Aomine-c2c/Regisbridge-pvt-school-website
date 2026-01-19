@@ -62,9 +62,11 @@ export async function POST(request: NextRequest) {
                 subjectId,
                 title,
                 description: description || '',
+                grade: subject.grade,
                 dueDate: new Date(dueDate),
-                maxScore,
-                createdBy: auth.userId,
+                totalPoints: maxScore,
+                assignmentType: 'HOMEWORK',
+                createdBy: auth.userId!,
             },
             include: {
                 subject: {
