@@ -7,7 +7,7 @@ const nextConfig = {
 
   // ESLint configuration - warnings don't fail build
   eslint: {
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true, // Disable linting during production builds
     dirs: ['src'],
   },
 

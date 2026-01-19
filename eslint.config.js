@@ -51,7 +51,6 @@ export default tseslint.config(
       "no-var": "error",
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/prefer-const": "error",
       "@typescript-eslint/no-require-imports": "error",
       "@typescript-eslint/ban-ts-comment": "error",
       "@typescript-eslint/no-unnecessary-type-constraint": "error",

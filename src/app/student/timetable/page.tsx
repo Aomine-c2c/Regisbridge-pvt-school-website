@@ -2,7 +2,6 @@
 
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
-import { TimetableGrid } from '@/components';
 
 const FULL_WEEK_SCHEDULE = {
   Monday: [

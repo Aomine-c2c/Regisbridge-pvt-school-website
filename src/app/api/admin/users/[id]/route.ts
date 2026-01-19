@@ -22,9 +22,10 @@ async function verifyAdmin(request: NextRequest) {
 // GET /api/admin/users/[id] - Get single user
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
+        const params = await context.params;
         const auth = await verifyAdmin(request)
         if (!auth.authorized) {
             return NextResponse.json(
@@ -70,9 +71,10 @@ export async function GET(
 // PUT /api/admin/users/[id] - Update user
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
+        const params = await context.params;
         const auth = await verifyAdmin(request)
         if (!auth.authorized) {
             return NextResponse.json(
@@ -110,7 +112,17 @@ export async function PUT(
         }
 
         // Build update data
-        const updateData: any = {}
+        const updateData: Partial<{
+            email: string;
+            firstName: string;
+            lastName: string;
+            role: string;
+            grade: string | null;
+            studentId: string | null;
+            phoneNumber: string | null;
+            status: string;
+            password: string;
+        }> = {}
         if (email) updateData.email = email
         if (firstName) updateData.firstName = firstName
         if (lastName) updateData.lastName = lastName
@@ -156,9 +168,10 @@ export async function PUT(
 // DELETE /api/admin/users/[id] - Delete user
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
+        const params = await context.params;
         const auth = await verifyAdmin(request)
         if (!auth.authorized) {
             return NextResponse.json(

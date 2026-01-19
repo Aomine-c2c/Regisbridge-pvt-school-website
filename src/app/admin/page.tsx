@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
 
 export default function AdminConsolePage() {
   return (

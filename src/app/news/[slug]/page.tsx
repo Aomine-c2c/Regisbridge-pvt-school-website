@@ -24,8 +24,13 @@ const ARTICLES: Record<string, any> = {
   },
 };
 
-export default function NewsArticlePage({ params }: { params: { slug: string } }) {
-  const article = ARTICLES[params.slug];
+export default async function NewsArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = ARTICLES[slug];
 
   if (!article) {
     notFound();

@@ -34,14 +34,6 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        // School-specific colors for easy access
-        'design-primary': '#5A1F3C',        // Deep Purple/Plum
-        'design-primary-dark': '#3d1429',   // Darker purple for hover
-        'design-secondary': '#2E2B7B',      // Royal Blue
-        'design-secondary-dark': '#1f1c53', // Darker blue
-        'accent-gold': '#D4AF37',           // Gold accent
-        'accent-green': '#4F7F3A',          // Natural green
-        'text-dark': '#3A3A3A',             // Charcoal gray
         // School Brand Colors
         primary: {
           DEFAULT: 'hsl(var(--primary))',
@@ -98,15 +90,15 @@ export default {
         'brand-primary-light': '#162D4A',
       },
       fontFamily: {
-        // Primary fonts for school branding
-        heading: ['Playfair Display', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        // Primary fonts for school branding (optimized with next/font)
+        heading: ['var(--font-playfair)', 'Playfair Display', 'serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
         // Default families
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'Playfair Display', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
         // Display font for special use
-        display: ['Playfair Display', 'serif'],
+        display: ['var(--font-playfair)', 'Playfair Display', 'serif'],
       },
 
       borderRadius: {

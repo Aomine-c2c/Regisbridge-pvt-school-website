@@ -39,7 +39,9 @@ export default function ApplicationFormPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Application submitted:', formData);
+    // TODO: Send to actual API endpoint
+    // await fetch('/api/admissions/apply', { method: 'POST', body: JSON.stringify(formData) });
+    alert('Application submitted successfully! We will review your application soon.');
   };
 
   return (

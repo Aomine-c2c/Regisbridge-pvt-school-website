@@ -53,6 +53,16 @@ export default function DropdownMenu({ label, items, isActive = false }: Dropdow
           isActive ? 'text-brand-gold' : 'text-brand-navy'
         }`}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          } else if (e.key === 'Escape') {
+            setIsOpen(false);
+          }
+        }}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
         {label}
         <span className={`material-symbols-outlined text-[18px] transition-transform ${isOpen ? 'rotate-180' : ''}`}>
@@ -62,9 +72,9 @@ export default function DropdownMenu({ label, items, isActive = false }: Dropdow
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <Link
-              key={index}
+              key={item.href}
               href={item.href}
               className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-brand-navy/5 hover:text-brand-navy transition-colors"
               onClick={() => setIsOpen(false)}
