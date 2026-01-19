@@ -30,7 +30,7 @@ export function ThemeProvider({
         return (savedTheme && (savedTheme === 'dark' || savedTheme === 'light' || savedTheme === 'system')
           ? (savedTheme as Theme)
           : (defaultTheme as Theme))
-      } catch (e) {
+      } catch {
         return defaultTheme as Theme
       }
     }
@@ -59,7 +59,7 @@ export function ThemeProvider({
     setTheme: (t: Theme) => {
       try {
         setItem('theme', t)
-      } catch (e) {
+      } catch {
         // ignore
       }
       setThemeState(t)

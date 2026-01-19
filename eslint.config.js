@@ -42,8 +42,8 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      // Only errors fail the build, warnings are informative
-      "no-console": process.env.NODE_ENV === 'production' ? "error" : "warn",
+      // Console statements are warnings - Next.js compiler removes them in production
+      "no-console": "warn",
       "no-debugger": process.env.NODE_ENV === 'production' ? "error" : "warn",
       "no-empty": "error",
       "no-useless-escape": "error",

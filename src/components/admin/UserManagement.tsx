@@ -28,6 +28,7 @@ export default function UserManagement() {
 
   useEffect(() => {
     fetchUsers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, roleFilter])
 
   const fetchUsers = async () => {

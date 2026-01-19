@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileText, X, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Upload, X, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
+
 import { useToast } from '@/hooks/use-toast';
 import lmsService from '@/services/lmsService';
 
@@ -30,7 +30,7 @@ export function AssignmentSubmission({
   assignmentId,
   assignmentTitle,
   studentId,
-  studentName,
+  studentName: _studentName,
   onSubmissionComplete,
   onClose
 }: AssignmentSubmissionProps) {
@@ -170,7 +170,7 @@ export function AssignmentSubmission({
 
       onSubmissionComplete?.();
       onClose?.();
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: "Submission Failed",
         description: "Failed to submit assignment. Please try again.",

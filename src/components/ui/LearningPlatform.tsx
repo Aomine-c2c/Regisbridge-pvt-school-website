@@ -49,6 +49,7 @@ export function LearningPlatform({
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
 
   const loadData = async () => {

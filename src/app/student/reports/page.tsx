@@ -5,11 +5,11 @@ import PremiumFooter from '@/components/layout/PremiumFooter';
 import { StatBarList } from '@/components';
 
 const ACADEMIC_PERFORMANCE = [
-  { subject: 'Mathematics', value: 92, total: 100, color: 'green' as const },
-  { subject: 'English Literature', value: 88, total: 100, color: 'green' as const },
-  { subject: 'Physics', value: 85, total: 100, color: 'green' as const },
-  { subject: 'Chemistry', value: 90, total: 100, color: 'green' as const },
-  { subject: 'History', value: 87, total: 100, color: 'green' as const },
+  { label: 'Mathematics', value: 92, total: 100, color: 'green' as const },
+  { label: 'English Literature', value: 88, total: 100, color: 'green' as const },
+  { label: 'Physics', value: 85, total: 100, color: 'green' as const },
+  { label: 'Chemistry', value: 90, total: 100, color: 'green' as const },
+  { label: 'History', value: 87, total: 100, color: 'green' as const },
 ];
 
 export default function PerformanceReportPage() {

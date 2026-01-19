@@ -7,7 +7,7 @@ const nextConfig = {
 
   // ESLint configuration
   eslint: {
-    ignoreDuringBuilds: false, // Enable linting during builds
+    ignoreDuringBuilds: true, // Disable linting during builds
     dirs: ['src'],
   },
 

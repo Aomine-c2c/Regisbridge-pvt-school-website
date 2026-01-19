@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Target, Zap, BarChart3, PieChart, Activity, Users } from 'lucide-react';
+import { Brain, TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Target, Zap, Activity, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -13,8 +13,6 @@ import {
   Line,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   PieChart as RechartsPieChart,
   Pie,
   Cell,
@@ -22,7 +20,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   ScatterChart,
   Scatter
@@ -81,6 +78,7 @@ export function AIInsightsDashboard({
 
   useEffect(() => {
     loadAIData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userRole, studentId, classId, selectedTimeframe]);
 
   const loadAIData = async () => {

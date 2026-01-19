@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { IDCard, TimetableGrid, StatBarList, NoticeBoard } from '@/components';
 import type { TimetableLesson } from '@/components/ui/TimetableGrid';

@@ -7,27 +7,27 @@ if (document.querySelectorAll("#pane").length) {
   ("use strict");
 
   // Minimum resizable area
-  var minWidth = 60;
-  var minHeight = 40;
+  const minWidth = 60;
+  const minHeight = 40;
 
   // Thresholds
-  var FULLSCREEN_MARGINS = -10;
-  var MARGINS = 4;
+  const FULLSCREEN_MARGINS = -10;
+  const MARGINS = 4;
 
   // End of what's configurable.
-  var clicked = null;
-  var onRightEdge, onBottomEdge, onLeftEdge, onTopEdge;
+  let clicked = null;
+  let onRightEdge, onBottomEdge, onLeftEdge, onTopEdge;
 
-  var rightScreenEdge, bottomScreenEdge;
+  let rightScreenEdge, bottomScreenEdge;
 
-  var preSnapped;
+  let preSnapped;
 
-  var b, x, y;
+  let b, x, y;
 
-  var redraw = false;
+  let redraw = false;
 
-  var pane = document.getElementById("pane");
-  var ghostpane = document.getElementById("ghostpane");
+  const pane = document.getElementById("pane");
+  const ghostpane = document.getElementById("ghostpane");
 
   function setBounds(element, x, y, w, h) {
     element.style.left = x + "px";
@@ -78,7 +78,7 @@ if (document.querySelectorAll("#pane").length) {
   function onDown(e) {
     calc(e);
 
-    var isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
+    const isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
 
     clicked = {
       x: x,
@@ -114,7 +114,7 @@ if (document.querySelectorAll("#pane").length) {
     bottomScreenEdge = window.innerHeight - MARGINS;
   }
 
-  var e;
+  let e;
 
   function onMove(ee) {
     calc(ee);
@@ -137,7 +137,7 @@ if (document.querySelectorAll("#pane").length) {
         pane.style.height = Math.max(y, minHeight) + "px";
 
       if (clicked.onLeftEdge) {
-        var currentWidth = Math.max(
+        const currentWidth = Math.max(
           clicked.cx - e.clientX + clicked.w,
           minWidth,
         );
@@ -148,7 +148,7 @@ if (document.querySelectorAll("#pane").length) {
       }
 
       if (clicked.onTopEdge) {
-        var currentHeight = Math.max(
+        const currentHeight = Math.max(
           clicked.cy - e.clientY + clicked.h,
           minHeight,
         );
@@ -248,7 +248,7 @@ if (document.querySelectorAll("#pane").length) {
 
     if (clicked && clicked.isMoving) {
       // Snap
-      var snapped = {
+      const snapped = {
         width: b.width,
         height: b.height,
       };

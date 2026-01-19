@@ -1,6 +1,7 @@
 // Learn more: https://github.com/testing-library/jest-dom
 // In v6+ of @testing-library/jest-dom, importing extends expect automatically
-const matchers = require('@testing-library/jest-dom/matchers')
+import * as matchers from '@testing-library/jest-dom/matchers'
+import { jest, expect, beforeAll, afterAll } from '@jest/globals'
 if (typeof expect !== 'undefined' && expect.extend) {
   expect.extend(matchers)
 }
@@ -30,7 +31,9 @@ if (typeof expect !== 'undefined' && expect.extend) {
     }
 
     // Note: undici polyfills are now loaded at top of file before any imports
-  } catch {}
+  } catch {
+    // Silently ignore polyfill errors - tests will fail if truly needed
+  }
 })();
 
 // Mock Next.js navigation

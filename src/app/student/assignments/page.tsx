@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Clock, XCircle } from 'lucide-react'
 
 interface Assignment {
     id: string
@@ -27,7 +27,7 @@ interface Assignment {
 }
 
 export default function AssignmentsPage() {
-    const { user, logout } = useAuth()
+    const { user: _user, logout } = useAuth()
     const router = useRouter()
     const [assignments, setAssignments] = useState<Assignment[]>([])
     const [loading, setLoading] = useState(true)
@@ -51,7 +51,7 @@ export default function AssignmentsPage() {
                 setAssignments(data.assignments)
             }
         } catch (error) {
-            console.error('Failed to fetch assignments:', error)
+            // Error fetching assignments
         } finally {
             setLoading(false)
         }

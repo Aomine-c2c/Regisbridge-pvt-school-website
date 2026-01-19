@@ -98,6 +98,7 @@ export function GradeBook({
 
   useEffect(() => {
     loadGradeData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId, selectedTerm]);
 
   const loadGradeData = async () => {

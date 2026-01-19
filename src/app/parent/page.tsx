@@ -13,26 +13,24 @@ const STUDENT_DATA = {
 
 const UPCOMING_EVENTS = [
   {
+    id: 'evt-001',
     date: '2026-02-15',
     dateLabel: 'Tomorrow',
-    title: 'Parent-Teacher Conference',
-    time: '2:00 PM - 5:00 PM',
-    location: 'Main Hall',
-    priority: 'high' as const,
+    title: 'Parent-Teacher Conference (2:00 PM - 5:00 PM, Main Hall)',
+    urgent: true,
   },
   {
+    id: 'evt-002',
     date: '2026-02-20',
-    dateLabel: null,
-    title: 'Payment Reminder: Term 2 Fees Due',
-    description: 'Please ensure payment is completed by February 20th',
-    priority: 'high' as const,
+    title: 'Payment Reminder: Term 2 Fees Due - Please ensure payment is completed by February 20th',
+    urgent: true,
   },
 ];
 
 const FEE_STATUS = [
-  { subject: 'Tuition (Term 2)', value: 85, total: 100, color: 'green' as const },
-  { subject: 'Boarding Fees', value: 100, total: 100, color: 'green' as const },
-  { subject: 'Extra Activities', value: 60, total: 100, color: 'yellow' as const },
+  { label: 'Tuition (Term 2)', value: 85, maxValue: 100, color: 'green' as const },
+  { label: 'Boarding Fees', value: 100, maxValue: 100, color: 'green' as const },
+  { label: 'Extra Activities', value: 60, maxValue: 100, color: 'gold' as const },
 ];
 
 export default function ParentPortalPage() {

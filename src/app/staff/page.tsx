@@ -13,6 +13,7 @@ const STAFF_STATS = [
 
 const NOTICES = [
   {
+    id: 'staff-notice-1',
     date: '2026-02-15',
     dateLabel: 'Tomorrow',
     title: 'Staff Meeting - Curriculum Review',
@@ -21,8 +22,9 @@ const NOTICES = [
     priority: 'high' as const,
   },
   {
+    id: 'staff-notice-2',
     date: '2026-02-18',
-    dateLabel: null,
+    dateLabel: undefined,
     title: 'Report Cards Due',
     description: 'Submit all Year 11 reports by end of day',
     priority: 'high' as const,
@@ -30,9 +32,9 @@ const NOTICES = [
 ];
 
 const GRADE_STATS = [
-  { subject: 'Reports Submitted', value: 85, total: 100, color: 'yellow' as const },
-  { subject: 'Attendance Recorded', value: 100, total: 100, color: 'green' as const },
-  { subject: 'Lesson Plans Updated', value: 75, total: 100, color: 'yellow' as const },
+  { label: 'Reports Submitted', value: 85, maxValue: 100, color: 'gold' as const },
+  { label: 'Attendance Recorded', value: 100, maxValue: 100, color: 'green' as const },
+  { label: 'Lesson Plans Updated', value: 75, maxValue: 100, color: 'gold' as const },
 ];
 
 export default function StaffPortalPage() {

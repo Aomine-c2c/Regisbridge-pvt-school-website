@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
 interface Grade {
     id: string
@@ -21,7 +21,7 @@ interface Grade {
 }
 
 export default function GradesPage() {
-    const { user, logout } = useAuth()
+    const { user: _user, logout } = useAuth()
     const router = useRouter()
     const [grades, setGrades] = useState<Grade[]>([])
     const [loading, setLoading] = useState(true)
@@ -44,7 +44,7 @@ export default function GradesPage() {
                 setGrades(data.grades)
             }
         } catch (error) {
-            console.error('Failed to fetch grades:', error)
+            // Error fetching grades
         } finally {
             setLoading(false)
         }

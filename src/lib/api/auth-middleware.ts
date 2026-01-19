@@ -31,7 +31,7 @@ export async function verifyAuth(request: NextRequest): Promise<{ user: AuthUser
     ) as AuthUser
 
     return { user: decoded, error: null }
-  } catch (err) {
+  } catch {
     return {
       user: null,
       error: NextResponse.json(

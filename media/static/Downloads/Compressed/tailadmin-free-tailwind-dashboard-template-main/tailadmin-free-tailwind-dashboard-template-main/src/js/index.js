@@ -31,13 +31,13 @@ flatpickr(".datepicker", {
   nextArrow:
     '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 19L15 12.75L8.75 6.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   onReady: (selectedDates, dateStr, instance) => {
-    // eslint-disable-next-line no-param-reassign
+     
     instance.element.value = dateStr.replace("to", "-");
     const customClass = instance.element.getAttribute("data-class");
     instance.calendarContainer.classList.add(customClass);
   },
   onChange: (selectedDates, dateStr, instance) => {
-    // eslint-disable-next-line no-param-reassign
+     
     instance.element.value = dateStr.replace("to", "-");
   },
 });
@@ -46,7 +46,7 @@ flatpickr(".datepicker", {
 const dropzoneArea = document.querySelectorAll("#demo-upload");
 
 if (dropzoneArea.length) {
-  let myDropzone = new Dropzone("#demo-upload", { url: "/file/post" });
+  const myDropzone = new Dropzone("#demo-upload", { url: "/file/post" });
 }
 
 // Document Loaded

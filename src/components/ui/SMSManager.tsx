@@ -118,7 +118,7 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
       }
 
       // Send SMS to each recipient
-      const results = [];
+      const results: SMSMessage[] = [];
       for (const recipient of recipients) {
         const formattedRecipient = smsService.formatPhoneNumber(recipient);
         const result = await smsService.sendSMS(formattedRecipient, formData.message);

@@ -11,7 +11,7 @@ export interface NavItem {
 
 export interface NavSection {
   title: string;
-  items: NavItem[];
+  items: readonly NavItem[];
 }
 
 // Main header navigation (dropdown menus)

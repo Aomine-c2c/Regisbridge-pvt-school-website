@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, CheckCircle, AlertCircle, FileText, User, Mail, Phone, MapPin } from 'lucide-react';
+import { Upload, CheckCircle, AlertCircle, FileText, User } from 'lucide-react';
 
 export default function OnlineApplication() {
   const [currentStep, setCurrentStep] = useState(1);

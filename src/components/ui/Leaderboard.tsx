@@ -22,6 +22,8 @@ interface LeaderboardProps {
   subtitle?: string;
   scoreLabel?: string;
   className?: string;
+  showChange?: boolean;
+  highlightTop?: number;
 }
 
 export function Leaderboard({

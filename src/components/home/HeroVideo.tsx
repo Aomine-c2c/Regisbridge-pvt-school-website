@@ -25,7 +25,7 @@ export default function HeroVideo({
   useEffect(() => {
     // Only load video on desktop with good connection
     const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const connection = (navigator as any).connection;
+    const connection = (navigator as { connection?: { effectiveType?: string } }).connection;
     const shouldLoad = enabled && mediaQuery.matches && (!connection || connection.effectiveType === '4g');
     
     setShouldPlayVideo(shouldLoad);
