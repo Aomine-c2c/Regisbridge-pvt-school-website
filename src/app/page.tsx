@@ -29,9 +29,9 @@ const PATHWAYS = [
     id: 'ecd',
     badge: 'Ages 3-5',
     title: 'Early Childhood Development',
-    description: 'Our ECD program nurtures curiosity and creativity through play-based learning. We focus on social-emotional growth, laying a strong foundation for future academic success in a warm, caring environment.',
-    image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800',
-    imageAlt: 'Early childhood students engaged in creative play-based learning activities',
+    description: 'Nurturing young minds through play-based learning. Our ECD program focuses on social-emotional growth, creativity, and foundational skills in a safe, engaging environment.',
+    image: '/34.jpg',
+    imageAlt: 'Young children engaged in hands-on learning activities',
     link: '/academics#ecd',
     linkText: 'Explore ECD',
   },
@@ -120,13 +120,11 @@ export default function Home() {
       <section aria-label="Hero" className="relative w-full">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600"
+            src="/hr.jpg"
             alt="Regisbridge Academy campus aerial view"
             fill
             priority
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            className="object-cover"
+            className="object-cover blur-[2px]"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 dark:from-black/60 dark:to-black/80" />

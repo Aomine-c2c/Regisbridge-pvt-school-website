@@ -5,6 +5,7 @@ import Link from 'next/link';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
 import { Timeline } from '@/components';
+import { HERITAGE_STATS, statsToArray } from '@/lib/data/stats';
 
 const TIMELINE_EVENTS = [
   {
@@ -116,26 +117,16 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Strip */}
+        {/* Stats Strip - Heritage Focused */}
         <section className="bg-brand-navy py-12 text-white">
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
-              <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-brand-gold">1974</span>
-                <span className="text-sm font-medium uppercase tracking-wider opacity-80">Founded</span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-brand-gold">100%</span>
-                <span className="text-sm font-medium uppercase tracking-wider opacity-80">Pass Rate</span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-brand-gold">300+</span>
-                <span className="text-sm font-medium uppercase tracking-wider opacity-80">Boarders</span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-4xl lg:text-5xl font-black text-brand-gold">50+</span>
-                <span className="text-sm font-medium uppercase tracking-wider opacity-80">Acres of Campus</span>
-              </div>
+              {statsToArray(HERITAGE_STATS).map((stat, index) => (
+                <div key={index} className="flex flex-col gap-1">
+                  <span className="text-4xl lg:text-5xl font-black text-brand-gold">{stat.value}</span>
+                  <span className="text-sm font-medium uppercase tracking-wider opacity-80">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
