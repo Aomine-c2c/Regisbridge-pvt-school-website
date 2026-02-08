@@ -9,7 +9,7 @@ import { HERITAGE_STATS, statsToArray } from '@/lib/data/stats';
 
 const TIMELINE_EVENTS = [
   {
-    year: '1974',
+    year: '2015',
     title: 'Foundation Established',
     description: 'Regisbridge Academy opened its doors with just 50 students and 5 teachers, driven by a vision to provide quality education in the region.',
     icon: 'school',
@@ -71,7 +71,7 @@ export default function AboutPage() {
               <div className="flex flex-col gap-6 flex-1 text-center lg:text-left">
                 <div className="flex flex-col gap-4">
                   <span className="text-brand-gold font-bold tracking-wider uppercase text-sm">
-                    Est. 1974
+                    Est. 2015
                   </span>
                   <h1 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900">
                     A Legacy of{' '}
@@ -81,7 +81,7 @@ export default function AboutPage() {
                     </span>
                   </h1>
                   <p className="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                    Welcome to Regisbridge Academy. For nearly 50 years, we have nurtured future leaders through a unique blend of academic rigor, character development, and world-class boarding facilities.
+                    Welcome to Regisbridge Academy. For nearly 10 years, we have nurtured future leaders through a unique blend of academic rigor, character development, and world-class boarding facilities.
                   </p>
                 </div>
                 <div className="flex gap-4 justify-center lg:justify-start pt-4">
@@ -150,7 +150,7 @@ export default function AboutPage() {
                 </div>
                 <h4 className="text-xl font-bold mb-3 text-gray-900">Our Mission</h4>
                 <p className="text-gray-600 leading-relaxed">
-                  To empower young minds with critical thinking skills and moral integrity necessary to thrive in a global society, fostering a lifelong love for learning.
+                  Prepare students with the academic knowledge, critical thinking, and moral integrity required to thrive in a complex global society.
                 </p>
               </div>
 
@@ -162,7 +162,7 @@ export default function AboutPage() {
                 </div>
                 <h4 className="text-xl font-bold mb-3 text-gray-900">Our Vision</h4>
                 <p className="text-gray-600 leading-relaxed">
-                  To be the premier institution in the region, recognized globally for academic excellence, holistic development, and producing compassionate leaders.
+                  Lead regionally in producing students ready for top universities and positions of responsibility.
                 </p>
               </div>
 
@@ -203,7 +203,7 @@ export default function AboutPage() {
               </h2>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Guided by Excellence</h3>
               <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-                Our institution is led by a team of dedicated professionals committed to the holistic development of every student.
+                Led by experienced professionals committed to student development.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -246,7 +246,7 @@ export default function AboutPage() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10 text-center relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-6">Join the Regisbridge Family</h2>
             <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
-              Experience an education that goes beyond the classroom. Applications for the next academic year are now open.
+              Applications for the next academic year are now open.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

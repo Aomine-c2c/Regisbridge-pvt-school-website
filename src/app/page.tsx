@@ -116,8 +116,8 @@ export default function Home() {
       <PremiumHeader />
 
       <main id="main-content" role="main">
-      {/* Hero Section */}
-      <section aria-label="Hero" className="relative w-full">
+      {/* Hero Section - Premium High-End Private School */}
+      <section aria-label="Hero" className="relative w-full min-h-[85vh] flex items-center">
         <div className="absolute inset-0 z-0">
           <Image
             src="/hr.jpg"
@@ -130,69 +130,71 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 dark:from-black/60 dark:to-black/80" />
         </div>
         
-        {/* Decorative blur circles */}
+        {/* Decorative blur circles - more prominent */}
         <div className="absolute top-20 right-20 w-96 h-96 bg-brand-gold/20 rounded-full blur-3xl pointer-events-none z-0" />
         <div className="absolute bottom-20 left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none z-0" />
         
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[600px] px-6 py-20 text-center max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-8 max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* Badge */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 py-24 text-center max-w-[1400px] mx-auto">
+          <div className="flex flex-col gap-10 max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Badge - Enhanced */}
             <div className="inline-flex items-center justify-center">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 font-semibold text-sm">
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 font-semibold text-sm tracking-wide">
                 <span className="material-symbols-outlined text-brand-gold text-base" aria-hidden="true">verified</span>
-                Celebrating 50+ Years of Excellence Since <time dateTime="1974">1974</time>
+                Established <time dateTime="2015">2015</time>
               </span>
             </div>
             
-            {/* Main Headline */}
-            <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight">
-              Where Excellence
-              <span className="block text-brand-gold mt-2">Meets Character</span>
+            {/* Main Headline - Larger, more dramatic */}
+            <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[1.05] tracking-tight">
+              Academic Excellence
+              <span className="block text-brand-gold mt-3">Strong Character</span>
             </h1>
             
-            {/* Subheadline */}
-            <p className="text-gray-100 text-xl md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto">
-              Empowering students from Early Childhood through A-Level to become confident leaders, 
-              critical thinkers, and compassionate global citizens.
+            {/* Subheadline - Enhanced readability */}
+            <p className="text-gray-100 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-4xl mx-auto">
+              Preparing students from Early Childhood through A-Level to lead with integrity, think critically, and serve their communities.
             </p>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+            {/* CTA Buttons - Premium states */}
+            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-8">
               <Link
                 href="/admissions"
                 onClick={() => trackCTAClick('Start Your Application', 'Hero')}
-                className="group flex items-center justify-center gap-2 rounded-xl h-14 px-10 bg-brand-gold text-brand-navy text-lg font-bold shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2 btn-gold h-16 shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
               >
-                <span>Start Your Application</span>
+                <span>Apply Now</span>
                 <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
               </Link>
               <Link
                 href="/contact"
                 onClick={() => trackCTAClick('Schedule Campus Tour', 'Hero')}
-                className="group flex items-center justify-center gap-2 rounded-xl h-14 px-10 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-lg font-bold hover:bg-white/20 hover:border-white/50 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2 btn-secondary bg-white/10 backdrop-blur-md border-white/30 text-white h-16 hover:bg-white/20 hover:border-white/50 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
               >
                 <span className="material-symbols-outlined text-xl" aria-hidden="true">tour</span>
-                <span>Schedule Campus Tour</span>
+                <span>Book a Tour</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section id="stats" aria-label="Key Statistics" className="bg-gradient-to-b from-white to-gray-50/50 border-y border-gray-100">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Excellence in Numbers</h2>
-            <p className="text-gray-600 text-lg">Our track record speaks for itself</p>
+
+
+      {/* Stats Section - Premium Spacing */}
+      <section id="stats" aria-label="Key Statistics" className="bg-gradient-to-b from-white to-gray-50/50 border-y border-gray-100 py-24">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Results</h2>
+            <p className="text-gray-600 text-xl">Measurable academic outcomes</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {STATS.map((stat, index) => (
               <StatCard key={index} {...stat} />
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Academic Pathways */}
       <section id="academic-pathways" aria-label="Academic Programs" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
@@ -203,14 +205,14 @@ export default function Home() {
                 Academic Pathways
               </h2>
               <p className="text-gray-500 mt-2 text-lg">
-                Comprehensive curriculum tailored for every stage of development.
+                Rigorous curriculum aligned to each stage of development.
               </p>
             </div>
             <Link
               href="/academics"
               className="text-brand-primary font-bold flex items-center gap-1 hover:underline hover:text-brand-primary-dark transition-colors"
             >
-              View Full Curriculum <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+              View Curriculum <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
             </Link>
           </div>
         </ScrollReveal>
@@ -240,12 +242,9 @@ export default function Home() {
                 <span className="text-brand-gold font-bold tracking-widest uppercase mb-4 block">
                   Boarding Life
                 </span>
-                <h2 className="text-4xl font-bold mb-6 leading-tight">A Home Away From Home</h2>
+                <h2 className="text-4xl font-bold mb-6 leading-tight">Boarding Excellence</h2>
               <p className="text-gray-100 mb-6 text-lg leading-relaxed">
-                Our boarding facilities offer a safe, supportive, and enriching environment where
-                students learn independence and camaraderie. With modern dormitories, dedicated house
-                parents, and a weekend activity schedule, boarders forge friendships that last a
-                lifetime.
+                Our boarding program provides structured academic support, pastoral care and leadership development. Modern facilities, experienced housemasters, and comprehensive weekend enrichment prepare students for university and beyond.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-center gap-3">
@@ -254,7 +253,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-brand-gold" aria-hidden="true">check_circle</span>
-                  <span className="text-gray-100">24/7 mentorship and pastoral care</span>
+                  <span className="text-gray-100">Professional pastoral support</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-brand-gold" aria-hidden="true">check_circle</span>
@@ -265,7 +264,7 @@ export default function Home() {
                 href="/boarding"
                 className="inline-flex items-center justify-center rounded-lg h-12 px-8 bg-brand-gold text-brand-navy text-sm font-bold hover:bg-brand-gold-dark focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 focus:ring-offset-brand-navy transition-colors"
               >
-                Discover Boarding
+                Learn More
               </Link>
               </ScrollReveal>
             </div>
@@ -317,10 +316,10 @@ export default function Home() {
               Testimonials
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Voices from Our Community
+              Community Perspectives
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Hear from parents, students, and staff about their Regisbridge experience
+              Parents, students, and staff share their experiences
             </p>
           </div>
         </ScrollReveal>
@@ -352,15 +351,15 @@ export default function Home() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <span className="inline-block px-4 py-2 rounded-full bg-brand-gold/20 border border-brand-gold/30 text-brand-gold font-semibold text-sm mb-6">
             <span className="material-symbols-outlined text-base inline align-middle mr-1" aria-hidden="true">schedule</span>
-            Applications Now Open for 2026-2027
+            Applications open for 2026-2027 academic year
           </span>
           
           <h2 className="text-white text-4xl md:text-5xl font-black mb-6 leading-tight">
-            Begin Your Regisbridge Journey
+            Enroll at Regisbridge Academy
           </h2>
           
           <p className="text-gray-200 max-w-2xl mx-auto mb-10 text-xl leading-relaxed">
-            Join a community of excellence where every student is known, valued, and empowered to reach their full potential.
+            Join a community dedicated to academic rigor and character development.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -369,7 +368,7 @@ export default function Home() {
               onClick={() => trackCTAClick('Apply Today', 'Footer CTA')}
               className="group inline-flex items-center justify-center gap-2 bg-brand-gold text-brand-navy px-10 py-4 rounded-xl text-lg font-bold shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
             >
-              <span>Apply Today</span>
+              <span>Apply Now</span>
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
             </Link>
             <Link
@@ -378,7 +377,7 @@ export default function Home() {
               className="group inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-white/10 hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
             >
               <span className="material-symbols-outlined" aria-hidden="true">call</span>
-              <span>Speak with Admissions</span>
+              <span>Contact Admissions</span>
             </Link>
           </div>
           

@@ -50,9 +50,9 @@ export default function ContactPage() {
         {/* Hero */}
         <section className="bg-brand-navy py-16 text-white text-center">
           <div className="max-w-[960px] mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-black mb-4">Get in Touch</h1>
+            <h1 className="text-4xl md:text-5xl font-black mb-4">Contact Regisbridge Academy</h1>
             <p className="text-gray-200 text-lg max-w-2xl mx-auto">
-              We'd love to hear from you. Contact our admissions team for inquiries or to schedule a campus visit.
+              Contact our admissions office or administrative team with your inquiries.
             </p>
           </div>
         </section>
@@ -139,7 +139,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
-                        placeholder="John Smith"
+                        placeholder="Full Name"
                       />
                     </div>
                     <div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
-                        placeholder="john@example.com"
+                        placeholder="Email Address"
                       />
                     </div>
                   </div>
@@ -169,7 +169,7 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
-                        placeholder="+44 1234 567890"
+                        placeholder="Phone Number"
                       />
                     </div>
                     <div>
@@ -204,7 +204,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent resize-none"
-                      placeholder="Tell us how we can help you..."
+                      placeholder="Enter your message..."
                     />
                   </div>
 

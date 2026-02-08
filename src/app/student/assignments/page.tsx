@@ -209,10 +209,10 @@ export default function StudentAssignmentsPage() {
                         </h3>
                         <p className="text-gray-500 max-w-md mx-auto">
                             {filter === 'all' 
-                                ? 'New assignments from your teachers will appear here.' 
+                                ? 'Assignments from your teachers will appear here.' 
                                 : filter === 'pending'
-                                ? 'Great work! You\'re all caught up.'
-                                : 'Submitted assignments will appear here once you submit them.'}
+                                ? 'All assignments complete. Well done.'
+                                : 'Your submitted work will appear here.'}
                         </p>
                     </div>
                 )

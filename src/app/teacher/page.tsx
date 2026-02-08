@@ -75,10 +75,10 @@ export default function TeacherDashboard() {
 
   // Motivational message based on stats
   const getMotivationalMessage = () => {
-    if (d.stats.pendingGrading === 0) return "🎉 All caught up on grading! Great work!";
-    if (d.stats.pendingGrading <= 5) return "💪 You're almost there! Just a few more to grade.";
-    if (d.stats.alerts > 0) return "⚠️ Some students need your attention today.";
-    return "📚 Ready to make a difference today!";
+    if (d.stats.pendingGrading === 0) return "Grading complete. Student records are up to date.";
+    if (d.stats.pendingGrading <= 5) return "Grading in progress. A few assessments remain.";
+    if (d.stats.alerts > 0) return "Action required: Some students require academic attention.";
+    return "Curriculum delivery and student support in progress.";
   };
 
   if (loading) {

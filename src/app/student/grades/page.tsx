@@ -114,7 +114,7 @@ export default function GradesPage() {
                     <span className="material-symbols-outlined text-7xl text-gray-300 mb-4 block">school</span>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">No grades yet</h3>
                     <p className="text-gray-500 max-w-md mx-auto">
-                        Your grades will appear here once your teachers enter them into the system.
+                        Grades will be posted here as teachers enter assessments.
                     </p>
                 </div>
             ) : (

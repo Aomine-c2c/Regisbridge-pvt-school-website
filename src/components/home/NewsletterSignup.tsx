@@ -33,8 +33,8 @@ export default function NewsletterSignup() {
 
       if (data.success) {
         toast({
-          title: 'Success!',
-          description: 'Thank you for subscribing to our newsletter.',
+          title: 'Subscription Confirmed',
+          description: 'You have been added to our mailing list.',
         });
         setEmail('');
       } else {
@@ -54,9 +54,9 @@ export default function NewsletterSignup() {
   return (
     <div className="bg-gradient-to-r from-brand-primary to-brand-primary-dark rounded-2xl p-8 text-white">
       <div className="max-w-2xl mx-auto text-center">
-        <h3 className="text-2xl font-bold mb-2">Stay Connected</h3>
+        <h3 className="text-2xl font-bold mb-2">Academy Updates</h3>
         <p className="text-white/90 mb-6">
-          Get the latest news, events, and updates from Regisbridge Academy delivered to your inbox.
+          Subscribe to receive official news, event announcements, and academic updates.
         </p>
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
           <input

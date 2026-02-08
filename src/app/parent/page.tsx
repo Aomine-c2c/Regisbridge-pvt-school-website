@@ -108,7 +108,7 @@ export default function ParentDashboard() {
             {/* Header with Child Selector */}
             <div className="mb-8">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-                <p className="text-gray-500 mb-6">Welcome back! Here's an overview of your child's progress.</p>
+                <p className="text-gray-500 mb-6">Student progress and academic overview.</p>
 
                 {/* Child Selector */}
                 {selectedChild && (

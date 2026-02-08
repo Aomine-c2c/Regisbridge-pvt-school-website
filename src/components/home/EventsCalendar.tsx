@@ -18,7 +18,7 @@ const UPCOMING_EVENTS: Event[] = [
     date: '2026-02-05',
     time: '10:00 AM - 2:00 PM',
     location: 'Main Campus',
-    description: 'Join us for a comprehensive campus tour, meet our faculty, and learn about our programs. Refreshments provided.',
+    description: 'A guided tour of our facilities and an introduction to our academic programs by faculty members.',
     category: 'admissions',
     registrationUrl: '/contact',
   },
@@ -28,7 +28,7 @@ const UPCOMING_EVENTS: Event[] = [
     date: '2026-02-15',
     time: '9:00 AM - 3:00 PM',
     location: 'Science Block',
-    description: 'Student science projects on display. See innovation and creativity in action.',
+    description: 'Exhibition of student research projects and scientific innovations.',
     category: 'academic',
   },
   {
@@ -37,7 +37,7 @@ const UPCOMING_EVENTS: Event[] = [
     date: '2026-02-22',
     time: '2:00 PM',
     location: 'Sports Complex',
-    description: 'Our First XV competes in the regional championship finals. Come support our team!',
+    description: 'Regional championship finals featuring our First XV squad.',
     category: 'sports',
   },
   {
@@ -106,7 +106,7 @@ export default function EventsCalendar() {
           Upcoming Events
         </h2>
         <p className="text-gray-600 dark:text-gray-300 text-lg">
-          Join us for campus events, tours, and community gatherings
+          Official academy events, campus tours, and community engagements.
         </p>
       </div>
 

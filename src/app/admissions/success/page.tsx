@@ -14,7 +14,7 @@ export default function ApplicationSuccess() {
 
           {/* Success Message */}
           <h1 className="text-3xl md:text-4xl font-black text-[#111318] dark:text-white mb-4">
-            Application Submitted Successfully!
+            Application Submitted
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
             Thank you for applying to Regisbridge Academy. Your application has been received.
@@ -25,7 +25,7 @@ export default function ApplicationSuccess() {
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Application Reference Number</p>
             <p className="text-2xl font-bold text-[#1152d4] font-mono">#REG-2026-{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
-              Please save this reference number for your records
+              Save this reference number for your records
             </p>
           </div>
 

@@ -457,14 +457,14 @@ export default function TeacherAssignmentsPage() {
                             <span className="material-symbols-outlined text-6xl text-gray-300 mb-4">assignment</span>
                             <h3 className="text-lg font-semibold text-gray-900 mb-2">No assignments yet</h3>
                             <p className="text-gray-500 mb-6 max-w-md mx-auto">
-                                Create your first assignment to start tracking student submissions and progress.
+                                Create assignments to track student submissions and monitor progress.
                             </p>
                             <button 
                                 onClick={() => setShowCreate(true)}
                                 className="inline-flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
                             >
                                 <span className="material-symbols-outlined">add</span>
-                                Create First Assignment
+                                Create Assignment
                             </button>
                         </div>
                     )

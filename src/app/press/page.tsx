@@ -10,15 +10,15 @@ export default function PressKitPage() {
 
       <main className="flex-grow py-12">
         <div className="max-w-[900px] mx-auto px-4 sm:px-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Press & Media Kit</h1>
-          <p className="text-gray-600 mb-12">Resources for journalists, media, and communications professionals</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">Media Resources</h1>
+          <p className="text-gray-600 mb-12">Official information and downloadable assets for media use.</p>
 
           {/* School Information */}
           <div className="bg-white rounded-xl border border-gray-200 p-8 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">About Regisbridge Academy</h2>
             <div className="space-y-4 text-gray-700">
               <p>
-                <strong>Founded:</strong> 1974
+                <strong>Founded:</strong> 2015
               </p>
               <p>
                 <strong>Type:</strong> Independent Co-educational Boarding & Day School
@@ -63,7 +63,7 @@ export default function PressKitPage() {
           <div className="bg-brand-navy text-white rounded-xl p-8">
             <h2 className="text-2xl font-bold mb-4">Media Contact</h2>
             <p className="text-gray-200 mb-6">
-              For press inquiries, interviews, or additional information, please contact our Communications Office.
+              For media inquiries, interview requests, or school information, contact our Communications Office.
             </p>
             <div className="space-y-2 text-gray-200">
               <p><strong>Email:</strong> press@regisbridge.edu</p>

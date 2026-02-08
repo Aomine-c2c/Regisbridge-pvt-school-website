@@ -29,7 +29,7 @@ export default function EnhancedAdmissionsPage() {
               Join Regisbridge Academy
             </h1>
             <p className="text-slate-100 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-              Begin your journey to academic excellence. Applications for 2026-2027 are now open.
+              Applications for 2026-2027 academic year now open.
             </p>
             <div className="flex flex-wrap gap-4 justify-center mt-4">
               <Link
@@ -54,7 +54,7 @@ export default function EnhancedAdmissionsPage() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-4">Admissions Process</h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Our streamlined admission process ensures we find the right fit for every student
+            A streamlined process to match qualified students with appropriate programs
           </p>
         </div>
 
@@ -167,7 +167,7 @@ export default function EnhancedAdmissionsPage() {
             <h2 className="text-3xl font-bold text-[#111318] dark:text-white mb-6">Financial Aid</h2>
             <div className="bg-brand-navy/5 p-6 rounded-xl border border-brand-navy/10 mb-6">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We believe that financial circumstances should not be a barrier to an excellent education. Regisbridge offers need-based scholarships and flexible payment plans.
+                Regisbridge offers need-based scholarships and flexible payment plans to qualified families.
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">

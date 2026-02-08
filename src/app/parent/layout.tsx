@@ -35,22 +35,32 @@ export default function ParentLayout({
                 )}
 
                 {/* Sidebar */}
-                <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out ${
+                <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out ${
                     sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
                 }`}>
                     <div className="flex flex-col h-full">
-                        {/* Logo */}
-                        <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-200">
-                            <div className="size-10 rounded-lg bg-brand-navy flex items-center justify-center">
-                                <span className="material-symbols-outlined text-white">school</span>
+                        {/* Logo and Close Button */}
+                        <div className="flex items-center justify-between gap-3 px-6 py-5 border-b border-gray-100">
+                            <div className="flex items-center gap-3">
+                                <div className="size-10 rounded-lg bg-brand-navy flex items-center justify-center">
+                                    <span className="material-symbols-outlined text-white">school</span>
+                                </div>
+                                <div>
+                                    <h1 className="font-bold text-gray-900">Regisbridge</h1>
+                                    <p className="text-xs text-gray-500">Parent Portal</p>
+                                </div>
                             </div>
-                            <div>
-                                <h1 className="font-bold text-gray-900">Regisbridge</h1>
-                                <p className="text-xs text-gray-500">Parent Portal</p>
-                            </div>
+                            {/* Close button for mobile - Enhanced */}
+                            <button 
+                                onClick={() => setSidebarOpen(false)}
+                                className="lg:hidden size-10 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors touch-target"
+                                aria-label="Close menu"
+                            >
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
                         </div>
 
-                        {/* Navigation */}
+                        {/* Navigation - Enhanced Touch Targets */}
                         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;
@@ -59,16 +69,16 @@ export default function ParentLayout({
                                         key={item.href}
                                         href={item.href}
                                         onClick={() => setSidebarOpen(false)}
-                                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+                                        className={`flex items-center gap-3 px-4 min-h-[48px] rounded-lg transition-all duration-200 ${
                                             isActive
-                                                ? 'bg-brand-navy text-white'
-                                                : 'text-gray-700 hover:bg-gray-100'
+                                                ? 'bg-brand-navy text-white shadow-sm'
+                                                : 'text-gray-700 hover:bg-gray-100 active:bg-gray-200'
                                         }`}
                                     >
                                         <span className="material-symbols-outlined text-xl">
                                             {item.icon}
                                         </span>
-                                        <span className="font-medium">{item.label}</span>
+                                        <span className="font-medium text-base">{item.label}</span>
                                     </Link>
                                 );
                             })}
@@ -91,16 +101,17 @@ export default function ParentLayout({
 
                 {/* Main Content */}
                 <div className="flex-1 flex flex-col min-w-0">
-                    {/* Mobile Header */}
+                    {/* Mobile Header - Enhanced Touch Targets */}
                     <header className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
                         <button
                             onClick={() => setSidebarOpen(true)}
-                            className="size-10 flex items-center justify-center rounded-lg hover:bg-gray-100"
+                            className="size-12 flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-target"
+                            aria-label="Open menu"
                         >
-                            <span className="material-symbols-outlined">menu</span>
+                            <span className="material-symbols-outlined text-2xl">menu</span>
                         </button>
-                        <h2 className="font-bold text-gray-900">Parent Portal</h2>
-                        <div className="size-10"></div>
+                        <h2 className="font-bold text-gray-900 text-lg">Parent Portal</h2>
+                        <div className="size-12"></div>
                     </header>
 
                     {/* Page Content */}

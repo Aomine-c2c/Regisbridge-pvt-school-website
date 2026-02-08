@@ -39,17 +39,18 @@ export default function StudentLayout({
                     transform transition-transform duration-300 ease-in-out
                     ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
                 `}>
-                    <div className="p-6 flex justify-between items-center">
+                    <div className="p-6 flex justify-between items-center border-b border-gray-100">
                         <h1 className="text-xl font-bold text-brand-navy">My Portal</h1>
-                        {/* Close button for mobile */}
+                        {/* Close button for mobile - Larger touch target */}
                         <button 
                             onClick={() => setSidebarOpen(false)}
-                            className="lg:hidden text-gray-500 hover:text-gray-700"
+                            className="lg:hidden size-10 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors touch-target"
+                            aria-label="Close menu"
                         >
                             <span className="material-symbols-outlined">close</span>
                         </button>
                     </div>
-                    <nav className="px-4 space-y-2">
+                    <nav className="px-3 py-4 space-y-1">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href
                             return (
@@ -57,14 +58,14 @@ export default function StudentLayout({
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                                    className={`flex items-center gap-3 px-4 min-h-[48px] rounded-lg transition-all duration-200 ${
                                         isActive 
-                                            ? 'bg-brand-navy text-white'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-brand-navy text-white shadow-sm'
+                                            : 'text-gray-700 hover:bg-gray-100 active:bg-gray-200'
                                     }`}
                                 >
-                                    <span className="material-symbols-outlined">{item.icon}</span>
-                                    <span className="font-medium">{item.label}</span>
+                                    <span className="material-symbols-outlined text-xl">{item.icon}</span>
+                                    <span className="font-medium text-base">{item.label}</span>
                                 </Link>
                             )
                         })}
@@ -73,11 +74,12 @@ export default function StudentLayout({
 
                 {/* Main Content */}
                 <div className="flex-1 flex flex-col overflow-hidden">
-                    {/* Mobile Header */}
-                    <div className="lg:hidden bg-white border-b border-gray-200 p-4 flex items-center gap-4">
+                    {/* Mobile Header - Enhanced Touch Targets */}
+                    <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 sticky top-0 z-30">
                         <button 
                             onClick={() => setSidebarOpen(true)}
-                            className="text-gray-700 hover:text-gray-900"
+                            className="size-12 flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-target"
+                            aria-label="Open menu"
                         >
                             <span className="material-symbols-outlined text-2xl">menu</span>
                         </button>

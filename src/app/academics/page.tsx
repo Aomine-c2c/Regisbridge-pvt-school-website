@@ -64,7 +64,7 @@ export default function AcademicExcellencePage() {
               World-Class Education for Future Leaders
             </h1>
             <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-              Our comprehensive curriculum combines academic rigor with holistic development, preparing students for success in top universities and beyond.
+              Our curriculum combines academic rigor with character development, preparing students for admission to top universities and professional leadership.
             </p>
           </div>
         </section>
@@ -90,10 +90,10 @@ export default function AcademicExcellencePage() {
               Our Programs
             </h2>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Comprehensive Curriculum
+              Curriculum Overview
             </h3>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-              From early childhood through A-Level, our programs are designed to challenge, inspire, and prepare students for their future.
+              From Early Childhood through A-Level, our programs are structured to challenge and prepare students for rigorous higher education.
             </p>
           </div>
 
@@ -149,7 +149,7 @@ export default function AcademicExcellencePage() {
           <div className="max-w-[960px] mx-auto px-4">
             <h2 className="text-white text-3xl font-bold mb-4">Discover Your Path to Excellence</h2>
             <p className="text-gray-200 mb-8 text-lg max-w-2xl mx-auto">
-              Schedule a campus visit to see our academic programs in action.
+              Schedule a visit to see our academic environment first-hand.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
