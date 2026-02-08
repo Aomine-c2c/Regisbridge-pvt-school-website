@@ -39,7 +39,11 @@ export interface AuthResponse {
 export interface AuthContextType {
     user: Omit<User, 'password'> | null
     loading: boolean
-    login: (email: string, password: string) => Promise<void>
+    isLoading: boolean  // Alias for loading
+    isAuthenticated: boolean
+    error: string | null
+    clearError: () => void
+    login: (email: string, password: string) => Promise<User | null>
     register: (data: RegisterRequest) => Promise<void>
     logout: () => void
     refreshAuth: () => Promise<void>

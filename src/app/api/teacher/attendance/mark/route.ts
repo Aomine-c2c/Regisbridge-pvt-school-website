@@ -64,7 +64,6 @@ export async function POST(request: NextRequest) {
         const existing = await prisma.attendance.findFirst({
             where: {
                 studentId,
-                subjectId,
                 date: attendanceDate,
             },
         })
@@ -81,8 +80,12 @@ export async function POST(request: NextRequest) {
                 include: {
                     student: {
                         select: {
-                            firstName: true,
-                            lastName: true,
+                            user: {
+                                select: {
+                                    firstName: true,
+                                    lastName: true,
+                                }
+                            }
                         },
                     },
                 },
@@ -92,16 +95,20 @@ export async function POST(request: NextRequest) {
             attendance = await prisma.attendance.create({
                 data: {
                     studentId,
-                    subjectId,
                     status,
                     date: attendanceDate,
                     notes: notes || null,
+                    markedBy: auth.userId!,
                 },
                 include: {
                     student: {
                         select: {
-                            firstName: true,
-                            lastName: true,
+                            user: {
+                                select: {
+                                    firstName: true,
+                                    lastName: true,
+                                }
+                            }
                         },
                     },
                 },

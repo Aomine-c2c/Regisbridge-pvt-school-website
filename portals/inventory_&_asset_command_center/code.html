@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory &amp; Asset Command Center</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-dark": "#1a1f2e",
+                        "border-dark": "#292d38",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden antialiased">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 hidden lg:flex flex-col border-r border-border-dark bg-background-dark">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<!-- Logo / Brand -->
+<div class="flex gap-3 px-2 py-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0" data-alt="School logo abstract geometric shape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtknMPu0RMkXdw6XwLSTzLzhvYoMXl8dIViWvijHt6VfzFtOkV4huLcyXFYv-_h2CLxjCtwD_UDcGuQbTyEeq8-Gu2L7GRgtimer_WojjMSNbVle--7XgugVIfGGYIXjWxuo_d3qFpiIS-lpHQTI5gSSGS4KZsu41mu0MN0Rd_bIKlgr6uS1JlKX1cwAr7W9gnHfJ4GdfszfJ7OV1Id1bPvBm4XBeUUjG8LQTJ39_co8G4xbhGBY5VaGVmmZLfK1261k7ptoDbPlo");'></div>
+<div class="flex flex-col justify-center">
+<h1 class="text-white text-base font-bold leading-normal">Elite Academy</h1>
+<p class="text-[#9ea5b7] text-xs font-normal leading-normal">Admin Portal</p>
+</div>
+</div>
+<!-- Navigation -->
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9ea5b7] hover:bg-[#292d38] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/20 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined text-[24px] fill-1">inventory_2</span>
+<span class="text-sm font-bold">Inventory &amp; Assets</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9ea5b7] hover:bg-[#292d38] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">school</span>
+<span class="text-sm font-medium">Student Records</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9ea5b7] hover:bg-[#292d38] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">people</span>
+<span class="text-sm font-medium">HR &amp; Staff</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9ea5b7] hover:bg-[#292d38] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<div class="my-2 border-t border-border-dark"></div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9ea5b7] hover:bg-[#292d38] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</div>
+<!-- User Footer -->
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg bg-[#292d38]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 shrink-0" data-alt="User profile picture of a man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGjUCVDnwuoE5Lj4L6aPRZZBfSWNSsIJWj3gjRc8AzvID-BJjiLH_dOoKJ3TIppfgJwKrMHLIaT76gDQjetdIkR_P53d6V4VytNCaIYz5MJIHRbZ8cRKEdVHxvgPOT1corDhX-D_n39b9adQY2LvCzM_suaiWntBt7QYFE2pNP0a3L0puLnXbDWfyTYajh91i0yNSbep3A_x88bAGalU-1EtPTiPba_jLxq_87_eUSjO79fdz1SBkJayzFvPOZglDzhDUYQhzAEXs");'></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Marcus Chen</p>
+<p class="text-[#9ea5b7] text-xs truncate">Head of Operations</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-border-dark bg-background-dark/95 backdrop-blur px-6 py-3 shrink-0 z-20">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-[#9ea5b7]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">Inventory</h2>
+</div>
+<div class="hidden lg:flex items-center gap-4">
+<h2 class="text-white text-xl font-bold tracking-tight">Inventory &amp; Asset Management</h2>
+</div>
+<div class="flex items-center gap-4 flex-1 justify-end">
+<!-- Global Search -->
+<div class="hidden md:flex max-w-md w-full relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9ea5b7] group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 bg-[#292d38] py-2 pl-10 pr-4 text-white placeholder-[#9ea5b7] focus:ring-2 focus:ring-primary focus:bg-surface-dark transition-all sm:text-sm sm:leading-6" placeholder="Search assets, SKU, or serial numbers..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="text-[#9ea5b7] text-xs border border-[#3d4252] rounded px-1.5 py-0.5">⌘K</span>
+</div>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-10 rounded-lg hover:bg-[#292d38] text-[#9ea5b7] hover:text-white transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2.5 right-2.5 size-2 bg-red-500 rounded-full border border-background-dark"></span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-lg hover:bg-[#292d38] text-[#9ea5b7] hover:text-white transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto overflow-x-hidden p-6">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-6">
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Total Value -->
+<div class="relative overflow-hidden rounded-xl border border-border-dark bg-surface-dark p-6 group hover:border-primary/50 transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<p class="text-[#9ea5b7] text-sm font-medium">Total Asset Value</p>
+<h3 class="text-white text-3xl font-bold tracking-tight">$1,240,500</h3>
+</div>
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="flex items-center text-emerald-400 text-sm font-medium bg-emerald-500/10 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[16px] mr-0.5">trending_up</span>
+                                    2.4%
+                                </span>
+<span class="text-[#9ea5b7] text-sm">vs last fiscal year</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Maintenance -->
+<div class="relative overflow-hidden rounded-xl border border-border-dark bg-surface-dark p-6 group hover:border-amber-500/50 transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<p class="text-[#9ea5b7] text-sm font-medium">Pending Maintenance</p>
+<h3 class="text-white text-3xl font-bold tracking-tight">14 Items</h3>
+</div>
+<div class="p-2 bg-amber-500/10 rounded-lg text-amber-500">
+<span class="material-symbols-outlined">build</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-white text-sm">3 critical urgency</span>
+<span class="text-[#9ea5b7] text-xs px-2 py-0.5 border border-border-dark rounded-full">Requires attention</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Low Stock -->
+<div class="relative overflow-hidden rounded-xl border border-border-dark bg-surface-dark p-6 group hover:border-red-500/50 transition-colors">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<p class="text-[#9ea5b7] text-sm font-medium">Low Stock Alerts</p>
+<h3 class="text-white text-3xl font-bold tracking-tight">3 Cats</h3>
+</div>
+<div class="p-2 bg-red-500/10 rounded-lg text-red-500">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-[#9ea5b7] text-sm truncate max-w-[200px]">Markers, Lab Coats, Printer Paper</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<!-- Actions Toolbar -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-dark p-4 rounded-xl border border-border-dark">
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+<div class="relative">
+<select class="appearance-none bg-[#292d38] border border-border-dark text-white text-sm rounded-lg pl-3 pr-8 py-2 focus:ring-primary focus:border-primary cursor-pointer hover:bg-[#323846] transition-colors">
+<option>All Categories</option>
+<option>Electronics</option>
+<option>Furniture</option>
+<option>Lab Equipment</option>
+<option>Musical Instruments</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#9ea5b7]">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-[#292d38] border border-border-dark text-white text-sm rounded-lg pl-3 pr-8 py-2 focus:ring-primary focus:border-primary cursor-pointer hover:bg-[#323846] transition-colors">
+<option>All Statuses</option>
+<option>Active</option>
+<option>Maintenance</option>
+<option>Retired</option>
+<option>Lost/Stolen</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#9ea5b7]">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+<button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#9ea5b7] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                More Filters
+                            </button>
+</div>
+<!-- Buttons -->
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#292d38] hover:bg-[#323846] text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors border border-border-dark group">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">qr_code_scanner</span>
+<span class="hidden sm:inline">Scan</span>
+</button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                                Add New Asset
+                            </button>
+</div>
+</div>
+<!-- Main Data Table -->
+<div class="rounded-xl border border-border-dark bg-surface-dark overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead class="bg-[#1e2330] border-b border-border-dark">
+<tr>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7]" scope="col">Asset Name</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7]" scope="col">SKU / Serial</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7]" scope="col">Category</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7]" scope="col">Location / User</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7]" scope="col">Status</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7] text-right" scope="col">Value</th>
+<th class="px-6 py-4 font-semibold text-[#9ea5b7] text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<!-- Row 1 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Laptop" class="w-full h-full object-cover opacity-80" data-alt="MacBook Laptop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1MeRC9ivM9v_aYiDKZzf5hJAk7rDusfoJLwfFk1uH9yHBlB_b_8aC0idbqOoTIux7m3NiJhYlcVKl98_IhldjLUy7ihRQ0KXqZQe_h-XdjX-9OvWzNVva48_AS4byDfqnOdDt1SHgwfloHMRNfbqFZDdmWMuV-8QFVGb0lcHhAa7OdakDeOiuk9TZL1cp5qJ6RsWieiO73UbVvvWuAF_jRK_tzr3-XRhycfLNzhHyZ5j4JdFDKCx_dYBf8_EW-n3z6dQvbWxBRGw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">MacBook Air M2</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: Aug 2023</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">SCH-IT-2023-001</td>
+<td class="px-6 py-4 text-white">Electronics</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">Room 304</span>
+<span class="text-[#9ea5b7] text-xs">Ms. Vance (Teacher)</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-400"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$1,199.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-[#9ea5b7]">science</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">Bunsen Burner Set (x5)</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: Jan 2021</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">SCI-LAB-044</td>
+<td class="px-6 py-4 text-white">Lab Equipment</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">Chemistry Lab B</span>
+<span class="text-[#9ea5b7] text-xs">Storage Cabinet 4</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
+<span class="size-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                                Maintenance
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$450.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-[#9ea5b7]">bed</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">Oak Bunk Bed Frame</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: Sep 2019</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">BRD-DORM-102</td>
+<td class="px-6 py-4 text-white">Furniture</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">East Wing Dorm</span>
+<span class="text-[#9ea5b7] text-xs">Room 12B</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-400"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$800.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Violin" class="w-full h-full object-cover opacity-80" data-alt="Classical Violin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa22jLPeVTbluLLUny6YEQc46F56SwhOacgDLO6UbwNItRYy5bHkbturhNBNeblVnB_k90MB6WJCKO8Wez1JTolOCuPEzK-JeNJPydmKk4l1qEvsZo2Q7ySlB-U5xlh9p7oEJX8O3V7snKBMNkiTdUxhIgH_d4H9WHcsu1qqMtnnQdHhNdB9nFWN8lh3w7Cp0mXdGj5FTJ76TFSeNEAVwnhjoQ7ZXqCuWbIIOntk1HW3GNSvTU7a5rxw_wmWmFc8HhuHxU4IDiYnw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">Violin (Student Model)</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: 2015</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">MUS-STR-012</td>
+<td class="px-6 py-4 text-white">Musical Instruments</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">Music Hall Storage</span>
+<span class="text-[#9ea5b7] text-xs">Bin #3</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+<span class="size-1.5 rounded-full bg-red-400"></span>
+                                                Retired
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$350.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-[#9ea5b7]">print</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">3D Printer (Prusa MK3)</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: Nov 2022</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">SCI-TEC-005</td>
+<td class="px-6 py-4 text-white">Lab Equipment</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">Makerspace</span>
+<span class="text-[#9ea5b7] text-xs">Workbench 1</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
+<span class="size-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                                Maintenance
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$1,500.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="group hover:bg-[#292d38] transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#292d38] border border-border-dark flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Smartboard" class="w-full h-full object-cover opacity-80" data-alt="Digital Smartboard Display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWmPLZ2Sw5JUJpmY8X9ITrBSnJe7Qv-ObCA8CJgpKJRBLYrQ3tqmPpTSY_BVWS9LTOHkwqKti9NwN3XWGVr4Uaz8rcni_fke3rLuMYZ8d5_ZNAMMRs81Q5QolR5mZ7Lh7ykOS7tXSL1h19yEp2ryReB1wZNIXHfn-YUo-zbS2fbiG-70fIj1blyr5wszZQ4uAqOFGXM8cBaw4LaZfBuYTyZnqtnphxffivP0J-JxgUH4XZ8lJ2cKWN3-7E63pQCvuFUjziFX1G-4M"/>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-medium">Smartboard Pro 75"</span>
+<span class="text-[#9ea5b7] text-xs">Purchased: Mar 2022</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#9ea5b7] font-mono text-xs">SCH-IT-2022-089</td>
+<td class="px-6 py-4 text-white">Electronics</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white">Room 101</span>
+<span class="text-[#9ea5b7] text-xs">Main Wall</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-400"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4 text-white font-medium text-right">$3,200.00</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9ea5b7] hover:text-white p-1 rounded hover:bg-[#3d4252] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-border-dark bg-[#1a1f2e] px-6 py-4">
+<p class="text-sm text-[#9ea5b7]">
+                                Showing <span class="font-medium text-white">1</span> to <span class="font-medium text-white">6</span> of <span class="font-medium text-white">128</span> results
+                            </p>
+<div class="flex items-center gap-2">
+<button class="rounded-lg border border-border-dark bg-[#292d38] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#323846] disabled:opacity-50 transition-colors">
+                                    Previous
+                                </button>
+<button class="rounded-lg border border-border-dark bg-[#292d38] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#323846] transition-colors">
+                                    Next
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -35,15 +35,23 @@ export async function GET(request: NextRequest) {
         const month = searchParams.get('month') // Optional: filter by month (YYYY-MM)
 
         // Only allow students to view their own attendance
-        if (auth.role === 'student' && studentId !== auth.userId) {
-            return NextResponse.json(
-                { success: false, message: 'Unauthorized' },
-                { status: 403 }
-            )
-        }
+        // Resolve Student ID from User ID if we are a student, or if we are admin looking up a user
+        // But for 'student' role, we must find their Student record.
+        let targetStudentId = studentId;
 
+        // If the caller is a student, we ignore the param (or verify it) and look up their own student record
+        if (auth.role === 'student') {
+            const studentRecord = await prisma.student.findUnique({
+                where: { userId: auth.userId }
+            })
+            if (!studentRecord) {
+                return NextResponse.json({ success: false, message: 'Student profile not found' }, { status: 404 })
+            }
+            targetStudentId = studentRecord.id
+        } 
+        
         // Build date filter
-        const where: any = { studentId }
+        const where: any = { studentId: targetStudentId }
         if (month) {
             const startDate = new Date(`${month}-01`)
             const endDate = new Date(startDate)

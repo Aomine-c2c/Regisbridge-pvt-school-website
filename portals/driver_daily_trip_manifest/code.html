@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Driver Daily Trip Manifest</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2632",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background-color: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex justify-center">
+<!-- Main App Container (Simulating a tablet/mobile view on desktop) -->
+<div class="w-full max-w-[800px] bg-surface-light dark:bg-surface-dark min-h-screen shadow-2xl flex flex-col relative overflow-hidden">
+<!-- Header Section -->
+<header class="sticky top-0 z-20 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-4 py-4 sm:px-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<button class="text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">arrow_back</span>
+</button>
+<div>
+<h1 class="text-xl sm:text-2xl font-bold leading-tight tracking-tight">Morning Run - Route 4B</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Oct 24, 2023 • Bus #42</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-lg transition-colors font-bold text-sm">
+<span class="material-symbols-outlined text-[20px]">map</span>
+<span class="hidden sm:inline">Map View</span>
+</button>
+</div>
+</div>
+<!-- Stats Bar -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Students Boarded</span>
+<span class="text-3xl font-bold text-slate-900 dark:text-white">15 <span class="text-lg text-slate-400 font-normal">/ 32</span></span>
+</div>
+<div class="text-right">
+<span class="text-sm font-semibold text-primary">47% Complete</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="h-3 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 47%;"></div>
+</div>
+</div>
+</header>
+<!-- Main Content: Student Manifest -->
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 pb-32">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-slate-800 dark:text-slate-200">Upcoming Stops</h3>
+<button class="text-sm font-bold text-primary hover:underline">View Full Manifest</button>
+</div>
+<div class="space-y-4">
+<!-- Card 1: Boarded (Checked) -->
+<div class="group relative flex items-center justify-between p-4 bg-white dark:bg-slate-800 border border-primary/30 dark:border-primary/30 shadow-sm rounded-xl transition-all hover:shadow-md">
+<!-- Status Indicator Stripe -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-l-xl"></div>
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img alt="Alice Johnson" class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-sm" data-alt="Portrait of a young student with a cheerful expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBotKjxTNF_G0HEgKql-cAmBM4hrgHEr6H2EhTPV1hrYVZk-VG-c2pOWFhvF09wIyakm3iHegD11LMjeE2IBQ97EklLGImjsJmFJXulJLK7HoEqY7V-4KEl3P0KsBImgtBh8c4bCce0pQIlOp_aZ00ThpbAK4QLdNqpoBljwcS_C5AYCkwAkvzS0pMve8IPXoyWTS2qMuiy1n38zAcHRgi-lBuUpL63OcLE1UboXNlYt3nHZhoVqVtLlJQrM-oPvufUysBkSmIeAnY"/>
+<div class="absolute -bottom-1 -right-1 bg-green-500 text-white rounded-full p-0.5 border-2 border-white dark:border-slate-800">
+<span class="material-symbols-outlined text-[14px] block">check</span>
+</div>
+</div>
+<div class="flex flex-col">
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Alice Johnson</h4>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">Grade 4</span>
+<span>• 7:45 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                124 Maple Ave
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<!-- Mark Absent (Disabled looking since boarded) -->
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-300 dark:text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors" title="Mark Absent">
+<span class="material-symbols-outlined">person_off</span>
+</button>
+<!-- Toggle -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-8 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Card 2: Next Stop (Pending) -->
+<div class="group relative flex items-center justify-between p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm rounded-xl transition-all hover:border-primary/50 hover:shadow-md">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img alt="Ben Smith" class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-sm grayscale-[20%]" data-alt="Portrait of a young boy smiling wearing a blue shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPVaIV3ULi1Fi000OqfKMLXkSNoHk1RogBSbi7Z5MUEBi4u1QL0qqBmUBz1ajMJMeewtrCmQCNNse8ArsaQ8QnJTp5FDZ1gw49whNIpXGb2Zc1LYM6RoH9iJKyJE0QHy86I29xBJ6rVd4hqc8DX0e4PspXnAYCEMt_pYSzM67_HxzjMaMsXKnnA03zIRcQGa7sQ_mJH2brpoY7mPaqjz9iDWHSlpVL1innlSK0bxEX2FtBsaybVZIO3BUeI95HUdMppSwEU1OXayg"/>
+</div>
+<div class="flex flex-col">
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Ben Smith</h4>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">Grade 2</span>
+<span class="font-semibold text-primary">• Next: 7:50 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                126 Maple Ave
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Mark Absent">
+<span class="material-symbols-outlined">person_off</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-8 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Card 3: Pending -->
+<div class="group relative flex items-center justify-between p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm rounded-xl transition-all hover:border-primary/50 hover:shadow-md">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img alt="Charlie Brown" class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-sm grayscale-[20%]" data-alt="Portrait of a student with curly hair smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH_e2AFCVZqpSPh7ihAjFJv447X9a1bFmloxELcweXzy--lem9OhSJ3mW8Wq4Rs3dDLhi8Bbo1bhu5enPRE7hFPy-WXoMGgr4o7vJsBQZkp4ltlrGIsBBfjzRg0s8O-M90IY97exZMzJ2lBbZaPW2U0DezKjXTkXGiE8VGuqiN8yAebWTAv5UTbRpNq4CraJ-phOQd_xoceVJjj6NY5iXUxDPEn6NRWxziOU8SaIEFqtszggoEgE4Ms_8i2DHYbUjiQlH1dZcKCrg"/>
+</div>
+<div class="flex flex-col">
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Charlie Brown</h4>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">Grade 5</span>
+<span>• 7:55 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                15 Oak St
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Mark Absent">
+<span class="material-symbols-outlined">person_off</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-8 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Card 4: Absent (Marked) -->
+<div class="group relative flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-none rounded-xl opacity-75">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img alt="Daisy Miller" class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-700 grayscale" data-alt="Portrait of a young girl with braided hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTIeQ8-LUOR2boCGkKHkmx01KgRtu4TI9SbMIN-yEhqadh-PtNgc4m40wpsDWYV1mNBY3iBoM7DiOL_5FQc69x_o7VC7innnxfXpnfnLTdO_UAWHFCc03vR8YhqZWAXZxoJv2Jl3XWtXBINafhG4FF5QGMlpkbLIIgoG_Nb9ZJPali2QZDAVaoC8MnIkmeDai46iEIzaxODVG77ddPjZtWKVBqzUQS2d3-WW0TvuRgwOcGayelmTsf9Ms00ZsYP62H-cpGqbRA8vE"/>
+<div class="absolute -bottom-1 -right-1 bg-slate-500 text-white rounded-full p-0.5 border-2 border-white dark:border-slate-800">
+<span class="material-symbols-outlined text-[14px] block">person_off</span>
+</div>
+</div>
+<div class="flex flex-col">
+<h4 class="text-lg font-bold text-slate-500 dark:text-slate-500 line-through">Daisy Miller</h4>
+<div class="flex items-center gap-2 text-sm text-slate-400 dark:text-slate-500">
+<span class="bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">Grade 3</span>
+<span class="text-red-500 dark:text-red-400 font-bold">• MARKED ABSENT</span>
+</div>
+<p class="text-sm text-slate-400 dark:text-slate-600 mt-0.5 flex items-center gap-1 line-through">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                22 Elm St
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1 text-xs font-bold text-slate-500 border border-slate-300 rounded hover:bg-slate-200">Undo</button>
+</div>
+</div>
+<!-- Card 5: Pending -->
+<div class="group relative flex items-center justify-between p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm rounded-xl transition-all hover:border-primary/50 hover:shadow-md">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative">
+<img alt="Ethan Hunt" class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-sm grayscale-[20%]" data-alt="Portrait of a young student with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm5VM2gQbcxnT_V9g_qUUTHK7_6FtfWQHH3NOP4gKZUbHSh60ouynYxDPscB_OP7hz6IS9vf9JtUfl4KqCxIhldUtG27VNS5SudnCtzQOmPWgdDRIZ3AU0uuMzIV0u09RSpvCPagm6tYqT0Zb212XHYHFovfNYgM2RwTHKy1stnuyK6NZEXqY0BoqiEUrSpp7oRSvqf7G8_aQhLid8skgQNu6w6hSYqsFmErGCh_UzbX-jB_iU3taruCuV01NeaF6u8OJJ_rQ-xW4"/>
+</div>
+<div class="flex flex-col">
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Ethan Hunt</h4>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">Grade 6</span>
+<span>• 8:05 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                140 Pine St
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Mark Absent">
+<span class="material-symbols-outlined">person_off</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-8 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/30 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer Action Bar -->
+<footer class="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 p-4 pb-6">
+<div class="flex gap-3 justify-between items-center max-w-full overflow-x-auto pb-2 sm:pb-0">
+<!-- Incident Report (Primary Warning Action) -->
+<button class="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-200 rounded-xl px-4 py-3.5 transition-colors group">
+<span class="material-symbols-outlined text-amber-600 group-hover:text-amber-800">warning</span>
+<span class="font-bold text-sm">Incident</span>
+</button>
+<!-- Divider -->
+<div class="w-px h-10 bg-slate-200 dark:bg-slate-600 hidden sm:block"></div>
+<!-- Quick Calls -->
+<button class="flex-1 min-w-[120px] flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white rounded-xl px-4 py-3.5 transition-colors">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="font-bold text-sm">Security</span>
+</button>
+<button class="flex-1 min-w-[120px] flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-700 dark:text-red-400 border border-red-100 dark:border-red-900/30 rounded-xl px-4 py-3.5 transition-colors">
+<span class="material-symbols-outlined">sos</span>
+<span class="font-bold text-sm">SOS</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

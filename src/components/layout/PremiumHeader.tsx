@@ -103,12 +103,22 @@ export default function PremiumHeader() {
           </nav>
 
           <div className="flex gap-3">
-            <Link
-              href="/portal"
-              className="flex items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-white border-2 border-brand-navy text-brand-navy text-sm font-bold hover:bg-brand-navy hover:text-white transition-colors"
-            >
-              <span className="truncate">Portal Login</span>
-            </Link>
+            <div className="relative group">
+              <button 
+                className="flex items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-5 bg-white border-2 border-brand-navy text-brand-navy text-sm font-bold hover:bg-brand-navy hover:text-white transition-colors"
+              >
+                Portals
+                <span className="material-symbols-outlined text-[18px]">expand_more</span>
+              </button>
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden group-hover:block transition-all">
+                <Link href="/student" className="block px-4 py-3 text-sm font-bold text-gray-700 hover:bg-brand-navy/5 hover:text-brand-navy">
+                  Student Portal
+                </Link>
+                <Link href="/parent" className="block px-4 py-3 text-sm font-bold text-gray-700 hover:bg-brand-navy/5 hover:text-brand-navy">
+                  Parent Portal
+                </Link>
+              </div>
+            </div>
             <Link
               href="/admissions"
               className="flex items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-brand-gold text-brand-navy text-sm font-bold shadow-md hover:bg-brand-gold-dark transition-colors"

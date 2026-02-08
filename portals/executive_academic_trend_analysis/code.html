@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Academic Trend Analysis</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2330",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        
+        /* Custom scrollbar for table container */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-[#111317] dark:text-white transition-colors duration-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header/Nav -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dcdee5] dark:border-gray-800 bg-surface-light dark:bg-surface-dark px-6 py-3 shadow-sm">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="h-full w-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330"><rect height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">EduNexus Portal</h2>
+</div>
+<!-- Search Bar -->
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden bg-[#f0f1f4] dark:bg-gray-800 focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<div class="text-[#646d87] dark:text-gray-400 flex border-none items-center justify-center pl-4">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111317] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent placeholder:text-[#646d87] dark:placeholder:text-gray-500 px-3 text-sm font-normal leading-normal" placeholder="Search students, reports..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-[#111317] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold" href="#">Academics</a>
+<a class="text-[#111317] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Financials</a>
+<a class="text-[#111317] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Staff</a>
+</div>
+<div class="flex gap-2 items-center pl-4 border-l border-gray-200 dark:border-gray-700">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-300 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-surface-dark"></span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-2 bg-center bg-no-repeat bg-cover rounded-full size-9 ring-2 ring-gray-100 dark:ring-gray-700 cursor-pointer" data-alt="Executive User Profile Picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoNZTfkjRCbijLSvsKqKZdkzEvqIV8MIJE2e3lH6gRYVaPqfREAE5P7SFAH9AJlAJ98Qf36ATNIFbOD0lqQXHa-2t61KZWftAD_PrAxq4-ySZU3jwlrR9VbBE0bHlxbAeH2pyh0HNrCJZd4eQ-RiRlquYNows2am5jKB354pu18jUKV0FvzgSn_ahCgv1hXHfXjfxEZmjiwyODtILyUrX1u0YrlmdU6ibOStzA5RjUYJ4GW2GhF9ngO1WyqttZfzEk9Q1H5CrAOy4");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col max-w-[1400px] w-full mx-auto px-4 md:px-8 py-8 gap-8">
+<!-- Page Header & Actions -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span>Executive Deep-Dive</span>
+</div>
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">Academic Performance Trends</h1>
+<p class="text-[#646d87] dark:text-gray-400 text-base max-w-2xl">
+                            Analyze exam results against predictions, evaluate faculty effectiveness, and identify subject-level opportunities for the current academic cycle.
+                        </p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 h-10 rounded-lg bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-sm font-bold text-[#111317] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span>Export Report</span>
+</button>
+<button class="flex items-center gap-2 px-4 h-10 rounded-lg bg-primary text-white text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>New Analysis</span>
+</button>
+</div>
+</div>
+<!-- Filters Toolbar -->
+<div class="w-full bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col md:flex-row gap-4 items-center flex-wrap">
+<div class="flex items-center gap-2 text-[#646d87] dark:text-gray-400 text-sm font-bold mr-2">
+<span class="material-symbols-outlined">filter_list</span>
+<span>Filters:</span>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+<div class="relative group">
+<label class="absolute -top-2 left-2 px-1 bg-surface-light dark:bg-surface-dark text-xs font-bold text-primary z-10">Cohort</label>
+<select class="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-primary focus:border-primary dark:text-white appearance-none cursor-pointer">
+<option>2023-2024</option>
+<option>2022-2023</option>
+<option>2021-2022</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
+</div>
+<div class="relative group">
+<label class="absolute -top-2 left-2 px-1 bg-surface-light dark:bg-surface-dark text-xs font-bold text-primary z-10">Level</label>
+<select class="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-primary focus:border-primary dark:text-white appearance-none cursor-pointer">
+<option>A-Level</option>
+<option>O-Level/IGCSE</option>
+<option>IB Diploma</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
+</div>
+<div class="relative group">
+<label class="absolute -top-2 left-2 px-1 bg-surface-light dark:bg-surface-dark text-xs font-bold text-primary z-10">Department</label>
+<select class="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-primary focus:border-primary dark:text-white appearance-none cursor-pointer">
+<option>All Sciences</option>
+<option>Humanities</option>
+<option>Mathematics</option>
+<option>Arts</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
+</div>
+<div class="relative group">
+<label class="absolute -top-2 left-2 px-1 bg-surface-light dark:bg-surface-dark text-xs font-bold text-primary z-10">Term</label>
+<select class="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-primary focus:border-primary dark:text-white appearance-none cursor-pointer">
+<option>Finals</option>
+<option>Mid-Term</option>
+<option>Mocks</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col gap-3 hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start">
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-semibold">Average Grade Points</p>
+<div class="p-1.5 rounded-md bg-blue-50 dark:bg-blue-900/20 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">school</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black">3.82</h3>
+<span class="text-sm font-bold text-gray-500">/ 4.0</span>
+</div>
+<div class="flex items-center gap-1 text-green-600 bg-green-50 dark:bg-green-900/20 w-fit px-2 py-0.5 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+2.4% vs last year</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col gap-3 hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start">
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-semibold">Pass Rate (A*-C)</p>
+<div class="p-1.5 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black">98.2%</h3>
+</div>
+<div class="flex items-center gap-1 text-green-600 bg-green-50 dark:bg-green-900/20 w-fit px-2 py-0.5 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+1.2% vs target</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col gap-3 hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start">
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-semibold">Top Subject</p>
+<div class="p-1.5 rounded-md bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">emoji_events</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black truncate">Physics</h3>
+</div>
+<div class="flex items-center gap-1 text-[#646d87] dark:text-gray-400 bg-gray-100 dark:bg-gray-800 w-fit px-2 py-0.5 rounded text-xs font-bold">
+<span>42 Students • 4.0 Avg</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col gap-3 hover:border-primary/50 transition-colors group">
+<div class="flex justify-between items-start">
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-semibold">Performance Alert</p>
+<div class="p-1.5 rounded-md bg-red-50 dark:bg-red-900/20 text-red-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black">History</h3>
+</div>
+<div class="flex items-center gap-1 text-red-600 bg-red-50 dark:bg-red-900/20 w-fit px-2 py-0.5 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-5.4% deviation</span>
+</div>
+</div>
+</div>
+<!-- Main Analytics Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Chart 1: Predicted vs Actual -->
+<div class="xl:col-span-2 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-lg font-bold">Predicted vs. Actual Grades</h3>
+<p class="text-sm text-[#646d87] dark:text-gray-400">Comparing faculty predictions against final exam results</p>
+</div>
+<div class="flex gap-4 text-xs font-bold">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-sm bg-gray-300 dark:bg-gray-600"></div>
+<span class="text-[#646d87] dark:text-gray-400">Predicted</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-sm bg-primary"></div>
+<span>Actual</span>
+</div>
+</div>
+</div>
+<!-- CSS Bar Chart -->
+<div class="flex-1 w-full min-h-[300px] flex items-end justify-between gap-4 md:gap-8 px-2">
+<!-- Y-Axis Labels (Implied for simplicity visually) -->
+<!-- Physics -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[70%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 3.5</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[85%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 4.0</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Physics</p>
+</div>
+<!-- Chem -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[75%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 3.7</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[78%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 3.8</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Chem</p>
+</div>
+<!-- Bio -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[80%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 3.9</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[65%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 3.2</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Bio</p>
+</div>
+<!-- Math -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[88%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 4.2</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[92%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 4.5</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Math</p>
+</div>
+<!-- Eng -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[60%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 3.0</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[65%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 3.2</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Eng</p>
+</div>
+<!-- Hist -->
+<div class="flex flex-col items-center flex-1 group cursor-pointer">
+<div class="relative w-full flex justify-center gap-1 h-full items-end">
+<div class="w-3 md:w-6 bg-gray-300 dark:bg-gray-600 rounded-t-sm h-[70%] group-hover:bg-gray-400 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Pred: 3.5</div>
+</div>
+<div class="w-3 md:w-6 bg-primary rounded-t-sm h-[50%] group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">Act: 2.5</div>
+</div>
+</div>
+<p class="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400">Hist</p>
+</div>
+</div>
+</div>
+<!-- Chart 2: Subject Matrix (Bubble) -->
+<div class="xl:col-span-1 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col">
+<div class="mb-6">
+<h3 class="text-lg font-bold">Subject Matrix</h3>
+<p class="text-sm text-[#646d87] dark:text-gray-400">Popularity vs. Performance</p>
+</div>
+<div class="relative flex-1 w-full min-h-[300px] border-l border-b border-gray-300 dark:border-gray-600">
+<!-- Labels -->
+<div class="absolute -left-8 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-bold text-gray-400 tracking-wider">PERFORMANCE</div>
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-400 tracking-wider">POPULARITY</div>
+<!-- Grid Lines -->
+<div class="absolute top-1/2 w-full h-px bg-gray-200 dark:bg-gray-700 border-t border-dashed border-gray-300 dark:border-gray-600"></div>
+<div class="absolute left-1/2 h-full w-px bg-gray-200 dark:bg-gray-700 border-l border-dashed border-gray-300 dark:border-gray-600"></div>
+<!-- Bubbles -->
+<!-- Physics: High Perf, High Pop -->
+<div class="absolute top-[10%] right-[10%] size-20 rounded-full bg-primary/20 border border-primary text-primary flex items-center justify-center text-xs font-bold shadow-sm hover:scale-110 transition-transform cursor-pointer" title="Physics">
+                                Physics
+                            </div>
+<!-- Math: High Perf, High Pop -->
+<div class="absolute top-[5%] right-[25%] size-24 rounded-full bg-primary/20 border border-primary text-primary flex items-center justify-center text-xs font-bold shadow-sm hover:scale-110 transition-transform cursor-pointer" title="Math">
+                                Math
+                            </div>
+<!-- History: Low Perf, Med Pop -->
+<div class="absolute bottom-[20%] left-[45%] size-16 rounded-full bg-red-100 border border-red-500 text-red-600 flex items-center justify-center text-xs font-bold shadow-sm hover:scale-110 transition-transform cursor-pointer" title="History">
+                                History
+                            </div>
+<!-- Art: Med Perf, Low Pop -->
+<div class="absolute top-[40%] left-[10%] size-12 rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-400 dark:border-gray-500 text-gray-600 dark:text-gray-300 flex items-center justify-center text-[10px] font-bold shadow-sm hover:scale-110 transition-transform cursor-pointer" title="Art">
+                                Art
+                            </div>
+<!-- Bio: Low Perf, High Pop -->
+<div class="absolute bottom-[30%] right-[15%] size-20 rounded-full bg-yellow-100 border border-yellow-500 text-yellow-700 flex items-center justify-center text-xs font-bold shadow-sm hover:scale-110 transition-transform cursor-pointer" title="Biology">
+                                Bio
+                            </div>
+</div>
+</div>
+</div>
+<!-- Teacher Effectiveness Table -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden flex flex-col">
+<div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+<div>
+<h3 class="text-lg font-bold">Faculty Impact Matrix</h3>
+<p class="text-sm text-[#646d87] dark:text-gray-400">Deviation from predicted grades by instructor</p>
+</div>
+<button class="text-primary text-sm font-bold hover:underline">View All Staff</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-gray-50 dark:bg-gray-800/50 text-[#646d87] dark:text-gray-400 text-xs uppercase tracking-wider font-semibold">
+<tr>
+<th class="px-6 py-4">Faculty Member</th>
+<th class="px-6 py-4">Department</th>
+<th class="px-6 py-4">Students</th>
+<th class="px-6 py-4">Avg. Grade</th>
+<th class="px-6 py-4">Pred. vs Actual</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-bold">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 bg-cover" data-alt="Portrait of Dr. Sarah Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChVXhJu8AKII0c-LRUty0Afruuj6CFmGZS4FQjAWIPjIlwBRJdP8YkfnU2Scyv8xehoJwS8lDkImvjU0LXNtdNBEA6w0W9_IRR1WKClhuRX-IB82KCQv06-Xp84M5N7-C9xgofSt4SZ0rRTFFMToYOrtqoorXtLnDQKHrTHvpMIDnWb7MW_PLa0uqmO1PuFHCjXlLns-vRhfNJyNKx6YLQs3wq1NxDow3m0r5SUHAokxjmJtUC--mVTDAl5Qy20yrhkCq2ZctceTg");'></div>
+                                            Dr. Sarah Chen
+                                        </div>
+</td>
+<td class="px-6 py-4">Physics</td>
+<td class="px-6 py-4">42</td>
+<td class="px-6 py-4 font-bold">4.0 (A)</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                            +0.5
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-bold">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 bg-cover" data-alt="Portrait of Mr. James Wilson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDn9rXrdFZpcqW8_wh0O1OCYZvNyhNC3piVJJkZmj_KszVstZPYERskopJ0A9DHF_WhDm8cdTspvQMet539Fa2EUH9wu1puaPmaqCk-egavd7ZEJyQzne_r8PFNmzosxID_FLX0TLZo8ob7orYRiMOmMDQxUn07BpwjWiKCwvKXx4N9XB47Vb3GaN4p43riE6bLbU4Vs2yCKlCjkFeFPr-eDVtfvpsB4TrVBWTLNdPdIvFIWUxyRbRWv9jhAUpJwx4seAappnYBXLM");'></div>
+                                            Mr. James Wilson
+                                        </div>
+</td>
+<td class="px-6 py-4">History</td>
+<td class="px-6 py-4">28</td>
+<td class="px-6 py-4 font-bold">2.8 (C+)</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                                            -0.8
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-bold">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 bg-cover" data-alt="Portrait of Prof. Anita Roy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAe3pWxU6fVt2eFLX8GJNxc74YQBO5YkGCQ88OqTD1zfGm-9U5RlIle9N9-qYcIQjbMT2WhjSl29vD16VDsceS6U2eVCyn2Mc9lotC9Fd56Il0McOi58-YekVWa_ythitv2mweYbdyBD5U3EdtYfBYE5WqBfpcu44FUNhm1Jkaz_LQU_-hC17vLyDoft5PMfIVawyxjt67ZxXUYyQeaLIm6TIVYek1hWkO_wNQetKqvpaBMrCpIxlHc69wpGUBJW7KY6czwy4OWC-Q");'></div>
+                                            Prof. Anita Roy
+                                        </div>
+</td>
+<td class="px-6 py-4">Mathematics</td>
+<td class="px-6 py-4">55</td>
+<td class="px-6 py-4 font-bold">3.9 (A-)</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                                            +0.2
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-bold">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 bg-cover" data-alt="Portrait of Mr. David Kim" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-17aRzrCp4I3-FVyF4Pd41LswMVN70biu3J3HcOK0IhgDQoDLEjNsUy_leuUks25mAuHRR0_SOG5cgJm79v7jzyipjqCeitRubINrxgbFmLfTNIX-y3ZQbY954MFsAcqyfAOlWo3tz0Rn04eh05YSFSeDCccdxWHyXt_Omha6vCExmWI-CaCrM9DTZQTuoNDHn5yESuXRmxSDCm3RRGIBDXQparABMbGcvW9h9uTFe7KL1MPiK1IsHEDElMSzBaospa5cl1BeZf0");'></div>
+                                            Mr. David Kim
+                                        </div>
+</td>
+<td class="px-6 py-4">Biology</td>
+<td class="px-6 py-4">38</td>
+<td class="px-6 py-4 font-bold">3.2 (B)</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+                                            0.0
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/20 flex justify-center">
+<button class="text-sm font-bold text-[#646d87] dark:text-gray-400 hover:text-primary flex items-center gap-1 transition-colors">
+                            Show All 34 Faculty Members
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

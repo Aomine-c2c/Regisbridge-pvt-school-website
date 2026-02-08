@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage - Maintenance &amp; Asset Lifecycle</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "primary-hover": "#1e40af",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a202c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for table container */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 bg-surface-light dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between flex-shrink-0 z-20">
+<div class="flex flex-col h-full">
+<!-- Logo Area -->
+<div class="p-6 border-b border-slate-100 dark:border-slate-800/50">
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">EduManage</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider mt-1">Admin Portal</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">school</span>
+<span class="text-sm font-medium">Students</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">group</span>
+<span class="text-sm font-medium">HR</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">payments</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary-400" href="#">
+<span class="material-symbols-outlined text-primary fill-1">engineering</span>
+<span class="text-sm font-bold">Maintenance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">inventory_2</span>
+<span class="text-sm font-medium">Assets &amp; Inventory</span>
+</a>
+</nav>
+<!-- User Profile (Bottom) -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+<img alt="Administrator profile picture showing a smiling man in a suit" class="h-9 w-9 rounded-full border border-slate-200 object-cover" data-alt="Administrator profile picture showing a smiling man in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTDpk25yi8I5nQSkDEFYotQ4HMnXuu-gqn8SMfcuhcd1yN1K2uXduIXBoUJEZwTLFTYALPMhR_87OulTGos2e7plOq07XgM51S1zFrfxX_HZSW9GQX5Mq2KGsEry3yZQuJRUU55ERTSLVdstHA6Url2E9ZXqPOgbCa72uFB0sVUcZwV3HaoazhYTiaCKphQqiEKsIDVxwrdGJ--P6HIgcoxYSrxVkwO8a8Rg6Zez3Neyw0wpm-OR_tatYoPAmGwwRRHcK7kb-r_y0"/>
+<div class="flex flex-col">
+<p class="text-sm font-medium text-slate-900 dark:text-white">Marcus Chen</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Facilities Manager</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
+<div class="px-8 py-4">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Facilities</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">Maintenance</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-1">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Maintenance &amp; Asset Lifecycle</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Track infrastructure health, fleet status, and IT hardware service schedules.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover rounded-lg text-sm font-bold text-white shadow-sm transition-colors ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                            Log Maintenance
+                        </button>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-6">
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<span class="flex items-center text-xs font-medium text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-full">+2% vs last month</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Assets at Risk</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">12</h3>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg text-amber-600 dark:text-amber-400">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<span class="flex items-center text-xs font-medium text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-full">+5 New</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Work Orders</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">34</h3>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<span class="flex items-center text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">Next 7 days</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Upcoming Services</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">8</h3>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+<span class="flex items-center text-xs font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-full">+12% Value</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Asset Value</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">$1.2M</h3>
+</div>
+</div>
+</div>
+<!-- Main Grid Layout: Table & Sidebar -->
+<div class="flex flex-col xl:flex-row gap-6 h-full">
+<!-- Left Column: Data Grid -->
+<div class="flex-1 flex flex-col gap-4 min-w-0">
+<!-- Toolbar -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<!-- Filters -->
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 w-64" placeholder="Search assets, tasks..." type="text"/>
+</div>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1"></div>
+<select class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-600 dark:text-slate-300 focus:ring-primary/50">
+<option>All Locations</option>
+<option>Dormitory A</option>
+<option>Science Block</option>
+<option>Fleet Garage</option>
+</select>
+<select class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-600 dark:text-slate-300 focus:ring-primary/50">
+<option>All Statuses</option>
+<option>Service Due</option>
+<option>Critical</option>
+<option>Operational</option>
+</select>
+</div>
+<!-- View Toggle -->
+<div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+<button class="px-3 py-1.5 rounded text-sm font-medium bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+                                    List View
+                                </button>
+<button class="px-3 py-1.5 rounded text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                                    Calendar
+                                </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50 dark:bg-slate-800/50">
+<tr>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Asset Details</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Location</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Next Service</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<!-- Row 1: Urgent -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">School Bus #42</p>
+<p class="text-xs text-slate-500">Fleet • 2018 Blue Bird</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-600 dark:text-slate-300">Main Garage</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+<span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                                Service Due
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-amber-600 dark:text-amber-400">Tomorrow</p>
+<p class="text-xs text-slate-400">Scheduled: Oil Change</p>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Critical -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined">ac_unit</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">HVAC Unit - North Wing</p>
+<p class="text-xs text-slate-500">Facility • Carrier 5000</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-600 dark:text-slate-300">Dormitory B</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                                Repair Needed
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-red-600 dark:text-red-400">Overdue (2 Days)</p>
+<p class="text-xs text-slate-400">Ticket #9942 Pending</p>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: OK -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">laptop_mac</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">MacBook Air M2 (Batch 4)</p>
+<p class="text-xs text-slate-500">IT Hardware • 25 Units</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-600 dark:text-slate-300">Computer Lab 2</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                Operational
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-slate-900 dark:text-white">Jun 15, 2024</p>
+<p class="text-xs text-slate-400">Annual Diagnostic</p>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: OK -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">print</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">HP LaserJet Pro - Main</p>
+<p class="text-xs text-slate-500">IT Hardware • Admin Block</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-600 dark:text-slate-300">Staff Room</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                Operational
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-slate-900 dark:text-white">May 22, 2024</p>
+<p class="text-xs text-slate-400">Toner Replacement</p>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: Urgent -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 dark:text-teal-400">
+<span class="material-symbols-outlined">sports_basketball</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">Gym Bleachers (East)</p>
+<p class="text-xs text-slate-500">Facility • Motorized</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-600 dark:text-slate-300">Gymnasium</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                                                Service Due
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-amber-600 dark:text-amber-400">In 3 Days</p>
+<p class="text-xs text-slate-400">Safety Inspection</p>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="bg-slate-50 dark:bg-slate-800/50 px-6 py-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<span class="text-xs text-slate-500">Showing 1-5 of 128 assets</span>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 disabled:opacity-50">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Audit Log & Calendar Mini -->
+<div class="w-full xl:w-96 flex flex-col gap-6 flex-shrink-0">
+<!-- Maintenance Log / Audit Trail -->
+<div class="bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex flex-col h-full max-h-[600px]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Maintenance Log</h3>
+<button class="text-xs text-primary font-semibold hover:underline">View All</button>
+</div>
+<div class="relative flex-1 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Timeline Line -->
+<div class="absolute left-4 top-2 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
+<!-- Item 1 -->
+<div class="relative pl-10 pb-6">
+<div class="absolute left-0 p-1 bg-surface-light dark:bg-surface-dark rounded-full border border-slate-200 dark:border-slate-700 z-10">
+<img alt="User avatar of John D." class="h-6 w-6 rounded-full object-cover" data-alt="User avatar of John D." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHR61qfLaINflk0_vAfePZ84EOjAZ3DKfBEnkgi8uRs4X9U0G6pRmNbCO-HjD4zhIiX0_pw3lVA1szJgVnteU1vXjmAeKJw5ktEseF3KyCP7SatDyKj4iI_gNjr58BvPS1oI9A5CbyaYJ04mQoxO7rt6z6bvgx8IfXycEP40cC-D2E0QJN9gJ5TsfFIk06GpjGZUwqWJ36sQJsa9YD5sMwuvkM_3sY3eG7fqJCim8h1Ssyfv0ZyUe2y9i9u3ta5ZlgMRk4Amsu_rM"/>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm text-slate-900 dark:text-white"><span class="font-semibold">John D.</span> marked <span class="font-medium text-slate-700 dark:text-slate-300">Projector Room 101</span> as <span class="text-emerald-600 font-medium">Complete</span></p>
+<span class="text-xs text-slate-400">10 minutes ago</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="relative pl-10 pb-6">
+<div class="absolute left-0 p-1 bg-surface-light dark:bg-surface-dark rounded-full border border-slate-200 dark:border-slate-700 z-10">
+<div class="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px]">settings</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm text-slate-900 dark:text-white">System generated maintenance ticket for <span class="font-medium text-slate-700 dark:text-slate-300">Bus #42</span></p>
+<span class="text-xs text-slate-400">2 hours ago</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="relative pl-10 pb-6">
+<div class="absolute left-0 p-1 bg-surface-light dark:bg-surface-dark rounded-full border border-slate-200 dark:border-slate-700 z-10">
+<img alt="User avatar of Sarah M." class="h-6 w-6 rounded-full object-cover" data-alt="User avatar of Sarah M." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWxlRH3NRyzT0W9RqEhDFPs3N4zo66-awZ_p6Hnn56lsD69ngBE5rEfzduPYOen_6HRO1e3Zf2B9etjo1D445Ez0lsPjAa3nWGo72cfsY0kG99cddB5A88JlhtNZ2oJugIcjWKM8v3IP6rnj42R85la1sK-B4OgBrYiMtC8e_q0Zw2i9NFISZp9Y5GxTP1G5GubblJCzRFZQJHdMWCCuUkc7qdedEQeFuQUc34zm8TbP_eU044SUBiqIDCvPJXLkAJotD9KRy5-nc"/>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm text-slate-900 dark:text-white"><span class="font-semibold">Sarah M.</span> attached invoice <a class="text-primary hover:underline" href="#">#INV-2024-001</a> to <span class="font-medium text-slate-700 dark:text-slate-300">Boiler Repair</span></p>
+<span class="text-xs text-slate-400">Yesterday at 4:30 PM</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="relative pl-10 pb-6">
+<div class="absolute left-0 p-1 bg-surface-light dark:bg-surface-dark rounded-full border border-slate-200 dark:border-slate-700 z-10">
+<img alt="User avatar of Marcus" class="h-6 w-6 rounded-full object-cover" data-alt="User avatar of Marcus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmE_moHHBhbR5TUniQviGh0FjIcdlU4OrX9RqNlb9G-RFKcrUOkSpmypNogAqVktMKCSbhxOa-qv1MoACTNCyWzqyt8h2cnd-ldcamIZwTWz-EV3DGM53d0xb4eUujnS-xUoOUXVCZKbeJi27C6FNFcLlxpvKvR5S7LgdWbm4ZNP13df78dAqDD7y5DBo7EwNiD_LSZrm82keoT0Xj6Vg2lTwql0X59z3zdufGIWCcIGGa6A7g4GxoVIAAy2DEOhouFQ9UBD3mr4s"/>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-sm text-slate-900 dark:text-white"><span class="font-semibold">You</span> rescheduled <span class="font-medium text-slate-700 dark:text-slate-300">Gym Floor Polishing</span></p>
+<span class="text-xs text-slate-400">Yesterday at 10:00 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Calendar / Quick Stats -->
+<div class="bg-primary bg-gradient-to-br from-primary to-blue-700 rounded-xl p-6 shadow-lg text-white">
+<h4 class="font-bold text-lg mb-4">Quick Service Summary</h4>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-blue-100 text-sm">Tasks this week</p>
+<p class="text-3xl font-bold">14</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between text-sm">
+<span class="text-blue-100">Completion Rate</span>
+<span class="font-semibold">85%</span>
+</div>
+<div class="w-full bg-black/20 rounded-full h-1.5">
+<div class="bg-white h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-semibold transition-colors backdrop-blur-md border border-white/10">
+                                Download Weekly Report
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

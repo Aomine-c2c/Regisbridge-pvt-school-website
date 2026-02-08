@@ -228,7 +228,7 @@ export const plannedExpenditures: FinancialRecord[] = [
 ];
 
 // Income Generating Projects (Planned)
-export const incomeGeneratingProjects = [
+export const plannedIncomeProjects = [
   {
     id: 'igp-001',
     name: 'Bee Keeping',
@@ -280,7 +280,7 @@ export default {
   expenditureRecords,
   plannedExpenditures,
   feeBreakdown2021,
-  incomeGeneratingProjects,
+  plannedIncomeProjects,
   feeCollectionStatus,
   financialSummary,
 };

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Student Analytics Heatmap - EduManage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for horizontal scrolling table */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111317] dark:text-white">
+<div class="flex min-h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 shrink-0 border-r border-[#f0f1f4] dark:border-gray-800 bg-white dark:bg-[#181c25] hidden md:flex flex-col">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center px-2">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10" data-alt="School Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDioIaWyWlSmlOmHUe4iKidDybwuuhbAaus4lnAjTCp_BhyQXS4-DerEivdHaYQxrsmQdcRJwh_WevZCEwhhjwMR930vSEfTpNdXMtj_K1Twu3VKoGxbybKaR8UK_Jwghu0uUvfnxGkS_8ZTmJMwhlfF8hBquk0kT3YonZLBsDcPNkHPy5nnRqiJL7mKk3vdL_iht6nSlQsg7w0DOoHFtIMaE76oV2SpDhWQQ9n5sQoK_SYKwEPeM3xVcIv5thwVuhQCQOlEZ8G76w");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#111317] dark:text-white text-base font-bold leading-normal">EduManage</h1>
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-normal leading-normal">Staff Portal</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[#646d87] dark:text-gray-400">dashboard</span>
+<p class="text-[#111317] dark:text-gray-200 text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[#646d87] dark:text-gray-400">school</span>
+<p class="text-[#111317] dark:text-gray-200 text-sm font-medium leading-normal">Students</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[#646d87] dark:text-gray-400">menu_book</span>
+<p class="text-[#111317] dark:text-gray-200 text-sm font-medium leading-normal">Academics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined filled">analytics</span>
+<p class="text-primary text-sm font-bold leading-normal">Analytics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[#646d87] dark:text-gray-400">group</span>
+<p class="text-[#111317] dark:text-gray-200 text-sm font-medium leading-normal">Staff</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[#646d87] dark:text-gray-400">settings</span>
+<p class="text-[#111317] dark:text-gray-200 text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+<div class="flex items-center gap-3 px-3 py-4 border-t border-gray-100 dark:border-gray-800">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 bg-gray-200" data-alt="User Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJjZZ-IetyM63cMg9sHA6l9wOPo6gB3-0rn0bUzXyrLxb_6GdJTL_t7GpDXJ1f3sx2YJsWGAS3eZDy2PuQZ2eMS8cUpjOzoeZUITSzo_cSBPaxTY7n2C419caFBJ_qN-7VhT9cuK7OnfpCXXZ49-2lFN3fB-ZczAEDel_9yNU7IjDsPoCTn_946q7XtsGLy-WvsDTlc2uGKNsia9PfV2rApUhqj3ixxqawc022UZ_PpCJL43eC18qdqaAA3l-FZ9amYPf_URCGVv8");'></div>
+<div class="flex flex-col">
+<p class="text-[#111317] dark:text-white text-sm font-medium">Sarah Jenkins</p>
+<p class="text-[#646d87] dark:text-gray-400 text-xs">Head of Sciences</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background-light dark:bg-background-dark relative">
+<!-- Header -->
+<header class="shrink-0 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f0f1f4] dark:border-gray-800 bg-white dark:bg-[#181c25] px-6 py-3 z-10">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-gray-500 hover:text-gray-700">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center gap-3 text-[#111317] dark:text-white">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">monitoring</span>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Student Analytics Heatmap</h2>
+</div>
+</div>
+<div class="hidden sm:flex flex-1 max-w-lg mx-8">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-2 pl-10 pr-4 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-gray-50 dark:bg-gray-800 dark:ring-gray-700 dark:text-white" placeholder="Search students, subjects..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex size-10 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-800"></span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
+<!-- Page Title & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-[#111317] dark:text-white">Performance Overview</h1>
+<p class="text-[#646d87] dark:text-gray-400 mt-1">Grade 10 - Term 2 - Science Department</p>
+</div>
+<div class="flex gap-3">
+<button class="inline-flex items-center gap-2 rounded-lg bg-white dark:bg-[#1e2330] border border-gray-200 dark:border-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined" style="font-size: 20px;">download</span>
+                            Export
+                        </button>
+<button class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+<span class="material-symbols-outlined" style="font-size: 20px;">add_circle</span>
+                            New Intervention
+                        </button>
+</div>
+</div>
+<!-- Filters -->
+<div class="bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-800 p-4 mb-6 shadow-sm">
+<div class="flex flex-wrap gap-4 items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-500">filter_list</span>
+<span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Filters:</span>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100">
+                                Class: 10-A
+                                <span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">expand_more</span>
+</button>
+</div>
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100">
+                                Term: Spring 2024
+                                <span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">expand_more</span>
+</button>
+</div>
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100">
+                                Status: All Risks
+                                <span class="material-symbols-outlined text-gray-500" style="font-size: 18px;">expand_more</span>
+</button>
+</div>
+<div class="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
+<div class="flex gap-2">
+<div class="flex items-center gap-1.5">
+<span class="size-3 rounded-full bg-red-100 border border-red-500"></span>
+<span class="text-xs text-gray-600 dark:text-gray-400">Critical Risk</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-3 rounded-full bg-yellow-100 border border-yellow-500"></span>
+<span class="text-xs text-gray-600 dark:text-gray-400">Monitor</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-3 rounded-full bg-green-100 border border-green-500"></span>
+<span class="text-xs text-gray-600 dark:text-gray-400">On Track</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Heatmap Table Container -->
+<div class="bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-800">
+<thead class="bg-gray-50 dark:bg-gray-800/50">
+<tr>
+<th class="sticky left-0 z-20 bg-gray-50 dark:bg-[#1e2330] py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6 min-w-[200px] border-b border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]" scope="col">Student Name</th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white min-w-[100px] border-b border-gray-200 dark:border-gray-800" scope="col">Overall GPA</th>
+<th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white min-w-[100px] border-b border-gray-200 dark:border-gray-800" scope="col">Attendance</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">Physics</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">Chemistry</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">Biology</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">Math</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">English</th>
+<th class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800" scope="col">History</th>
+<th class="relative py-3.5 pl-3 pr-4 sm:pr-6 border-b border-gray-200 dark:border-gray-800" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-800 bg-white dark:bg-[#1e2330]">
+<!-- Row 1 - High Risk -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6 bg-white dark:bg-[#1e2330] group-hover:bg-gray-50 dark:group-hover:bg-gray-800/50 border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Student Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBMBuTu1XWpoFNqlBO6rGE2EzRfjlteithfiUIQxEO0n0ebj8wW4k8_EKsu0NmIcslVxj0BfiPQrRmcUvHLIwh7bWy0uiAahZ4ZOHpwrQMQgoM-MIZQKUdYf_jITnYZnyblSPp3vX_olJBR8fmEH2Hvr_LoGrF1dNvLjbzYpBKBDWThnx8PYV5mYCSXVT_ndq0tna4xT7Y0DHa4FzhRvL54U3p29AAE0Kz9lmvFNruZtAkQQcREMU567QKQ3TSBJ7mwatnR9AD7QHA');"></div>
+<div class="flex flex-col">
+<span>Alex Johnson</span>
+<span class="text-xs text-red-600 font-medium">Critical Risk</span>
+</div>
+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400 font-bold">1.8</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-red-600 font-semibold">65%</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">D-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">F</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">F</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C</div>
+</td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+<button class="text-primary hover:text-indigo-900 dark:hover:text-indigo-400 bg-white dark:bg-[#1e2330] border border-gray-200 dark:border-gray-700 shadow-sm rounded-md px-3 py-1.5 transition-all text-xs font-semibold hover:shadow-md">
+                                            Create Intervention
+                                        </button>
+</td>
+</tr>
+<!-- Row 2 - Monitor Risk -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6 bg-white dark:bg-[#1e2330] group-hover:bg-gray-50 dark:group-hover:bg-gray-800/50 border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Student Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmaZ4vO1tzFfGlQ7GqUIe9nyP-A8r4PcF8E4XiwbOYfi0Tw4QmtkZVV0uSLzk-ukuL7en5ARzoPKGX57qCwK7YdXNbH0DDdVYUaPJNJRGAN5HVNNaIjBtVbHq2SBd8SDzGWi5MiUrhXKh_wC_LCAOwGjnoC1e2SB65vK8WW_FhRDfZJdHzWEvClrZ1Roctb4KmBIw-ymAMZXq5XS6ZRmwVljtO2iRA21gNmCho9OHAGglB5zlO7eRAWn81iwAuFtD9egTqSJTRSP4');"></div>
+<div class="flex flex-col">
+<span>Bethany Wu</span>
+<span class="text-xs text-yellow-600 font-medium">Monitor</span>
+</div>
+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400 font-bold">2.4</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-yellow-600 font-semibold">82%</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">D</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A-</div>
+</td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+<button class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 - Good -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6 bg-white dark:bg-[#1e2330] group-hover:bg-gray-50 dark:group-hover:bg-gray-800/50 border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Student Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqYgaAk6jQ6lXs1lplm2sOzW3HXhsOt7t5NBJhpfF6kez3WrW3YHV7h18WlFfx88j29lx7eqn6eZLbpXqN1qQOI4r3NvxdfhtgJGhcnKaZmojCqiIFNZ2og3AbO4woNN394naDPEvr7j_JyWRRZxWYqF4Fgk2kdlDzVjbDuM9-SGnllbnjjsZWR941PsRD1T1XQX18i7z2vf2MrR0vvU-x_6XeTJf-S5axqCwE0lqrCHopScSstgmRYFucbVeSdxtjbbrhUlJ5LyU');"></div>
+<div class="flex flex-col">
+<span>Charlie Davis</span>
+<span class="text-xs text-green-600 font-medium">On Track</span>
+</div>
+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400 font-bold">3.8</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-green-600 font-semibold">98%</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">A-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B+</div>
+</td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+<button class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 - Mixed Risk -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6 bg-white dark:bg-[#1e2330] group-hover:bg-gray-50 dark:group-hover:bg-gray-800/50 border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Student Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDp23lI9mAZXzt8HOiF-RwzRW_D_-invgaesxnVlc8hisk4vIsSijBCVWMeseMEtfFQblqkTc_PRDmxl8hgqtBFydwtJDwbH3Nrg4s_KduCEp9uJF0WVU5QlbqvXt2ZutIzMVACNONjyjwDQBVQc4y9hOrixOENehulJYATgdv_L5M6ww6ocIUuGOZRWtneqY5cjcUY8v1ukh2SC2oRoNxLR5oi8qCXgdAh9cHa3bCwJqBPz2jUaluiwsVZspFcu6UXs1Xu_B8pojI');"></div>
+<div class="flex flex-col">
+<span>Diana Prince</span>
+<span class="text-xs text-yellow-600 font-medium">Monitor</span>
+</div>
+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400 font-bold">2.9</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-green-600 font-semibold">92%</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">D-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-green-100 text-green-700 text-xs font-bold ring-1 ring-inset ring-green-600/20">B</div>
+</td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+<button class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 - High Risk -->
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6 bg-white dark:bg-[#1e2330] group-hover:bg-gray-50 dark:group-hover:bg-gray-800/50 border-r border-gray-200 dark:border-gray-800 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Student Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBAy86oNVj4GJwb6VcQNvkE5lMvtCVMNetB-Soj1EAPHNLALn8nnvANyubM_UuxeSFhd0vALYmIvQeMFelciqGH-2p0KLSGFQxtChSsn3V4WaYiO0gJPx2IupYaqliYhjiPtCW10r5CuCj14y_d8oDNBSL-45vikol2wOYRRj9m0P658jWAc6LQgwU7U1U0dK2xNpMUGxorKunjtB9I04lmGdqE4uNP_sYAsxB66CWit4QHlp9WEr63smdwBf4jZh-V2caxlupngOE');"></div>
+<div class="flex flex-col">
+<span>Ethan Hunt</span>
+<span class="text-xs text-red-600 font-medium">Critical Risk</span>
+</div>
+</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400 font-bold">1.5</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-red-600 font-semibold">55%</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">F</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">F</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">D-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">F</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold ring-1 ring-inset ring-yellow-600/20">C-</div>
+</td>
+<td class="whitespace-nowrap px-3 py-4 text-sm text-center">
+<div class="inline-flex items-center justify-center rounded px-2 py-1 bg-red-100 text-red-700 text-xs font-bold ring-1 ring-inset ring-red-600/20">D</div>
+</td>
+<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+<button class="text-primary hover:text-indigo-900 dark:hover:text-indigo-400 bg-white dark:bg-[#1e2330] border border-gray-200 dark:border-gray-700 shadow-sm rounded-md px-3 py-1.5 transition-all text-xs font-semibold hover:shadow-md">
+                                            Create Intervention
+                                        </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1e2330] px-4 py-3 sm:px-6">
+<div class="flex flex-1 justify-between sm:hidden">
+<a class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" href="#">Previous</a>
+<a class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50" href="#">Next</a>
+</div>
+<div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-400">
+                                    Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">142</span> results
+                                </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm">
+<a class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+</a>
+<a aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">1</a>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0" href="#">2</a>
+<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:outline-offset-0">...</span>
+<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">8</a>
+<a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Summary / Quick Stats -->
+<div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2330] px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
+<div class="flex-shrink-0">
+<span class="inline-flex size-10 items-center justify-center rounded-full bg-red-100 text-red-600">
+<span class="material-symbols-outlined">warning</span>
+</span>
+</div>
+<div class="min-w-0 flex-1">
+<span aria-hidden="true" class="absolute inset-0"></span>
+<p class="text-sm font-medium text-gray-900 dark:text-white">Flagged for Math</p>
+<p class="truncate text-sm text-gray-500 dark:text-gray-400">12 Students</p>
+</div>
+</div>
+<div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2330] px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
+<div class="flex-shrink-0">
+<span class="inline-flex size-10 items-center justify-center rounded-full bg-yellow-100 text-yellow-600">
+<span class="material-symbols-outlined">running_with_errors</span>
+</span>
+</div>
+<div class="min-w-0 flex-1">
+<span aria-hidden="true" class="absolute inset-0"></span>
+<p class="text-sm font-medium text-gray-900 dark:text-white">Low Attendance</p>
+<p class="truncate text-sm text-gray-500 dark:text-gray-400">8 Students</p>
+</div>
+</div>
+<div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2330] px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
+<div class="flex-shrink-0">
+<span class="inline-flex size-10 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+<span class="material-symbols-outlined">event_note</span>
+</span>
+</div>
+<div class="min-w-0 flex-1">
+<span aria-hidden="true" class="absolute inset-0"></span>
+<p class="text-sm font-medium text-gray-900 dark:text-white">Pending Interventions</p>
+<p class="truncate text-sm text-gray-500 dark:text-gray-400">5 Drafts</p>
+</div>
+</div>
+<div class="relative flex items-center space-x-3 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 bg-transparent px-6 py-5 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+<div class="min-w-0 flex-1 text-center">
+<p class="text-sm font-medium text-primary">View Full Report History</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

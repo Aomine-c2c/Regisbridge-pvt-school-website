@@ -1,247 +1,137 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { useState, useEffect } from 'react';
+import { useToast } from '@/components/ui/use-toast';
 
-interface Assignment {
-    id: string
-    title: string
-    description: string
-    dueDate: string
-    maxScore: number
-    subject: {
-        name: string
-        code: string
-    }
-    submissions: {
-        id: string
-        submittedAt: string
-        grade?: number
-        feedback?: string
-        status: string
-    }[]
-}
 
-export default function AssignmentsPage() {
-    const { user: _user, logout } = useAuth()
-    const router = useRouter()
-    const [assignments, setAssignments] = useState<Assignment[]>([])
-    const [loading, setLoading] = useState(true)
-    const [filter, setFilter] = useState<'all' | 'pending' | 'submitted' | 'graded'>('all')
+export default function StudentAssignmentsPage() {
+    const { toast } = useToast();
+    const [assignments, setAssignments] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedAssignment, setSelectedAssignment] = useState<any | null>(null);
+    const [submissionContent, setSubmissionContent] = useState('');
 
     useEffect(() => {
-        fetchAssignments()
-    }, [])
+        fetchAssignments();
+    }, []);
 
     const fetchAssignments = async () => {
         try {
-            const token = localStorage.getItem('accessToken')
-            const response = await fetch('/api/student/assignments', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            })
-
-            if (response.ok) {
-                const data = await response.json()
-                setAssignments(data.assignments)
+            const res = await fetch('/api/assignments', {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            const json = await res.json();
+            if (json.success) {
+                // Ideally we merge with submission status.
+                // For MVP, we display all.
+                setAssignments(json.data);
             }
         } catch (error) {
-            // Error fetching assignments
+            console.error(error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
-    const getAssignmentStatus = (assignment: Assignment) => {
-        if (assignment.submissions.length === 0) {
-            const dueDate = new Date(assignment.dueDate)
-            const now = new Date()
-            return dueDate < now ? 'overdue' : 'pending'
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedAssignment) return;
+
+        try {
+            const res = await fetch(`/api/assignments/${selectedAssignment.id}/submit`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                },
+                body: JSON.stringify({ content: submissionContent })
+            });
+            const json = await res.json();
+            if (json.success) {
+                toast({ title: 'Success', description: 'Work submitted successfully' });
+                setSelectedAssignment(null);
+                setSubmissionContent('');
+                // Refresh?
+            } else {
+                toast({ title: 'Error', description: json.message, variant: 'destructive' });
+            }
+        } catch (error) {
+            toast({ title: 'Error', description: 'Failed to submit', variant: 'destructive' });
         }
-
-        const submission = assignment.submissions[0]
-        if (submission.grade !== null && submission.grade !== undefined) {
-            return 'graded'
-        }
-        return 'submitted'
-    }
-
-    const getStatusBadge = (status: string) => {
-        const badges = {
-            pending: { text: 'Pending', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30', icon: Clock },
-            overdue: { text: 'Overdue', color: 'bg-red-100 text-red-800 dark:bg-red-900/30', icon: XCircle },
-            submitted: { text: 'Submitted', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30', icon: CheckCircle },
-            graded: { text: 'Graded', color: 'bg-green-100 text-green-800 dark:bg-green-900/30', icon: CheckCircle },
-        }
-        const badge = badges[status as keyof typeof badges] || badges.pending
-        const Icon = badge.icon
-        return (
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${badge.color} flex items-center gap-1`}>
-                <Icon className="h-3 w-3" />
-                {badge.text}
-            </span>
-        )
-    }
-
-    const filteredAssignments = assignments.filter(assignment => {
-        if (filter === 'all') return true
-        return getAssignmentStatus(assignment) === filter
-    })
-
-    const stats = {
-        total: assignments.length,
-        pending: assignments.filter(a => getAssignmentStatus(a) === 'pending').length,
-        submitted: assignments.filter(a => getAssignmentStatus(a) === 'submitted').length,
-        graded: assignments.filter(a => getAssignmentStatus(a) === 'graded').length,
-        overdue: assignments.filter(a => getAssignmentStatus(a) === 'overdue').length,
-    }
+    };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-            {/* Header */}
-            <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                        <Button variant="ghost" onClick={() => router.push('/student')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back
-                        </Button>
-                        <div>
-                            <h1 className="text-2xl font-bold">My Assignments</h1>
-                            <p className="text-sm text-muted-foreground">Track and submit your assignments</p>
-                        </div>
-                    </div>
-                    <Button onClick={() => { logout(); router.push('/login') }} variant="outline">
-                        Logout
-                    </Button>
-                </div>
-            </header>
+        <div className="p-8 max-w-6xl mx-auto">
+            <h1 className="text-2xl font-bold text-gray-900 mb-8">My Assignments</h1>
 
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Stats Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                    <Card className={`cursor-pointer transition-all ${filter === 'all' ? 'ring-2 ring-primary' : ''}`}
-                        onClick={() => setFilter('all')}>
-                        <CardContent className="p-4 text-center">
-                            <p className="text-2xl font-bold">{stats.total}</p>
-                            <p className="text-sm text-muted-foreground">Total</p>
-                        </CardContent>
-                    </Card>
-                    <Card className={`cursor-pointer transition-all ${filter === 'pending' ? 'ring-2 ring-primary' : ''}`}
-                        onClick={() => setFilter('pending')}>
-                        <CardContent className="p-4 text-center">
-                            <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
-                            <p className="text-sm text-muted-foreground">Pending</p>
-                        </CardContent>
-                    </Card>
-                    <Card className={`cursor-pointer transition-all ${filter === 'submitted' ? 'ring-2 ring-primary' : ''}`}
-                        onClick={() => setFilter('submitted')}>
-                        <CardContent className="p-4 text-center">
-                            <p className="text-2xl font-bold text-blue-600">{stats.submitted}</p>
-                            <p className="text-sm text-muted-foreground">Submitted</p>
-                        </CardContent>
-                    </Card>
-                    <Card className={`cursor-pointer transition-all ${filter === 'graded' ? 'ring-2 ring-primary' : ''}`}
-                        onClick={() => setFilter('graded')}>
-                        <CardContent className="p-4 text-center">
-                            <p className="text-2xl font-bold text-green-600">{stats.graded}</p>
-                            <p className="text-sm text-muted-foreground">Graded</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="bg-red-50 dark:bg-red-900/20">
-                        <CardContent className="p-4 text-center">
-                            <p className="text-2xl font-bold text-red-600">{stats.overdue}</p>
-                            <p className="text-sm text-muted-foreground">Overdue</p>
-                        </CardContent>
-                    </Card>
-                </div>
-
-                {/* Assignments List */}
-                {loading ? (
-                    <div className="text-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                    </div>
-                ) : filteredAssignments.length === 0 ? (
-                    <Card>
-                        <CardContent className="text-center py-8 text-muted-foreground">
-                            <p>No assignments found</p>
-                            <p className="text-sm mt-2">
-                                {filter === 'all'
-                                    ? 'Assignments will appear here once your teachers create them'
-                                    : `No ${filter} assignments`}
+            {loading ? <div className="text-center py-8 text-gray-500">Loading...</div> : (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {assignments.map(assignment => (
+                        <div key={assignment.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:border-brand-gold transition-all flex flex-col">
+                             <div className="flex justify-between items-start mb-2">
+                                <span className="text-xs font-bold text-brand-navy bg-brand-navy/10 px-2 py-1 rounded">
+                                    {assignment.subject?.name}
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                    Due: {new Date(assignment.dueDate).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <h3 className="font-semibold text-lg text-gray-900 mb-2">{assignment.title}</h3>
+                            <p className="text-sm text-gray-600 line-clamp-3 mb-4 flex-grow">
+                                {assignment.description || 'No description provided.'}
                             </p>
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <div className="space-y-4">
-                        {filteredAssignments.map((assignment) => {
-                            const status = getAssignmentStatus(assignment)
-                            const submission = assignment.submissions[0]
-                            const dueDate = new Date(assignment.dueDate)
-                            const isOverdue = status === 'overdue'
+                            <button 
+                                onClick={() => setSelectedAssignment(assignment)}
+                                className="w-full py-2 bg-gray-50 text-brand-navy font-medium rounded-md hover:bg-gray-100 border border-gray-200"
+                            >
+                                View & Submit
+                            </button>
+                        </div>
+                    ))}
+                    {assignments.length === 0 && (
+                        <div className="col-span-full text-center py-12 bg-gray-50 rounded-lg text-gray-500">
+                            No assignments due.
+                        </div>
+                    )}
+                </div>
+            )}
 
-                            return (
-                                <Card key={assignment.id} className={isOverdue ? 'border-red-300' : ''}>
-                                    <CardHeader>
-                                        <div className="flex justify-between items-start">
-                                            <div className="flex-1">
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <CardTitle className="text-lg">{assignment.title}</CardTitle>
-                                                    {getStatusBadge(status)}
-                                                </div>
-                                                <CardDescription>
-                                                    {assignment.subject.name} • Due: {dueDate.toLocaleDateString()} at {dueDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                </CardDescription>
-                                            </div>
-                                            <div className="text-right">
-                                                <p className="text-sm text-muted-foreground">Max Score</p>
-                                                <p className="text-xl font-bold">{assignment.maxScore}</p>
-                                            </div>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-sm mb-4">{assignment.description}</p>
+            {/* Submission Modal */}
+            {selectedAssignment && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+                    <div className="bg-white rounded-lg max-w-lg w-full p-6 shadow-xl animate-in zoom-in-95">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold text-gray-900">{selectedAssignment.title}</h2>
+                            <button onClick={() => setSelectedAssignment(null)} className="text-gray-500 hover:text-gray-700">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        
+                        <div className="mb-6 bg-gray-50 p-4 rounded-md text-sm text-gray-700 max-h-40 overflow-y-auto">
+                            {selectedAssignment.description}
+                        </div>
 
-                                        {submission ? (
-                                            <div className="p-4 bg-muted rounded-lg">
-                                                <p className="text-sm font-medium mb-2">Your Submission</p>
-                                                <p className="text-sm text-muted-foreground mb-2">
-                                                    Submitted: {new Date(submission.submittedAt).toLocaleString()}
-                                                </p>
-                                                {submission.grade !== null && submission.grade !== undefined ? (
-                                                    <div>
-                                                        <p className="text-lg font-bold text-green-600">
-                                                            Grade: {submission.grade}/{assignment.maxScore} ({((submission.grade / assignment.maxScore) * 100).toFixed(1)}%)
-                                                        </p>
-                                                        {submission.feedback && (
-                                                            <div className="mt-2 p-2 bg-background rounded">
-                                                                <p className="text-sm font-medium">Teacher Feedback:</p>
-                                                                <p className="text-sm">{submission.feedback}</p>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                ) : (
-                                                    <p className="text-sm text-blue-600">Awaiting grade...</p>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <Button className="w-full" disabled>
-                                                Submit Assignment (Coming Soon)
-                                            </Button>
-                                        )}
-                                    </CardContent>
-                                </Card>
-                            )
-                        })}
+                        <form onSubmit={handleSubmit}>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Your Answer / Link</label>
+                            <textarea 
+                                required 
+                                className="w-full p-3 border border-gray-300 rounded-md h-32 mb-4 focus:ring-2 focus:ring-brand-navy focus:border-transparent outline-none"
+                                placeholder="Type your answer here or paste a Google Doc link..."
+                                value={submissionContent}
+                                onChange={e => setSubmissionContent(e.target.value)}
+                            />
+                            <div className="flex justify-end gap-2">
+                                <button type="button" onClick={() => setSelectedAssignment(null)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">
+                                    Cancel
+                                </button>
+                                <button type="submit" className="px-4 py-2 bg-brand-navy text-white rounded-md hover:bg-opacity-90">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                )}
-            </main>
+                </div>
+            )}
         </div>
-    )
+    );
 }

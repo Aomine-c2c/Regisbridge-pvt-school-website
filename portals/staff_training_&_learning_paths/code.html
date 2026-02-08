@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Training &amp; Learning Paths</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1142d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101522",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-50 font-display transition-colors duration-200">
+<div class="flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navbar -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-6 py-3">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center rounded-lg bg-primary/10 p-2 text-primary">
+<span class="material-symbols-outlined">school</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">School Manager <span class="text-slate-400 font-normal mx-2">/</span> Staff Portal</h2>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar -->
+<div class="hidden md:flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-2 w-64 focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<span class="material-symbols-outlined text-slate-400">search</span>
+<input class="bg-transparent border-none text-sm w-full focus:ring-0 text-slate-700 dark:text-slate-200 placeholder-slate-400 ml-2" placeholder="Search resources..." type="text"/>
+</div>
+<!-- User Profile -->
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-slate-700">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none">Sarah Jenkins</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Administrator</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center ring-2 ring-white dark:ring-slate-800" data-alt="Profile picture of a woman smiling" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVqKWph1rE467mlebXrdioxIt7LjeLPOkEk9l9MnCN-qgLAzybDu7kw-rNMEGyBnY0NZGin50ipjsEqiofNmNsrZ5ZvmRd-I_D1zWnyhx8vbzni-5-vFsazwUHsIMZz3s8eje24oIlFa_F3UVga-IEyzxanw-C1WtkgM9BwK7vjzDUHWI_T-PAuh2FC5ZRvGzvZJVpZeGO9H1upUTB2nA3M8u3aXdQwNoqGpAdwC4SBbgFhGi-tkhqAYTWv-3-7EyQ2Ii2z49rDzk');"></div>
+</div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar -->
+<aside class="hidden w-72 flex-col justify-between border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 lg:flex sticky top-[65px] h-[calc(100vh-65px)] overflow-y-auto">
+<div class="flex flex-col gap-2 p-4">
+<div class="mb-4 px-3 py-2">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Main Menu</p>
+</div>
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2.5 text-primary" href="#">
+<span class="material-symbols-outlined text-primary font-fill">map</span>
+<span class="font-medium">Learning Paths</span>
+</a>
+<a class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">video_library</span>
+<span class="font-medium">Course Library</span>
+</a>
+<div class="my-4 border-t border-slate-100 dark:border-slate-800"></div>
+<div class="mb-2 px-3">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">My Certifications</p>
+</div>
+<a class="group flex items-center justify-between rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-yellow-500">workspace_premium</span>
+<span class="font-medium">Certified Admin</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-green-500">check_circle</span>
+</a>
+<a class="group flex items-center justify-between rounded-lg px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">verified</span>
+<span class="font-medium">Safety Officer</span>
+</div>
+</a>
+</div>
+<!-- Compliance Widget -->
+<div class="p-4">
+<div class="rounded-xl bg-slate-50 dark:bg-slate-800 p-4 border border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-orange-500">warning</span>
+<h3 class="text-sm font-bold text-slate-900 dark:text-white">Compliance Alert</h3>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
+                            Your "Data Privacy Refresher" is due in <span class="font-bold text-orange-600 dark:text-orange-400">3 days</span>.
+                        </p>
+<button class="w-full rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">
+                            Complete Now
+                        </button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-6 md:p-10">
+<div class="mx-auto max-w-6xl flex flex-col gap-8">
+<!-- Header Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Staff Learning Hub</h1>
+<p class="mt-2 text-slate-500 dark:text-slate-400 text-lg">Track your professional development and mandatory compliance.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Overall Progress:</span>
+<div class="h-2 w-32 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<div class="h-full w-[65%] rounded-full bg-green-500"></div>
+</div>
+<span class="text-sm font-bold text-slate-900 dark:text-white">65%</span>
+</div>
+</div>
+<!-- Active Learning Path (Hero) -->
+<section class="rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden relative group">
+<!-- Decorative gradient background -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-50 to-transparent dark:from-blue-900/20 dark:to-transparent opacity-70"></div>
+<div class="flex flex-col md:flex-row">
+<div class="p-8 md:w-2/3 z-10">
+<div class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                                    Active Path
+                                </div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Mastering the Timetabling Engine</h2>
+<p class="text-slate-600 dark:text-slate-300 mb-6 max-w-lg">
+                                    An advanced module designed for school administrators to efficiently manage complex class schedules, resolve conflicts, and optimize resource allocation.
+                                </p>
+<div class="flex flex-col gap-4 max-w-md">
+<div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+<span>Progress</span>
+<span>4 of 12 Lessons</span>
+</div>
+<div class="h-3 w-full rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+<div class="h-full w-1/3 rounded-full bg-primary shadow-[0_0_10px_rgba(17,66,212,0.5)]"></div>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-blue-700 hover:shadow-xl transition-all hover:-translate-y-0.5">
+<span class="material-symbols-outlined">play_circle</span>
+                                        Resume Learning
+                                    </button>
+<button class="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                                        View Syllabus
+                                    </button>
+</div>
+</div>
+<!-- Hero Image/Illustration area -->
+<div class="relative min-h-[200px] md:min-h-0 md:w-1/3 bg-cover bg-center" data-alt="Abstract representation of scheduling and planning with geometric shapes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGN_Ube6SjhBoBggrsEI8xvwDLnmlzMZ8EnB3gRmE2mtn8K1bcMFbp8fichJdwHlgajPDmD3luPrHkdK2YGusC6C7BryqmjO2urVlZd1GgHvQU4xvdK3ZHx60qx0i9zY255HaHboOOx6HcLm-Qrbmc2dlKsE-S8lC5WIHgsVQtdXeX544xGz6Z3cNGLKK4qrZXnxJ-2tnDq5mROXt2Fe6NeiKBabwmOE9wqXhoNJd8mUGS78Rh3o_TKKnGxzQPJrBuBeHlq4JfPW0');">
+<div class="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent md:bg-gradient-to-r md:from-white/90 md:via-transparent md:to-transparent dark:from-slate-800 dark:md:from-slate-800"></div>
+</div>
+</div>
+</section>
+<!-- Filters and Search -->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+<div class="flex gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar">
+<button class="whitespace-nowrap rounded-full bg-slate-900 dark:bg-white px-4 py-2 text-sm font-medium text-white dark:text-slate-900">All Courses</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Onboarding</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Technical Systems</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Compliance</button>
+</div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium cursor-pointer hover:text-primary transition-colors">
+<span>Sort by: Recommended</span>
+<span class="material-symbols-outlined text-[20px]">sort</span>
+</div>
+</div>
+<!-- Course Grid -->
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Technical Systems Training</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer">
+<div class="relative h-40 bg-slate-200 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Laptop screen showing dashboard interface" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoaJ4oPJGngZLrF9ihbb2I4FXlc8EJ2mFMtHT5MWnqIip49rlVwaOqgZm4vPBc4JzuhctSIDvMP3lpdTVNp9QhmdBwyr7sX9NnEASVUmTPFzdnUi5xbpGQ_znMwGZ6dXVm7OzyLE1WNT2TxA9hmBcI-bmq4QhuWGZY4gzMPI16AXowbCUb9sGMAVk15M7qseJNgTukcbwQeub_q0NivOzgOlsDurQurWuReBP4QgxqQ3CIRmSDurs75F4hUAuyna7jsiVfDU5Z3AM');"></div>
+<div class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
+                                        12:40
+                                    </div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<span class="material-symbols-outlined text-white text-5xl drop-shadow-lg">play_circle</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 flex gap-2">
+<span class="inline-flex items-center rounded bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:text-blue-300">Technical</span>
+<span class="inline-flex items-center rounded bg-green-50 dark:bg-green-900/30 px-2 py-0.5 text-[10px] font-medium text-green-700 dark:text-green-300">Beginner</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-primary transition-colors">Timetabling Engine Basics</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
+                                        Learn the fundamentals of creating a master schedule, including constraint setting and conflict checking.
+                                    </p>
+<div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+<span class="text-xs text-slate-400">Dr. Alan Grant</span>
+<div class="flex items-center gap-1 text-xs text-green-600 dark:text-green-400 font-medium">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Completed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer">
+<div class="relative h-40 bg-slate-200 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Close up of person writing on papers" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmGCE6lb7b5PbC0KJ5WDoIIQR6SAuWdLS3dniUxSXkEbHJF7YulSUhjS9f6afeGyJYWb3wU651PhMAZ9t95YCAfcF9teO7HQrapF45KZTeWGGgLf3VFZWDhkig_hrOTIqNxkS4lk7lF92SjSzNGEEM_ZMsuj0EuYrCPNo2pnu66aDN6XKXSlGe50FrpAViJdTnpeL6Pfblhag2cHsUiM-0fVdD4YT48MVqp776hUqTFnJCl8KRfVbBKT-L3TnHs8G-9agnp6eHQvM');"></div>
+<div class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
+                                        25:15
+                                    </div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<span class="material-symbols-outlined text-white text-5xl drop-shadow-lg">play_circle</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 flex gap-2">
+<span class="inline-flex items-center rounded bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:text-blue-300">Admin</span>
+<span class="inline-flex items-center rounded bg-orange-50 dark:bg-orange-900/30 px-2 py-0.5 text-[10px] font-medium text-orange-700 dark:text-orange-300">Intermediate</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-primary transition-colors">Managing Student Records</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
+                                        Best practices for maintaining digital student files, medical records, and academic history logs.
+                                    </p>
+<div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+<span class="text-xs text-slate-400">Sarah Connor</span>
+<div class="h-1.5 w-16 rounded-full bg-slate-100 dark:bg-slate-600">
+<div class="h-full w-[40%] rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer">
+<div class="relative h-40 bg-slate-200 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Meeting room with people discussing" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnXLxnVJ42n32J9fi4IExSIz_X7QqIH0JgSXbFCeYBVqG0kJyM1lCGtdyGzJbMyKGd465NmqGROPhcQDBdT0Gy8uFi-hyaV5Tx0wvbaSzTEi8INrvHKh1eux_qjvAz7U1TJTvKoRoPxLmniO3VAzwEQ357uCpTb6V0pvlp2M8-TK9397TdpDjQLLSP44b5djr5Ixwuj7k3y5CGdhJp4oCA2TTeZ90bB511KsbZ5SyYXmDpIDDfQ6pIXVVB1AiqQTf5qhhooPvOCNY');"></div>
+<div class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
+                                        18:30
+                                    </div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<span class="material-symbols-outlined text-white text-5xl drop-shadow-lg">play_circle</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 flex gap-2">
+<span class="inline-flex items-center rounded bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 text-[10px] font-medium text-purple-700 dark:text-purple-300">Communication</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-primary transition-colors">Parent Portal Setup</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
+                                        How to configure and customize the parent-facing dashboard for maximum engagement.
+                                    </p>
+<div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+<span class="text-xs text-slate-400">IT Support</span>
+<span class="text-xs font-medium text-slate-500 hover:text-primary">Start</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer">
+<div class="relative h-40 bg-slate-200 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Team looking at analytics on a screen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7T4vJ635JZZM_4fo1qlFtrm5utPvGgeSjCbHxO6RKVhLal1QA0ol1MOqVV3QAA1OIuq32C39HP4SUCIdITeTMxxQNlhG_VKvxbBPh2zmyli0ggnT9qzTV-H99GjIaWdADD62ViQv2MSbXe4msKoe6ot4BuiJfYYbo8Ci9iFDWcVDwJYKgNO7ruLJ23zofx5nDmAk2Gj3VCW0nva9bJq_0y9NhhGBxrRkcAvzAUjOfit1Vg9vXOVlLZYgwNuS_fM2nSS-s6r-4T-w');"></div>
+<div class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
+                                        45:00
+                                    </div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<span class="material-symbols-outlined text-white text-5xl drop-shadow-lg">play_circle</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4">
+<div class="mb-2 flex gap-2">
+<span class="inline-flex items-center rounded bg-red-50 dark:bg-red-900/30 px-2 py-0.5 text-[10px] font-medium text-red-700 dark:text-red-300">Finance</span>
+<span class="inline-flex items-center rounded bg-orange-50 dark:bg-orange-900/30 px-2 py-0.5 text-[10px] font-medium text-orange-700 dark:text-orange-300">Advanced</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-primary transition-colors">Advanced Tuition Billing</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 flex-1">
+                                        Handling complex fee structures, scholarships, and automated billing cycles.
+                                    </p>
+<div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+<span class="text-xs text-slate-400">Finance Dept</span>
+<span class="text-xs font-medium text-slate-500 hover:text-primary">Start</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mandatory Compliance Section -->
+<div class="rounded-xl border border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">policy</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Mandatory Compliance Training</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Required annual certifications for all staff members.</p>
+</div>
+</div>
+<a class="text-sm font-semibold text-primary hover:text-blue-700" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between rounded-lg bg-white dark:bg-slate-800 p-4 shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-4">
+<div class="h-12 w-16 rounded bg-cover bg-center" data-alt="Fire safety extinguisher" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_K0MSQiqaTEsugY1N9KUtDQ1Cu0lEV8NxenlSdEH3yX8K2ze98E8RcXzHymurxhfGxJ35zq9xAqAH1ilZlu0iukM-4jf6ByN15xAmfVMzUnwXf17-0GQS4AxWZDy4L7lKCJyzf-yV6a2qnPAy6gw_Pw8rdcDBpgPzozbBPY_ekluqcTFE8Or4lbk0EvQfiYN0gCAb9ozZuhwNkSb-c5XmPdVkn_YV-nityuPBQUr5ELVbVXi4TMGCbrqNfx_hrGKBCT7Geu8xrEo');"></div>
+<div>
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">Fire Safety Protocols 2024</h4>
+<p class="text-xs text-slate-500">Due Date: Oct 24, 2024</p>
+</div>
+</div>
+<button class="rounded-lg bg-red-500 hover:bg-red-600 px-4 py-2 text-xs font-bold text-white transition-colors">
+                                    Start Now
+                                </button>
+</div>
+<div class="flex items-center justify-between rounded-lg bg-white dark:bg-slate-800 p-4 shadow-sm border border-slate-100 dark:border-slate-700 opacity-70">
+<div class="flex items-center gap-4">
+<div class="h-12 w-16 rounded bg-cover bg-center grayscale" data-alt="Medical first aid kit" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAntAy0G7VdLQ0OB9BTBn9IO_ndppq9cStK8TMSed0MSAJX9KtiPJzf6vHOYJ6myTHIJsbFwHDVvkxIGIhDEIN2gfR8jiA01l5xoVmKF20rFAEuEODApeXdWl8RK--DDfL6bNzTCpS3y1sxhY9bcKWiIhzYyuqZ4NTeW81Hjb3ZMTpbuPsexgORT-NalFU6bTOlO0ocZOcyLGp0TWGeT7aT1GeOfCF_HXEPx8Fhta6Chf7HxZjGxxzk7xj6bDPsSsmuLda5v2Q6Twg');"></div>
+<div>
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">First Aid Basics</h4>
+<p class="text-xs text-slate-500">Completed on Jan 15, 2024</p>
+</div>
+</div>
+<div class="flex items-center gap-2 rounded-lg bg-green-100 dark:bg-green-900/30 px-3 py-1.5 text-xs font-bold text-green-700 dark:text-green-400">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                                    Certified
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

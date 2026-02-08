@@ -8,6 +8,8 @@ import {
   bulkGenerateRegistrationNumbers,
   isValidRegistrationNumber,
   parseRegistrationNumber,
+  RegNumberConfig,
+  UserRole
 } from '@/lib/utils/registration-number'
 
 /**
@@ -53,9 +55,9 @@ export async function GET(request: NextRequest) {
  * Generate new registration number(s)
  * 
  * Body:
- * - count?: number (default: 1) - Number of registration numbers to generate
- * - prefix?: string (default: 'REG')
- * - yearFormat?: 'full' | 'short' (default: 'full')
+ * - count?: number (default: 1)
+ * - role?: 'student' | 'teacher' | 'staff' (default: 'student')
+ * - yearFormat?: 'full' | 'short' (default: 'short')
  */
 export async function POST(request: NextRequest) {
   try {
@@ -70,9 +72,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const {
       count = 1,
-      prefix = 'REG',
+      role = 'student',
       yearFormat = 'short',
-      sequencePadding = 3,
     } = body
 
     // Validate count
@@ -84,7 +85,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate registration numbers
-    const config = { prefix, yearFormat, sequencePadding }
+    const config: RegNumberConfig = { role: role as UserRole, yearFormat }
 
     if (count === 1) {
       const registrationNumber = await generateUniqueRegistrationNumber(config)
@@ -118,11 +119,6 @@ export async function POST(request: NextRequest) {
 /**
  * PUT /api/admin/registration-numbers/validate
  * Validate registration number format
- * 
- * Body:
- * - registrationNumber: string
- * - prefix?: string (default: 'REG')
- * - yearFormat?: 'full' | 'short' (default: 'full')
  */
 export async function PUT(request: NextRequest) {
   try {
@@ -137,9 +133,8 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const {
       registrationNumber,
-      prefix = 'REG',
-      yearFormat = 'short',
-      sequencePadding = 3,
+      role = 'student',
+      yearFormat = 'short'
     } = body
 
     if (!registrationNumber) {
@@ -150,9 +145,9 @@ export async function PUT(request: NextRequest) {
     }
 
     // Validate format
-    const config = { prefix, yearFormat, sequencePadding }
-    const isValid = isValidRegistrationNumber(registrationNumber, config)
-    const parsed = parseRegistrationNumber(registrationNumber, config)
+    const config: RegNumberConfig = { role: role as UserRole, yearFormat }
+    const isValid = isValidRegistrationNumber(registrationNumber)
+    const parsed = parseRegistrationNumber(registrationNumber)
 
     return secureResponse({
       success: true,

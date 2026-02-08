@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Core System Setup Wizard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        // Royal Blue for Active Step / Primary Actions
+                        "primary": "#3b82f6", 
+                        "primary-hover": "#2563eb",
+                        // Emerald Green for Completed / Success
+                        "success": "#10b981", 
+                        // Theme Colors - Deep Charcoal & Slate Gray
+                        "background-light": "#f8fafc",
+                        "background-dark": "#020617", // Deepest Charcoal (Slate 950)
+                        "surface-dark": "#1e293b",    // Panel Background (Slate 800)
+                        "surface-darker": "#0f172a",  // Main Background (Slate 900)
+                        "surface-header": "#0f172a",  // Header Background
+                        "border-dark": "#334155",     // Borders (Slate 700)
+                        "text-main": "#f1f5f9",       // Main Text (Slate 100)
+                        "text-secondary": "#94a3b8",  // Secondary Text (Slate 400)
+                        "input-bg": "#0f172a",        // Form Inputs (Slate 900)
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'glow-primary': '0 0 20px -5px rgba(59, 130, 246, 0.5)', // Royal Blue Glow
+                    }
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-text-main font-display min-h-screen flex flex-col overflow-hidden">
+<header class="flex-none flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-border-dark px-8 py-4 bg-white dark:bg-surface-header z-20">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary shadow-glow-primary">
+<span class="material-symbols-outlined text-xl">school</span>
+</div>
+<div>
+<h2 class="text-base font-bold leading-tight text-slate-900 dark:text-white">System Initialization</h2>
+<p class="text-xs text-text-secondary">St. Mary's Academy • Enterprise Setup</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full bg-slate-100 dark:bg-success/10 border border-slate-200 dark:border-success/20 text-text-secondary dark:text-success">
+<span class="material-symbols-outlined text-sm">cloud_done</span>
+<span>Auto-saved 2 mins ago</span>
+</div>
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-transparent border border-slate-200 dark:border-border-dark hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-600 dark:text-white text-sm font-medium transition-colors">
+<span class="truncate">Save Draft &amp; Exit</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<aside class="hidden lg:flex w-80 flex-col border-r border-slate-200 dark:border-border-dark bg-white dark:bg-surface-darker overflow-y-auto">
+<div class="p-6">
+<div class="mb-8">
+<h1 class="text-xl font-bold mb-1 text-slate-900 dark:text-white">Setup Wizard</h1>
+<p class="text-text-secondary text-sm">Complete these 4 steps to launch your school portal.</p>
+</div>
+<nav class="flex flex-col gap-1 relative">
+<div class="group flex items-start gap-4 p-3 rounded-lg bg-primary/10 border border-primary/20 shadow-glow-primary relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg"></div>
+<div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-white text-xs font-bold shadow-lg shadow-primary/50">
+                        1
+                    </div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">School Branding</span>
+<span class="text-xs text-slate-600 dark:text-blue-200/70 mt-1">Logo, Colors, Typography</span>
+</div>
+</div>
+<div class="ml-[27px] w-px h-6 bg-slate-200 dark:bg-border-dark"></div>
+<div class="group flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+<div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 text-xs font-medium bg-transparent">
+                        2
+                    </div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 dark:text-slate-400 group-hover:dark:text-slate-200 transition-colors">Campus Locations</span>
+<span class="text-xs text-text-secondary mt-1">Addresses &amp; Contact Details</span>
+</div>
+</div>
+<div class="ml-[27px] w-px h-6 bg-slate-200 dark:bg-border-dark"></div>
+<div class="group flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+<div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 text-xs font-medium bg-transparent">
+                        3
+                    </div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 dark:text-slate-400 group-hover:dark:text-slate-200 transition-colors">Department Structure</span>
+<span class="text-xs text-text-secondary mt-1">Academic &amp; Admin Hierarchy</span>
+</div>
+</div>
+<div class="ml-[27px] w-px h-6 bg-slate-200 dark:bg-border-dark"></div>
+<div class="group flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer">
+<div class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 text-xs font-medium bg-transparent">
+                        4
+                    </div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 dark:text-slate-400 group-hover:dark:text-slate-200 transition-colors">Integration Settings</span>
+<span class="text-xs text-text-secondary mt-1">LMS, Payments &amp; SSO</span>
+</div>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-slate-200 dark:border-border-dark bg-white dark:bg-surface-darker">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-900 border border-white/10 flex items-center justify-center text-white font-bold" data-alt="User Avatar Gradient">
+                    JD
+                </div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Jane Doe</span>
+<span class="text-xs text-text-secondary">Lead IT Administrator</span>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark relative">
+<div class="max-w-4xl mx-auto px-6 py-10 md:px-12 md:py-12 pb-32">
+<div class="mb-10">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-3xl font-bold tracking-tight mb-2 text-slate-900 dark:text-white">School Branding</h2>
+<p class="text-text-secondary text-base">Configure the visual identity that will be displayed across the student and faculty portals.</p>
+</div>
+<div class="radial-progress text-primary text-xs font-bold hidden md:flex items-center justify-center h-12 w-12 rounded-full border-4 border-slate-200 dark:border-border-dark relative shadow-glow-primary">
+<span class="absolute inset-0 flex items-center justify-center">25%</span>
+<svg class="absolute inset-0 -rotate-90 transform h-full w-full" viewBox="0 0 36 36">
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="25, 100" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</div>
+<form class="space-y-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-border-dark overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-border-dark flex justify-between items-center bg-slate-50 dark:bg-surface-darker">
+<h3 class="text-base font-semibold text-slate-900 dark:text-white">Logos &amp; Assets</h3>
+<span class="material-symbols-outlined text-text-secondary text-lg" title="Required for reports and header">info</span>
+</div>
+<div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-3">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Primary Crest / Logo</label>
+<div class="border-2 border-dashed border-slate-300 dark:border-border-dark rounded-lg p-6 flex flex-col items-center justify-center text-center hover:border-primary dark:hover:border-primary transition-colors cursor-pointer bg-slate-50 dark:bg-input-bg group">
+<div class="h-12 w-12 rounded-full bg-slate-100 dark:bg-border-dark flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-slate-400">cloud_upload</span>
+</div>
+<p class="text-sm font-medium text-primary">Click to upload</p>
+<p class="text-xs text-text-secondary mt-1">SVG, PNG or JPG (max. 2MB)</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Preview</label>
+<div class="flex-1 rounded-lg bg-slate-100 dark:bg-input-bg border border-slate-200 dark:border-border-dark p-4 flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" data-alt="Subtle dot pattern background" style="background-image: radial-gradient(#6b7280 1px, transparent 1px); background-size: 16px 16px;"></div>
+<span class="text-xs text-text-secondary italic">No file selected</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<input class="rounded border-slate-300 dark:border-border-dark text-primary focus:ring-primary h-4 w-4 bg-transparent dark:bg-input-bg" id="transparent-bg" type="checkbox"/>
+<label class="text-xs text-text-secondary" for="transparent-bg">Force transparent background</label>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-border-dark overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-border-dark flex justify-between items-center bg-slate-50 dark:bg-surface-darker">
+<h3 class="text-base font-semibold text-slate-900 dark:text-white">Theme Colors</h3>
+<button class="text-xs font-medium text-primary hover:text-primary-hover" type="button">Reset to Defaults</button>
+</div>
+<div class="p-6 md:p-8 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Primary Brand Color</label>
+<div class="flex gap-3">
+<div class="h-10 w-10 rounded-lg shadow-sm ring-1 ring-white/10" style="background-color: #3b82f6;"></div>
+<div class="flex-1 relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="text-slate-500">#</span>
+</div>
+<input class="block w-full pl-7 pr-3 py-2.5 sm:text-sm rounded-lg border-slate-300 dark:border-border-dark bg-white dark:bg-input-bg focus:ring-primary focus:border-primary font-mono uppercase text-slate-900 dark:text-white placeholder-slate-500" placeholder="HEX" type="text" value="3B82F6"/>
+</div>
+</div>
+<p class="mt-2 text-xs text-text-secondary">Used for main buttons, links, and navigation headers.</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Secondary Accent Color</label>
+<div class="flex gap-3">
+<div class="h-10 w-10 rounded-lg shadow-sm ring-1 ring-white/10" style="background-color: #f59e0b;"></div>
+<div class="flex-1 relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="text-slate-500">#</span>
+</div>
+<input class="block w-full pl-7 pr-3 py-2.5 sm:text-sm rounded-lg border-slate-300 dark:border-border-dark bg-white dark:bg-input-bg focus:ring-primary focus:border-primary font-mono uppercase text-slate-900 dark:text-white placeholder-slate-500" placeholder="HEX" type="text" value="F59E0B"/>
+</div>
+</div>
+<p class="mt-2 text-xs text-text-secondary">Used for alerts, highlights, and call-to-action details.</p>
+</div>
+</div>
+<div class="border-t border-slate-200 dark:border-border-dark pt-6 mt-2">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-4">Portal Preview</label>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-input-bg border border-slate-200 dark:border-border-dark flex flex-col items-center justify-center gap-3">
+<span class="text-xs text-text-secondary">Primary Action</span>
+<button class="px-4 py-2 bg-[#3b82f6] text-white text-sm font-medium rounded shadow-sm shadow-blue-500/20" type="button">Submit Application</button>
+</div>
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-input-bg border border-slate-200 dark:border-border-dark flex flex-col items-center justify-center gap-3">
+<span class="text-xs text-text-secondary">Notification Badge</span>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20 text-sm font-medium">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                        Action Required
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-border-dark overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-border-dark flex justify-between items-center bg-slate-50 dark:bg-surface-darker">
+<h3 class="text-base font-semibold text-slate-900 dark:text-white">Typography &amp; Localization</h3>
+</div>
+<div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">School Motto</label>
+<input class="block w-full px-3 py-2.5 sm:text-sm rounded-lg border-slate-300 dark:border-border-dark bg-white dark:bg-input-bg focus:ring-primary focus:border-primary text-slate-900 dark:text-white placeholder-slate-500" placeholder="e.g. Excellence in Education" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Primary Language</label>
+<div class="relative">
+<select class="block w-full pl-3 pr-10 py-2.5 sm:text-sm rounded-lg border-slate-300 dark:border-border-dark bg-white dark:bg-input-bg focus:ring-primary focus:border-primary text-slate-900 dark:text-white appearance-none">
+<option>English (US)</option>
+<option>English (UK)</option>
+<option>Spanish</option>
+<option>French</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</main>
+<footer class="flex-none bg-white dark:bg-surface-header border-t border-slate-200 dark:border-border-dark px-8 py-4 z-20">
+<div class="max-w-4xl mx-auto w-full flex items-center justify-between">
+<button class="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-border-dark text-slate-700 dark:text-slate-300 font-medium text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                Back
+            </button>
+<div class="flex items-center gap-4">
+<span class="text-sm text-text-secondary hidden sm:inline-block">Unsaved changes</span>
+<button class="flex items-center gap-2 px-8 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-white font-bold text-sm shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                    Save &amp; Continue
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</footer>
+</div>
+
+</body></html>

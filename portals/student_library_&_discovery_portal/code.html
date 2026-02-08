@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Library Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1C252E",
+                        "surface-light": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for modern feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d4650; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<div class="hidden md:flex flex-col w-72 h-full bg-surface-light dark:bg-[#111418] border-r border-slate-200 dark:border-slate-800 shrink-0">
+<div class="flex flex-col h-full p-4 justify-between">
+<div class="flex flex-col gap-8">
+<!-- Brand -->
+<div class="flex items-center gap-3 px-2">
+<div class="flex items-center justify-center size-10 rounded-xl bg-primary text-white">
+<span class="material-symbols-outlined text-[24px]">school</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-none">Academy Portal</h1>
+<p class="text-slate-500 dark:text-[#9dabb9] text-xs font-normal mt-1">Student Library</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary dark:bg-[#283039] dark:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<p class="text-sm font-medium">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-[#9dabb9] hover:bg-slate-100 dark:hover:bg-[#1C252E] transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<p class="text-sm font-medium">My Shelf</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-[#9dabb9] hover:bg-slate-100 dark:hover:bg-[#1C252E] transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<p class="text-sm font-medium">History</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-[#9dabb9] hover:bg-slate-100 dark:hover:bg-[#1C252E] transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<p class="text-sm font-medium">Wishlist</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-[#9dabb9] hover:bg-slate-100 dark:hover:bg-[#1C252E] transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-sm font-medium">Study Groups</p>
+</a>
+</nav>
+</div>
+<!-- Bottom Actions -->
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-[#9dabb9] hover:bg-slate-100 dark:hover:bg-[#1C252E] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+<div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="User profile picture of a young male student" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDa4wUenyxiqdKHEyJHaj9ciXr8RuIQJYBUFshYe-ygFubPUNLPXMH73-S-nQlmoyEcXg6K8guwdJWS-BRKEnfvcl7dNr-3jdxchrSngg8XPu1fdILiBeohboY-BpASj010cm6TyO6I0tOjZQ_nJBfZDcPtTWvyIv7URmSBpRNEFbylAdNYZn2qH16MKeRusbQR0Vw8w3Ukcrjr-WzuDOfOGLqXPL3gj0m1yWwZMli6dwOwlhRhSLhzRYL6NdLGPMnca2BXNjmnNJY");'></div>
+<div class="flex flex-col">
+<p class="text-sm font-medium dark:text-white text-slate-900">Alex Morgan</p>
+<p class="text-xs text-slate-500 dark:text-[#9dabb9]">Grade 10 • Science</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Sticky Header / Top Bar -->
+<header class="flex flex-col bg-background-light dark:bg-background-dark z-10 p-6 pb-2 shrink-0 gap-6">
+<!-- Welcome & Search Row -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-col">
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Good afternoon, Alex</h2>
+<p class="text-slate-500 dark:text-[#9dabb9] text-base">Continue your learning journey today.</p>
+</div>
+<!-- Search Bar -->
+<div class="flex items-center gap-4 w-full max-w-lg">
+<div class="relative w-full group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border-none rounded-xl leading-5 bg-white dark:bg-[#283039] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm shadow-sm" placeholder="Search titles, authors, ISBNs..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+</div>
+<button class="flex items-center justify-center size-12 rounded-xl bg-white dark:bg-[#283039] text-slate-600 dark:text-white shadow-sm hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-3 right-3 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#283039]"></span>
+</button>
+</div>
+</div>
+<!-- Chips / Filters -->
+<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-5 py-2 rounded-full bg-primary text-white text-sm font-medium whitespace-nowrap shadow-md shadow-primary/20">All</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-[#283039] border border-slate-200 dark:border-transparent text-slate-600 dark:text-[#9dabb9] hover:bg-slate-50 dark:hover:bg-[#323b45] text-sm font-medium whitespace-nowrap transition-colors">Physical Books</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-[#283039] border border-slate-200 dark:border-transparent text-slate-600 dark:text-[#9dabb9] hover:bg-slate-50 dark:hover:bg-[#323b45] text-sm font-medium whitespace-nowrap transition-colors">E-Books</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-[#283039] border border-slate-200 dark:border-transparent text-slate-600 dark:text-[#9dabb9] hover:bg-slate-50 dark:hover:bg-[#323b45] text-sm font-medium whitespace-nowrap transition-colors">Audiobooks</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-[#283039] border border-slate-200 dark:border-transparent text-slate-600 dark:text-[#9dabb9] hover:bg-slate-50 dark:hover:bg-[#323b45] text-sm font-medium whitespace-nowrap transition-colors">Journals</button>
+<button class="px-5 py-2 rounded-full bg-white dark:bg-[#283039] border border-slate-200 dark:border-transparent text-slate-600 dark:text-[#9dabb9] hover:bg-slate-50 dark:hover:bg-[#323b45] text-sm font-medium whitespace-nowrap transition-colors">Faculty Picks</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-6 pb-20">
+<div class="flex flex-col gap-10 max-w-[1400px]">
+<!-- My Borrowed Items Section -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">My Shelf</h3>
+<a class="text-sm text-primary font-medium hover:underline" href="#">View all</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Card 1: Active E-Book -->
+<div class="flex bg-white dark:bg-[#1C252E] p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 gap-4 group hover:border-primary/50 transition-colors">
+<div class="w-24 h-32 shrink-0 rounded-lg bg-slate-200 dark:bg-slate-700 bg-cover bg-center shadow-inner" data-alt="Book cover abstract design for astrophysics" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIfT0IP4ROunX2nacV22FmSwbnJLBPYgtevYgXNoafjBHF9WNfXYn2AFTixu1IujK8nwowulbgEwcilod7FdngxbqH0FvTnOncUPvsCIFb4uh076WzJkS62WTcbd2v0YPwK3CT9C4e_GdC8hAJGr3YpKyZwCYvruB_dbjQy5WIuqE-PW30TfypLycG_zAeEjtdJOZMQc_ouq_DzOdPGSNDV0GiW-EGIrvo2hMa6NGdwvSC2aNAiQ3DN_ccCmvDisHKiLIFigh-_8E');"></div>
+<div class="flex flex-col justify-between w-full">
+<div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/10 text-purple-500 uppercase tracking-wide">E-Book</span>
+<span class="material-symbols-outlined text-slate-400 text-lg cursor-pointer hover:text-red-500">favorite</span>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white leading-tight mt-1 line-clamp-1">Astrophysics for People in a Hurry</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Neil deGrasse Tyson</p>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between text-xs text-slate-500 dark:text-slate-400">
+<span>45% Completed</span>
+<span>120/266 Pages</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+</div>
+<button class="mt-1 w-full py-2 bg-primary hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">book</span>
+                                            Continue Reading
+                                        </button>
+</div>
+</div>
+</div>
+<!-- Card 2: Physical Book -->
+<div class="flex bg-white dark:bg-[#1C252E] p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 gap-4 group hover:border-orange-500/50 transition-colors">
+<div class="w-24 h-32 shrink-0 rounded-lg bg-slate-200 dark:bg-slate-700 bg-cover bg-center shadow-inner" data-alt="Classic book cover design" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUV3iFq7QhOS77ElSJBlpR-y4NbycpuxiHow1NInrsZlHqn_1J41ZhCWTBBTXhKcKF3v3ItJNK9PiOvdYybW2-qWbWSIaaivqvdMceqH7TfyOYziUArRxw5-DoiG67pO8ej1aPs0I-ZUTleQPd9Xu3ZYbKRt0FXVHhf-5rnJK1AFUHlzZQXbiHTvlj19EUaUF2Gc74uENwTGwX9DcYYNqjFfKGOGEOhzojEsAIo-ecuEn6AbvUmAjSrYKQ8Wa_PRQoxcKVkk45blg');"></div>
+<div class="flex flex-col justify-between w-full">
+<div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/10 text-orange-500 uppercase tracking-wide">Physical</span>
+<span class="material-symbols-outlined text-slate-400 text-lg cursor-pointer hover:text-red-500">favorite</span>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white leading-tight mt-1 line-clamp-1">To Kill a Mockingbird</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Harper Lee</p>
+</div>
+<div class="flex flex-col gap-2 mt-auto">
+<div class="flex items-center gap-2 text-xs font-medium text-orange-500 bg-orange-500/5 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[16px]">calendar_clock</span>
+                                            Due in 3 days (Oct 24)
+                                        </div>
+<button class="w-full py-2 bg-white dark:bg-[#283039] border border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-[#323b45] text-slate-700 dark:text-white text-sm font-medium rounded-lg transition-colors">
+                                            Renew
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recommendations Carousel -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Recommended for Grade 10</h3>
+<p class="text-sm text-slate-500 dark:text-[#9dabb9]">Based on your Science and History curriculum</p>
+</div>
+<div class="flex gap-2">
+<button class="size-8 flex items-center justify-center rounded-full bg-white dark:bg-[#283039] text-slate-600 dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded-full bg-white dark:bg-[#283039] text-slate-600 dark:text-white hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+<!-- Book Item 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="The Laws of Human Nature book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Abstract art representing human nature" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkFhxFxninxvI6VIf2LFpOL1I_vqze79miG8p3ihp8ON7f0bvbqU429lGBwt_5vaXH7TUOHK1hQwutMAikip8Hs_20m_xzV-xjnmVCJ1hM5ZzD02e7qw2LsgBsQcnLBUV72_Sjwhu1CPp8bL-rLfjlU_5eQ_-yleV2VNHD6P_Fy_CLOAbpuEy7w8nH5MoyE3T5FIN0tBZts4U0bAmCJ6pQ-pQTIXiD5qmsZP932K6h4KD4O54VADm4i-dD2JzZxWUd8tQCuKIvNCA"/>
+<div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                        4.8 ★
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Details
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">The Laws of Human Nature</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Robert Greene</p>
+</div>
+<!-- Book Item 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="Sapiens book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Minimalist graphic of human evolution" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFBuF5kBCa70YucWkcZC9P8kWIv7ANTYomaIPh2tqVHzulNhq9rYubTNyXHMfJIRVdyBwWdxI_eMtApmyts0ztbmW_xIfovLwTYQcT99yfWN_l9HV7HYc4V2WryggRoGV_-kU_D2qqCv8AXBr9EGwJ0tHhyjiZdaZJItrc_sI1dLEZoA9I9ykAbVfFnc5qIYyQjRmdouFZ1xr-yDOsNwimJP2QrLf-xcneYOSmQMUsX8J1FSerNqyt5NSev63YgnAiN09xB2vR-zQ"/>
+<div class="absolute top-2 left-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                        Available
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Borrow
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Sapiens: A Brief History</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Yuval Noah Harari</p>
+</div>
+<!-- Book Item 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="Clean Code book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Minimalist book on white table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH_ZJBiZRvxrOLRXHquRFHWsPDxorVPOmA9SQtKkGjqqacz9ItEm8Js2FHUDcBvjRMcD7E_1y-Vz0dQaP5KtKsdWezR0y6L0AJKiR8_Wmek9E5X2731ON606MzV6osgJsiJn6b9PNQ_Cog1LKTywQQ1lrY4AxKGNhuyfz91QO3AIPRBvqGJdp0Pl_XJ5UrcRw4eWzffPfmPMI3aeVEM0XzQIcieQMObUU0IUYYmFg2n1Q8pOt-FDuZupye0bicXrSI3qxmoACW3hg"/>
+<div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                        4.9 ★
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Details
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Clean Code</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Robert C. Martin</p>
+</div>
+<!-- Book Item 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="Educated book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Open book with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn_EZXdOaC_boROjueNTbG-3urdJSlTnWBnMTbU-hwgp0yfQHYpBlsQ7imWqJDDfhLzAoMPXpRw6nyNP9-Cnzex2C5593qsO5gFihghbVVVgZ7Kp8QPkKdQweZL2ByDP_RQkvr0DWf6S-S0ZvY4IYvbbd7MPhRIDpimdbnTgmY2iFIliKqUSl6obh3LByJqJivF0Frw0iHUt1Bw-pcMGvGJFvZS7mLu-c9ZUXF7zF4VmRVuezlvrpYlwLTNBcJ7d5sAl1PP1oUh_U"/>
+<div class="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                        Waitlist
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-white text-slate-900 px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Join List
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Educated</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Tara Westover</p>
+</div>
+<!-- Book Item 5 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="Atomic Habits book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Stack of books colorful spines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHdF076S_ddUFHPLDuG1RMyOTQkZL5iWQn_qCigPz_VrQF8UQat0_ldzShLjsKkdKHATiz7XbiK39zvcBd3qgsKfLSH27eYmN3FdlyQEeEOfKGGNePKGAeDVt5uNVBF4nvkbLdE1TRzo4fncNS12Z__8OBmLN7aPu6TeWrheUJQqbQofXUAjYABLC12GL5G7ek_u65g_ribeTmFzSPBFQh4_VvFUl-jvY3CBVussumzu_oC-W7q0avTnf3YIbMtiQsnMOMrpc0U9U"/>
+<div class="absolute top-2 left-2 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                        Available
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Borrow
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Atomic Habits</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">James Clear</p>
+</div>
+<!-- Book Item 6 (Hidden on smaller screens, shown on XL) -->
+<div class="group cursor-pointer hidden xl:block">
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3">
+<img alt="The Alchemist book cover" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" data-alt="Book with autumn leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUCg_IClqfikQcSA5wo8bkfptmsI6hMyvy2PeNd4b4OzW3AYd-hGoWiX3sptFUVaoHcvdxZKirtzS5Aasy7GdFJlJD3XtOPxqnRpIE5Pb4YzNNxjYGYzaRuJK9r8jN83nxBrglwVMHQKpi32dzzzNWwZsWGuAvFecfH9_ZuoVGTeG82y95Iu61yLaTVvBhkb46J8RuYQJkI6Y5E7HtfRUqP27bfI4yhiLVvM7CqpEzGSQ-zCCq1RKBAwoCmV8ZCFlyYijTRNoBi-8"/>
+<div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded">
+                                        4.7 ★
+                                    </div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                            Details
+                                        </button>
+</div>
+</div>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">The Alchemist</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Paulo Coelho</p>
+</div>
+</div>
+</section>
+<!-- New Arrivals / Categories Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Category 1 -->
+<div class="bg-white dark:bg-[#1C252E] rounded-xl p-6 border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-purple-500/10 rounded-lg text-purple-500">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">New in Science</h3>
+</div>
+<div class="space-y-4">
+<!-- List Item 1 -->
+<div class="flex gap-4 items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg -mx-2 transition-colors">
+<div class="w-12 h-16 rounded bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Science book thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqNxxtgIeNUkHQbM-SpnVMzwc2dNXJpcUzowNQfxdQqWgkP8GLSzk0AkYily003Pq-GD6dv1w8-O_BI_HKGUtxUuRS3Gqj1nDC1MCA7svou5SWNRquYHSyE9DY1QOrKZf5OWcb0U_lblswHmLKbJ0OR-mbGLHUCWkYx1JvRUZ2-aEVeRboGze_BjqfERE8bKFr-ZPKRKKLMQVdcmfC8N3M7qUSTmd84zXptYRS04xrBCetwEC_-e41WtfIqqSeAw7NHCJY5HL_c3U');"></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white truncate">The Future of Humanity</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Michio Kaku</p>
+</div>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<!-- List Item 2 -->
+<div class="flex gap-4 items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg -mx-2 transition-colors">
+<div class="w-12 h-16 rounded bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Physics book thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQuozQLb2AhUiD-FdnCSp09-WOz9lQRpsUDWS78pCUCJNqFZQQ3pbqXVBGeik5K21Ny-2RW1Psb9zX5wWWjK70kgCbuCeK55BUi8eV_GRLd5dd2OA92vTqAhBZToMWwlNt2VqirebweeXRg6fGnZE70CcuJizESj1GI2OMgXNoAg9AdMInDcQ7Spy9yxIMqNj8EYutFurGv68Vtw4slOwosOqakBhKnQC-2Su6MEcz0o8W3_a4NP4dUWxj5SbPwEr3kt15qWOdqnk');"></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white truncate">Brief Answers to Big Questions</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Stephen Hawking</p>
+</div>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-sm text-slate-500 dark:text-[#9dabb9] font-medium border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                                View all Science
+                            </button>
+</div>
+<!-- Category 2 -->
+<div class="bg-white dark:bg-[#1C252E] rounded-xl p-6 border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-pink-500/10 rounded-lg text-pink-500">
+<span class="material-symbols-outlined">auto_stories</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Trending Literature</h3>
+</div>
+<div class="space-y-4">
+<!-- List Item 1 -->
+<div class="flex gap-4 items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg -mx-2 transition-colors">
+<div class="w-12 h-16 rounded bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Literature book thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoSm5-n7AD1m9O36VDxMr1MYgzfFeyoXedtjcTiw5yKx1frxBVePTC-fOy3rRhPVXCj-U7BedyLxq0lQdridgz6i482vPsLYXMriKO4AgdQ5Q3TNJ4M1_rrWNPvsObjLpcjWD-Z8bZtMLBGaNMuHAhh-CDX1i6HiOt0pdAy2TDMl5hTv9i0p4L2U5m6c76A2azVGlTpNcRpWhekVq5cowZ-d-5-IEH5p_3J_WtvVjwHB6jozkKer5eGwe3s-UWHS3kNqKMLxkXfjA');"></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white truncate">The Midnight Library</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Matt Haig</p>
+</div>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+<!-- List Item 2 -->
+<div class="flex gap-4 items-center group cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg -mx-2 transition-colors">
+<div class="w-12 h-16 rounded bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="Classic lit thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4MCTVri_RWjfzs6wiWWmaUHVYyzfiH-BbMHnTxHGMkV7UiCCfPx1onWm6Nxe_rurFeC0j2SHFLCtvg0j8wXnZK3khLEztP1H9g_CT7AtUBs_B3zWOchsMfq7YbNJufmu_fM5N6LotwjE6NzWfl2XgvkbiZ4__ZH31ORBGLkcWlx5KPiHJh2v2R7YB5gnYJxlsGJ3KudthCOXmGA9UNBdchHOorbNeSd7NcKjL_GMNz6LOQJowaAgnVtMDqudgc6IgWHUfb1AXPNU');"></div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white truncate">The Song of Achilles</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Madeline Miller</p>
+</div>
+<button class="text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-sm text-slate-500 dark:text-[#9dabb9] font-medium border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                                View all Literature
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

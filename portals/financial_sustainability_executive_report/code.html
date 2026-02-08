@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Sustainability Executive Report</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1142d4",
+                        "primary-dark": "#0d32a0",
+                        "accent-gold": "#d4af37",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101522",
+                        "card-dark": "#1a202e",
+                        "text-secondary": "#9da4b9",
+                        "navy-dark": "#161b28",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101522; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568; 
+        }
+
+        /* Chart placeholders using CSS gradients for visual representation without JS libraries */
+        .donut-chart {
+            background: conic-gradient(
+                #1142d4 0% 65%, 
+                #d4af37 65% 85%, 
+                #10b981 85% 95%, 
+                #6366f1 95% 100%
+            );
+        }
+        
+        .waterfall-bar {
+            position: relative;
+        }
+        .waterfall-bar::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 20px;
+            height: 1px;
+            border-top: 1px dashed #4b5563;
+        }
+        .waterfall-bar:first-child::before {
+            display: none;
+        }
+
+        .treemap-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-72 bg-[#111318] flex flex-col border-r border-gray-800 hidden md:flex flex-shrink-0 z-20">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gradient-to-br from-primary to-blue-900 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-900/20">
+                    E
+                </div>
+<div>
+<h1 class="text-white font-bold text-lg leading-tight">EduManage</h1>
+<p class="text-text-secondary text-xs font-medium">Executive Suite</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto px-4 py-2 space-y-1">
+<div class="mb-6">
+<p class="px-3 text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">Main Menu</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">person_add</span>
+<span class="text-sm font-medium">Admissions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">school</span>
+<span class="text-sm font-medium">Academics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary fill-1">payments</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">apartment</span>
+<span class="text-sm font-medium">Facilities</span>
+</a>
+</div>
+<div class="mb-6">
+<p class="px-3 text-xs font-bold text-text-secondary uppercase tracking-wider mb-2">Reports</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:text-white hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">analytics</span>
+<span class="text-sm font-medium">Enrollment Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] text-accent-gold">trending_up</span>
+<span class="text-sm font-medium">Sustainability</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-gray-800">
+<button class="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-white/5 transition-colors text-left">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Portrait of a male executive in a suit" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAqR57hvvKLUB8Os-QsuiH1ntPg_j4prS2nei3nDKRsBYcxzE2iXPv-kJvdLgHohXsbvZl8jifb9c486Fcwy1ZHWjFo1egJOMsxmp3igR2suXopTwNXK4hHpIJLz3rPMfs_3qERQnVT7_4lMXGzu9iCeQRLZF2y0koj1L81XVwhNwqXvMfP9ID2O1jP4jqt-eaUl5YzlhQUiZNkxXQ2HRerbFRQdu6TfttN0NCss0okXYchEh9fG91UTUmVrHL35sb6zwn3b45l_ZA')"></div>
+<div class="flex-1 min-w-0">
+<p class="text-white text-sm font-medium truncate">Dr. James Wilson</p>
+<p class="text-text-secondary text-xs truncate">Chief Financial Officer</p>
+</div>
+<span class="material-symbols-outlined text-text-secondary">settings</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
+<!-- Header -->
+<header class="h-auto min-h-[80px] px-8 py-6 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-end justify-between gap-4 bg-white dark:bg-[#101522] z-10">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-sm text-text-secondary">
+<span>Executive Portal</span>
+<span class="material-symbols-outlined text-[12px]">arrow_forward_ios</span>
+<span class="text-primary font-medium">Financial Sustainability</span>
+</div>
+<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Financial Sustainability Report</h2>
+<p class="text-text-secondary text-sm">Fiscal Year 2024 - Q3 Overview</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-gray-100 dark:bg-card-dark rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+<button class="px-3 py-1.5 text-xs font-medium rounded text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-colors">Month</button>
+<button class="px-3 py-1.5 text-xs font-medium rounded text-slate-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-colors">Quarter</button>
+<button class="px-3 py-1.5 text-xs font-medium rounded bg-white dark:bg-gray-700 text-slate-900 dark:text-white shadow-sm">YTD</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export PDF
+                    </button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">payments</span>
+</div>
+<p class="text-text-secondary text-sm font-medium mb-1">Net Tuition Revenue</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">$14.2M</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">arrow_upward</span>5.0%
+                            </span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-xs text-text-secondary mt-2">78% of annual target</p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-accent-gold">trending_up</span>
+</div>
+<p class="text-text-secondary text-sm font-medium mb-1">Operating Margin</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">18.2%</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">arrow_upward</span>1.2%
+                            </span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-accent-gold h-full rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-xs text-text-secondary mt-2">Vs. 16% industry avg</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-indigo-500">account_balance</span>
+</div>
+<p class="text-text-secondary text-sm font-medium mb-1">Debt Service Ratio</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">1.25x</h3>
+<span class="text-text-secondary text-xs font-bold bg-gray-500/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">remove</span>0.0%
+                            </span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-indigo-500 h-full rounded-full" style="width: 45%"></div>
+</div>
+<p class="text-xs text-text-secondary mt-2">Covenant req: &gt;1.10x</p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-emerald-500">savings</span>
+</div>
+<p class="text-text-secondary text-sm font-medium mb-1">Cash on Hand</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">45 Days</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">arrow_upward</span>3 Days
+                            </span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 55%"></div>
+</div>
+<p class="text-xs text-text-secondary mt-2">Target: 60 Days</p>
+</div>
+</div>
+<!-- Main Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Charts (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Row 1: Revenue & Expenses -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Revenue Stream -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Revenue Composition</h3>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center relative min-h-[220px]">
+<!-- CSS Donut Chart -->
+<div class="donut-chart w-48 h-48 rounded-full relative shadow-xl">
+<div class="absolute inset-4 bg-white dark:bg-card-dark rounded-full flex flex-col items-center justify-center z-10">
+<p class="text-text-secondary text-xs font-medium uppercase tracking-wide">Total Revenue</p>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">$21.8M</p>
+</div>
+</div>
+<!-- Legend -->
+<div class="w-full mt-6 grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-text-secondary">Tuition (65%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-accent-gold"></span>
+<span class="text-text-secondary">Boarding (20%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-emerald-500"></span>
+<span class="text-text-secondary">Activities (10%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-indigo-500"></span>
+<span class="text-text-secondary">Donations (5%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Expense Breakdown (Treemap Style) -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Expense Breakdown</h3>
+<button class="text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 h-full min-h-[220px] treemap-grid text-white text-xs font-medium">
+<div class="row-span-2 bg-[#2a3855] hover:bg-[#324263] transition-colors p-3 rounded-md flex flex-col justify-between cursor-pointer border border-gray-700/50">
+<span>Faculty Salaries</span>
+<span class="text-lg font-bold">55%</span>
+</div>
+<div class="bg-[#2d4b45] hover:bg-[#365a53] transition-colors p-3 rounded-md flex flex-col justify-between cursor-pointer border border-gray-700/50">
+<span>Facilities</span>
+<span class="text-lg font-bold">25%</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-[#5c4d26] hover:bg-[#705e2e] transition-colors p-2 rounded-md flex flex-col justify-between cursor-pointer border border-gray-700/50">
+<span class="truncate">Tech</span>
+<span class="font-bold">12%</span>
+</div>
+<div class="bg-[#4f46e5] opacity-60 hover:opacity-80 transition-opacity p-2 rounded-md flex flex-col justify-between cursor-pointer border border-gray-700/50">
+<span class="truncate">Food</span>
+<span class="font-bold">8%</span>
+</div>
+</div>
+</div>
+<p class="text-xs text-text-secondary mt-4 text-center">Total OpEx: $11.8M</p>
+</div>
+</div>
+<!-- Row 2: Debt Waterfall -->
+<div class="bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Debt Aging Schedule</h3>
+<p class="text-sm text-text-secondary">Principal reduction vs. Interest payments (5-Year Outlook)</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-xs text-text-secondary"><span class="size-2 rounded-full bg-primary"></span> Principal</span>
+<span class="flex items-center gap-1 text-xs text-text-secondary"><span class="size-2 rounded-full bg-red-400"></span> Interest</span>
+</div>
+</div>
+<div class="h-64 w-full flex items-end justify-between px-2 gap-4">
+<!-- Y Axis Labels (simplified) -->
+<div class="flex flex-col justify-between h-full py-4 text-xs text-text-secondary border-r border-gray-800 pr-2">
+<span>$5M</span>
+<span>$2.5M</span>
+<span>$0</span>
+</div>
+<!-- Bars -->
+<div class="flex-1 flex items-end justify-around h-full pt-8 pb-2">
+<!-- 2024 -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="w-full bg-primary/20 rounded-t-sm flex flex-col-reverse h-32 relative overflow-hidden transition-all group-hover:bg-primary/30">
+<div class="bg-primary h-[70%] w-full"></div>
+<div class="bg-red-400 h-[30%] w-full"></div>
+</div>
+<span class="text-xs text-text-secondary font-medium">2024</span>
+</div>
+<!-- 2025 -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="w-full bg-primary/20 rounded-t-sm flex flex-col-reverse h-28 relative overflow-hidden transition-all group-hover:bg-primary/30 waterfall-bar">
+<div class="bg-primary h-[75%] w-full"></div>
+<div class="bg-red-400 h-[25%] w-full"></div>
+</div>
+<span class="text-xs text-text-secondary font-medium">2025</span>
+</div>
+<!-- 2026 -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="w-full bg-primary/20 rounded-t-sm flex flex-col-reverse h-24 relative overflow-hidden transition-all group-hover:bg-primary/30 waterfall-bar">
+<div class="bg-primary h-[80%] w-full"></div>
+<div class="bg-red-400 h-[20%] w-full"></div>
+</div>
+<span class="text-xs text-text-secondary font-medium">2026</span>
+</div>
+<!-- 2027 -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="w-full bg-primary/20 rounded-t-sm flex flex-col-reverse h-20 relative overflow-hidden transition-all group-hover:bg-primary/30 waterfall-bar">
+<div class="bg-primary h-[85%] w-full"></div>
+<div class="bg-red-400 h-[15%] w-full"></div>
+</div>
+<span class="text-xs text-text-secondary font-medium">2027</span>
+</div>
+<!-- 2028 -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="w-full bg-primary/20 rounded-t-sm flex flex-col-reverse h-16 relative overflow-hidden transition-all group-hover:bg-primary/30 waterfall-bar">
+<div class="bg-primary h-[90%] w-full"></div>
+<div class="bg-red-400 h-[10%] w-full"></div>
+</div>
+<span class="text-xs text-text-secondary font-medium">2028</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Scenario Builder (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-navy-dark rounded-xl p-0 border border-gray-800 shadow-lg overflow-hidden flex flex-col h-full">
+<!-- Header -->
+<div class="p-6 bg-gradient-to-r from-primary to-blue-900 border-b border-white/10 relative">
+<div class="absolute right-0 top-0 h-full w-24 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+<h3 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-gold">science</span>
+                                    'What-If' Scenario
+                                </h3>
+<p class="text-blue-100 text-sm mt-1 opacity-90">Model growth impacts on infrastructure needs.</p>
+</div>
+<!-- Controls -->
+<div class="p-6 flex-1 space-y-8">
+<!-- Slider 1 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="text-sm font-medium text-gray-300">Enrollment Growth</label>
+<span class="text-sm font-bold text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">+50 Students</span>
+</div>
+<input class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary" max="200" min="0" type="range" value="50"/>
+<div class="flex justify-between text-xs text-text-secondary mt-1">
+<span>Current</span>
+<span>+200</span>
+</div>
+</div>
+<!-- Slider 2 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="text-sm font-medium text-gray-300">Tuition Increase</label>
+<span class="text-sm font-bold text-accent-gold bg-yellow-900/20 px-2 py-0.5 rounded border border-yellow-700/30">3.5%</span>
+</div>
+<input class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent-gold" max="10" min="0" step="0.5" type="range" value="3.5"/>
+<div class="flex justify-between text-xs text-text-secondary mt-1">
+<span>0%</span>
+<span>10%</span>
+</div>
+</div>
+<div class="border-t border-gray-700/50 pt-6">
+<p class="text-xs uppercase tracking-wider text-text-secondary font-bold mb-4">Projected Impact</p>
+<div class="space-y-3">
+<div class="bg-[#1c2230] p-4 rounded-lg border border-gray-700/50 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-red-500/10 rounded text-red-400">
+<span class="material-symbols-outlined text-[20px]">construction</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary">Infrastructure CapEx</span>
+<span class="text-sm font-bold text-white">Required</span>
+</div>
+</div>
+<span class="text-lg font-bold text-red-400">$1.2M</span>
+</div>
+<div class="bg-[#1c2230] p-4 rounded-lg border border-gray-700/50 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-emerald-500/10 rounded text-emerald-400">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary">Projected Surplus</span>
+<span class="text-sm font-bold text-white">FY 2025</span>
+</div>
+</div>
+<span class="text-lg font-bold text-emerald-400">+$450k</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-[#131720] border-t border-gray-800">
+<button class="w-full py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                                    Apply to Forecast
+                                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full mt-3 py-2 text-sm text-text-secondary hover:text-white transition-colors">
+                                    Reset to defaults
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Disclaimer -->
+<footer class="border-t border-gray-200 dark:border-gray-800 pt-6 pb-2 text-center">
+<p class="text-xs text-text-secondary">
+                        Confidential Executive Report. Generated on October 24, 2024. Data source: ERP_PROD_DB.
+                    </p>
+</footer>
+</div>
+</main>
+</div>
+</body></html>

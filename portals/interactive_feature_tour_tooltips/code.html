@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage Product Tour</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                        "card-dark": "#111814",
+                        "card-highlight": "#283930",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(19, 236, 128, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for the spotlight effect */
+        .spotlight-mask {
+            background: radial-gradient(circle at 85% 85%, transparent 100px, rgba(0, 0, 0, 0.75) 150px);
+        }
+        
+        /* Smooth fade for the tooltip */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .tooltip-enter {
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden">
+<!-- Main App Container -->
+<div class="relative flex h-screen w-full flex-col bg-card-dark text-white overflow-hidden group/design-root">
+<!-- Backdrop Overlay (Simulating the focus mode) -->
+<div class="fixed inset-0 z-40 bg-black/60 backdrop-blur-[2px] transition-all duration-500"></div>
+<!-- Main Layout -->
+<div class="layout-container flex h-full grow flex-col md:flex-row">
+<!-- Sidebar -->
+<div class="hidden md:flex flex-col w-64 bg-card-dark border-r border-card-highlight z-30 opacity-40">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="School Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC8tjkzbr7ww19guy6sijHAHZfRKHcIv_znT0vD_l9pZDh-nXCnpevuD3twTu_4VDHmwOFnM83htx4VkcWE8JuBXVoE_FAfR4tOsiJIbd8BdU15ZZdcpvN6ifoGYDRTj6dftSAsD9p-6AdBnrYB851p-17UXdnEG4Y0mxXVX2yICCvyXcLUPxuGcsMOyY0rX6oJ4ESwfYZD7inT0SYP6QkZU45uzhFRNu4psYVTgUuT5bnimJQFiZ1zktuMtv38KD1nlKsAJTFPf1g");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal">EduManage</h1>
+<p class="text-[#9db9ab] text-xs font-normal">Admin Console</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-4 mt-4">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-card-highlight/50 text-white/80">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#9db9ab]">
+<span class="material-symbols-outlined">school</span>
+<p class="text-sm font-medium">Students</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#9db9ab]">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium">Staff</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#9db9ab]">
+<span class="material-symbols-outlined">payments</span>
+<p class="text-sm font-medium">Finance</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#9db9ab]">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="flex flex-col flex-1 relative z-30">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-card-highlight px-8 py-4 bg-card-dark opacity-40">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<span class="material-symbols-outlined">menu</span>
+<h2 class="text-white text-lg font-bold">Dashboard</h2>
+</div>
+<!-- Search Bar (Inactive Target) -->
+<div class="relative hidden lg:block">
+<label class="flex items-center bg-card-highlight rounded-lg px-4 py-2 w-64 border border-transparent">
+<span class="material-symbols-outlined text-[#9db9ab]">search</span>
+<input class="bg-transparent border-none text-white placeholder-[#9db9ab] ml-2 focus:ring-0 text-sm w-full" disabled="" placeholder="Search records..."/>
+</label>
+<!-- Search tooltip marker (completed step) -->
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full opacity-50"></div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg bg-card-highlight text-white hover:bg-white/10">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-card-highlight text-white hover:bg-white/10">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-card-highlight" data-alt="User Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYwteQ6QOssCfd15NwuRklSEx1-yiljdrs4uFB0MyyFpjQtJH7CajHMaBp5UG2zYwX7P8GRI-4rT9hl-nwDBvgt_d3bjEBEN94ecWO88jl__kO-S0ZIhinOfNIppbJJ4f2PzvtKL81Byw58gDlRB94ysAbvHYr0pqYRU2kPXKH8Ho79BF5Unri9CMVmayl-xezPtRuNCZGw4FQKqb2ksb7b0ll2zLLOM8Ws9dRylc_CwZdxDF9_CY4QQ8OO3oJNd1zw3RScfhR-5o");'></div>
+</div>
+</header>
+<!-- Dashboard Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8 relative">
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 opacity-40">
+<div class="bg-card-highlight rounded-xl p-6 border border-white/5">
+<p class="text-[#9db9ab] text-sm font-medium">Total Students</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-3xl font-bold text-white">1,245</h3>
+<span class="text-primary text-sm font-medium">+5%</span>
+</div>
+</div>
+<div class="bg-card-highlight rounded-xl p-6 border border-white/5">
+<p class="text-[#9db9ab] text-sm font-medium">Active Staff</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-3xl font-bold text-white">142</h3>
+<span class="text-primary text-sm font-medium">+2%</span>
+</div>
+</div>
+<div class="bg-card-highlight rounded-xl p-6 border border-white/5">
+<p class="text-[#9db9ab] text-sm font-medium">Attendance</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-3xl font-bold text-white">96%</h3>
+<span class="text-primary text-sm font-medium">+1%</span>
+</div>
+</div>
+<div class="bg-card-highlight rounded-xl p-6 border border-white/5">
+<p class="text-[#9db9ab] text-sm font-medium">New Admissions</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-3xl font-bold text-white">28</h3>
+<span class="text-red-400 text-sm font-medium">-5%</span>
+</div>
+</div>
+</div>
+<!-- Charts Area -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 opacity-40">
+<div class="lg:col-span-2 bg-card-highlight rounded-xl p-6 border border-white/5 min-h-[300px]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-white text-lg font-bold">Enrollment Trends</h3>
+<p class="text-[#9db9ab] text-sm">Last 12 Months</p>
+</div>
+<h3 class="text-white text-2xl font-bold">1,245</h3>
+</div>
+<!-- Fake Chart Visual -->
+<div class="w-full h-48 flex items-end gap-4 px-2">
+<div class="w-full bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[60%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[75%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[90%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[65%] rounded-t-sm"></div>
+<div class="w-full bg-primary/30 h-[80%] rounded-t-sm border-t-2 border-primary"></div>
+</div>
+</div>
+<div class="bg-card-highlight rounded-xl p-6 border border-white/5 flex flex-col justify-between">
+<div>
+<h3 class="text-white text-lg font-bold">Fee Collection</h3>
+<p class="text-[#9db9ab] text-sm">Current Term</p>
+</div>
+<div class="flex items-center justify-center py-8">
+<div class="relative size-40 rounded-full border-8 border-card-dark flex items-center justify-center">
+<svg class="size-full -rotate-90 transform" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="40" stroke="#111814" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="none" r="40" stroke="#13ec80" stroke-dasharray="251.2" stroke-dashoffset="60" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-white">76%</span>
+<span class="text-xs text-[#9db9ab]">Collected</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Quick Actions (Active Step) -->
+<div class="absolute bottom-8 right-8 z-50 flex flex-col items-end">
+<!-- The Tooltip -->
+<div class="tooltip-enter mb-6 w-[340px] rounded-2xl bg-[#1e293b] shadow-2xl border border-white/10 overflow-hidden relative">
+<!-- Header -->
+<div class="bg-blue-600 px-6 py-4 flex items-center justify-between relative overflow-hidden">
+<!-- Subtle decoration in header -->
+<div class="absolute top-0 right-0 w-24 h-24 bg-blue-500 rounded-full blur-2xl -mr-10 -mt-10 opacity-50 pointer-events-none"></div>
+<h3 class="text-white font-bold text-base tracking-wide z-10 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                                Shortcuts at your fingertips
+                            </h3>
+<button class="text-white/70 hover:text-white z-10 transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="p-6 bg-[#1f2937]">
+<p class="text-gray-300 text-sm leading-6 mb-6">
+                                Create new admissions, log incidents, or send announcements with a single click without leaving your current view.
+                            </p>
+<!-- Footer Controls -->
+<div class="flex items-center justify-between pt-2 border-t border-gray-700/50">
+<span class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Step 2 of 5</span>
+<div class="flex items-center gap-3">
+<button class="text-gray-400 hover:text-white text-sm font-medium px-2 py-1 transition-colors">
+                                        Back
+                                    </button>
+<button class="bg-primary hover:bg-emerald-400 text-black text-sm font-bold px-5 py-2 rounded-lg shadow-lg shadow-emerald-900/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-1">
+                                        Next
+                                        <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Arrow Pointer -->
+<div class="absolute -bottom-2 right-10 w-4 h-4 bg-[#1f2937] border-b border-r border-gray-700/50 transform rotate-45 z-10"></div>
+</div>
+<!-- The Highlighted Target Element -->
+<button class="group relative flex items-center justify-center h-14 bg-primary text-[#111814] rounded-full px-6 shadow-[0_0_0_8px_rgba(19,236,128,0.2)] hover:shadow-[0_0_0_12px_rgba(19,236,128,0.3)] transition-all duration-300 transform hover:-translate-y-1">
+<div class="mr-3 p-1 bg-black/10 rounded-full">
+<span class="material-symbols-outlined font-bold">add</span>
+</div>
+<span class="text-base font-bold whitespace-nowrap pr-1">Quick Actions</span>
+<!-- Pulse effect for attention -->
+<span class="absolute inline-flex h-full w-full rounded-full bg-primary opacity-20 animate-ping"></span>
+</button>
+<!-- Helper text below button (Skip) -->
+<div class="mt-4 mr-2">
+<button class="text-white/40 text-xs font-medium hover:text-white transition-colors underline decoration-dotted underline-offset-4">
+                            Skip Product Tour
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

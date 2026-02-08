@@ -60,3 +60,60 @@ export async function requireAdmin(request: NextRequest): Promise<{ user: AuthUs
 
   return { user, error: null }
 }
+
+export async function requireTeacher(request: NextRequest): Promise<{ user: AuthUser | null; error: NextResponse | null }> {
+  const { user, error } = await verifyAuth(request)
+  
+  if (error) return { user: null, error }
+  
+  // Check for teacher, admin, or superadmin roles
+  if (user?.role !== 'teacher' && user?.role !== 'admin' && user?.role !== 'superadmin') {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { success: false, message: 'Teacher access required' },
+        { status: 403 }
+      ),
+    }
+  }
+
+  return { user, error: null }
+}
+
+export async function requireStudent(request: NextRequest): Promise<{ user: AuthUser | null; error: NextResponse | null }> {
+  const { user, error } = await verifyAuth(request)
+  
+  if (error) return { user: null, error }
+  
+  // Check for student, admin, or superadmin roles
+  if (user?.role !== 'student' && user?.role !== 'admin' && user?.role !== 'superadmin') {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { success: false, message: 'Student access required' },
+        { status: 403 }
+      ),
+    }
+  }
+
+  return { user, error: null }
+}
+
+export async function requireParent(request: NextRequest): Promise<{ user: AuthUser | null; error: NextResponse | null }> {
+  const { user, error } = await verifyAuth(request)
+  
+  if (error) return { user: null, error }
+  
+  // Check for parent, admin, or superadmin roles
+  if (user?.role !== 'parent' && user?.role !== 'admin' && user?.role !== 'superadmin') {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { success: false, message: 'Parent access required' },
+        { status: 403 }
+      ),
+    }
+  }
+
+  return { user, error: null }
+}

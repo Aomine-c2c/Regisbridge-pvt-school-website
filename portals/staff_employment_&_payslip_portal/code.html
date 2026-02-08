@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Portal - My Employment</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a1f2e",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex transition-colors duration-200">
+<!-- Sidebar -->
+<aside class="w-64 bg-card-light dark:bg-card-dark border-r border-slate-200 dark:border-slate-800 flex flex-col z-20 hidden md:flex shrink-0 transition-colors duration-200">
+<!-- Logo Area -->
+<div class="h-16 flex items-center px-6 border-b border-slate-100 dark:border-slate-800">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center text-primary mr-3">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h1 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">School Manager</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Staff Portal</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-1">
+<p class="px-4 pb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Main</p>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">class</span>
+<span class="text-sm font-medium">Classes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">groups</span>
+<span class="text-sm font-medium">Students</span>
+</a>
+<div class="my-2 border-t border-slate-100 dark:border-slate-800"></div>
+<p class="px-4 pb-2 pt-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">HR &amp; Admin</p>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-sm">My Employment</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">folder_open</span>
+<span class="text-sm font-medium">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">event_available</span>
+<span class="text-sm font-medium">Events</span>
+</a>
+</nav>
+<!-- User Profile (Bottom Sidebar) -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<button class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<div class="size-9 rounded-full bg-cover bg-center shrink-0" data-alt="User profile picture of a man smiling" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYei5jXZSE9OLwN0280YIF4kfFh4Uoh0FPeA5zbPNMvz5UnB3xI2oYNrhrsaZwjIcLWQIRdopb7fcFbP_sJb7owoojBOxNFFeDJpqZh_aDTKJDy6HfWSbt4zLxu2BKPs_PuwgZJFxv6nkQHvVS74hynPiRNFqgFU_fy6VPtBEdy-r8sbdcqe43SKxlUHMaAWPThq4u0UTOQY4bkJdUEJwTwp3E63mM8K3lB3RLVVGVvmJaPvyu8y6C9IHSqFEKVaee6ln4RPtsQso');"></div>
+<div class="flex flex-col items-start overflow-hidden">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate w-full text-left">Alex Morgan</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate w-full text-left">Senior Math Teacher</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 ml-auto text-[20px]">expand_more</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Header -->
+<header class="h-16 shrink-0 bg-card-light dark:bg-card-dark border-b border-slate-200 dark:border-slate-800 px-6 sm:px-8 flex items-center justify-between z-10 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-slate-500 hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">My Employment &amp; Payslips</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-primary rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-card-dark"></span>
+</button>
+<button class="flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow-sm shadow-blue-200 dark:shadow-none transition-all">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="hidden sm:inline">Request Leave</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 sm:p-8 scroll-smooth">
+<div class="max-w-7xl mx-auto flex flex-col gap-6">
+<!-- Top Row: Contract & Leave Balances -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Employment Summary Card -->
+<div class="lg:col-span-4 bg-card-light dark:bg-card-dark rounded-xl shadow-sm p-6 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+<div>
+<h3 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">badge</span>
+                                Contract Details
+                            </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+<span class="text-sm text-slate-500 dark:text-slate-400">Position</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Senior Math Teacher</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+<span class="text-sm text-slate-500 dark:text-slate-400">Contract Type</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Full-Time (Permanent)</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+<span class="text-sm text-slate-500 dark:text-slate-400">Department</span>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Mathematics</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+<span class="text-sm text-slate-500 dark:text-slate-400">Reports To</span>
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-cover bg-center" data-alt="Head of department portrait" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAEdC4V28opTvjxhCoThZQGJUmnIpJ70eUSxhPqQ7S_WlaqznWkP1_59tRmcb7FS-IZu12rbIUV4IT_S7rhuvHjP9Z460b_4Kc1Mg7chQ21Dic6pRVSNryoNm7xe45kjTU_twU90PC3Hpgv5-Icz30P8hkIAqcRoMfgNIcJb_jbHU_jgwkERY_cTJ8dw2bQHIgKfBSH3OBDSUfL7Vmks_l8gRaSjI7gC2skleyQM6xhv6Mm4196KjjhiZ0ef1LC-kHW512ocOWl2QM')"></div>
+<span class="text-sm font-medium text-slate-900 dark:text-slate-200">Sarah Jenkins</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500 dark:text-slate-400">Start Date: Sep 1, 2020</span>
+<span class="text-xs font-semibold text-green-600 bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded">Active</span>
+</div>
+</div>
+</div>
+<!-- Leave Balances -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Annual Leave -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm p-6 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[80px] text-primary">flight_takeoff</span>
+</div>
+<h4 class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Annual Leave</h4>
+<div class="text-4xl font-bold text-slate-900 dark:text-white mb-1">12</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 mb-4">Days Remaining</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 mb-2">
+<div class="bg-primary h-2 rounded-full" style="width: 60%"></div>
+</div>
+<div class="w-full flex justify-between text-[10px] text-slate-400 uppercase font-semibold">
+<span>Used: 8</span>
+<span>Total: 20</span>
+</div>
+</div>
+<!-- Sick Leave -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm p-6 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[80px] text-rose-500">medical_services</span>
+</div>
+<h4 class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Sick Leave</h4>
+<div class="text-4xl font-bold text-slate-900 dark:text-white mb-1">5</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 mb-4">Days Remaining</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 mb-2">
+<div class="bg-rose-500 h-2 rounded-full" style="width: 50%"></div>
+</div>
+<div class="w-full flex justify-between text-[10px] text-slate-400 uppercase font-semibold">
+<span>Used: 5</span>
+<span>Total: 10</span>
+</div>
+</div>
+<!-- Compassionate/Other -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm p-6 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[80px] text-indigo-500">favorite</span>
+</div>
+<h4 class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Compassionate</h4>
+<div class="text-4xl font-bold text-slate-900 dark:text-white mb-1">3</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 mb-4">Days Remaining</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 mb-2">
+<div class="bg-indigo-500 h-2 rounded-full" style="width: 40%"></div>
+</div>
+<div class="w-full flex justify-between text-[10px] text-slate-400 uppercase font-semibold">
+<span>Used: 2</span>
+<span>Total: 5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Row: Calendar & Quick Links -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Calendar -->
+<div class="lg:col-span-8 bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+                                Schedule &amp; Leave
+                            </h3>
+<div class="flex items-center gap-2">
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="text-sm font-bold text-slate-900 dark:text-white">October 2023</span>
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="grid grid-cols-7 gap-px bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+<!-- Headers -->
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Mon</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Tue</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Wed</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Thu</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Fri</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Sat</div>
+<div class="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">Sun</div>
+<!-- Days Row 1 -->
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">25</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">26</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">27</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">28</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">29</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400">30</span>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-900 dark:text-white font-medium">1</span>
+</div>
+<!-- Days Row 2 (Example with data) -->
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-900 dark:text-white font-medium">2</span>
+<div class="w-full p-1 bg-blue-50 dark:bg-blue-900/20 text-primary rounded text-[10px] font-medium leading-tight">Teaching 4 hrs</div>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-900 dark:text-white font-medium">3</span>
+<div class="w-full p-1 bg-blue-50 dark:bg-blue-900/20 text-primary rounded text-[10px] font-medium leading-tight">Teaching 5 hrs</div>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-900 dark:text-white font-medium">4</span>
+<div class="w-full p-1 bg-blue-50 dark:bg-blue-900/20 text-primary rounded text-[10px] font-medium leading-tight">Teaching 2 hrs</div>
+<div class="w-full p-1 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 rounded text-[10px] font-medium leading-tight">Staff Mtg</div>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1 relative">
+<span class="text-xs text-white font-bold bg-primary rounded-full w-5 h-5 flex items-center justify-center">5</span>
+<div class="w-full p-1 bg-blue-50 dark:bg-blue-900/20 text-primary rounded text-[10px] font-medium leading-tight">Teaching 6 hrs</div>
+</div>
+<div class="bg-white dark:bg-card-dark min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-900 dark:text-white font-medium">6</span>
+<div class="w-full p-1 bg-amber-50 dark:bg-amber-900/20 text-amber-600 rounded text-[10px] font-medium leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">flight_takeoff</span>
+                                    Leave
+                                </div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400 font-medium">7</span>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 min-h-[80px] p-1.5 flex flex-col items-start gap-1">
+<span class="text-xs text-slate-400 font-medium">8</span>
+</div>
+</div>
+<div class="flex gap-4 mt-4 text-xs text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-2"><span class="size-3 rounded bg-blue-100 dark:bg-blue-900/50"></span> Teaching Block</div>
+<div class="flex items-center gap-2"><span class="size-3 rounded bg-amber-100 dark:bg-amber-900/50"></span> Approved Leave</div>
+<div class="flex items-center gap-2"><span class="size-3 rounded bg-indigo-100 dark:bg-indigo-900/50"></span> Other Events</div>
+</div>
+</div>
+<!-- Quick Actions & Policies -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Quick Actions -->
+<div class="bg-gradient-to-br from-primary to-blue-600 rounded-xl shadow-md p-6 text-white relative overflow-hidden">
+<!-- Decorative background circles -->
+<div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+<div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl"></div>
+<h3 class="text-base font-bold mb-4 relative z-10">Quick Actions</h3>
+<div class="flex flex-col gap-3 relative z-10">
+<button class="flex items-center justify-between w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 p-3 rounded-lg transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-medium">Update Tax Info</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 p-3 rounded-lg transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-sm font-medium">Expense Claim</span>
+</div>
+<span class="material-symbols-outlined text-sm opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Handbook Link -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 flex flex-col items-start">
+<div class="size-10 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg flex items-center justify-center mb-3">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Staff Handbook</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Review the latest policies on leave, conduct, and benefits.</p>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                                 View Handbook <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Payslips -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+<h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+                                Payslip Archive
+                        </h3>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility_off</span>
+                                Hide Values
+                            </div>
+<select class="bg-transparent text-sm border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-400 focus:ring-primary focus:border-primary">
+<option>2023</option>
+<option>2022</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider font-semibold border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4">Period</th>
+<th class="px-6 py-4">Date Paid</th>
+<th class="px-6 py-4">Gross Pay</th>
+<th class="px-6 py-4">Net Pay</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-sm">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">September 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Sep 28, 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">$5,416.67</td>
+<td class="px-6 py-4 font-mono font-medium text-slate-900 dark:text-slate-200">$4,105.22</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+<span class="size-1.5 rounded-full bg-green-500"></span> Paid
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full" title="Download PDF">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">August 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Aug 28, 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">$5,416.67</td>
+<td class="px-6 py-4 font-mono font-medium text-slate-900 dark:text-slate-200">$4,105.22</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+<span class="size-1.5 rounded-full bg-green-500"></span> Paid
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full" title="Download PDF">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white">July 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Jul 28, 2023</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">$5,416.67</td>
+<td class="px-6 py-4 font-mono font-medium text-slate-900 dark:text-slate-200">$4,105.22</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+<span class="size-1.5 rounded-full bg-green-500"></span> Paid
+                                        </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full" title="Download PDF">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-center">
+<button class="text-sm text-primary font-medium hover:underline">View All History</button>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-8 text-center text-xs text-slate-400 dark:text-slate-600 pb-4">
+<p>© 2023 School Manager Inc. All rights reserved. Confidential Information.</p>
+</footer>
+</div>
+</div>
+</main>
+</body></html>

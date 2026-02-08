@@ -1,5 +1,6 @@
 // SystemSettings Component - Configure system-wide settings
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import { AdminHeader } from './shared/AdminHeader';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,10 +30,9 @@ import {
   RefreshCw,
   AlertCircle
 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Settings {
-  // Email Settings
   emailEnabled: boolean;
   smtpServer: string;
   smtpPort: string;
@@ -41,13 +41,11 @@ interface Settings {
   emailFromAddress: string;
   emailFromName: string;
 
-  // SMS Settings
   smsEnabled: boolean;
   smsProvider: string;
   smsApiKey: string;
   smsFromNumber: string;
 
-  // Notification Settings
   enableEmailNotifications: boolean;
   enableSMSNotifications: boolean;
   enablePushNotifications: boolean;
@@ -55,7 +53,6 @@ interface Settings {
   notifyOnPayment: boolean;
   notifyOnAttendance: boolean;
 
-  // System Settings
   schoolName: string;
   schoolEmail: string;
   schoolPhone: string;
@@ -65,14 +62,12 @@ interface Settings {
   timezone: string;
   dateFormat: string;
 
-  // Security Settings
   enableTwoFactor: boolean;
   sessionTimeout: number;
   passwordMinLength: number;
   passwordRequireSpecialChar: boolean;
   maxLoginAttempts: number;
 
-  // Backup Settings
   autoBackupEnabled: boolean;
   backupFrequency: string;
   backupTime: string;
@@ -81,40 +76,35 @@ interface Settings {
 
 const defaultSettings: Settings = {
   emailEnabled: true,
-  smtpServer: 'smtp.gmail.com',
-  smtpPort: '587',
-  smtpUsername: 'admin@regisbridge.ac.zw',
+  smtpServer: '',
+  smtpPort: '',
+  smtpUsername: '',
   smtpPassword: '',
-  emailFromAddress: 'noreply@regisbridge.ac.zw',
-  emailFromName: 'Regisbridge School',
-
+  emailFromAddress: '',
+  emailFromName: '',
   smsEnabled: false,
   smsProvider: 'twilio',
   smsApiKey: '',
   smsFromNumber: '',
-
   enableEmailNotifications: true,
   enableSMSNotifications: false,
   enablePushNotifications: true,
   notifyOnNewRegistration: true,
   notifyOnPayment: true,
   notifyOnAttendance: false,
-
-  schoolName: 'Regisbridge Private School',
-  schoolEmail: 'info@regisbridge.ac.zw',
-  schoolPhone: '+263 4 123456',
-  schoolAddress: '123 Education Street, Harare, Zimbabwe',
-  academicYear: '2025',
+  schoolName: '',
+  schoolEmail: '',
+  schoolPhone: '',
+  schoolAddress: '',
+  academicYear: '',
   currency: 'USD',
   timezone: 'Africa/Harare',
   dateFormat: 'DD/MM/YYYY',
-
   enableTwoFactor: false,
   sessionTimeout: 60,
   passwordMinLength: 8,
   passwordRequireSpecialChar: true,
   maxLoginAttempts: 5,
-
   autoBackupEnabled: true,
   backupFrequency: 'daily',
   backupTime: '02:00',
@@ -127,6 +117,23 @@ export function SystemSettings() {
   const [loading, setLoading] = useState(false);
   const [backupInProgress, setBackupInProgress] = useState(false);
 
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch('/api/admin/settings');
+      const data = await res.json();
+      if (data.success) {
+        setSettings(data.settings);
+      }
+    } catch (error) {
+      console.error(error);
+      toast({ title: 'Error', description: 'Failed to load settings', variant: 'destructive' });
+    }
+  };
+
   const updateSetting = (key: keyof Settings, value: any) => {
     setSettings(prev => ({ ...prev, [key]: value }));
   };
@@ -134,12 +141,20 @@ export function SystemSettings() {
   const handleSave = async () => {
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast({
-        title: 'Settings Saved',
-        description: 'Your settings have been updated successfully',
+      const res = await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
       });
+      const data = await res.json();
+      if (data.success) {
+        toast({
+            title: 'Settings Saved',
+            description: 'Your settings have been updated successfully',
+        });
+      } else {
+        toast({ title: 'Error', description: 'Failed to save', variant: 'destructive' });
+      }
     } catch (error) {
       toast({
         title: 'Error',
@@ -154,6 +169,7 @@ export function SystemSettings() {
   const handleBackupNow = async () => {
     setBackupInProgress(true);
     try {
+      // Simulation of backup process
       await new Promise(resolve => setTimeout(resolve, 2000));
       toast({
         title: 'Backup Complete',

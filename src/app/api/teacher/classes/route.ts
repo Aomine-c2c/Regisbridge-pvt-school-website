@@ -1,74 +1,91 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyAccessToken } from '@/lib/auth'
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
+import { requireTeacher } from '@/lib/api/auth-middleware';
 
-async function verifyTeacherAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload) {
-        return { authorized: false, error: 'Invalid token' }
-    }
-
-    if (payload.role !== 'teacher' && payload.role !== 'admin') {
-        return { authorized: false, error: 'Teacher access required' }
-    }
-
-    return { authorized: true, userId: payload.userId, role: payload.role }
-}
-
-// GET /api/teacher/classes - Get teacher's classes
 export async function GET(request: NextRequest) {
     try {
-        const auth = await verifyTeacherAccess(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
+        const { user, error } = await requireTeacher(request);
+        if (error) return error;
+
+        if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+
+        // Fetch classes where the user is a teacher for a subject OR a form tutor
+        const teacherProfile = await prisma.user.findUnique({
+            where: { id: user.userId },
+            include: {
+                classes: { // Form tutor classes
+                    include: {
+                        _count: { select: { subjects: true } } // Just some metadata
+                    }
+                }, 
+                teacherSubjects: { // Subjects they teach
+                    include: {
+                        classes: { // Classes taking this subject
+                           include: {
+                               _count: { select: { subjects: true } }
+                           }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (!teacherProfile) {
+            return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
         }
 
-        // Get subjects taught by this teacher
-        const subjects = await prisma.subject.findMany({
-            where: {
-                teacherId: auth.userId,
-            },
-            include: {
-                students: {
-                    select: {
-                        id: true,
-                        firstName: true,
-                        lastName: true,
-                        grade: true,
-                        studentId: true,
-                        email: true,
-                    },
-                },
-                _count: {
-                    select: {
-                        students: true,
-                        assignments: true,
-                    },
-                },
-            },
-            orderBy: { name: 'asc' },
-        })
+        // Aggregate classes
+        // 1. Form Classes they manage
+        const formClasses = teacherProfile.classes.map(c => ({
+            id: c.id,
+            name: c.name,
+            grade: c.grade,
+            role: 'Form Tutor',
+            subject: 'All Subjects (Form Tutor)',
+            studentsCount: 0 // We'll need another query or include to get this accurate count if not in Class model relation directly
+        }));
+
+        // 2. Subject Classes
+        const subjectClasses = teacherProfile.teacherSubjects.flatMap(sub => 
+            sub.classes.map(c => ({
+                id: c.id,
+                name: c.name,
+                grade: c.grade,
+                role: 'Subject Teacher',
+                subject: sub.name,
+                studentsCount: 0
+            }))
+        );
+
+        // Merge (though duplicates shouldn't occur for exact same Subject+Class combo usually)
+        const allClasses = [...formClasses, ...subjectClasses];
+
+        // For real student counts, we might need to fetch students by grade/class
+        // Since Student model has `currentGrade`, and Class has `grade`, we can map them.
+        // This is N+1 if not careful, but for MVP let's do a grouped count.
+        
+        const gradeCounts = await prisma.student.groupBy({
+            by: ['currentGrade'],
+            _count: { userId: true }
+        });
+        
+        const countMap = new Map(gradeCounts.map(g => [g.currentGrade, g._count.userId]));
+
+        const enrichedClasses = allClasses.map(c => ({
+            ...c,
+            studentsCount: countMap.get(c.grade) || 0
+        }));
 
         return NextResponse.json({
             success: true,
-            classes: subjects,
-        })
+            data: enrichedClasses
+        });
+
     } catch (error) {
-        console.error('Get classes error:', error)
+        console.error('Teacher Classes Error:', error);
         return NextResponse.json(
-            { success: false, message: 'Internal server error' },
+            { success: false, message: 'Failed to fetch classes' },
             { status: 500 }
-        )
+        );
     }
 }

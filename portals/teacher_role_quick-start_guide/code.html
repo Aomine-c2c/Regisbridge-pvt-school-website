@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Quick-Start Guide - EduManage Enterprise</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b5bee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101522",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        /* Custom scrollbar for better look in dashboard */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155; 
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-900 px-6 py-3 shadow-sm">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">EduManage Enterprise</h2>
+</div>
+<!-- Search Bar -->
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64 group">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<div class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-100 dark:bg-gray-800 items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-gray-800 focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal transition-colors" placeholder="Search students, classes..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="flex gap-2">
+<button class="flex items-center justify-center overflow-hidden rounded-full size-10 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center overflow-hidden rounded-full size-10 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-2 border-l border-slate-200 dark:border-slate-800">
+<div class="hidden sm:flex flex-col items-end">
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Mr. Anderson</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Science Dept.</span>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-white dark:ring-gray-900 shadow-sm" data-alt="Profile picture of a smiling teacher" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTraNP3BBsWCGa2yTv25CMqKBJT1zzu6F43ls8Dge_QM9-wlN0kJBYcR-p3ixWD2JexbPYzsXEYyY5FL5O7o37GAHFMVAdKM2OXPIXwzoQ6SW-BDHkaZ8AxnzcbuwPkt-nAsrJokbYNhYxCX-R7DXB-WMRhh-LuZdOPcw5TDXFW4mGs6Ljl1LIenZ7CO8Bpz9KHwaoC7cGofpJV-rfeZsvSsyILLT6QpEFmUrxIedcahgjgouSGZItgsXjemg2HZZA6GOT-UcZSlQ");'></div>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex flex-1 w-full max-w-[1600px] mx-auto">
+<!-- Sidebar -->
+<aside class="hidden lg:flex w-72 flex-col gap-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-900 p-6 min-h-[calc(100vh-65px)]">
+<div class="flex gap-3 items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+<div class="bg-center bg-no-repeat bg-cover rounded-xl size-12 shadow-sm" data-alt="Springfield High School Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDfkuX8mUYnESSiUC1bCv5wX_0AjZGyG7ww-TO8vx3ojRP3D43Wy0xe7-q-CKkem-khZvZVFk8LSeZ6XNMxci1ffutE8YzIQvQgcwEK9muBn0fyJ8yFjLL6ADo-zw7xLHzo-l9utBk_UV3mfJb0VZN0r_TphsYXsG0aSkxdpPOfzFKWj1HGw3JfW_4rIB3YNhY81nBnWhuDWtCFlQOpYPwRR3cCfQincxsNaoJ2Ly7ORd0wbH-qUuBpeaZ5P59N6oBmGFZPeICOH8");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-tight">Springfield High</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Teacher Portal</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary/10 text-primary dark:text-blue-400 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white transition-colors font-medium" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">My Classes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white transition-colors font-medium" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm">Students</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white transition-colors font-medium" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm">Grades</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white transition-colors font-medium" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-sm">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white transition-colors font-medium mt-6" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm">Support</span>
+</a>
+</nav>
+</aside>
+<!-- Content Area -->
+<main class="flex-1 p-4 md:p-8 lg:p-12 overflow-y-auto">
+<div class="max-w-5xl mx-auto space-y-10">
+<!-- Welcome Section -->
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            Good Morning, Mr. Anderson. <br class="hidden md:block"/> Let's get you settled in.
+                        </h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg">
+                            Here are the 3 most important things to do today to get started.
+                        </p>
+</div>
+<!-- Progress Bar -->
+<div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-gray-700 flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+<span class="text-slate-900 dark:text-white font-bold text-sm">0/3 Tasks Completed</span>
+</div>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">0%</span>
+</div>
+<div class="h-3 w-full bg-slate-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[5%] rounded-full transition-all duration-500"></div>
+</div>
+<p class="text-xs text-slate-400 dark:text-slate-500">Complete these tasks to unlock the full teacher dashboard.</p>
+</div>
+</div>
+<!-- Action Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Timetable -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-gray-700 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="h-40 bg-indigo-50 dark:bg-gray-700/50 flex items-center justify-center relative overflow-hidden">
+<!-- Abstract Illustration Pattern -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#2b5bee_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<span class="material-symbols-outlined text-6xl text-primary/80 group-hover:scale-110 transition-transform duration-300">calendar_month</span>
+</div>
+<div class="p-6 flex flex-col flex-1 gap-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Your Timetable</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                                    See where you need to be. Review your class locations and times for the week ahead.
+                                </p>
+</div>
+<div class="mt-auto pt-4">
+<button class="w-full py-2.5 px-4 bg-primary hover:bg-blue-600 text-white rounded-xl font-semibold text-sm transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-200 dark:shadow-none">
+<span>View Timetable</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Attendance -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-gray-700 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="h-40 bg-emerald-50 dark:bg-gray-700/50 flex items-center justify-center relative overflow-hidden">
+<!-- Abstract Illustration Pattern -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<span class="material-symbols-outlined text-6xl text-emerald-500/80 group-hover:scale-110 transition-transform duration-300">checklist</span>
+</div>
+<div class="p-6 flex flex-col flex-1 gap-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Class Attendance</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                                    Mark who is here. Perform a quick digital roll-call for your upcoming first period class.
+                                </p>
+</div>
+<div class="mt-auto pt-4">
+<button class="w-full py-2.5 px-4 bg-primary hover:bg-blue-600 text-white rounded-xl font-semibold text-sm transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-200 dark:shadow-none">
+<span>Start Roll Call</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Introduction -->
+<div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-gray-700 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="h-40 bg-orange-50 dark:bg-gray-700/50 flex items-center justify-center relative overflow-hidden">
+<!-- Abstract Illustration Pattern -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<span class="material-symbols-outlined text-6xl text-orange-500/80 group-hover:scale-110 transition-transform duration-300">campaign</span>
+</div>
+<div class="p-6 flex flex-col flex-1 gap-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Introduce Yourself</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                                    Break the ice. Send a welcome message to your homeroom class students or parents.
+                                </p>
+</div>
+<div class="mt-auto pt-4">
+<button class="w-full py-2.5 px-4 bg-primary hover:bg-blue-600 text-white rounded-xl font-semibold text-sm transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-200 dark:shadow-none">
+<span>Write Message</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Help -->
+<div class="flex justify-center items-center py-6">
+<button class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-blue-400 text-sm font-medium flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+                        Need help getting started? Contact IT Support
+                    </button>
+<span class="mx-4 text-slate-300 dark:text-gray-700">|</span>
+<button class="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 text-sm font-normal transition-colors">
+                        Skip onboarding &amp; go to dashboard
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

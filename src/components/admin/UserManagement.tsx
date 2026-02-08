@@ -5,6 +5,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Plus, Search, Trash2, Edit, Filter } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useToast } from "@/components/ui/use-toast"
 
 interface User {
   id: string
@@ -19,12 +36,24 @@ interface User {
 }
 
 export default function UserManagement() {
+  const { toast } = useToast()
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [roleFilter, setRoleFilter] = useState<string>('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  
+  // Create User Form State
+  const [isCreateOpen, setIsCreateOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    role: 'student',
+    grade: ''
+  })
 
   useEffect(() => {
     fetchUsers()
@@ -34,7 +63,6 @@ export default function UserManagement() {
   const fetchUsers = async () => {
     setLoading(true)
     try {
-      const token = localStorage.getItem('accessToken')
       const params = new URLSearchParams({
         page: page.toString(),
         limit: '10',
@@ -42,19 +70,16 @@ export default function UserManagement() {
         ...(search && { search }),
       })
 
-      const response = await fetch(`/api/admin/users?${params}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(`/api/admin/users?${params}`)
 
       if (response.ok) {
         const data = await response.json()
         setUsers(data.users)
-        setTotalPages(data.pagination.totalPages)
+        setTotalPages(data.pagination ? data.pagination.totalPages : 1)
       }
     } catch (error) {
       console.error('Failed to fetch users:', error)
+      toast({ title: 'Error', description: 'Failed to fetch users', variant: 'destructive' })
     } finally {
       setLoading(false)
     }
@@ -69,23 +94,52 @@ export default function UserManagement() {
     if (!confirm('Are you sure you want to delete this user?')) return
 
     try {
-      const token = localStorage.getItem('accessToken')
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
       })
 
       if (response.ok) {
+        toast({ title: 'Success', description: 'User deleted' })
         fetchUsers()
       } else {
         const data = await response.json()
-        alert(data.message || 'Failed to delete user')
+        toast({ title: 'Error', description: data.message || 'Failed to delete user', variant: 'destructive' })
       }
     } catch (error) {
       console.error('Delete error:', error)
-      alert('Failed to delete user')
+      toast({ title: 'Error', description: 'Failed to delete user', variant: 'destructive' })
+    }
+  }
+
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      if (response.ok) {
+        toast({ title: 'Success', description: 'User created successfully' })
+        setIsCreateOpen(false)
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            role: 'student',
+            grade: ''
+        })
+        fetchUsers()
+      } else {
+        toast({ title: 'Error', description: data.message || 'Failed to create user', variant: 'destructive' })
+      }
+    } catch (error) {
+       toast({ title: 'Error', description: 'Failed to create user', variant: 'destructive' })
     }
   }
 
@@ -108,10 +162,69 @@ export default function UserManagement() {
               <CardTitle>User Management</CardTitle>
               <CardDescription>Manage all users in the system</CardDescription>
             </div>
-            <Button className="gap-2">
-              <Plus className="h-4 w-4" />
-              Add User
-            </Button>
+            
+            <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+              <DialogTrigger asChild>
+                <Button className="gap-2">
+                  <Plus className="h-4 w-4" />
+                  Add User
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New User</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleCreateUser} className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName">First Name</Label>
+                      <Input id="firstName" required value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input id="lastName" required value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input id="password" type="password" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Role</Label>
+                      <Select value={formData.role} onValueChange={(val) => setFormData({...formData, role: val})}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="student">Student</SelectItem>
+                          <SelectItem value="teacher">Teacher</SelectItem>
+                          <SelectItem value="admin">Admin</SelectItem>
+                          <SelectItem value="parent">Parent</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    {formData.role === 'student' && (
+                        <div className="space-y-2">
+                        <Label>Grade</Label>
+                        <Input value={formData.grade} onChange={(e) => setFormData({...formData, grade: e.target.value})} placeholder="e.g. 10" />
+                        </div>
+                    )}
+                  </div>
+                  
+                  <DialogFooter>
+                    <Button type="submit">Create User</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardHeader>
         <CardContent>
@@ -189,14 +302,12 @@ export default function UserManagement() {
                               ? 'bg-green-100 text-green-800 dark:bg-green-900/30'
                               : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30'
                             }`}>
-                            {user.status}
+                            {user.status || 'Active'}
                           </span>
                         </td>
                         <td className="p-3">
                           <div className="flex gap-2">
-                            <Button variant="ghost" size="sm">
-                              <Edit className="h-4 w-4" />
-                            </Button>
+                           
                             <Button
                               variant="ghost"
                               size="sm"

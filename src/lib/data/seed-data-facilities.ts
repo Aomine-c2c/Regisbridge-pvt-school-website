@@ -295,7 +295,7 @@ export const infrastructureProjects: InfrastructureProject[] = [
 ];
 
 // Income generating projects identified
-export const incomeGeneratingProjects = [
+export const facilitiesIncomeProjects = [
   {
     name: 'Bee Keeping',
     status: 'identified',

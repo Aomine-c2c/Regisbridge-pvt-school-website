@@ -23,7 +23,7 @@ export interface CommunityProgram {
 }
 
 // Income-generating projects
-export const incomeGeneratingProjects: IncomeGeneratingProject[] = [
+export const communityIncomeProjects: IncomeGeneratingProject[] = [
   {
     name: 'Gardening and Farming',
     status: 'Active',

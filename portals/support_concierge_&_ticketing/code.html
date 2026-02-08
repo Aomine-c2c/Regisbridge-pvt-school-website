@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Support Concierge &amp; Ticketing - SchoolManage Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1142d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101522",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111318] px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">school</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">SchoolManage Enterprise</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#282c39]">
+<div class="text-slate-400 dark:text-[#9da4b9] flex border-none items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-transparent border-none focus:outline-0 focus:ring-0 focus:border-none h-full placeholder:text-slate-400 dark:placeholder:text-[#9da4b9] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal text-slate-900 dark:text-white" placeholder="Search resources..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Academics</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Admissions</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Finance</a>
+<a class="text-primary dark:text-white text-sm font-medium leading-normal" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative text-slate-500 dark:text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#111318]"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-slate-100 dark:ring-slate-800" data-alt="User avatar of a man with glasses" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGGkDiyfH0XLndZ4psOFz5QTkABfCElN5sRRclJHFmcB2gfVFUoJBYQ-S1PrvKaAvwc-eGhR1Y6Ckd4Hhj3dlGMXLa19yVXcvpLTvUoZcH6dVfXmAkpQPLkAE9j6X7mUKvEFX-k5LHa57ff6kEWskJsAQK1m85U5B5vBQw8PojQF0CD2llepA2_ycaoW9izilcO7hI4lM_Gv6RjgQIKkciLKgrfmH56MT1bH4KmDj-eyB58ZimiO7JaQ7GQ5VO_JgAnn3-9d3ffMM");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1440px] mx-auto p-6 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Main Dashboard -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">Support Portal</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Support &amp; Concierge</h1>
+<p class="mt-1 text-slate-500 dark:text-slate-400">Manage technical inquiries and access real-time assistance.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Create New Ticket
+                    </button>
+</div>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-5 rounded-xl bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Open Tickets</span>
+<span class="material-symbols-outlined text-blue-500 bg-blue-50 dark:bg-blue-500/10 p-1.5 rounded-lg">confirmation_number</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">12</span>
+<span class="text-xs font-medium text-emerald-500 flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +2%
+                        </span>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Pending Agent</span>
+<span class="material-symbols-outlined text-amber-500 bg-amber-50 dark:bg-amber-500/10 p-1.5 rounded-lg">hourglass_empty</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">4</span>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Avg Response</span>
+<span class="material-symbols-outlined text-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 p-1.5 rounded-lg">timelapse</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">45m</span>
+<span class="text-xs font-medium text-emerald-500 flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> -5%
+                        </span>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Resolved (30d)</span>
+<span class="material-symbols-outlined text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 p-1.5 rounded-lg">check_circle</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">128</span>
+<span class="text-xs font-medium text-emerald-500 flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12%
+                        </span>
+</div>
+</div>
+</div>
+<!-- Main Ticket Table -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="p-5 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Recent Tickets</h3>
+<div class="flex items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-slate-50 dark:bg-[#282c39] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:ring-primary focus:border-primary">
+<option>Status: All</option>
+<option>Open</option>
+<option>Resolved</option>
+<option>Pending</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-slate-500 pointer-events-none text-[16px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-slate-50 dark:bg-[#282c39] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:ring-primary focus:border-primary">
+<option>Priority: All</option>
+<option>High</option>
+<option>Medium</option>
+<option>Low</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-slate-500 pointer-events-none text-[16px]">expand_more</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-[#161b26] border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
+<th class="px-6 py-4">Ticket ID</th>
+<th class="px-6 py-4 w-1/3">Subject</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Priority</th>
+<th class="px-6 py-4">Assigned Agent</th>
+<th class="px-6 py-4 text-right">Last Updated</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-[#282c39] transition-colors cursor-pointer">
+<td class="px-6 py-4 text-sm font-medium text-primary">#TK-4092</td>
+<td class="px-6 py-4 text-sm text-slate-900 dark:text-white">Login failure on Student Portal</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-current"></span> Open
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-500/20 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-500/20">High</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-cover bg-center" data-alt="Agent profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7SPnx4--X46acUro813bN6Ztqd8I3gb-KO_nHOaS2BYQ5VE3LazKWOySJZBvv4oBYhEr2AYZ2Zkr4L1KvHuc4QAXolC30J4RKSni4W3hI8NUnGy8Z_dz_7QdpsKorxf9G1t_wa2i9Hf7DMFF370UBzthbyPqSTlfyobvonOxacmVltkpcZg2D8Vu-rg5COf9omhJVegb-QG48ek3nLoqzUccYHh6DLDS6oj8yPOtlv5ZAHDdxDWsT-H310ETGgj_HZhkBNtJ1fio");'></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Michael S.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 text-right">2 mins ago</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-[#282c39] transition-colors cursor-pointer">
+<td class="px-6 py-4 text-sm font-medium text-primary">#TK-4088</td>
+<td class="px-6 py-4 text-sm text-slate-900 dark:text-white">Wi-Fi connectivity fluctuating in Dorm B</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20">
+<span class="size-1.5 rounded-full bg-current"></span> Pending
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-100 dark:bg-orange-500/20 text-orange-800 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20">Medium</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-cover bg-center" data-alt="Agent profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCd5FFEhrSXhtjEzWeoHmzO94rUJbOw9n2nI48nqypa8wg7rQp3bcCzGA-wUhJ5X0mJMvD1lGu3yGJmU4HuCnlxDWzNpNt3uld8NJJzsJICuqdbHTs_RlMCSSsHrsLWMTWyyBE1zZkLeqi6WV1Ol6Snw68-RxVNeEcmepm7nmmLsaBu7xYfMlTnmndliUgRJnqKofkH69GVYfXHlT-xC9TZk6hhg5HW1ezHrTDYpJ_6tnvktsIbVnbAd8wqpyvhFLo7BX0jvNqG41w");'></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Sarah J.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 text-right">45 mins ago</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-[#282c39] transition-colors cursor-pointer">
+<td class="px-6 py-4 text-sm font-medium text-primary">#TK-4021</td>
+<td class="px-6 py-4 text-sm text-slate-900 dark:text-white">New Teacher Account Provisioning</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+<span class="size-1.5 rounded-full bg-current"></span> Resolved
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-500/20 text-blue-800 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20">Low</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-cover bg-center" data-alt="Agent profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtcAw3IivViBlkj0j97yaNHYe-YMdYE6IKIzhP6cu7NQbpfVaxxRWnq7ai7UvrG6to8_Pd3g0Wt-EfJ5KVIImmN1jdaPLi6x96nPAZRzvWl67zM3B-V39YGUT7Rg_Nc3av4WuhFHnnUjzkf0c5w3fSRZi8MSzWNYO1BJmdvS688iOvrkcNMMCesB1Y4T19xofaY7eSOR_Xz_aIWzPE1hesNGihreuWqqD7Ejf2ZxI7DEOp0CCDlWuDiYOp_hoRj68IKWwprdDoDGs");'></div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Michael S.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 text-right">1 day ago</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-[#282c39] transition-colors cursor-pointer">
+<td class="px-6 py-4 text-sm font-medium text-primary">#TK-3998</td>
+<td class="px-6 py-4 text-sm text-slate-900 dark:text-white">Cafeteria POS System Sync Error</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-600">
+<span class="size-1.5 rounded-full bg-current"></span> Resolved
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-500/20 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-500/20">High</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] font-bold text-white">AI</div>
+<span class="text-sm text-slate-700 dark:text-slate-300">Auto-Resolved</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 text-right">2 days ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-center">
+<button class="text-sm font-medium text-primary hover:text-blue-400 transition-colors">View All Ticket History</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Assistance & Chat -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Concierge Chat Widget -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg overflow-hidden flex flex-col h-[500px]">
+<div class="p-4 bg-primary text-white flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-white/20" data-alt="Support agent Michael" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhcQrSMc849P2HcEehuzH-xQ4QD40K1XLU8oQPOMuhWO-MsU11TiaA4U2yqdC7nHUe8L3o71Ky88uuntQsTcCnTryBA6L-Ifqkm3gmR2S3DHKGPN42Zrh-aUJD-TZiFpmWCd8Ltuohxchdmuxz0beyvjpo3O1B3HkJnlo8DaNrDP0XWs1KyIw0UIy1WqdA--kyHjThaChdyRt3bklhTS8Ejwfe5rNHGj_cXkpSmSHHne22VCg71WChFEN22VoZBi5gIVUuNU1ulfc");'></div>
+<span class="absolute bottom-0 right-0 size-3 bg-green-400 border-2 border-primary rounded-full"></span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Concierge Chat</h4>
+<p class="text-xs text-blue-100">Agent Michael is online</p>
+</div>
+</div>
+<button class="text-white/80 hover:text-white">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 bg-slate-50 dark:bg-[#161b26] p-4 flex flex-col gap-4 overflow-y-auto">
+<div class="self-center">
+<span class="text-[10px] font-medium text-slate-400 uppercase tracking-widest">Today, 10:23 AM</span>
+</div>
+<div class="flex items-start gap-2 max-w-[85%]">
+<div class="size-8 rounded-full bg-cover bg-center shrink-0" data-alt="Support agent" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmLeKULpgy_4NWiLVfggx5zF0zPfYazi0V5uzzjzvHaOqAqqOSC3Ehq3a4LK9ho4NKQVpoKsFTUIqAyuwjYOW_RLw_N38i-n3Bee4fgc0eyVsuB3_tdYGmkngdodrHOdZJCUUkUgjc0LCC_6Qzoo3pBTggo83G8-8B3x3x0njDdSHfgmOs-3_nhud1OqGzMedU4W2nL-tYEJBJFiokxIJGCi6qWblJJU5YokkW5m7wXEU_cON_-zt6ku2zTOmyD_T0VRGl3gOU3_g");'></div>
+<div class="bg-white dark:bg-[#282c39] p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 shadow-sm">
+<p class="text-sm text-slate-700 dark:text-slate-300">Hello! I see you're having trouble with the student portal login. Can you tell me if you're getting a specific error code?</p>
+</div>
+</div>
+<div class="flex items-start gap-2 max-w-[85%] self-end flex-row-reverse">
+<div class="size-8 rounded-full bg-cover bg-center shrink-0" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSdh00vCFmUlrQ1XsvJyjOdLMNZoPnAEMwXRFdQjgAi-OaOsKYMnTjffepRauPb1-lk_tsc6Sril6X6eYqLZ7X9mBjXLIYhiZ4HSCCSwqPVSQ4J_B0Z0LcXgXzXuHdWqH7kAlSRk1rHzaxyu8wczpKNOmy-l14HgfMzwpQeZjKnjvxq5Mlq16NbACvtSp1MYXdPK2OLEGBTkOyjbIarWyIm4cs1zeNE-C6yyWv5mzK-JaqpgTB-_VpZ0s7wHUYCoL7YuynsHqHUhg");'></div>
+<div class="bg-primary text-white p-3 rounded-2xl rounded-tr-none shadow-md">
+<p class="text-sm">Yes, it says "Error 503: Service Unavailable" when I try to submit grades.</p>
+</div>
+</div>
+<div class="flex items-start gap-2 max-w-[85%]">
+<div class="size-8 rounded-full bg-cover bg-center shrink-0" data-alt="Support agent" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmy1JRSWC0KXJp_cFLZKkUMhTuSgr1z67I8N1-hngKIexbeu0KkO97SHOGJGQgJZlaETltLTOcPNhMul15IlbCRtkdrDIMePL44NPr6N0PPeGT1izGah4NIAsd4-YaBc37cjSPsA4NlXIi-bMI2UmFqYuDC9T9NYQZgglPOs01VqwAZ_127nRKPLMs6NzTd-5DL3nCou3M3t6akNUbw6j5FzayGbJ39Bjfi2Vc3sysnEmnfzudNkRaF4ZroCHl4J670qp049i8AyY");'></div>
+<div class="bg-white dark:bg-[#282c39] p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 shadow-sm flex gap-2 items-center">
+<div class="flex gap-1 h-2 items-center">
+<span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+<span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-75"></span>
+<span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-150"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-3 bg-white dark:bg-[#1e293b] border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<input class="flex-1 bg-slate-50 dark:bg-[#282c39] border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white" placeholder="Type your message..." type="text"/>
+<button class="p-2 bg-primary text-white rounded-full hover:bg-blue-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Intelligent Suggestions -->
+<div class="bg-slate-50 dark:bg-[#161b26] p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-amber-500">lightbulb</span>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Suggested for you</h4>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Based on your recent activity and ticket "Login failure on Student Portal"</p>
+<div class="flex flex-col gap-3">
+<a class="flex gap-3 items-start p-3 bg-white dark:bg-[#1e293b] rounded-lg border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all group" href="#">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">article</span>
+<div>
+<h5 class="text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-primary transition-colors">Troubleshooting Portal Login Errors</h5>
+<p class="text-xs text-slate-500 mt-1 line-clamp-2">Guide to common 500-level errors and how to clear local cache for the SIS portal.</p>
+</div>
+</a>
+<a class="flex gap-3 items-start p-3 bg-white dark:bg-[#1e293b] rounded-lg border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all group" href="#">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">lock_reset</span>
+<div>
+<h5 class="text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-primary transition-colors">Resetting Staff Credentials</h5>
+<p class="text-xs text-slate-500 mt-1 line-clamp-2">Self-service password reset instructions for faculty members.</p>
+</div>
+</a>
+</div>
+<button class="w-full mt-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    Search Knowledge Base
+                </button>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111318] py-8 mt-auto">
+<div class="max-w-[1440px] mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-slate-500 dark:text-slate-500">© 2024 SchoolManage Enterprise. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white" href="#">System Status: <span class="text-emerald-500">Operational</span></a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Subject Analytics</title>
+<!-- Google Fonts: Public Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2330",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden transition-colors duration-200">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 px-6 py-3 shadow-sm">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between">
+<!-- Logo & Nav Links -->
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3">
+<div class="text-primary size-8">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Academia Nexus</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary font-medium text-sm transition-colors" href="#">Courses</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Grades</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Calendar</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Library</a>
+</nav>
+</div>
+<!-- Search & Profile -->
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full max-w-xs p-2 pl-10 text-sm text-slate-900 border-none rounded-lg bg-slate-100 dark:bg-slate-800 dark:text-white dark:placeholder-slate-400 focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-slate-700 transition-all placeholder:text-slate-400" placeholder="Search courses, resources..." type="text"/>
+</div>
+<div class="flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-slate-700">
+<button class="relative p-1 rounded-full text-slate-500 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 size-2 bg-red-500 rounded-full border-2 border-white dark:border-surface-dark"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 ring-2 ring-slate-100 dark:ring-slate-700" data-alt="Student profile picture showing a young man with glasses" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuByumOA_3SOFNmTVcFQQcJsqIAMjxIF5bdBgN__QUoHeZo_JA_WSqQ11GOqB1DdUloNpN8hCV5XPHltK5K9ePGg1I14HKCtr4phO9DWLT1P2uxpmlAlFtPRTWCR5_Mtc39o_usmKNI5AJy5XNXH8E2Nr0NTtZN4gRNFboYIiQXQvsp2WMOGDcLTidfeqf0B7VlR8u7pDgN4_j9EdGcQlPgyuYwSEkpiWdmwvF3EUo9l0kDpKVUW_-SeQ1NH-fEY35tDQtjjOdCU2nk");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1440px] mx-auto p-6 md:p-10">
+<!-- Breadcrumb -->
+<div class="flex flex-wrap items-center gap-2 mb-8 text-sm">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary font-medium" href="#">Dashboard</a>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">chevron_right</span>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary font-medium" href="#">Courses</a>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-semibold">Mathematics</span>
+</div>
+<!-- Subject Header -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10">
+<div class="space-y-3 max-w-2xl">
+<div class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                    Fall Semester 2024
+                </div>
+<h1 class="text-slate-900 dark:text-white text-4xl lg:text-5xl font-black tracking-tight font-display">
+                    Mathematics Analytics
+                </h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
+                    Advanced Calculus &amp; Statistics. Detailed performance review, topic proficiency breakdown, and resource center.
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                    Schedule Office Hours
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-semibold transition-all shadow-md shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+                    Contact Mr. Anderson
+                </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+<!-- Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-full group hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Current Grade</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-[20px]">show_chart</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight mb-1">92%</p>
+<div class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+2.5% vs last month</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-full group hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Class Rank</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-[20px]">leaderboard</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight mb-1">3rd <span class="text-lg text-slate-400 font-normal">/ 25</span></p>
+<div class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span>Moved up 1 spot</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-full group hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Assignments</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-[20px]">assignment_turned_in</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight mb-1">18/20</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">2 pending this week</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-full group hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Attendance</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg text-[20px]">schedule</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight mb-1">98%</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Perfect streak: 4 weeks</p>
+</div>
+</div>
+</div>
+<!-- Deep Dive Section: Analytics & Proficiency -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10">
+<!-- Comparative Chart -->
+<div class="xl:col-span-2 bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 lg:p-8">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Performance History</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Comparing your scores against class average</p>
+</div>
+<select class="form-select text-sm rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:border-primary focus:ring-primary">
+<option>Last 5 Assignments</option>
+<option>Last 10 Assignments</option>
+<option>Entire Semester</option>
+</select>
+</div>
+<!-- Simulated Chart -->
+<div class="w-full h-64 flex items-end justify-between gap-2 sm:gap-6 px-2 sm:px-6">
+<!-- Y Axis Labels (Absolute hack for simplicity in static HTML) -->
+<!-- Bar Group 1 -->
+<div class="flex flex-col items-center gap-3 w-full group cursor-pointer">
+<div class="relative w-full flex justify-center items-end h-full gap-1 sm:gap-2">
+<div class="w-3 sm:w-8 bg-slate-200 dark:bg-slate-700 rounded-t-sm h-[65%] group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none">65%</div>
+</div>
+<div class="w-3 sm:w-8 bg-primary/80 rounded-t-sm h-[72%] group-hover:bg-primary transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded pointer-events-none">72%</div>
+</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Quiz 1</span>
+</div>
+<!-- Bar Group 2 -->
+<div class="flex flex-col items-center gap-3 w-full group cursor-pointer">
+<div class="relative w-full flex justify-center items-end h-full gap-1 sm:gap-2">
+<div class="w-3 sm:w-8 bg-slate-200 dark:bg-slate-700 rounded-t-sm h-[70%] group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none">70%</div>
+</div>
+<div class="w-3 sm:w-8 bg-primary/80 rounded-t-sm h-[85%] group-hover:bg-primary transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded pointer-events-none">85%</div>
+</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Midterm</span>
+</div>
+<!-- Bar Group 3 -->
+<div class="flex flex-col items-center gap-3 w-full group cursor-pointer">
+<div class="relative w-full flex justify-center items-end h-full gap-1 sm:gap-2">
+<div class="w-3 sm:w-8 bg-slate-200 dark:bg-slate-700 rounded-t-sm h-[68%] group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none">68%</div>
+</div>
+<div class="w-3 sm:w-8 bg-primary/80 rounded-t-sm h-[92%] group-hover:bg-primary transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded pointer-events-none">92%</div>
+</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Quiz 2</span>
+</div>
+<!-- Bar Group 4 -->
+<div class="flex flex-col items-center gap-3 w-full group cursor-pointer">
+<div class="relative w-full flex justify-center items-end h-full gap-1 sm:gap-2">
+<div class="w-3 sm:w-8 bg-slate-200 dark:bg-slate-700 rounded-t-sm h-[75%] group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none">75%</div>
+</div>
+<div class="w-3 sm:w-8 bg-primary/80 rounded-t-sm h-[88%] group-hover:bg-primary transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded pointer-events-none">88%</div>
+</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Essay</span>
+</div>
+<!-- Bar Group 5 -->
+<div class="flex flex-col items-center gap-3 w-full group cursor-pointer">
+<div class="relative w-full flex justify-center items-end h-full gap-1 sm:gap-2">
+<div class="w-3 sm:w-8 bg-slate-200 dark:bg-slate-700 rounded-t-sm h-[72%] group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded pointer-events-none">72%</div>
+</div>
+<div class="w-3 sm:w-8 bg-primary/80 rounded-t-sm h-[95%] group-hover:bg-primary transition-all relative">
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-xs py-1 px-2 rounded pointer-events-none">95%</div>
+</div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Final Prep</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-6 mt-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">Your Score</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-300">Class Avg</span>
+</div>
+</div>
+</div>
+<!-- Topic Proficiency -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 lg:p-8">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mb-6">Topic Proficiency</h2>
+<div class="space-y-6">
+<!-- Topic 1 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Differentiation</span>
+<span class="text-xs font-bold text-primary px-2 py-1 bg-primary/10 rounded">Mastered</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+</div>
+<div class="mt-1 text-right text-xs text-slate-500">95% score avg</div>
+</div>
+<!-- Topic 2 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Integration</span>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/30 px-2 py-1 rounded">Good</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full" style="width: 82%"></div>
+</div>
+<div class="mt-1 text-right text-xs text-slate-500">82% score avg</div>
+</div>
+<!-- Topic 3 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Linear Algebra</span>
+<span class="text-xs font-bold text-amber-600 bg-amber-100 dark:text-amber-400 dark:bg-amber-900/30 px-2 py-1 rounded">Needs Focus</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-amber-500 h-2 rounded-full" style="width: 65%"></div>
+</div>
+<div class="mt-1 text-right text-xs text-slate-500">65% score avg</div>
+</div>
+<!-- Topic 4 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Vector Calculus</span>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/30 px-2 py-1 rounded">Good</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full" style="width: 78%"></div>
+</div>
+<div class="mt-1 text-right text-xs text-slate-500">78% score avg</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center justify-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors" href="#">
+                        View Detailed Report
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Resources Section -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+<div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Study Resources</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Download past papers and supplementary material</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-xs font-semibold bg-primary text-white rounded-lg">All</button>
+<button class="px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">Exam Papers</button>
+<button class="px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">Worksheets</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-slate-900">
+<!-- Resource Item 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-center justify-center">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">Final Exam 2023 - Solution Key</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">PDF • 2.4 MB • Uploaded Oct 12</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">Integration Practice Set B</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">DOCX • 1.1 MB • Uploaded Oct 10</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-center justify-center">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">Calculus Formula Sheet Cheat Sheet</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">PDF • 850 KB • Uploaded Sep 28</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 4 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-amber-100 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+<span class="material-symbols-outlined">slideshow</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">Lecture 12: Optimization Problems</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">PPTX • 5.2 MB • Uploaded Sep 25</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 5 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-center justify-center">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">Midterm 2023 - Question Paper</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">PDF • 1.8 MB • Uploaded Sep 15</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 6 -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="min-w-10 size-10 rounded-lg bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+<span class="material-symbols-outlined">link</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white truncate">External: Khan Academy Playlist</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">URL • Web Link • Uploaded Sep 01</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,160 +1,105 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, Users, BookOpen } from 'lucide-react'
+import { useEffect, useState } from 'react';
+import { MaterialIcon } from '@/components/ui/material-icon';
+import { BadgeNew } from '@/components/ui/badge-new';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
-interface Class {
-    id: string
-    name: string
-    code: string
-    description: string
-    students: {
-        id: string
-        firstName: string
-        lastName: string
-        grade: string
-        studentId: string
-    }[]
-    _count: {
-        students: number
-        assignments: number
-    }
+interface ClassItem {
+    id: string;
+    name: string;
+    grade: string;
+    role: string;
+    subject: string;
+    studentsCount: number;
 }
 
-export default function ClassesPage() {
-    const { user, logout } = useAuth()
-    const router = useRouter()
-    const [classes, setClasses] = useState<Class[]>([])
-    const [loading, setLoading] = useState(true)
+export default function MyClassesPage() {
+    const { toast } = useToast();
+    const router = useRouter();
+    const [classes, setClasses] = useState<ClassItem[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchClasses()
-    }, [])
-
-    const fetchClasses = async () => {
-        try {
-            const token = localStorage.getItem('accessToken')
-            const response = await fetch('/api/teacher/classes', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            })
-
-            if (response.ok) {
-                const data = await response.json()
-                setClasses(data.classes)
+        const fetchClasses = async () => {
+            try {
+                const res = await fetch('/api/teacher/classes', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const json = await res.json();
+                if (json.success) {
+                    setClasses(json.data);
+                } else {
+                    toast({ title: 'Error', description: json.message || 'Failed to load classes', variant: 'destructive' });
+                }
+            } catch (error) {
+                console.error(error);
+                toast({ title: 'Error', description: 'Failed to load classes', variant: 'destructive' });
+            } finally {
+                setLoading(false);
             }
-        } catch (error) {
-            console.error('Failed to fetch classes:', error)
-        } finally {
-            setLoading(false)
-        }
-    }
+        };
+        fetchClasses();
+    }, [toast]);
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            {/* Header */}
-            <header className="bg-white dark:bg-gray-800 border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                        <Button variant="ghost" onClick={() => router.push('/teacher')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back
-                        </Button>
-                        <div>
-                            <h1 className="text-2xl font-bold">My Classes</h1>
-                            <p className="text-sm text-muted-foreground">View and manage your classes</p>
-                        </div>
-                    </div>
-                    <Button onClick={() => { logout(); router.push('/login') }} variant="outline">
-                        Logout
-                    </Button>
-                </div>
+        <div className="min-h-screen bg-gray-50 dark:bg-background-dark p-6">
+             <header className="mb-8">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <MaterialIcon icon="class" className="text-design-primary" />
+                    My Classes
+                </h1>
+                <p className="text-gray-600 dark:text-gray-400">View and manage the classes you teach.</p>
             </header>
 
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {loading ? (
-                    <div className="text-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                    </div>
-                ) : classes.length === 0 ? (
-                    <Card>
-                        <CardContent className="text-center py-8 text-muted-foreground">
-                            <BookOpen className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                            <p>No classes assigned yet</p>
-                            <p className="text-sm mt-2">Classes will appear here once you are assigned to teach them</p>
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {classes.map((classItem) => (
-                            <Card key={classItem.id} className="hover:shadow-lg transition-shadow">
-                                <CardHeader>
-                                    <div className="flex justify-between items-start">
-                                        <div>
-                                            <CardTitle>{classItem.name}</CardTitle>
-                                            <CardDescription>{classItem.code}</CardDescription>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Button size="sm" onClick={() => router.push(`/teacher/grades?subjectId=${classItem.id}`)}>
-                                                Enter Grades
-                                            </Button>
-                                            <Button size="sm" variant="outline" onClick={() => router.push(`/teacher/attendance?subjectId=${classItem.id}`)}>
-                                                Attendance
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-sm text-muted-foreground mb-4">{classItem.description}</p>
+            {loading ? (
+                <div>Loading classes...</div>
+            ) : classes.length === 0 ? (
+                <div className="text-center p-12 bg-white rounded-xl border border-dashed border-gray-300">
+                    <MaterialIcon icon="school" className="text-gray-300 mx-auto mb-4" size="4xl" />
+                    <h3 className="text-lg font-medium text-gray-900">No Classes Assigned</h3>
+                    <p className="text-gray-500">You haven't been assigned to any classes or subjects yet.</p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {classes.map((cls) => (
+                        <div key={`${cls.id}-${cls.subject}`} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
+                            <div className="flex justify-between items-start mb-4">
+                                <BadgeNew variant={cls.role === 'Form Tutor' ? 'primary' : 'secondary'}>
+                                    {cls.role}
+                                </BadgeNew>
+                                <MaterialIcon icon="more_vert" className="text-gray-400 cursor-pointer" />
+                            </div>
+                            
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                                {cls.grade} {cls.name}
+                            </h3>
+                            <p className="text-sm font-medium text-design-primary mb-4">{cls.subject}</p>
+                            
+                            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
+                                <div className="flex items-center gap-1">
+                                    <MaterialIcon icon="people" size="sm" />
+                                    <span>{cls.studentsCount} Students</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <MaterialIcon icon="meeting_room" size="sm" />
+                                    <span>Room 3B</span>
+                                </div>
+                            </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <Users className="h-4 w-4 text-blue-600" />
-                                                <span className="text-sm text-muted-foreground">Students</span>
-                                            </div>
-                                            <p className="text-2xl font-bold">{classItem._count.students}</p>
-                                        </div>
-                                        <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <BookOpen className="h-4 w-4 text-green-600" />
-                                                <span className="text-sm text-muted-foreground">Assignments</span>
-                                            </div>
-                                            <p className="text-2xl font-bold">{classItem._count.assignments}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Student List Preview */}
-                                    {classItem.students.length > 0 && (
-                                        <div className="mt-4">
-                                            <p className="text-sm font-medium mb-2">Students ({classItem.students.length}):</p>
-                                            <div className="space-y-1 max-h-40 overflow-y-auto">
-                                                {classItem.students.slice(0, 5).map((student) => (
-                                                    <div key={student.id} className="text-sm p-2 bg-muted/50 rounded flex justify-between">
-                                                        <span>{student.firstName} {student.lastName}</span>
-                                                        <span className="text-muted-foreground">{student.studentId}</span>
-                                                    </div>
-                                                ))}
-                                                {classItem.students.length > 5 && (
-                                                    <p className="text-sm text-muted-foreground text-center">
-                                                        +{classItem.students.length - 5} more students
-                                                    </p>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                )}
-            </main>
+                            <div className="flex gap-2">
+                                <button className="flex-1 py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                    Attendance
+                                </button>
+                                <button className="flex-1 py-2 px-4 bg-design-primary text-white rounded-lg text-sm font-medium hover:bg-design-primary/90 transition-colors">
+                                    View Class
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-    )
+    );
 }

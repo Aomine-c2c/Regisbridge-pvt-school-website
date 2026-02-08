@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Initial Setup Checklist Widget</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1142d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101522",
+                        "widget-dark": "#111318", // Darker shade for the widget panel from example
+                        "surface-dark": "#282c39", // Surface color from example
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for the widget content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+        }
+        
+        /* Material Symbols Utility */
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Hide summary marker */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white h-screen w-screen overflow-hidden flex relative">
+<!-- Mock Dashboard Content (Background Context) -->
+<div class="flex-1 flex flex-col h-full opacity-40 pointer-events-none select-none blur-[1px] transition-all duration-300">
+<!-- Top Navigation -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center px-6 justify-between bg-white dark:bg-[#151a29]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<h1 class="font-bold text-xl tracking-tight">EduManage System</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">notifications</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                    AD
+                </div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-[#151a29] hidden md:flex flex-col p-4 gap-2">
+<div class="p-3 bg-primary/10 text-primary rounded-lg flex items-center gap-3 font-medium">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </div>
+<div class="p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg flex items-center gap-3 font-medium">
+<span class="material-symbols-outlined">group</span>
+                    Students
+                </div>
+<div class="p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg flex items-center gap-3 font-medium">
+<span class="material-symbols-outlined">badge</span>
+                    Staff
+                </div>
+<div class="p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg flex items-center gap-3 font-medium">
+<span class="material-symbols-outlined">payments</span>
+                    Finance
+                </div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="h-32 rounded-xl bg-white dark:bg-[#1e2330] border border-slate-200 dark:border-slate-800 shadow-sm"></div>
+<div class="h-32 rounded-xl bg-white dark:bg-[#1e2330] border border-slate-200 dark:border-slate-800 shadow-sm"></div>
+<div class="h-32 rounded-xl bg-white dark:bg-[#1e2330] border border-slate-200 dark:border-slate-800 shadow-sm"></div>
+</div>
+<div class="h-96 rounded-xl bg-white dark:bg-[#1e2330] border border-slate-200 dark:border-slate-800 shadow-sm"></div>
+</main>
+</div>
+</div>
+<!-- ONBOARDING WIDGET (Main Deliverable) -->
+<!-- Positioned absolute to simulate floating/docked behavior -->
+<aside class="absolute top-0 right-0 h-full w-full sm:w-[420px] bg-white dark:bg-widget-dark border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col z-50 transition-transform duration-300 ease-in-out">
+<!-- Widget Header -->
+<div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Setup Progress</h2>
+</div>
+<button class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Progress Section -->
+<div class="px-6 pt-6 pb-2">
+<div class="bg-gradient-to-r from-slate-50 to-white dark:from-[#1e2330] dark:to-[#1a1f2b] p-5 rounded-xl border border-slate-100 dark:border-slate-700/50 shadow-sm">
+<div class="flex justify-between items-end mb-3">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs mb-1">Getting Started</p>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-primary">35%</span>
+<span class="text-sm text-slate-500 dark:text-slate-400">completed</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 animate-pulse">
+<span class="material-symbols-outlined">emoji_events</span>
+</div>
+</div>
+<div class="h-2.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000 ease-out w-[35%] shadow-[0_0_10px_rgba(17,66,212,0.5)]"></div>
+</div>
+<p class="text-xs text-slate-400 mt-3">Keep going! You're closer to launching your school portal.</p>
+</div>
+</div>
+<!-- Task Lists -->
+<div class="p-6 space-y-4">
+<!-- Section 1: Core Configuration -->
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden" open="">
+<summary class="flex cursor-pointer items-center justify-between px-4 py-3 bg-slate-50 dark:bg-[#202430] hover:bg-slate-100 dark:hover:bg-[#252a38] transition-colors select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">settings</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Core Configuration</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 transition-transform duration-300 group-open:rotate-180 text-[20px]">expand_more</span>
+</summary>
+<div class="flex flex-col p-2 gap-1">
+<!-- Completed Item -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[#2e3342] group/item transition-all">
+<span class="material-symbols-outlined text-emerald-500 text-[22px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 line-through decoration-slate-500">Configure Academic Year</p>
+</div>
+<button class="text-emerald-500 opacity-0 group-hover/item:opacity-100 transition-opacity p-1.5 hover:bg-emerald-500/10 rounded-md" title="Review">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<!-- In Progress Item -->
+<div class="flex items-center gap-3 p-2 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20 hover:bg-primary/10 transition-all group/item">
+<span class="material-symbols-outlined text-amber-500 text-[22px]" style="font-variation-settings: 'FILL' 1;">pending</span>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Set Up Boarding Houses</p>
+<p class="text-xs text-amber-500 font-medium mt-0.5">In Progress</p>
+</div>
+<button class="bg-primary text-white text-xs font-medium px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-1 group-hover/item:shadow-md">
+                                Continue
+                            </button>
+</div>
+</div>
+</details>
+<!-- Section 2: People & Roles -->
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden" open="">
+<summary class="flex cursor-pointer items-center justify-between px-4 py-3 bg-slate-50 dark:bg-[#202430] hover:bg-slate-100 dark:hover:bg-[#252a38] transition-colors select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">group</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">People &amp; Roles</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 transition-transform duration-300 group-open:rotate-180 text-[20px]">expand_more</span>
+</summary>
+<div class="flex flex-col p-2 gap-1">
+<!-- To Do Item -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[#2e3342] group/item transition-all cursor-pointer">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[22px]">radio_button_unchecked</span>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-700 dark:text-slate-200">Upload Staff Directory</p>
+<p class="text-xs text-slate-400 mt-0.5">Import CSV or Excel files</p>
+</div>
+<button class="text-primary opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 p-1.5 hover:bg-primary/10 rounded-md">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- To Do Item -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[#2e3342] group/item transition-all cursor-pointer">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[22px]">radio_button_unchecked</span>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-700 dark:text-slate-200">Import Student Records</p>
+</div>
+<button class="text-primary opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 p-1.5 hover:bg-primary/10 rounded-md">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+<!-- Section 3: Financials -->
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
+<summary class="flex cursor-pointer items-center justify-between px-4 py-3 bg-slate-50 dark:bg-[#202430] hover:bg-slate-100 dark:hover:bg-[#252a38] transition-colors select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">account_balance</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Financials</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 transition-transform duration-300 group-open:rotate-180 text-[20px]">expand_more</span>
+</summary>
+<div class="flex flex-col p-2 gap-1">
+<!-- To Do Item -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-[#2e3342] group/item transition-all cursor-pointer">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-[22px]">radio_button_unchecked</span>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-700 dark:text-slate-200">Define Fee Structures</p>
+</div>
+<button class="text-primary opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 p-1.5 hover:bg-primary/10 rounded-md">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+<!-- Section 4: System (Example of a collapsed section) -->
+<details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
+<summary class="flex cursor-pointer items-center justify-between px-4 py-3 bg-slate-50 dark:bg-[#202430] hover:bg-slate-100 dark:hover:bg-[#252a38] transition-colors select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">dns</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">System Settings</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 transition-transform duration-300 group-open:rotate-180 text-[20px]">expand_more</span>
+</summary>
+<div class="p-4 text-sm text-slate-400 text-center">
+                        Additional configuration options...
+                    </div>
+</details>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-[#151820]">
+<a class="flex items-center justify-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px]">headset_mic</span>
+<span>Need Help? Contact Support</span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all">arrow_outward</span>
+</a>
+</div>
+</aside>
+</body></html>

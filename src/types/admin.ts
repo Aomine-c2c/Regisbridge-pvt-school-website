@@ -5,7 +5,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: 'student' | 'parent' | 'teacher' | 'admin';
+  role: 'student' | 'parent' | 'teacher' | 'admin' | 'superadmin';
   grade?: string;
   studentId?: string;
   phoneNumber?: string;
@@ -25,7 +25,8 @@ export interface Student {
   grade: string;
   className: string;
   enrollmentDate: string;
-  status: 'active' | 'inactive' | 'graduated' | 'withdrawn';
+  rollNumber: string;
+  status: 'ACTIVE' | 'INACTIVE' | 'GRADUATED' | 'WITHDRAWN';
   phoneNumber?: string;
   address?: string;
   parentInfo: {

@@ -8,6 +8,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Omit<User, 'password'> | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   // Check for existing session on mount
   useEffect(() => {
@@ -62,8 +63,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Store tokens
       localStorage.setItem('accessToken', data.accessToken)
       localStorage.setItem('refreshToken', data.refreshToken)
+      
+      // Set cookie for Middleware (7 days)
+      document.cookie = `accessToken=${data.accessToken}; path=/; max-age=604800; SameSite=Strict; Secure`
 
       setUser(data.user)
+      return data.user
     } catch (error) {
       console.error('Login error:', error)
       throw error
@@ -96,6 +101,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem('accessToken', data.accessToken)
       localStorage.setItem('refreshToken', data.refreshToken)
 
+      // Set cookie for Middleware (7 days)
+      document.cookie = `accessToken=${data.accessToken}; path=/; max-age=604800; SameSite=Strict; Secure`
+
       setUser(data.user)
     } catch (error) {
       console.error('Registration error:', error)
@@ -106,6 +114,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
+    
+    // Clear cookie
+    document.cookie = `accessToken=; path=/; max-age=0`
     setUser(null)
 
     // Call logout endpoint
@@ -132,6 +143,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (response.ok) {
         const data = await response.json()
         localStorage.setItem('accessToken', data.accessToken)
+        
+        // Update cookie
+        document.cookie = `accessToken=${data.accessToken}; path=/; max-age=604800; SameSite=Strict; Secure`
 
         // Verify new token and get user
         const verifyResponse = await fetch('/api/auth/verify', {
@@ -156,9 +170,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const clearError = () => setError(null)
+
   const value: AuthContextType = {
     user,
     loading,
+    isLoading: loading,
+    isAuthenticated: !!user,
+    error,
+    clearError,
     login,
     register,
     logout,

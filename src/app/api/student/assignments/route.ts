@@ -1,81 +1,106 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyAccessToken } from '@/lib/auth'
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
+import { requireStudent } from '@/lib/api/auth-middleware';
 
-async function verifyStudentAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload) {
-        return { authorized: false, error: 'Invalid token' }
-    }
-
-    return { authorized: true, userId: payload.userId, role: payload.role }
-}
-
-// GET /api/student/assignments - Get student assignments
 export async function GET(request: NextRequest) {
     try {
-        const auth = await verifyStudentAccess(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
-        }
+        const { user, error } = await requireStudent(request);
+        if (error) return error;
+        if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        const { searchParams } = new URL(request.url)
-        const studentId = searchParams.get('studentId') || auth.userId
+        // Get Student Profile
+        const student = await prisma.student.findUnique({
+            where: { userId: user.userId }
+        });
 
-        // Only allow students to view their own assignments
-        if (auth.role === 'student' && studentId !== auth.userId) {
-            return NextResponse.json(
-                { success: false, message: 'Unauthorized' },
-                { status: 403 }
-            )
-        }
+        if (!student) return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
 
+        // Get Assignments for their grade
         const assignments = await prisma.assignment.findMany({
             where: {
-                subject: {
-                    students: {
-                        some: { id: studentId }
-                    }
-                }
-            } as any,
+                grade: student.currentGrade,
+                status: 'ACTIVE'
+            },
             include: {
-                subject: {
-                    select: { name: true, code: true }
-                },
-                submissions: {
-                    where: { studentId },
-                    select: {
-                        id: true,
-                        submittedAt: true,
-                        score: true,
-                        feedback: true,
-                        status: true,
-                    }
+                subject: { select: { name: true } }
+            },
+            orderBy: { dueDate: 'asc' }
+        });
+
+        // Get Submissions by this student
+        const submissions = await prisma.assignmentSubmission.findMany({
+            where: {
+                studentId: student.id,
+                assignmentId: { in: assignments.map(a => a.id) }
+            }
+        });
+
+        const submissionMap = new Map(submissions.map(s => [s.assignmentId, s]));
+
+        const data = assignments.map(a => {
+            const sub = submissionMap.get(a.id);
+            return {
+                id: a.id,
+                title: a.title,
+                subject: a.subject.name,
+                description: a.description,
+                dueDate: a.dueDate,
+                status: sub ? 'SUBMITTED' : (new Date(a.dueDate) < new Date() ? 'OVERDUE' : 'PENDING'),
+                grade: sub?.score ? `${sub.score}/${a.totalPoints}` : null,
+                feedback: sub?.feedback || null,
+                submissionDate: sub?.submittedAt || null
+            };
+        });
+
+        return NextResponse.json({ success: true, data });
+
+    } catch (error) {
+        console.error('Student Assignments Error:', error);
+        return NextResponse.json({ success: false, message: 'Failed to fetch assignments' }, { status: 500 });
+    }
+}
+
+export async function POST(request: NextRequest) {
+    try {
+        const { user, error } = await requireStudent(request);
+        if (error) return error;
+        if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+
+        const student = await prisma.student.findUnique({ where: { userId: user.userId } });
+        if (!student) return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
+
+        const body = await request.json();
+        const { assignmentId, content } = body;
+
+        if (!assignmentId || !content) {
+            return NextResponse.json({ success: false, message: 'Missing fields' }, { status: 400 });
+        }
+
+        // Upsert submission
+        await prisma.assignmentSubmission.upsert({
+            where: {
+                assignmentId_studentId: {
+                    assignmentId,
+                    studentId: student.id
                 }
             },
-            orderBy: { dueDate: 'asc' },
-        })
+            update: {
+                content,
+                submittedAt: new Date(),
+                status: 'SUBMITTED' // Re-submit if allowed
+            },
+            create: {
+                assignmentId,
+                studentId: student.id,
+                content,
+                status: 'SUBMITTED'
+            }
+        });
 
-        return NextResponse.json({
-            success: true,
-            assignments,
-        })
+        return NextResponse.json({ success: true, message: 'Assignment submitted' });
+
     } catch (error) {
-        console.error('Get assignments error:', error)
-        return NextResponse.json(
-            { success: false, message: 'Internal server error' },
-            { status: 500 }
-        )
+        console.error('Assignment Submission Error:', error);
+        return NextResponse.json({ success: false, message: 'Failed to submit' }, { status: 500 });
     }
 }

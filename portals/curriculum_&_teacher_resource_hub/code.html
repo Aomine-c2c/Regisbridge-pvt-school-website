@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Curriculum &amp; Teacher Resource Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec80",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#102219",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1A2C24",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111814] dark:text-gray-50 font-display antialiased h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f4f2] dark:border-[#2A3C34] bg-surface-light dark:bg-surface-dark px-6 py-3 shrink-0 z-20 shadow-sm">
+<div class="flex items-center gap-4 text-[#111814] dark:text-white">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-black">
+<span class="material-symbols-outlined">school</span>
+</div>
+<h2 class="text-[#111814] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">SchoolHub</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-[#111814] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#111814] dark:text-gray-200 text-sm font-bold leading-normal border-b-2 border-primary pb-0.5" href="#">Curriculum</a>
+<a class="text-[#111814] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Students</a>
+<a class="text-[#111814] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Library</a>
+<a class="text-[#111814] dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex gap-3 items-center">
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-white transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-[#f0f4f2] dark:border-[#2A3C34]" data-alt="Profile picture of a female teacher" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA304lij1oO99yhrwVylpZ1kOOiM_8vo6JsTYFslZCZzmHBfAQRr-wXFrhzu5a1trC1QtkvUgfqP7lNrYkGEQFSkqKVoqSCwR1Zj3g6rLAfka0OIQZAPeJFksxwGz358aet6n3EUYHPF8XFHkixunDZn1FAUJGyPSq8RMEf4GCD9n9eS6FToHuRUrMtvGUFBNuC52Q6IuOINZaS7y_h00QOb3ZkGc1FQyNBqkZi60K60zZeFsGlKRhhKLIIGMKT1yOpqVQphBStyhw");'></div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-[#f0f4f2] dark:border-[#2A3C34] flex-col hidden lg:flex overflow-y-auto">
+<div class="p-4">
+<h3 class="text-xs font-bold text-[#618975] dark:text-[#8baaa0] uppercase tracking-wider mb-4 px-3">Directory</h3>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-primary font-medium" href="#">
+<span class="material-symbols-outlined icon-filled text-[20px]">science</span>
+<span class="text-sm">Science</span>
+</a>
+<div class="pl-10 flex flex-col gap-1 mb-2">
+<a class="text-sm text-[#111814] dark:text-gray-200 py-1.5 px-2 hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] rounded-md flex justify-between items-center group" href="#">
+                            Form 1
+                            <span class="material-symbols-outlined text-gray-400 text-[16px] opacity-0 group-hover:opacity-100">chevron_right</span>
+</a>
+<a class="text-sm text-[#111814] dark:text-gray-200 py-1.5 px-2 hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] rounded-md flex justify-between items-center group" href="#">
+                            Form 2
+                            <span class="material-symbols-outlined text-gray-400 text-[16px] opacity-0 group-hover:opacity-100">chevron_right</span>
+</a>
+<a class="text-sm text-[#111814] dark:text-gray-200 py-1.5 px-2 bg-primary/10 dark:bg-primary/20 rounded-md font-bold flex justify-between items-center" href="#">
+                            Form 4
+                            <span class="material-symbols-outlined text-primary text-[16px]">expand_more</span>
+</a>
+<div class="pl-4 border-l-2 border-primary/30 flex flex-col gap-1">
+<a class="text-sm text-primary font-medium py-1 px-2" href="#">Physics</a>
+<a class="text-sm text-[#618975] dark:text-gray-400 py-1 px-2 hover:text-[#111814] dark:hover:text-white" href="#">Chemistry</a>
+<a class="text-sm text-[#618975] dark:text-gray-400 py-1 px-2 hover:text-[#111814] dark:hover:text-white" href="#">Biology</a>
+</div>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-gray-200 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+<span class="text-sm">Mathematics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-gray-200 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+<span class="text-sm">Arts &amp; Humanities</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-gray-200 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">translate</span>
+<span class="text-sm">Languages</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f0f4f2] dark:hover:bg-[#2A3C34] text-[#111814] dark:text-gray-200 font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+<span class="text-sm">Physical Education</span>
+</a>
+</div>
+</div>
+<div class="mt-auto p-4 border-t border-[#f0f4f2] dark:border-[#2A3C34]">
+<div class="bg-primary/10 dark:bg-primary/5 rounded-xl p-4">
+<div class="flex items-center gap-2 mb-2 text-primary dark:text-white font-bold text-sm">
+<span class="material-symbols-outlined icon-filled">cloud_upload</span>
+<span>Storage</span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+</div>
+<p class="text-xs text-[#618975] dark:text-gray-400">7.5 GB of 10 GB used</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto flex flex-col relative">
+<!-- Breadcrumb & Header Area -->
+<div class="px-8 pt-8 pb-4">
+<div class="flex flex-wrap gap-2 items-center text-sm mb-4">
+<a class="text-[#618975] dark:text-gray-400 hover:text-primary transition-colors font-medium" href="#">Home</a>
+<span class="text-[#618975] dark:text-gray-600">/</span>
+<a class="text-[#618975] dark:text-gray-400 hover:text-primary transition-colors font-medium" href="#">Curriculum</a>
+<span class="text-[#618975] dark:text-gray-600">/</span>
+<a class="text-[#618975] dark:text-gray-400 hover:text-primary transition-colors font-medium" href="#">Science</a>
+<span class="text-[#618975] dark:text-gray-600">/</span>
+<span class="text-[#111814] dark:text-white font-semibold">Form 4 Physics</span>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6">
+<div>
+<h1 class="text-[#111814] dark:text-white text-3xl font-bold leading-tight mb-2">Form 4 Physics Resources</h1>
+<p class="text-[#618975] dark:text-gray-400">Manage lesson plans, worksheets, and library bookings for this grade.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#f0f4f2] dark:border-[#2A3C34] bg-surface-light dark:bg-surface-dark hover:bg-gray-50 dark:hover:bg-[#22362d] text-[#111814] dark:text-white font-bold text-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                            History
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-[#0fd671] text-[#111814] font-bold text-sm shadow-md hover:shadow-lg transition-all">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+                            Upload Resource
+                        </button>
+</div>
+</div>
+<!-- Search & Filters -->
+<div class="flex flex-col md:flex-row gap-4 mb-8">
+<label class="flex flex-1 items-center bg-[#f0f4f2] dark:bg-[#22362d] rounded-lg px-4 h-12 focus-within:ring-2 ring-primary ring-opacity-50 transition-all">
+<span class="material-symbols-outlined text-[#618975] dark:text-gray-400">search</span>
+<input class="w-full bg-transparent border-none text-[#111814] dark:text-white placeholder:text-[#618975] dark:placeholder:text-gray-500 focus:ring-0 ml-2" placeholder="Search lesson plans, worksheets, or exams..."/>
+</label>
+<div class="flex gap-2 overflow-x-auto pb-2 md:pb-0">
+<button class="flex items-center gap-2 px-4 h-12 rounded-lg border border-[#f0f4f2] dark:border-[#2A3C34] bg-surface-light dark:bg-surface-dark text-[#111814] dark:text-white font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-[#22362d]">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filter
+                        </button>
+<button class="flex items-center gap-2 px-4 h-12 rounded-lg border border-[#f0f4f2] dark:border-[#2A3C34] bg-surface-light dark:bg-surface-dark text-[#111814] dark:text-white font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-[#22362d]">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                            This Term
+                        </button>
+<button class="flex items-center gap-2 px-4 h-12 rounded-lg border-none bg-primary/10 text-primary font-bold whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] icon-filled">grid_view</span>
+</button>
+<button class="flex items-center gap-2 px-4 h-12 rounded-lg border-none bg-transparent text-[#618975] dark:text-gray-400 hover:text-[#111814] dark:hover:text-white transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Content Split View -->
+<div class="flex flex-col xl:flex-row gap-8 px-8 pb-12">
+<!-- Resources Grid -->
+<div class="flex-1">
+<h3 class="font-bold text-lg mb-4 text-[#111814] dark:text-white flex items-center gap-2">
+                        Teaching Materials
+                        <span class="bg-[#f0f4f2] dark:bg-[#2A3C34] text-[#618975] dark:text-gray-400 text-xs px-2 py-0.5 rounded-full">12 Files</span>
+</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- File Card 1 -->
+<div class="group bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-4 hover:shadow-md dark:hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg p-2.5">
+<span class="material-symbols-outlined">description</span>
+</div>
+<button class="text-gray-400 hover:text-[#111814] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<h4 class="font-bold text-[#111814] dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Newton's Laws - W3 Plan</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-4 line-clamp-2">Comprehensive lesson plan for the third week of Term 1 covering Newton's three laws.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">v2.1</span>
+<span class="text-xs text-[#618975] dark:text-gray-500">Oct 24</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-[#2A3C34] bg-cover" data-alt="Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBl-PCslMuzziMJFNWNo4_KCM_oZBNH2KNF_u-J1TQB4IvN50JdpFZltj6KAOrIZ_np3gY3tcQw5LrRmgNeS9IbjgjjYokkxHRGUjTr3PAGQOVsUJ13V6XhTjcZe_kz_9qkMipCi4OhF_DfzR2io0aKhxwxuOMQ1uX33You4HSFgBNFUUu1kOfi4Iseozclq_-jKKwgwcfNbmlJScuP2Jec1rapALRJNdyGaqLBAHgoDHXHK5JIKGJcJxP51v-W1TAdy0ygSODfxK8");'></div>
+</div>
+</div>
+</div>
+<!-- File Card 2 -->
+<div class="group bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-4 hover:shadow-md dark:hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg p-2.5">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<button class="text-gray-400 hover:text-[#111814] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<h4 class="font-bold text-[#111814] dark:text-white mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">Lab Safety Guidelines</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-4 line-clamp-2">Mandatory safety protocols for students entering the physics laboratory.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">v1.0</span>
+<span class="text-xs text-[#618975] dark:text-gray-500">Sep 01</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-[#2A3C34] bg-primary flex items-center justify-center text-[10px] font-bold text-black">A</div>
+</div>
+</div>
+</div>
+<!-- File Card 3 -->
+<div class="group bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-4 hover:shadow-md dark:hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-yellow-500"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400 rounded-lg p-2.5">
+<span class="material-symbols-outlined">slideshow</span>
+</div>
+<button class="text-gray-400 hover:text-[#111814] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<h4 class="font-bold text-[#111814] dark:text-white mb-1 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">Kinematics Review Deck</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-4 line-clamp-2">Slide deck for the mid-term review session covering velocity and acceleration.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">v3.2</span>
+<span class="text-xs text-[#618975] dark:text-gray-500">Yesterday</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-[#2A3C34] bg-cover" data-alt="Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqFvdbxClZ4Rsb3_sI7b1wrjf1R3UIc_LHkCIndat4lwbpIIUm6Cen4h2EKgUzjp9LuxxOZ1MBme9_vNjMedq0V0MvB7Pe7zYyAn3SKYBcIdxiF1Aack-aPklhvgb_xqHo1CBu2AtWyWkEXo0jlmFO_r3W3HCQnutFooTI1THadw3iPj5sq5Fy87d8rSXG9CRqOf9xKyHCCpCk3EkuB3Jm8BCnyhH8nvAnXprlVUlXFxd05xYPOX0TxzRK-sp3VpLX-UnHxGkvG3w");'></div>
+</div>
+</div>
+</div>
+<!-- File Card 4 -->
+<div class="group bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-4 hover:shadow-md dark:hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-lg p-2.5">
+<span class="material-symbols-outlined">quiz</span>
+</div>
+<button class="text-gray-400 hover:text-[#111814] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<h4 class="font-bold text-[#111814] dark:text-white mb-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Pop Quiz: Forces</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-4 line-clamp-2">10 question multiple choice quiz to test basic understanding of forces.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">Draft</span>
+<span class="text-xs text-[#618975] dark:text-gray-500">2h ago</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-[#2A3C34] bg-cover" data-alt="Avatar Male" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpey5YXye1K4awQLFpUTq5gySt36BBa8IyK89KNWD4Ea26RsPHIltMJB_6oUVGLlBf4hHHvSrEUYy2RaE0C-TSY2SefTAE_9BzCGysm-lnfHwFDlAFv7G8JxWpKlvEDvrSv98S9QilBuAjC3A6finm8SmnYhUDsfwRY4tauZReRGohS6CgFKb02m76xAJO4JZMEshcmLsk4yg980cIKpCaifHakPi8cqcAT78_ykrXco6JcjG0XT-BRqcMlrdRlYZoRYc6pj6NycI");'></div>
+</div>
+</div>
+</div>
+<!-- Upload Dropzone -->
+<div class="border-2 border-dashed border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-primary dark:hover:border-primary transition-colors cursor-pointer bg-gray-50 dark:bg-[#15231e] h-full min-h-[160px]">
+<div class="bg-primary/20 text-primary rounded-full p-3 mb-3">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<h4 class="font-bold text-[#111814] dark:text-white text-sm">Drag &amp; Drop files here</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mt-1">or click to browse</p>
+</div>
+</div>
+</div>
+<!-- Right Sidebar / Widgets -->
+<div class="w-full xl:w-80 flex flex-col gap-6 shrink-0">
+<!-- Textbook Widget -->
+<div class="bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-5 shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-bold text-[#111814] dark:text-white text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">menu_book</span>
+                                Library Resources
+                            </h3>
+<button class="text-[#618975] hover:text-primary"><span class="material-symbols-outlined text-[20px]">info</span></button>
+</div>
+<div class="flex gap-4 mb-4">
+<div class="w-16 h-20 bg-gray-200 dark:bg-gray-700 rounded-lg shrink-0 overflow-hidden relative shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/50 text-4xl">science</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-sm text-[#111814] dark:text-white leading-tight mb-1">Physics: Principles &amp; Problems</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-2">Standard Textbook • 4th Ed</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-xs font-bold mb-1.5">
+<span class="text-[#111814] dark:text-gray-200">Availability</span>
+<span class="text-primary">25 / 30 Sets</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 83%"></div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-[#111814] dark:bg-white text-white dark:text-[#111814] font-bold text-sm hover:opacity-90 transition-opacity flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+                            Book Class Set
+                        </button>
+</div>
+<!-- Upcoming Schedule -->
+<div class="bg-surface-light dark:bg-surface-dark border border-[#f0f4f2] dark:border-[#2A3C34] rounded-xl p-5 shadow-sm">
+<h3 class="font-bold text-[#111814] dark:text-white text-sm mb-4">Upcoming Classes</h3>
+<div class="relative pl-4 border-l border-[#f0f4f2] dark:border-[#2A3C34] space-y-6">
+<div class="relative">
+<div class="absolute -left-[21px] top-1 size-3 rounded-full bg-primary ring-4 ring-white dark:ring-[#1A2C24]"></div>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-1">09:00 AM • Lab 3</p>
+<h4 class="font-bold text-sm text-[#111814] dark:text-white">Form 4 Physics (Practical)</h4>
+<div class="mt-2 flex gap-2">
+<span class="text-[10px] px-2 py-0.5 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 rounded font-medium">Pending Resource</span>
+</div>
+</div>
+<div class="relative opacity-60">
+<div class="absolute -left-[21px] top-1 size-3 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-[#1A2C24]"></div>
+<p class="text-xs text-[#618975] dark:text-gray-400 mb-1">11:30 AM • Room 204</p>
+<h4 class="font-bold text-sm text-[#111814] dark:text-white">Form 2 General Science</h4>
+</div>
+</div>
+</div>
+<!-- Pending Approvals -->
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-5 border border-primary/20">
+<h3 class="font-bold text-[#111814] dark:text-white text-sm mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+                            Needs Review
+                        </h3>
+<div class="flex items-start gap-3 bg-white dark:bg-[#15231e] p-3 rounded-lg shadow-sm mb-2">
+<div class="size-8 rounded bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#111814] dark:text-white line-clamp-1">Mid-Term Exam Paper</h4>
+<p class="text-xs text-[#618975] dark:text-gray-400">Uploaded by Mr. Henderson</p>
+<div class="flex gap-2 mt-2">
+<button class="text-[10px] font-bold text-green-600 hover:bg-green-50 px-2 py-1 rounded transition-colors">Approve</button>
+<button class="text-[10px] font-bold text-red-600 hover:bg-red-50 px-2 py-1 rounded transition-colors">Reject</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

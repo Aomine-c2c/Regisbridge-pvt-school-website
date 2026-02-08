@@ -37,11 +37,27 @@ export default function ApplicationFormPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send to actual API endpoint
-    // await fetch('/api/admissions/apply', { method: 'POST', body: JSON.stringify(formData) });
-    alert('Application submitted successfully! We will review your application soon.');
+    try {
+      const res = await fetch('/api/admissions/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const json = await res.json();
+      
+      if (json.success) {
+        alert('Application submitted successfully! We will review your application soon.');
+        // Reset form or redirect
+        window.location.href = '/'; 
+      } else {
+        alert('Submission failed: ' + json.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (

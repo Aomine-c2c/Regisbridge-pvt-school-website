@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduCommand Enterprise - Welcome</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f4c025",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#221e10",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        
+        /* Blur background utility */
+        .backdrop-blur-custom {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="font-display antialiased bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-hidden h-screen relative">
+<!-- Main Dashboard Layer (Blurred Background) -->
+<div class="relative flex h-full w-full flex-col bg-[#181611] dark group/design-root overflow-hidden blur-[4px] scale-[0.99] opacity-60 pointer-events-none select-none transition-all duration-500">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#393528] px-10 py-3 bg-[#181611]">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">EduCommand Enterprise</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#bab29c]">search</span>
+<span class="material-symbols-outlined text-[#bab29c]">notifications</span>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2xoJJa1CpgJmQqhRDy6wDgqUaFf-KhtYxt394-_MI3kSnUVADs-yrlgfsKSdNGQi2df_yw_1eiGCAoKkdb2N452tm2H09iUcLXSV8B3zoKZ8lH5UeZZXzL5uhAHNj0K4QWoWiz3pEIqtQ5vcd1kjzby-RzNu_uxHArCX7mWUEwRnbUsi9jxwQEKZpENOIuJ1vKiwzJaTPXXjmjTrVJwK93mZAg9ZNFaEs3wRHL5tWstDM9OLlHpGqT-RXMK_Hylj2kZh4Mjfh0cg");'></div>
+</div>
+</div>
+</header>
+<div class="flex h-full flex-1">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-[#393528] bg-[#181611] flex flex-col p-4 gap-2 hidden lg:flex">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#393528] text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-white text-sm font-medium leading-normal">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
+<span class="material-symbols-outlined">person_add</span>
+<p class="text-sm font-medium leading-normal">Admissions</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
+<span class="material-symbols-outlined">menu_book</span>
+<p class="text-sm font-medium leading-normal">Academics</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
+<span class="material-symbols-outlined">payments</span>
+<p class="text-sm font-medium leading-normal">Finance</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-sm font-medium leading-normal">Faculty</p>
+</div>
+</aside>
+<!-- Content Area -->
+<main class="flex-1 p-8 bg-[#181611]">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-50">
+<div class="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
+<div class="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
+<div class="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
+<div class="h-96 rounded-lg bg-[#27241b] border border-[#393528] col-span-2"></div>
+<div class="h-96 rounded-lg bg-[#27241b] border border-[#393528]"></div>
+</div>
+</main>
+</div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-custom">
+<!-- Modal Container -->
+<div class="relative w-full max-w-[900px] bg-[#1a1814] border border-[#393528] rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 text-[#bab29c] hover:text-white transition-colors p-2 rounded-full hover:bg-white/5 z-10">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+<!-- Modal Content -->
+<div class="flex flex-col md:flex-row h-full">
+<!-- Left Column: Visual/Welcome -->
+<div class="w-full md:w-5/12 bg-[#221e10] p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#393528] relative">
+<!-- Background accent -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-50"></div>
+<div class="space-y-6 z-10">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 border border-primary/20">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<div>
+<h1 class="text-3xl font-bold text-white mb-2 font-display">Welcome to Your Command Center</h1>
+<p class="text-[#bab29c] text-base leading-relaxed">Experience the new standard in K-12 institutional management. We've redesigned your workflow for clarity and speed.</p>
+</div>
+</div>
+<div class="mt-12 space-y-6">
+<!-- Value Prop 1 -->
+<div class="flex gap-4 items-start">
+<div class="text-primary mt-1">
+<span class="material-symbols-outlined">cut</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">Efficiency</h3>
+<p class="text-[#8e8675] text-sm">Streamlined workflows for staff and faculty.</p>
+</div>
+</div>
+<!-- Value Prop 2 -->
+<div class="flex gap-4 items-start">
+<div class="text-primary mt-1">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">Clarity</h3>
+<p class="text-[#8e8675] text-sm">Data-driven insights at a glance.</p>
+</div>
+</div>
+<!-- Value Prop 3 -->
+<div class="flex gap-4 items-start">
+<div class="text-primary mt-1">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<h3 class="text-white font-bold text-sm uppercase tracking-wide">Authority</h3>
+<p class="text-[#8e8675] text-sm">Total control over administrative governance.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Choices -->
+<div class="w-full md:w-7/12 bg-[#1a1814] p-8 flex flex-col justify-center">
+<div class="mb-8">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">Onboarding Step 1 of 3</span>
+<div class="flex gap-1">
+<div class="w-8 h-1 bg-primary rounded-full"></div>
+<div class="w-8 h-1 bg-[#393528] rounded-full"></div>
+<div class="w-8 h-1 bg-[#393528] rounded-full"></div>
+</div>
+</div>
+<h2 class="text-2xl font-bold text-white">How would you like to get started?</h2>
+</div>
+<div class="grid gap-4">
+<!-- Option 1: Tour -->
+<button class="group relative flex items-center gap-4 p-5 rounded-lg border border-[#393528] bg-[#221e10] hover:bg-[#2a261a] hover:border-primary/50 transition-all duration-300 text-left">
+<div class="size-12 rounded-full bg-[#393528] group-hover:bg-primary group-hover:text-black text-white flex items-center justify-center transition-colors duration-300 shrink-0">
+<span class="material-symbols-outlined">explore</span>
+</div>
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Take a Tour</h3>
+<p class="text-[#8e8675] text-sm">Step-by-step interactive guide through the platform.</p>
+</div>
+<div class="text-[#393528] group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</button>
+<!-- Option 2: Video -->
+<button class="group relative flex items-center gap-4 p-5 rounded-lg border border-[#393528] bg-[#221e10] hover:bg-[#2a261a] hover:border-primary/50 transition-all duration-300 text-left">
+<div class="size-12 rounded-full bg-[#393528] group-hover:bg-primary group-hover:text-black text-white flex items-center justify-center transition-colors duration-300 shrink-0">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Watch Overview</h3>
+<p class="text-[#8e8675] text-sm">Quick 2-minute video introduction to key features.</p>
+</div>
+<div class="text-[#393528] group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</button>
+<!-- Option 3: Solo -->
+<button class="group relative flex items-center gap-4 p-5 rounded-lg border border-[#393528] bg-[#221e10] hover:bg-[#2a261a] hover:border-primary/50 transition-all duration-300 text-left">
+<div class="size-12 rounded-full bg-[#393528] group-hover:bg-primary group-hover:text-black text-white flex items-center justify-center transition-colors duration-300 shrink-0">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Jump Right In</h3>
+<p class="text-[#8e8675] text-sm">Skip the intro and explore on my own.</p>
+</div>
+<div class="text-[#393528] group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

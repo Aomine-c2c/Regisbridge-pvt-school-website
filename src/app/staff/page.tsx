@@ -1,35 +1,42 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import { StatBarList, NoticeBoard } from '@/components';
 
-const STAFF_STATS = [
-  { stat: '450+', label: 'Students Enrolled' },
-  { stat: '92%', label: 'Average Attendance' },
-  { stat: '15', label: 'Pending Reviews' },
-  { stat: '8', label: 'Staff Meetings This Month' },
-];
+interface StaffMetrics {
+  studentsEnrolled: number;
+  averageAttendance: string;
+  pendingReviews: number;
+  meetings: number;
+}
 
-const NOTICES = [
-  {
-    id: 'staff-notice-1',
-    date: '2026-02-15',
-    dateLabel: 'Tomorrow',
-    title: 'Staff Meeting - Curriculum Review',
-    time: '3:30 PM',
-    location: 'Staff Room',
-    priority: 'high' as const,
-  },
-  {
-    id: 'staff-notice-2',
-    date: '2026-02-18',
-    dateLabel: undefined,
-    title: 'Report Cards Due',
-    description: 'Submit all Year 11 reports by end of day',
-    priority: 'high' as const,
-  },
-];
+interface ClassSchedule {
+  id: string;
+  time: string;
+  class: string;
+  subject: string;
+  room: string;
+  students: number;
+}
+
+interface Notice {
+  id: string;
+  date: string;
+  dateLabel?: string;
+  title: string;
+  time?: string;
+  location?: string;
+  description?: string;
+  priority: 'high' | 'normal';
+}
+
+interface StaffDashboardData {
+  metrics: StaffMetrics;
+  todaysClasses: ClassSchedule[];
+  notices: Notice[];
+}
 
 const GRADE_STATS = [
   { label: 'Reports Submitted', value: 85, maxValue: 100, color: 'gold' as const },
@@ -38,6 +45,63 @@ const GRADE_STATS = [
 ];
 
 export default function StaffPortalPage() {
+  const [data, setData] = useState<StaffDashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/hr/dashboard/staff');
+        if (!response.ok) {
+             // For safety, if unauthorized/not found, we might want to redirect or show placeholder
+             // But for now, just show error
+             throw new Error('Failed to fetch dashboard data');
+        }
+        const result = await response.json();
+        if (result.success) {
+          setData(result.data);
+        } else {
+          setError(result.message);
+        }
+      } catch (err) {
+        setError('An error occurred while loading data');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-navy"></div>
+      </div>
+    );
+  }
+
+  // Fallback to placeholder if error (optional, but good for demo if API fails)
+  // For now, I'll render the error state
+  if (error) {
+     return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 text-red-500">
+        Error: {error}
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
+  const STAFF_STATS = [
+    { stat: data.metrics.studentsEnrolled.toString(), label: 'Students Enrolled' },
+    { stat: data.metrics.averageAttendance, label: 'Average Attendance' },
+    { stat: data.metrics.pendingReviews.toString(), label: 'Pending Reviews' },
+    { stat: data.metrics.meetings.toString(), label: 'Staff Meetings This Month' },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <PremiumHeader />
@@ -47,7 +111,7 @@ export default function StaffPortalPage() {
         <aside className="hidden lg:block w-64 bg-brand-navy text-white p-6">
           <div className="mb-8">
             <h2 className="text-2xl font-bold">Staff Portal</h2>
-            <p className="text-sm text-gray-300 mt-1">Welcome, Dr. Anderson</p>
+            <p className="text-sm text-gray-300 mt-1">Welcome</p>
           </div>
 
           <nav className="space-y-2">
@@ -100,38 +164,39 @@ export default function StaffPortalPage() {
                 {/* Today's Classes */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">Today's Classes</h3>
-                  <div className="space-y-4">
-                    {[
-                      { time: '8:00 AM', class: 'Year 11 Mathematics', room: 'Room 204', students: 24 },
-                      { time: '10:00 AM', class: 'Year 12 Advanced Math', room: 'Room 204', students: 18 },
-                      { time: '2:00 PM', class: 'Year 10 Mathematics', room: 'Room 204', students: 26 },
-                    ].map((lesson, index) => (
-                      <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                        <div className="w-16 text-center">
-                          <div className="text-sm font-bold text-brand-navy">{lesson.time}</div>
+                  {data.todaysClasses.length === 0 ? (
+                      <p className="text-gray-500 text-center py-4">No classes scheduled for today.</p>
+                  ) : (
+                    <div className="space-y-4">
+                        {data.todaysClasses.map((lesson, index) => (
+                        <div key={lesson.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                            <div className="w-16 text-center">
+                            <div className="text-sm font-bold text-brand-navy">{lesson.time}</div>
+                            </div>
+                            <div className="flex-1">
+                            <h4 className="font-bold text-gray-900">{lesson.class}</h4>
+                            <p className="text-xs text-gray-500 mb-1">{lesson.subject}</p>
+                            <div className="flex gap-4 text-sm text-gray-600 mt-1">
+                                <span className="flex items-center gap-1">
+                                <span className="material-symbols-outlined text-[16px]">door_front</span>
+                                {lesson.room}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                <span className="material-symbols-outlined text-[16px]">groups</span>
+                                {lesson.students} students
+                                </span>
+                            </div>
+                            </div>
+                            <Link
+                            href={`/staff/classes/${index}`}
+                            className="px-4 py-2 bg-brand-navy text-white rounded-lg font-medium hover:bg-brand-navy-dark transition-colors text-sm"
+                            >
+                            View Class
+                            </Link>
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-gray-900">{lesson.class}</h4>
-                          <div className="flex gap-4 text-sm text-gray-600 mt-1">
-                            <span className="flex items-center gap-1">
-                              <span className="material-symbols-outlined text-[16px]">door_front</span>
-                              {lesson.room}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <span className="material-symbols-outlined text-[16px]">groups</span>
-                              {lesson.students} students
-                            </span>
-                          </div>
-                        </div>
-                        <Link
-                          href={`/staff/classes/${index}`}
-                          className="px-4 py-2 bg-brand-navy text-white rounded-lg font-medium hover:bg-brand-navy-dark transition-colors text-sm"
-                        >
-                          View Class
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Task Progress */}
@@ -165,7 +230,7 @@ export default function StaffPortalPage() {
 
               {/* Right Column */}
               <div className="space-y-6">
-                <NoticeBoard notices={NOTICES} />
+                <NoticeBoard notices={data.notices} />
 
                 {/* Quick Actions */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

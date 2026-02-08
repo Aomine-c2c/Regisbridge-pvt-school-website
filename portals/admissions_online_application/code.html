@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admissions Online Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0", // Navy-ish Blue as primary from provided config, but user mentioned navy/emerald. I'll stick to the config's primary for buttons but incorporate emerald/navy in accents if possible, or stick to the config's consistent blue. The config overrides user color preferences generally, so I will stick to the "primary" defined in the config (#2957e0) for consistency, perhaps tweaking secondary shades.
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "emerald": "#10b981", // Adding emerald manually for the user's "emerald green" request as an accent color
+                        "navy": "#1e3a8a",   // Adding navy for variety
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Public Sans", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111317] dark:text-white transition-colors duration-200">
+<div class="flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-[#f0f1f4] dark:border-gray-800 bg-white dark:bg-[#1a202c] px-6 py-3 shadow-sm md:px-10">
+<div class="flex items-center gap-4">
+<div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-[#111317] dark:text-white">AcademiaHub Admissions</h2>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="text-sm font-medium leading-normal text-[#111317] dark:text-gray-300 hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium leading-normal text-[#111317] dark:text-gray-300 hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="text-sm font-medium leading-normal text-[#111317] dark:text-gray-300 hover:text-primary transition-colors" href="#">FAQ</a>
+</nav>
+<div class="h-6 w-px bg-gray-200 dark:bg-gray-700"></div>
+<div class="flex items-center gap-3">
+<div class="size-8 overflow-hidden rounded-full bg-gray-200" data-alt="User profile avatar placeholder">
+<img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAccY0S2vWPHWjbwCDrcj6ZzZxS_DBMR-7L40W6x0E8oJUSPo5iHbeNNBR4qfyofNfSrn4RTAR9s2DI9GDFS52JF43FMRxufYXx4oAe2TVXnZMVIZIQcI-2eIda9UwYZ9_bUQB4qyJQ4624YFNHJ4dVlRKtcgJPyueT1kFuY8GnfUax9O2ZjWf6C3du1HkYkOvW-R3nYTrd-9cOhkDrFcfboGUP391SZEquPsD0KYHSYu8H8YN8x4DoRAXEJgEOtPNnAlXJbR1aT18"/>
+</div>
+<button class="flex items-center justify-center rounded-lg px-4 py-2 text-sm font-bold text-[#646d87] hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800">
+                        Log Out
+                    </button>
+</div>
+</div>
+<!-- Mobile Menu Icon -->
+<button class="md:hidden text-[#111317] dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex flex-1 justify-center py-8 px-4 sm:px-6 lg:px-8">
+<div class="flex w-full max-w-[960px] flex-col gap-6">
+<!-- Page Header & Action -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-xl bg-white dark:bg-[#1a202c] p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-black leading-tight tracking-tight text-[#111317] dark:text-white">Start Your Application</h1>
+<p class="text-base text-[#646d87] dark:text-gray-400">Complete your admissions profile for the 2024-2025 academic year.</p>
+</div>
+<button class="group flex items-center justify-center gap-2 rounded-lg bg-[#f0f1f4] dark:bg-gray-700 px-5 py-2.5 text-sm font-bold text-[#111317] dark:text-white transition-all hover:bg-gray-200 dark:hover:bg-gray-600">
+<span class="material-symbols-outlined text-lg">save</span>
+<span>Save for Later</span>
+</button>
+</div>
+<!-- Progress Stepper -->
+<div class="rounded-xl bg-white dark:bg-[#1a202c] p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-semibold text-primary">Step 1 of 4</span>
+<span class="text-sm font-medium text-[#646d87] dark:text-gray-400">25% Completed</span>
+</div>
+<div class="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-700">
+<div class="h-full w-1/4 rounded-full bg-primary transition-all duration-500"></div>
+</div>
+<div class="mt-6 flex justify-between gap-2 overflow-x-auto pb-2 sm:pb-0">
+<!-- Step 1 (Active) -->
+<div class="flex min-w-[120px] flex-col gap-2 border-t-2 border-primary pt-3">
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Step 1</span>
+<span class="text-sm font-bold text-[#111317] dark:text-white">Personal Details</span>
+</div>
+<!-- Step 2 -->
+<div class="flex min-w-[120px] flex-col gap-2 border-t-2 border-gray-200 dark:border-gray-700 pt-3">
+<span class="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-gray-500">Step 2</span>
+<span class="text-sm font-medium text-[#646d87] dark:text-gray-400">Academic History</span>
+</div>
+<!-- Step 3 -->
+<div class="flex min-w-[120px] flex-col gap-2 border-t-2 border-gray-200 dark:border-gray-700 pt-3">
+<span class="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-gray-500">Step 3</span>
+<span class="text-sm font-medium text-[#646d87] dark:text-gray-400">Documents</span>
+</div>
+<!-- Step 4 -->
+<div class="flex min-w-[120px] flex-col gap-2 border-t-2 border-gray-200 dark:border-gray-700 pt-3">
+<span class="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-gray-500">Step 4</span>
+<span class="text-sm font-medium text-[#646d87] dark:text-gray-400">Boarding &amp; Fees</span>
+</div>
+</div>
+</div>
+<!-- Main Form Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Form Content -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Student Information Card -->
+<div class="rounded-xl bg-white dark:bg-[#1a202c] p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-3 mb-6 border-b border-gray-100 dark:border-gray-700 pb-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<h2 class="text-xl font-bold text-[#111317] dark:text-white">Student Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">First Name <span class="text-red-500">*</span></span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="e.g. Jonathan" type="text"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Last Name <span class="text-red-500">*</span></span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="e.g. Doe" type="text"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Date of Birth <span class="text-red-500">*</span></span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" type="date"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Gender <span class="text-red-500">*</span></span>
+<select class="form-select w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+<option disabled="" selected="" value="">Select gender</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select>
+</label>
+<label class="flex flex-col gap-2 md:col-span-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Nationality <span class="text-red-500">*</span></span>
+<select class="form-select w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+<option disabled="" selected="" value="">Select nationality</option>
+<option value="us">United States</option>
+<option value="uk">United Kingdom</option>
+<option value="ca">Canada</option>
+<option value="au">Australia</option>
+</select>
+</label>
+</div>
+</div>
+<!-- Contact Details Card -->
+<div class="rounded-xl bg-white dark:bg-[#1a202c] p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-3 mb-6 border-b border-gray-100 dark:border-gray-700 pb-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald/10 text-emerald-600">
+<span class="material-symbols-outlined">contact_mail</span>
+</div>
+<h2 class="text-xl font-bold text-[#111317] dark:text-white">Contact Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="flex flex-col gap-2 md:col-span-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Email Address <span class="text-red-500">*</span></span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="student@example.com" type="email"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Phone Number <span class="text-red-500">*</span></span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="+1 (555) 000-0000" type="tel"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Current City</span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="e.g. New York" type="text"/>
+</label>
+<label class="flex flex-col gap-2 md:col-span-2">
+<span class="text-sm font-medium text-[#111317] dark:text-gray-200">Home Address</span>
+<textarea class="form-textarea w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-sm focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" placeholder="Street address, apartment, etc." rows="3"></textarea>
+</label>
+</div>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex items-center justify-between pt-4">
+<button class="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-bold text-[#111317] hover:bg-gray-50 dark:border-gray-700 dark:bg-transparent dark:text-white dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                                Back
+                            </button>
+<button class="flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/50">
+                                Next Step
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Sidebar Info -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Application Summary -->
+<div class="rounded-xl bg-white dark:bg-[#1a202c] p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+<h3 class="text-lg font-bold text-[#111317] dark:text-white mb-4">Application Summary</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-3">
+<span class="text-sm text-[#646d87] dark:text-gray-400">Application Type</span>
+<span class="text-sm font-semibold text-[#111317] dark:text-white">New Student</span>
+</li>
+<li class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-3">
+<span class="text-sm text-[#646d87] dark:text-gray-400">Entry Grade</span>
+<span class="text-sm font-semibold text-[#111317] dark:text-white">Grade 9</span>
+</li>
+<li class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-3">
+<span class="text-sm text-[#646d87] dark:text-gray-400">Term</span>
+<span class="text-sm font-semibold text-[#111317] dark:text-white">Fall 2024</span>
+</li>
+<li class="flex justify-between pt-1">
+<span class="text-sm text-[#646d87] dark:text-gray-400">Deadline</span>
+<span class="text-sm font-bold text-red-500">Aug 15, 2024</span>
+</li>
+</ul>
+</div>
+<!-- Document Checklist (Preview of future steps) -->
+<div class="rounded-xl bg-[#2957e0]/5 dark:bg-[#2957e0]/10 p-6 border border-[#2957e0]/10 dark:border-[#2957e0]/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">description</span>
+<h3 class="text-lg font-bold text-primary">Documents Needed</h3>
+</div>
+<p class="text-sm text-[#646d87] dark:text-gray-400 mb-4">Prepare these for Step 3:</p>
+<ul class="flex flex-col gap-3">
+<li class="flex items-center gap-3 text-sm text-[#111317] dark:text-gray-300">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Birth Certificate
+                                </li>
+<li class="flex items-center gap-3 text-sm text-[#111317] dark:text-gray-300">
+<span class="material-symbols-outlined text-gray-400 text-lg">radio_button_unchecked</span>
+                                    Previous Transcripts
+                                </li>
+<li class="flex items-center gap-3 text-sm text-[#111317] dark:text-gray-300">
+<span class="material-symbols-outlined text-gray-400 text-lg">radio_button_unchecked</span>
+                                    Immunization Records
+                                </li>
+<li class="flex items-center gap-3 text-sm text-[#111317] dark:text-gray-300">
+<span class="material-symbols-outlined text-gray-400 text-lg">radio_button_unchecked</span>
+                                    Passport Photo
+                                </li>
+</ul>
+</div>
+<!-- Help Card -->
+<div class="rounded-xl bg-gradient-to-br from-[#1e3a8a] to-[#2957e0] p-6 text-white shadow-lg relative overflow-hidden">
+<!-- Background decoration -->
+<div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/10 blur-xl"></div>
+<h3 class="relative z-10 text-lg font-bold mb-2">Need Help?</h3>
+<p class="relative z-10 text-sm text-blue-100 mb-4">Our admissions team is available Mon-Fri, 9am-5pm EST.</p>
+<button class="relative z-10 w-full rounded-lg bg-white py-2.5 text-sm font-bold text-primary hover:bg-gray-50 transition-colors">
+                                Contact Admissions
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

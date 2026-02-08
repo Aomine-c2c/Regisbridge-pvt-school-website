@@ -63,15 +63,20 @@ export async function POST(request: NextRequest) {
                 subjectId,
                 score,
                 maxScore,
-                assessmentType,
-                weight: weight || 1.0,
+                assessmentType: assessmentType || 'EXAM', // Default or from body
+                letterGrade,
+                remarks,
                 date: date ? new Date(date) : new Date(),
             },
             include: {
                 student: {
                     select: {
-                        firstName: true,
-                        lastName: true,
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                            }
+                        }
                     },
                 },
                 subject: {

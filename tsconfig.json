@@ -43,9 +43,10 @@
     "src"
   ],
   "exclude": [
-    "node_modules",
-    ".next",
     "dist",
-    "scripts/**/*"
+    "scripts/**/*",
+    "prisma",
+    "**/__tests__/**/*",
+    "**/*.test.*"
   ]
 }

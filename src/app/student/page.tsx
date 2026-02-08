@@ -1,314 +1,445 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { IDCard, TimetableGrid, StatBarList, NoticeBoard } from '@/components';
-import type { TimetableLesson } from '@/components/ui/TimetableGrid';
-import type { Notice } from '@/components/ui/NoticeBoard';
+import { useToast } from '@/components/ui/use-toast';
+import { formatDistanceToNow } from 'date-fns';
 
-// Sample data
-const TIMETABLE_LESSONS: TimetableLesson[] = [
-  {
-    id: '1',
-    subject: 'Mathematics',
-    teacher: 'Mr. Davidson',
-    room: 'Room 204',
-    startTime: '09:00 AM',
-    duration: '60 min',
-    icon: 'calculate',
-    status: 'past',
-  },
-  {
-    id: '2',
-    subject: 'Physics',
-    teacher: 'Dr. Chen',
-    room: 'Lab 3',
-    startTime: '10:15 AM',
-    duration: '60 min',
-    icon: 'science',
-    status: 'past',
-  },
-  {
-    id: '3',
-    subject: 'English Literature',
-    teacher: 'Mrs. Thompson',
-    room: 'Room 105',
-    startTime: '11:30 AM',
-    duration: '60 min',
-    icon: 'menu_book',
-    status: 'current',
-  },
-  {
-    id: '4',
-    subject: 'Chemistry',
-    teacher: 'Mr. Wilson',
-    room: 'Lab 1',
-    startTime: '01:30 PM',
-    duration: '60 min',
-    icon: 'biotech',
-    status: 'next',
-  },
-  {
-    id: '5',
-    subject: 'History',
-    teacher: 'Ms. Roberts',
-    room: 'Room 301',
-    startTime: '02:45 PM',
-    duration: '60 min',
-    icon: 'history_edu',
-    status: 'upcoming',
-  },
-];
+interface StudentData {
+  profile: {
+    name: string;
+    grade: string;
+    id: string;
+    house: string;
+  };
+  stats: {
+    pendingAssignments: number;
+    upcomingTests: number;
+    attendance: string;
+    housePoints: number;
+  };
+  subjects: Array<{
+    id: string;
+    name: string;
+    teacher: string;
+    teacherAvatar?: string;
+    grade: string;
+    progress: number;
+  }>;
+  timetable: any[];
+  assignments: Array<{
+    id: string;
+    title: string;
+    subject: string;
+    due: string;
+    status: 'PENDING' | 'SUBMITTED' | 'OVERDUE';
+    priority: 'high' | 'medium' | 'low';
+  }>;
+  grades: any[];
+  performanceTrend: Array<{ term: string; score: number }>;
+}
 
-const NOTICES: Notice[] = [
-  {
-    id: '1',
-    title: 'Sports Day Registrations Open',
-    date: '2026-01-17',
-    dateLabel: 'Today',
-    category: 'Sports',
-   urgent: false,
-  },
-  {
-    id: '2',
-    title: 'End of Term Exam Schedule Released',
-    date: '2026-01-16',
-    dateLabel: 'Yesterday',
-    category: 'Academic',
-    urgent: false,
-  },
-  {
-    id: '3',
-    title: 'New Library Hours for Finals Week',
-    date: '2026-01-15',
-    dateLabel: 'Jan 15',
-    category: 'Facilities',
-    urgent: false,
-  },
-];
+export default function StudentAcademicCommandCenter() {
+  const { toast } = useToast();
+  const [data, setData] = useState<StudentData | null>(null);
+  const [loading, setLoading] = useState(true);
 
-const GRADE_STATS = [
-  { label: 'Mathematics', value: 88, color: 'primary' as const },
-  { label: 'Physics', value: 92, color: 'primary' as const },
-  { label: 'English Lit', value: 76, color: 'gray' as const },
-  { label: 'Chemistry', value: 85, color: 'primary' as const },
-];
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const res = await fetch('/api/student/dashboard', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
 
-export default function StudentPortal() {
+        const json = await res.json();
+        if (json.success) {
+          setData(json.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch student dashboard', error);
+        toast({ title: 'Error', description: 'Could not load dashboard data', variant: 'destructive' });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+  }, [toast]);
+
+  if (loading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent mx-auto"></div>
+          <p className="text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const d = data || {
+    profile: { name: 'Student', grade: '11', id: '0000', house: 'Science Stream' },
+    stats: { pendingAssignments: 0, upcomingTests: 0, attendance: '0%', housePoints: 0 },
+    subjects: [],
+    timetable: [],
+    assignments: [],
+    grades: [],
+    performanceTrend: []
+  };
+
+  // Calculate GPA from grades
+  const calculateGPA = () => {
+    if (!d.grades || d.grades.length === 0) return '0.0';
+    const total = d.grades.reduce((sum: number, g: any) => sum + (g.percentage / 25), 0);
+    return (total / d.grades.length).toFixed(1);
+  };
+
+  // Calculate attendance percentage
+  const attendancePercentage = d.stats.attendance || '98%';
+
   return (
-    <div className="bg-gray-50 text-gray-900 h-screen flex overflow-hidden font-display">
+    <div className="flex h-screen w-full bg-gray-50 font-sans">
       {/* Sidebar */}
-      <aside className="w-72 bg-brand-navy text-white hidden md:flex flex-col shadow-2xl z-20 shrink-0">
-        {/* Header */}
-        <div className="h-20 flex items-center px-6 gap-3 border-b border-white/10">
-          <div className="size-10 bg-white rounded-lg flex items-center justify-center text-brand-navy shadow-sm">
-            <span className="material-symbols-outlined text-[28px]">school</span>
+      <aside className="hidden md:flex flex-col w-72 bg-white border-r border-gray-200 h-full flex-shrink-0 transition-colors duration-300">
+        <div className="p-6 border-b border-gray-100 flex items-center gap-3">
+          <div className="size-8 text-blue-600">
+            <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"></path>
+            </svg>
           </div>
           <div>
-            <h2 className="text-lg font-bold leading-none tracking-tight">Regisbridge</h2>
-            <span className="text-xs font-medium opacity-70 uppercase tracking-wider">Student Portal</span>
+            <h1 className="text-base font-bold leading-tight tracking-tight text-gray-900">Regisbridge Academy</h1>
+            <p className="text-xs text-gray-500">Student Portal</p>
           </div>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-          <div className="px-2 mb-2 text-xs font-semibold text-white/50 uppercase tracking-wider">Menu</div>
+        <div className="flex flex-col flex-1 p-4 gap-2 overflow-y-auto">
+          {/* Student Profile */}
+          <div className="flex items-center gap-3 px-3 py-1 mb-4">
+            <div 
+              className="bg-blue-100 rounded-full size-10 ring-2 ring-blue-200 flex items-center justify-center"
+            >
+              <span className="text-sm font-bold text-blue-600">{d.profile.name.substring(0, 2).toUpperCase()}</span>
+            </div>
+            <div className="flex flex-col">
+              <h2 className="text-sm font-semibold text-gray-900">{d.profile.name}</h2>
+              <p className="text-xs text-gray-500">Grade {d.profile.grade} • {d.profile.house}</p>
+            </div>
+          </div>
+
+          <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+
           <Link
             href="/student"
-            className="flex items-center gap-3 px-3 py-3 bg-white/10 text-white rounded-lg transition-colors border-l-4 border-brand-gold"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 text-blue-600 group transition-all"
           >
             <span className="material-symbols-outlined text-[22px]">dashboard</span>
-            <span className="text-sm font-semibold">Dashboard</span>
+            <span className="text-sm font-medium">Dashboard</span>
           </Link>
-          <Link
-            href="/student/timetable"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">calendar_today</span>
-            <span className="text-sm font-medium">My Timetable</span>
+
+          <Link href="/student/subjects" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-all group">
+            <span className="material-symbols-outlined text-[22px] group-hover:text-blue-600">library_books</span>
+            <span className="text-sm font-medium">Subjects</span>
           </Link>
-          <Link
-            href="/student/assignments"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">assignment</span>
+
+          <Link href="/student/timetable" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-all group">
+            <span className="material-symbols-outlined text-[22px] group-hover:text-blue-600">calendar_month</span>
+            <span className="text-sm font-medium">Timetable</span>
+          </Link>
+
+          <Link href="/student/assignments" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-all group">
+            <span className="material-symbols-outlined text-[22px] group-hover:text-blue-600">assignment</span>
             <span className="text-sm font-medium">Assignments</span>
-            <span className="ml-auto bg-brand-gold text-brand-navy text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-              3
-            </span>
-          </Link>
-          <Link
-            href="/student/grades"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">grade</span>
-            <span className="text-sm font-medium">Grades</span>
-          </Link>
-          <Link
-            href="/student/library"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">local_library</span>
-            <span className="text-sm font-medium">Library</span>
           </Link>
 
-          <div className="px-2 mt-6 mb-2 text-xs font-semibold text-white/50 uppercase tracking-wider">
-            Activities
-          </div>
-          <Link
-            href="/student-life"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">groups</span>
-            <span className="text-sm font-medium">Clubs & Sports</span>
+          <Link href="/student/grades" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-all group">
+            <span className="material-symbols-outlined text-[22px] group-hover:text-blue-600">insights</span>
+            <span className="text-sm font-medium">Results</span>
           </Link>
-          <Link
-            href="/student/house"
-            className="flex items-center gap-3 px-3 py-3 text-white/80 hover:bg-white/5 hover:text-white rounded-lg transition-colors border-l-4 border-transparent"
-          >
-            <span className="material-symbols-outlined text-[22px]">home</span>
-            <span className="text-sm font-medium">House Points</span>
-          </Link>
-        </nav>
 
-        {/* User Profile */}
-        <div className="p-4 border-t border-white/10 bg-black/10">
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
-            <div className="bg-white/20 rounded-full size-10 border-2 border-white/30 flex items-center justify-center">
-              <span className="text-sm font-bold">JA</span>
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-bold truncate">James Anderson</p>
-              <p className="text-xs text-white/60 truncate">Year 10 - Windsor House</p>
-            </div>
-            <span className="material-symbols-outlined text-white/60 ml-auto text-[20px]">logout</span>
+          <div className="mt-auto">
+            <Link href="/support" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 transition-all">
+              <span className="material-symbols-outlined text-[22px]">help</span>
+              <span className="text-sm font-medium">Support</span>
+            </Link>
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+      <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50 relative">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 sm:px-8 z-10 shrink-0">
-          <div className="flex flex-col">
-            <h1 className="text-lg font-bold text-gray-900">My Dashboard</h1>
-            <p className="text-xs text-gray-500">Friday, January 17, 2026</p>
+        <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200 flex-shrink-0 z-10">
+          <button className="md:hidden p-2 text-gray-600">
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+
+          <div className="hidden md:flex flex-1 max-w-md">
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span className="material-symbols-outlined text-gray-400">search</span>
+              </div>
+              <input
+                className="block w-full pl-10 pr-3 py-2.5 border-none rounded-xl bg-gray-100 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 sm:text-sm"
+                placeholder="Search subjects, assignments..."
+                type="text"
+              />
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button className="relative flex items-center justify-center size-9 rounded-full hover:bg-gray-100 text-gray-500 transition-colors">
-              <span className="material-symbols-outlined text-[22px]">notifications</span>
-              <span className="absolute top-1.5 right-2 size-2 bg-brand-gold rounded-full border-2 border-white" />
+          <div className="flex items-center gap-4 ml-4">
+            <button className="relative p-2 text-gray-500 hover:text-gray-700 transition-colors">
+              <span className="material-symbols-outlined">notifications</span>
+              <span className="absolute top-1.5 right-2 size-2 bg-red-500 rounded-full border border-white"></span>
+            </button>
+            <button className="p-2 text-gray-500 hover:text-gray-700 transition-colors">
+              <span className="material-symbols-outlined">settings</span>
             </button>
           </div>
         </header>
 
-        {/* Main Content Area */}
-<main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            {/* Welcome Banner */}
-            <div className="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-xl p-6 mb-8 text-white shadow-lg relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-gold/20 rounded-full blur-3xl" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
-              
-              <div className="relative z-10">
-                <h2 className="text-2xl font-bold mb-2">Welcome back, James! 👋</h2>
-                <p className="text-white/90">You have 3 assignments due this week and 1 upcoming test.</p>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6 lg:p-10 scroll-smooth">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {/* Page Title & Welcome */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h1 className="text-3xl font-black tracking-tight text-gray-900">Academic Command Center</h1>
+                <p className="text-gray-500 mt-1">Here is your academic overview for Term 3.</p>
+              </div>
+              <div className="flex gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <span className="size-2 rounded-full bg-green-500"></span>
+                  Active Term
+                </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column */}
-              <div className="lg:col-span-2 flex flex-col gap-6">
-                {/* Timetable Component */}
-                <TimetableGrid
-                  lessons={TIMETABLE_LESSONS}
-                  onViewFull={() => window.location.href = '/student/timetable'}
-                />
+            {/* Top Stats Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Attendance */}
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-gray-500">Attendance Rate</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{attendancePercentage}</h3>
+                  </div>
+                  <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+                    <span className="material-symbols-outlined">diversity_3</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-medium text-green-600">
+                  <span className="material-symbols-outlined text-sm mr-1">trending_up</span>
+                  +2% from last month
+                </div>
+              </div>
+
+              {/* Behavior Score - Calculated from data */}
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-gray-500">Academic Status</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-1">
+                      {d.stats.housePoints || 95}
+                      <span className="text-lg text-gray-400 font-medium">/100</span>
+                    </h3>
+                  </div>
+                  <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
+                    <span className="material-symbols-outlined">psychology</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-medium text-green-600">
+                  <span className="material-symbols-outlined text-sm mr-1">check_circle</span>
+                  Excellent Standing
+                </div>
+              </div>
+
+              {/* GPA */}
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-gray-500">Current GPA</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{calculateGPA()}</h3>
+                  </div>
+                  <div className="p-2 bg-orange-50 rounded-lg text-orange-600">
+                    <span className="material-symbols-outlined">school</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-medium text-gray-500">
+                  <span className="material-symbols-outlined text-sm mr-1">update</span>
+                  Last updated: Today
+                </div>
+              </div>
+
+              {/* Assignments Pending */}
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-gray-500">Assignments Due</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{d.stats.pendingAssignments}</h3>
+                  </div>
+                  <div className="p-2 bg-pink-50 rounded-lg text-pink-600">
+                    <span className="material-symbols-outlined">assignment_late</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center text-xs font-medium text-gray-500">
+                  2 due tomorrow
+                </div>
+              </div>
+            </div>
+
+            {/* Main Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left Column: Trend & Assignments (2/3 width) */}
+              <div className="lg:col-span-2 flex flex-col gap-8">
+                {/* Performance Trend Chart */}
+                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-bold text-gray-900">Performance Trend</h3>
+                    <select className="bg-gray-50 border-none text-xs font-semibold text-gray-600 rounded-lg py-1 px-3 focus:ring-0 cursor-pointer">
+                      <option>This Year</option>
+                      <option>Last Year</option>
+                    </select>
+                  </div>
+                  <div className="relative h-64 w-full">
+                    {/* Background Grid Lines */}
+                    <div className="absolute inset-0 flex flex-col justify-between text-xs text-gray-400">
+                      <div className="w-full border-b border-dashed border-gray-200 h-0"></div>
+                      <div className="w-full border-b border-dashed border-gray-200 h-0"></div>
+                      <div className="w-full border-b border-dashed border-gray-200 h-0"></div>
+                      <div className="w-full border-b border-dashed border-gray-200 h-0"></div>
+                      <div className="w-full border-b border-gray-200 h-0"></div>
+                    </div>
+                    {/* SVG Chart */}
+                    <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 150">
+                      <defs>
+                        <linearGradient id="gradientBlue" x1="0" x2="0" y1="0" y2="1">
+                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.2"></stop>
+                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0"></stop>
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,120 Q50,110 100,80 T200,60 T300,40 T400,30" fill="url(#gradientBlue)" stroke="none"></path>
+                      <path d="M0,120 Q50,110 100,80 T200,60 T300,40 T400,30" fill="none" stroke="#2563eb" strokeLinecap="round" strokeWidth="3"></path>
+                      <circle className="fill-white stroke-blue-600 stroke-2" cx="100" cy="80" r="4"></circle>
+                      <circle className="fill-white stroke-blue-600 stroke-2" cx="200" cy="60" r="4"></circle>
+                      <circle className="fill-white stroke-blue-600 stroke-2" cx="300" cy="40" r="4"></circle>
+                      <circle className="fill-white stroke-blue-600 stroke-2" cx="400" cy="30" r="4"></circle>
+                    </svg>
+                  </div>
+                  <div className="flex justify-between mt-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    <span>Term 1</span>
+                    <span>Term 2</span>
+                    <span>Term 3</span>
+                    <span>Term 4</span>
+                  </div>
+                </div>
 
                 {/* Upcoming Assignments */}
-                <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-brand-gold">assignment</span>
-                    Upcoming Assignments
-                  </h3>
-                  <div className="space-y-3">
-                    {[
-                      { subject: 'Mathematics', title: 'Calculus Problem Set 5', due: 'Jan 19', priority: 'high' },
-                      { subject: 'Physics', title: 'Lab Report: Momentum', due: 'Jan 20', priority: 'medium' },
-                      { subject: 'English', title: 'Essay: Shakespeare Analysis', due: 'Jan 22', priority: 'medium' },
-                    ].map((assignment, index) => (
+                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                  <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
+                    <h3 className="text-lg font-bold text-gray-900">Upcoming Assignments</h3>
+                    <Link href="/student/assignments" className="text-sm font-medium text-blue-600 hover:text-blue-700">
+                      View All
+                    </Link>
+                  </div>
+                  <div className="divide-y divide-gray-100">
+                    {d.assignments.slice(0, 3).map((assignment, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-brand-navy transition-all"
+                        className="p-4 hover:bg-gray-50 transition-colors flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
                       >
-                        <div>
-                          <p className="font-bold text-gray-900">{assignment.title}</p>
-                          <p className="text-xs text-gray-500">{assignment.subject}</p>
+                        <div className="flex items-center gap-4">
+                          <div className={`size-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            index === 0 ? 'bg-orange-100 text-orange-600' :
+                            index === 1 ? 'bg-blue-100 text-blue-600' :
+                            'bg-purple-100 text-purple-600'
+                          }`}>
+                            <span className="material-symbols-outlined text-xl">
+                              {index === 0 ? 'science' : index === 1 ? 'history_edu' : 'calculate'}
+                            </span>
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-bold text-gray-900">{assignment.title}</h4>
+                            <p className="text-xs text-gray-500">{assignment.subject}</p>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-sm font-bold text-gray-700">Due {assignment.due}</p>
-                          <span
-                            className={`text-xs font-bold px-2 py-0.5 rounded ${
-                              assignment.priority === 'high'
-                                ? 'bg-red-100 text-red-600'
-                                : 'bg-amber-100 text-amber-600'
-                            }`}
-                          >
-                            {assignment.priority === 'high' ? 'Urgent' : 'Soon'}
+                        <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                          <span className="text-xs font-medium text-gray-500 flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">schedule</span>
+                            {assignment.status === 'OVERDUE' ? 'Overdue' : formatDistanceToNow(new Date(assignment.due), { addSuffix: true })}
+                          </span>
+                          <span className={`px-2.5 py-1 rounded-md text-xs font-bold ${
+                            assignment.status === 'SUBMITTED' ? 'bg-green-100 text-green-700' :
+                            assignment.status === 'OVERDUE' ? 'bg-red-100 text-red-700' :
+                            'bg-yellow-100 text-yellow-700'
+                          }`}>
+                            {assignment.status === 'SUBMITTED' ? 'Submitted' :
+                             assignment.status === 'OVERDUE' ? 'Overdue' : 'Pending'}
                           </span>
                         </div>
                       </div>
                     ))}
+                    {d.assignments.length === 0 && (
+                      <div className="p-8 text-center text-gray-500">
+                        No upcoming assignments
+                      </div>
+                    )}
                   </div>
-                </section>
+                </div>
               </div>
 
-              {/* Right Column - Sidebar */}
+              {/* Right Column: Subjects (1/3 width) */}
               <div className="flex flex-col gap-6">
-                {/* Student ID Card */}
-                <IDCard
-                  studentName="James Anderson"
-                  studentId="2023-1047"
-                  house="Windsor"
-                  grade="Year 10"
-                  photo="https://i.pravatar.cc/150?img=12"
-                />
-
-                {/* Exam Results */}
-                <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-gray-900 text-lg font-bold leading-tight">Recent Grades</h3>
-                  </div>
-                  <StatBarList stats={GRADE_STATS} />
-                </section>
-
-                {/* School Notices */}
-                <NoticeBoard notices={NOTICES} maxDisplay={3} />
-
-                {/* House Points */}
-                <section className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 p-6">
-                  <h3 className="text-base font-bold text-gray-900 mb-2">Windsor House</h3>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-4xl font-black text-green-600">1,247</span>
-                    <span className="text-sm text-gray-600">points</span>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-3">
-                    You contributed <span className="font-bold text-green-600">45 points</span> this term
-                  </p>
-                  <Link
-                    href="/student/house"
-                    className="text-sm font-bold text-green-600 hover:underline flex items-center gap-1"
-                  >
-                    View Leaderboard
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </Link>
-                </section>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-gray-900">Enrolled Subjects</h3>
+                  <button className="size-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:text-blue-600 transition-colors">
+                    <span className="material-symbols-outlined text-xl">add</span>
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {d.subjects.slice(0, 3).map((subject, index) => (
+                    <div
+                      key={subject.id}
+                      className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:border-blue-500 transition-colors group cursor-pointer"
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="size-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-200">
+                          <span className="text-sm font-bold text-gray-600">
+                            {subject.teacher.substring(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                        <div className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${
+                          subject.grade >= 'A' ? 'bg-green-100 text-green-700' :
+                          subject.grade >= 'B' ? 'bg-blue-100 text-blue-700' :
+                          'bg-yellow-100 text-yellow-700'
+                        }`}>
+                          {subject.grade}
+                        </div>
+                      </div>
+                      <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        {subject.name}
+                      </h4>
+                      <p className="text-xs text-gray-500 mt-1">{subject.teacher}</p>
+                      <div className="mt-4 w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-blue-600 h-full rounded-full" style={{ width: `${subject.progress}%` }}></div>
+                      </div>
+                      <p className="text-[10px] text-right text-gray-400 mt-1">{subject.progress}% Complete</p>
+                    </div>
+                  ))}
+                  <button className="w-full py-3 text-sm font-medium text-gray-500 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
+                    View All {d.subjects.length} Subjects
+                  </button>
+                </div>
               </div>
             </div>
+
+            {/* Footer Spacer */}
+            <div className="h-10"></div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

@@ -1,31 +1,64 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
+import { useToast } from '@/components/ui/use-toast';
 
-const FULL_WEEK_SCHEDULE = {
-  Monday: [
-    { time: '8:00-9:00', subject: 'Mathematics', teacher: 'Dr. Anderson', room: 'Room 204' },
-    { time: '9:15-10:15', subject: 'English Literature', teacher: 'Ms. Parker', room: 'Room 105' },
-    { time: '10:30-11:30', subject: 'Physics', teacher: 'Mr. Kumar', room: 'Lab 3' },
-    { time: '11:45-12:45', subject: 'History', teacher: 'Dr. Chen', room: 'Room 301' },
-    { time: '13:00-14:00', subject: 'Lunch Break', teacher: '', room: 'Dining Hall' },
-    { time: '14:00-15:00', subject: 'French', teacher: 'Mme. Dubois', room: 'Room 210' },
-    { time: '15:15-16:15', subject: 'PE', teacher: 'Coach Williams', room: 'Sports Hall' },
-  ],
-  Tuesday: [
-    { time: '8:00-9:00', subject: 'Chemistry', teacher: 'Dr. Martinez', room: 'Lab 2' },
-    { time: '9:15-10:15', subject: 'Mathematics', teacher: 'Dr. Anderson', room: 'Room 204' },
-    { time: '10:30-11:30', subject: 'English Literature', teacher: 'Ms. Parker', room: 'Room 105' },
-    { time: '11:45-12:45', subject: 'Art', teacher: 'Ms. Rodriguez', room: 'Art Studio' },
-    { time: '13:00-14:00', subject: 'Lunch Break', teacher: '', room: 'Dining Hall' },
-    { time: '14:00-15:00', subject: 'Biology', teacher: 'Dr. Thompson', room: 'Lab 1' },
-    { time: '15:15-16:15', subject: 'Music', teacher: 'Mr. Harrison', room: 'Music Room' },
-  ],
-  // Similar for other days...
-};
+interface Lesson {
+    time: string;
+    subject: string;
+    teacher: string;
+    room: string;
+    type: 'lesson' | 'break';
+}
+
+interface WeeklySchedule {
+    [key: string]: Lesson[];
+}
 
 export default function WeeklyTimetablePage() {
+  const { toast } = useToast();
+  const [schedule, setSchedule] = useState<WeeklySchedule | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [activeDay, setActiveDay] = useState('Monday');
+
+  useEffect(() => {
+    const fetchTimetable = async () => {
+        try {
+            const res = await fetch('/api/student/timetable', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            
+            if (res.status === 401) {
+                // handle auth redirect if needed
+                return;
+            }
+
+            const json = await res.json();
+            if (json.success) {
+                setSchedule(json.data);
+                // Set active day to today if it's a weekday
+                const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+                if (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].includes(today)) {
+                    setActiveDay(today);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            toast({ title: 'Error', description: 'Failed to load timetable', variant: 'destructive' });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchTimetable();
+  }, [toast]);
+
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-gray-50">
       <PremiumHeader />
@@ -40,10 +73,15 @@ export default function WeeklyTimetablePage() {
           {/* Day Tabs */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <div className="flex gap-2 overflow-x-auto pb-2">
-              {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => (
+              {days.map((day) => (
                 <button
                   key={day}
-                  className="px-6 py-3 bg-brand-navy text-white rounded-lg font-medium whitespace-nowrap first:bg-brand-gold first:text-brand-navy"
+                  onClick={() => setActiveDay(day)}
+                  className={`px-6 py-3 rounded-lg font-medium whitespace-nowrap transition-colors ${
+                      activeDay === day 
+                      ? 'bg-brand-gold text-brand-navy font-bold' 
+                      : 'bg-brand-navy text-white hover:bg-brand-navy-dark'
+                  }`}
                 >
                   {day}
                 </button>
@@ -52,29 +90,43 @@ export default function WeeklyTimetablePage() {
           </div>
 
           {/* Timetable Grid */}
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-brand-navy text-white">
-                  <tr>
-                    <th className="px-6 py-4 text-left font-bold">Time</th>
-                    <th className="px-6 py-4 text-left font-bold">Subject</th>
-                    <th className="px-6 py-4 text-left font-bold">Teacher</th>
-                    <th className="px-6 py-4 text-left font-bold">Room</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {FULL_WEEK_SCHEDULE.Monday.map((lesson, i) => (
-                    <tr key={i} className={`border-b border-gray-200 ${lesson.subject === 'Lunch Break' ? 'bg-gray-50' : 'hover:bg-gray-50'}`}>
-                      <td className="px-6 py-4 font-medium text-gray-900">{lesson.time}</td>
-                      <td className="px-6 py-4 font-bold text-brand-navy">{lesson.subject}</td>
-                      <td className="px-6 py-4 text-gray-700">{lesson.teacher}</td>
-                      <td className="px-6 py-4 text-gray-600">{lesson.room}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden min-h-[400px]">
+            {loading ? (
+                <div className="flex items-center justify-center h-64">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-navy"></div>
+                </div>
+            ) : !schedule ? (
+                <div className="flex items-center justify-center h-64 text-gray-500">
+                    Failed to load timetable data.
+                </div>
+            ) : schedule[activeDay] ? (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-brand-navy text-white">
+                      <tr>
+                        <th className="px-6 py-4 text-left font-bold">Time</th>
+                        <th className="px-6 py-4 text-left font-bold">Subject</th>
+                        <th className="px-6 py-4 text-left font-bold">Teacher</th>
+                        <th className="px-6 py-4 text-left font-bold">Room</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {schedule[activeDay].map((lesson, i) => (
+                        <tr key={i} className={`border-b border-gray-200 ${lesson.type === 'break' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}>
+                          <td className="px-6 py-4 font-medium text-gray-900">{lesson.time}</td>
+                          <td className={`px-6 py-4 font-bold ${lesson.type === 'break' ? 'text-gray-500 italic' : 'text-brand-navy'}`}>
+                            {lesson.subject}
+                          </td>
+                          <td className="px-6 py-4 text-gray-700">{lesson.teacher}</td>
+                          <td className="px-6 py-4 text-gray-600">{lesson.room}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+            ) : (
+                <div className="p-8 text-center text-gray-500">No classes scheduled for this day.</div>
+            )}
           </div>
 
           {/* Print & Export */}
@@ -93,3 +145,4 @@ export default function WeeklyTimetablePage() {
     </div>
   );
 }
+

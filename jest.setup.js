@@ -1,10 +1,10 @@
 // Learn more: https://github.com/testing-library/jest-dom
 // In v6+ of @testing-library/jest-dom, importing extends expect automatically
-import * as matchers from '@testing-library/jest-dom/matchers'
+import '@testing-library/jest-dom'
 import { jest, expect, beforeAll, afterAll } from '@jest/globals'
-if (typeof expect !== 'undefined' && expect.extend) {
-  expect.extend(matchers)
-}
+// if (typeof expect !== 'undefined' && expect.extend) {
+//   expect.extend(matchers)
+// }
 
 // Note: Environment variables are now set in jest.config.cjs to avoid parsing issues
 

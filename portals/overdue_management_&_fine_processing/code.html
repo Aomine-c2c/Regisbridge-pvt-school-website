@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>School Admin Portal - Overdue Management</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#0f65bd",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2630",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for table if needed */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex-col hidden md:flex z-20">
+<div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl icon-filled">school</span>
+<span class="font-bold text-lg tracking-tight text-slate-900 dark:text-white">EduAdmin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">people</span>
+<span class="font-medium">Students</span>
+</a>
+<div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2 mt-6">Library System</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-medium">Catalog</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">sync_alt</span>
+<span class="font-medium">Circulation</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:text-primary-400 font-medium" href="#">
+<span class="material-symbols-outlined icon-filled">assignment_late</span>
+<span>Overdue &amp; Fines</span>
+</a>
+<div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2 mt-6">Administration</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-medium">Finance Portal</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Profile picture of the current user" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAdEdIQcO0ud7cP9pu7ubExeaulgbkw8Kw2XVHz37Dxz5z6p7iHKh_5ThqMNtqBZwsMjhfp0SEG1aLmBWAZlSth_D-0LJneX0OYDIR1xB3kN9a2O3foAAe9lhaTgO1qWlhHDCN8zrTDPD8siFGDdI8TTjKsSG4-YpYi8NPn_uSvYcvgOHKbFGL6s2I6Zbv4KNdbLCRztDgas3qo1XRBeX2X2uGi3kmFyxhJWIZ0RkswajwAvwsRDaC_yfFmkppZWGlE1lSGc83Nxag');"></div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Jane Cooper</span>
+<span class="text-xs text-slate-500">Head Librarian</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Top Header -->
+<header class="h-16 bg-surface-light dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 z-10 shrink-0">
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Search -->
+<div class="hidden md:flex flex-1 max-w-lg">
+<div class="relative w-full">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg leading-5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Global search (Students, Books, Staff)..." type="text"/>
+</div>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+<button class="p-2 text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Main Scrollable Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-6">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-1">
+<span>Library</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Circulation</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-800 dark:text-slate-200 font-medium">Overdue Management</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Overdue Items &amp; Fine Processing</h1>
+</div>
+<div class="flex gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-dark border border-slate-300 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">download</span>
+                            Export Report
+                        </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg text-sm font-medium transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined text-lg">send</span>
+                            Bulk Reminder
+                        </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Overdue Items</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">42</h3>
+</div>
+<div class="p-2 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-lg">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-xs font-medium text-red-600 dark:text-red-400 mt-2">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+4 since yesterday</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Outstanding Fines</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">$128.50</h3>
+</div>
+<div class="p-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-xs font-medium text-slate-500 mt-2">
+<span>Pending collection via Finance Portal</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Severe Delinquencies</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">3</h3>
+</div>
+<div class="p-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg">
+<span class="material-symbols-outlined">flag</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-xs font-medium text-slate-500 mt-2">
+<span>Requires admin intervention</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Reminders Sent Today</p>
+<h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">15</h3>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 text-primary dark:text-blue-400 rounded-lg">
+<span class="material-symbols-outlined">send</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400 mt-2">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>All automated tasks complete</span>
+</div>
+</div>
+</div>
+<!-- Main Content Area: Filter & Table -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<!-- Filters Toolbar -->
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
+<div class="flex flex-1 gap-4 w-full lg:w-auto">
+<!-- Search -->
+<div class="relative w-full lg:w-80">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Search by Student Name, ID, or Book..." type="text"/>
+</div>
+<!-- Filter Dropdowns -->
+<div class="hidden md:flex gap-2">
+<select class="form-select border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary py-2 pl-3 pr-8">
+<option>All Grades</option>
+<option>Grade 9</option>
+<option>Grade 10</option>
+<option>Grade 11</option>
+<option>Grade 12</option>
+</select>
+<select class="form-select border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 focus:ring-primary focus:border-primary py-2 pl-3 pr-8">
+<option>Any Status</option>
+<option>1st Notice</option>
+<option>2nd Notice</option>
+<option>Flagged</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm text-slate-500 mr-2 hidden sm:inline">Showing 42 items</span>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg lg:hidden">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto custom-scrollbar rounded-b-xl">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="p-4 w-10">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Student Details</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Overdue Item</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Due Date</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-right">Fine</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Status</th>
+<th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="p-4 align-middle">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of James Smith" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJqE2nuvX4PxsuQ--9MM8L7uJXomgbLpUAaax0YQgLG26amMavoEUExHCWRy1VL-waQRVMlzfhw9rvemgVAG57vK2z7mioDlU5Itbi6B1P6EPHd2eUv8gc2vT9iiwPGq8MOLbQcmlZH58vJb3kdsamDx3kxLNq3hqimi51ewjMgnvTLjeHyd_ZYu3k7WtMvorig-qIwOkNKQfz-JEzbgmqJzdi0sczXGydNP2AWBk4Tz0dGQPT5DLeX9Gqsx11MaA0VPK6_SP0sWc');"></div>
+<div>
+<div class="font-semibold text-slate-900 dark:text-white text-sm">James Smith</div>
+<div class="text-xs text-slate-500">ID: #98221 • Gr 10</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-12 w-8 bg-slate-200 rounded overflow-hidden shrink-0 shadow-sm" data-alt="Book cover for To Kill a Mockingbird" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKkfNPKN_Lmas_GrCPmUQzyaPZXB7UJpTN27-HOo0ftXeicbkhdyKumvADXrEnLfiwblgm1vqpMJ7DcpWFsv9Da-WAshBj9dDvkss3UfUdnBZ_O5bzq5oAGG1GnI99ygteI3QS46pFMFWqs53JzkPf393DC9Av3oEY476Z3W9iPDXn1QOCU6jQo0cgsDUxGIffqjJcM4rZZE2-lKTDicaxScTqiwjgSa5T1Lms4R0ZXMBR7GYzEtmdsdWVR-sQirYnspTLM88bOP8'); background-size: cover;"></div>
+<div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">To Kill a Mockingbird</div>
+<div class="text-xs text-slate-500 font-mono">Call: 813.54 LEE</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="text-sm text-slate-900 dark:text-white font-medium">Oct 12, 2023</div>
+<div class="text-xs text-red-600 dark:text-red-400 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[10px] icon-filled">schedule</span>
+                                            14 Days Late
+                                        </div>
+</td>
+<td class="p-4 align-middle text-right">
+<div class="text-sm font-bold text-slate-900 dark:text-white">$3.50</div>
+</td>
+<td class="p-4 align-middle">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
+                                            2nd Notice
+                                        </span>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center justify-center gap-2">
+<button class="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-colors tooltip-trigger" title="Send Reminder">
+<span class="material-symbols-outlined text-xl">forward_to_inbox</span>
+</button>
+<button class="p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors tooltip-trigger" title="Process Return">
+<span class="material-symbols-outlined text-xl">assignment_return</span>
+</button>
+<button class="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors tooltip-trigger" title="Flag Record">
+<span class="material-symbols-outlined text-xl">flag</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="p-4 align-middle">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of Sarah Connor" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEE-cvSb94lr_Gmp8LHESsP88mg-tWNzxieo7mQv2j-zxieO-EoEAU1NmSe_BoZvYsy3ApOohv5D7w0r3n7S7kzCko6iVfjBXbTF63w1XLm0BT-C_hr6-ROJerS4l9kWWeVUxh4MK1doRMYzb1CFAsQuQjR4yfA9FrlQwq3uXgZ5l6Qr2eg_4UmgTSDdX43dCZRK-Ct-q1rfBhIt_rRyLj4cztKT_Kc_5AZIo_yTgL1z869lKEttSD7lawDSTSakXT4TlpYZlPejA');"></div>
+<div>
+<div class="font-semibold text-slate-900 dark:text-white text-sm">Sarah Connor</div>
+<div class="text-xs text-slate-500">ID: #98345 • Gr 11</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-12 w-8 bg-slate-200 rounded overflow-hidden shrink-0 shadow-sm" data-alt="Book cover for Intro to Physics" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6hDevTblcEN3_1U1TtGviuyBzqe0Juu1nxsg6pIruW63fLThRk4VMuI02sRHlqf4iglUpjBETcqyREesCoTwie3WYcrrNLtOtjJcffOJkKXfHrGfE80ilAvrLwWAa2XEmjbrv7owojCzgwBjA4u1nSeXtlB-JxIR3W8S2ZYPjuPquODfL4g6MuXof5I-SM9gGdOlqyKI5DZSqxNLmRL7iU0oPtGSdaV0Ff4J8oi4f-hNVhrIb_FLxMb9MPqMdcRe0NOCgk9F26_g'); background-size: cover;"></div>
+<div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Intro to Physics</div>
+<div class="text-xs text-slate-500 font-mono">Call: 530.1 PHY</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="text-sm text-slate-900 dark:text-white font-medium">Oct 23, 2023</div>
+<div class="text-xs text-orange-500 dark:text-orange-400 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[10px] icon-filled">schedule</span>
+                                            3 Days Late
+                                        </div>
+</td>
+<td class="p-4 align-middle text-right">
+<div class="text-sm font-bold text-slate-900 dark:text-white">$0.75</div>
+</td>
+<td class="p-4 align-middle">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                            1st Notice
+                                        </span>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center justify-center gap-2">
+<button class="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-colors tooltip-trigger" title="Send Reminder">
+<span class="material-symbols-outlined text-xl">forward_to_inbox</span>
+</button>
+<button class="p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors tooltip-trigger" title="Process Return">
+<span class="material-symbols-outlined text-xl">assignment_return</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-500 rounded-lg transition-colors tooltip-trigger" title="Flag Record">
+<span class="material-symbols-outlined text-xl">flag</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-red-50/50 dark:bg-red-900/5 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group">
+<td class="p-4 align-middle">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of Michael Ross" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_kNzWm9nR_XnvgKMITdk5dq74Gx96sXMEzXTk7QJXYMAMRcc1IW87rMkk6HBF_b-2khU1rjLvm5m1CHtuMIsG8oeuJXuUzqFHwqXvKbnXWGHA6dqHfQssXLqzIotazufv2zU0Y8NqbyhgtwtBzqpr00K5VERjAoRMT7f0SpKbE8kBimUUBlbrPmQPWQxwprvoQrknZ2ioKD8ljWBNRxMorzcdUDx11rQQNK8yIiP49p7qn0Qe-HfBZPPhMWM_HMDbtsiMG3FDbLY');"></div>
+<div>
+<div class="font-semibold text-slate-900 dark:text-white text-sm">Michael Ross</div>
+<div class="text-xs text-slate-500">ID: #98002 • Gr 12</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-12 w-8 bg-slate-200 rounded overflow-hidden shrink-0 shadow-sm" data-alt="Book cover for Advanced Calculus" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaonbByFm6Ad-BvNGMadUvlsHi_1ReOdY0x6R49pQasHNr7BY4VYSFyRoMJkRe1CrvlKaXvrUNNXBiTJe-NulZVZnPEzHGa_qf8nOdXnITPE7FoJXsI0gng3GKZeedrDWUzmWtySDnkriwyEfImI6dol2Cr1FL8IZ_nRgbJYIjdOJB7e3m3DKIiv8P42s1uJKf6axNQFJCgHg_we4oM0B2jF3FxmYEMWxHYaqA6MBtPeJb1HaHWQA8yLFN-WeAsOYiN5kSBj1_mNE'); background-size: cover;"></div>
+<div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Advanced Calculus</div>
+<div class="text-xs text-slate-500 font-mono">Call: 515.0 STE</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="text-sm text-slate-900 dark:text-white font-medium">Sep 10, 2023</div>
+<div class="text-xs text-red-600 dark:text-red-400 font-bold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[10px] icon-filled">error</span>
+                                            45 Days Late
+                                        </div>
+</td>
+<td class="p-4 align-middle text-right">
+<div class="text-sm font-bold text-red-600 dark:text-red-400">$25.00</div>
+<div class="text-[10px] text-slate-400">Max Fine Reached</div>
+</td>
+<td class="p-4 align-middle">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 gap-1">
+<span class="material-symbols-outlined text-[10px] icon-filled">lock</span>
+                                            Flagged
+                                        </span>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center justify-center gap-2">
+<button class="p-1.5 text-slate-400 hover:bg-slate-100 rounded-lg transition-colors cursor-not-allowed opacity-50" disabled="">
+<span class="material-symbols-outlined text-xl">forward_to_inbox</span>
+</button>
+<button class="p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors tooltip-trigger" title="Process Return">
+<span class="material-symbols-outlined text-xl">assignment_return</span>
+</button>
+<button class="p-1.5 text-red-600 bg-red-100 dark:bg-red-900/50 hover:bg-red-200 rounded-lg transition-colors tooltip-trigger" title="View Flag Details">
+<span class="material-symbols-outlined text-xl">info</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="p-4 align-middle">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of David Kim" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAyL30otssEGzFyAgIdc80PrK5RvwT0sce3AKC2MrXS9k_Fava7XNcGeBWBuWygwDYf04u0XWOL70r0HLCFLiuODGTOowuMBwHZeMuyQu1TnI1fhbnntF6BtyWU8dkE2ako7IeaZ7_PdQkB1OHtu2AgsuNDDD0gsoqUillTNqf-8XwuOlKOWEKF5a5i3m8tLOmFHByWKsXNKJVo8OCoJMOVC7ochoU_yVNff15djoZWtzf14YMYCe6yYwU_vH82hM9zij1CBROZZlo');"></div>
+<div>
+<div class="font-semibold text-slate-900 dark:text-white text-sm">David Kim</div>
+<div class="text-xs text-slate-500">ID: #99012 • Gr 09</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-12 w-8 bg-slate-200 rounded overflow-hidden shrink-0 shadow-sm" data-alt="Book cover for World History" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRjYKvU9c9Hi4HTCHSQvVbXOrk_w_-esGzx_ze3AkMdD1emWC38m2jGL9hBoWTttQO5Vf2FShDcYHN1bEX4SkBRXeIoPYTRyJgMKFVzSHDI3bGp88VVBTYcwD4mHkDP3tydLLRZjh9PyS_t7CMrhSZGjekwlLd5k9WJMOW9GemD4FDdrrgW_U4FRy8EVkXP5s7IFSphFA4dZbwuQyajJq5iko8fi5R4ZKfcfeCrcTkpjeEoz--npjTfZzLcTr6DMTnKA-_FqAp8WY'); background-size: cover;"></div>
+<div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">World History</div>
+<div class="text-xs text-slate-500 font-mono">Call: 909 HIS</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="text-sm text-slate-900 dark:text-white font-medium">Oct 20, 2023</div>
+<div class="text-xs text-orange-500 dark:text-orange-400 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[10px] icon-filled">schedule</span>
+                                            6 Days Late
+                                        </div>
+</td>
+<td class="p-4 align-middle text-right">
+<div class="text-sm font-bold text-slate-900 dark:text-white">$1.50</div>
+</td>
+<td class="p-4 align-middle">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                            1st Notice
+                                        </span>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center justify-center gap-2">
+<button class="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-colors tooltip-trigger" title="Send Reminder">
+<span class="material-symbols-outlined text-xl">forward_to_inbox</span>
+</button>
+<button class="p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors tooltip-trigger" title="Process Return">
+<span class="material-symbols-outlined text-xl">assignment_return</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-500 rounded-lg transition-colors tooltip-trigger" title="Flag Record">
+<span class="material-symbols-outlined text-xl">flag</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="p-4 align-middle">
+<input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-cover bg-center ring-1 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of Emma Wilson" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC41H_D9eUeF_rYgowf0ph8JBeU6mFsmiV5CIg3089hx9eWfmq3nN8KzIO2OoOQT-h8bl5YZViXypbslDOQZh0UhAfd40shxd6FxLazTTOZGwpw3r-NxY3ZExoCMqYPniqAzO7HPJhjys5IkUrGbAPhfM3I2gi4IbIBlTBdVjWMkktVO4FBW8MknrDdJNZsRrz5Mnuh8BZd70O-IKWnnNY3-yeF9Df6yBcMlMi3Fg3CwBsFpRHAGLL-R3D9B9a1acJs9q5MSpzI4js');"></div>
+<div>
+<div class="font-semibold text-slate-900 dark:text-white text-sm">Emma Wilson</div>
+<div class="text-xs text-slate-500">ID: #98881 • Gr 11</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center gap-3">
+<div class="h-12 w-8 bg-slate-200 rounded overflow-hidden shrink-0 shadow-sm" data-alt="Book cover for Chemistry 101" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCnlC37KkyWXEA2piKmBn6q6pbF8FlPy6xvsmug2AQE5lSdOsdxLQFheO3MYK2MzhjH0AcIWvMBlTzeYTglOA9braoZvbcdVWM1EKS2pHJoY6FynMc-cG9vKGBwPmazqYBBGpFdnEjHXuL9ukFBfz9kUvp-pCJ6u1oy2RJjxLytLKr6uCer26SsXDM5Er7yODrd5QF7X4vJwLt0DQWWNUkVQuelqVeLys86GIXYkghAM8RRJjuoLEdcJzwJ32XSUHohaUpH54nDMtA'); background-size: cover;"></div>
+<div>
+<div class="text-sm font-medium text-slate-900 dark:text-white">Chemistry 101</div>
+<div class="text-xs text-slate-500 font-mono">Call: 540 CHE</div>
+</div>
+</div>
+</td>
+<td class="p-4 align-middle">
+<div class="text-sm text-slate-900 dark:text-white font-medium">Oct 18, 2023</div>
+<div class="text-xs text-red-600 dark:text-red-400 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[10px] icon-filled">schedule</span>
+                                            8 Days Late
+                                        </div>
+</td>
+<td class="p-4 align-middle text-right">
+<div class="text-sm font-bold text-slate-900 dark:text-white">$2.00</div>
+</td>
+<td class="p-4 align-middle">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
+                                            2nd Notice
+                                        </span>
+</td>
+<td class="p-4 align-middle">
+<div class="flex items-center justify-center gap-2">
+<button class="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-colors tooltip-trigger" title="Send Reminder">
+<span class="material-symbols-outlined text-xl">forward_to_inbox</span>
+</button>
+<button class="p-1.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors tooltip-trigger" title="Process Return">
+<span class="material-symbols-outlined text-xl">assignment_return</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-500 rounded-lg transition-colors tooltip-trigger" title="Flag Record">
+<span class="material-symbols-outlined text-xl">flag</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Pagination -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div class="text-sm text-slate-500">
+                            Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">5</span> of <span class="font-medium text-slate-900 dark:text-white">42</span> results
+                        </div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 bg-primary text-white rounded-lg text-sm font-medium">1</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">2</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">3</button>
+<span class="flex items-center text-slate-400 px-1">...</span>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">9</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

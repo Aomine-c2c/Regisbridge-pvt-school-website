@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory Audit &amp; Financial Reporting</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "primary-dark": "#1e40a6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a202c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better density */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111317] dark:text-gray-100 overflow-hidden">
+<div class="relative flex h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar -->
+<aside class="flex h-full w-72 flex-col bg-surface-light dark:bg-surface-dark border-r border-[#dcdee5] dark:border-gray-700 shrink-0 z-20">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-10 shadow-sm" data-alt="School Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCW_2cPlwHuetctEeUO1GvJvI9XRly8LHrnhHAVvrqGabY3yRB5NwvdR6hCV51rNvjAs2BbRFchufb10EMI69rczHK8FuFEBrjMcnJT_OG_dDkjnx7kHbobYhe53PlanhmwynJ2z1XJfAJP-NqU-adlrv81VNzSRMMhit-P71zIQ8jG6D2JjQziWvQOwOJ-0EUqje0C5gCF8oDBMiY4Eu_TOOhpuBKQlWmXQq0C_z_JLYrrvFrep8reoWcyyO2a2MeRKQKz7Y73NfY");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-tight">Admin Portal</h1>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-normal">St. Peter's Academy</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-blue-400" href="#">
+<span class="material-symbols-outlined text-primary dark:text-blue-400">currency_exchange</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">school</span>
+<span class="text-sm font-medium">Academics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">groups</span>
+<span class="text-sm font-medium">HR &amp; Payroll</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">inventory_2</span>
+<span class="text-sm font-medium">Facilities</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9" data-alt="User Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDevo7uisFq5fNskORgi9YF02EyK6CFNBedGl-anlUU3Kwrg-3SogFkchHKvAlcDEnNEpFcX8OOB-_SPaYMNimeYc3oFdBid2C2frSYvIxKQG9z-V1JeV9ZijClB9nn1HUM-tzjOeHVc60PIOSq3-TokgTZgkVrJQHA-p3q_hTQ1122TOnHo87A-FjsG_xRdXm_CAVRqDiWgYkQ4KkZ5XId9FCdtRhTYMvl5GYQID5yLRiXiOouOvKLUscaQHpfThBDyo2VZ0L_tcc");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-gray-900 dark:text-white">Alex Morgan</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Chief Auditor</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-[#dcdee5] dark:border-gray-700 px-6 py-4 flex flex-col gap-4 shrink-0">
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Finance</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-gray-900 dark:text-gray-100 font-medium">Inventory Audit</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Inventory Audit &amp; Reporting</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-sm focus:ring-primary focus:border-primary w-64" placeholder="Search assets, reports..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-surface-light dark:bg-surface-dark border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">upload</span>
+                            Import Data
+                        </button>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                            New Audit Cycle
+                        </button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+<!-- Metrics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Fixed Assets</p>
+<span class="material-symbols-outlined text-gray-400">account_balance</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-gray-900 dark:text-white tabular-nums">$4,250,000</p>
+<span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/30 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">trending_up</span> 2.5%
+                                </span>
+</div>
+<p class="text-xs text-gray-500 mt-1">Vs. previous term</p>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Items Flagged</p>
+<span class="material-symbols-outlined text-gray-400">build</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-gray-900 dark:text-white tabular-nums">45 Items</p>
+<span class="text-xs font-medium text-orange-600 bg-orange-50 dark:bg-orange-900/30 px-1.5 py-0.5 rounded flex items-center">
+                                    Needs Repair
+                                </span>
+</div>
+<p class="text-xs text-gray-500 mt-1">12 Critical items</p>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Depreciation YTD</p>
+<span class="material-symbols-outlined text-gray-400">trending_down</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-gray-900 dark:text-white tabular-nums">-$125,000</p>
+<span class="text-xs font-medium text-red-600 bg-red-50 dark:bg-red-900/30 px-1.5 py-0.5 rounded flex items-center">
+                                    -5.0%
+                                </span>
+</div>
+<p class="text-xs text-gray-500 mt-1">Scheduled write-offs</p>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Audit Status</p>
+<span class="material-symbols-outlined text-gray-400">fact_check</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-primary tabular-nums">In Progress</p>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">65% Complete • Due in 3 days</p>
+</div>
+</div>
+<!-- Charts & Reports Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Col: Data Viz -->
+<div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Asset Distribution -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-base font-semibold text-gray-900 dark:text-white">Asset Distribution</h3>
+<button class="text-gray-400 hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="flex items-center gap-8 justify-center h-full">
+<!-- CSS Donut Chart -->
+<div class="relative size-40 rounded-full shrink-0" style="background: conic-gradient(#2957e0 0% 35%, #0ea5e9 35% 60%, #6366f1 60% 85%, #cbd5e1 85% 100%);">
+<div class="absolute inset-0 m-auto size-28 bg-surface-light dark:bg-surface-dark rounded-full flex items-center justify-center flex-col">
+<span class="text-sm font-medium text-gray-500">Total</span>
+<span class="text-xl font-bold text-gray-900 dark:text-white">1,240</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 text-sm">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-gray-600 dark:text-gray-300">IT &amp; Labs (35%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-sky-500"></span>
+<span class="text-gray-600 dark:text-gray-300">Classrooms (25%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-indigo-500"></span>
+<span class="text-gray-600 dark:text-gray-300">Sports (25%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-slate-300"></span>
+<span class="text-gray-600 dark:text-gray-300">Other (15%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Depreciation Trend -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-base font-semibold text-gray-900 dark:text-white">Depreciation Trend</h3>
+<div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-md p-0.5">
+<button class="px-2 py-0.5 text-xs font-medium rounded bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white">Term</button>
+<button class="px-2 py-0.5 text-xs font-medium rounded text-gray-500 hover:text-gray-700">Year</button>
+</div>
+</div>
+<div class="flex flex-1 items-end gap-4 h-40 px-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+<!-- Bars -->
+<div class="flex-1 flex flex-col justify-end gap-2 group">
+<div class="w-full bg-indigo-100 dark:bg-indigo-900/40 rounded-t-sm h-[60%] relative group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-xs text-center text-gray-500">T1</span>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-2 group">
+<div class="w-full bg-indigo-100 dark:bg-indigo-900/40 rounded-t-sm h-[75%] relative group-hover:bg-indigo-200 transition-colors"></div>
+<span class="text-xs text-center text-gray-500">T2</span>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-2 group">
+<div class="w-full bg-primary rounded-t-sm h-[90%] relative group-hover:bg-primary-dark transition-colors shadow-sm">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                $125k
+                                            </div>
+</div>
+<span class="text-xs text-center font-medium text-primary">T3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Report Generator -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm flex flex-col">
+<div class="p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 rounded-t-lg">
+<h3 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                    Report Generator
+                                </h3>
+<p class="text-xs text-gray-500 mt-1">Generate government-compliant PDFs.</p>
+</div>
+<div class="p-4 flex flex-col gap-4 flex-1">
+<!-- Report Type 1 -->
+<div class="flex flex-col gap-2 pb-4 border-b border-gray-100 dark:border-gray-800">
+<label class="text-sm font-medium text-gray-700 dark:text-gray-300">Stock Count Sheets</label>
+<div class="flex gap-2">
+<select class="block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 py-1.5 text-sm text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary sm:max-w-xs">
+<option>All Locations</option>
+<option>Science Lab A</option>
+<option>Gymnasium</option>
+</select>
+</div>
+<button class="mt-1 w-full flex items-center justify-center gap-2 rounded-md bg-white dark:bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600">
+<span class="material-symbols-outlined text-[16px]">download</span> Generate Sheet
+                                    </button>
+</div>
+<!-- Report Type 2 -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-gray-700 dark:text-gray-300">Financial Reports</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex flex-col items-center justify-center gap-1 p-3 rounded border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary">table_chart</span>
+<span class="text-xs font-medium text-gray-600 dark:text-gray-300">Depreciation</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-3 rounded border border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary">broken_image</span>
+<span class="text-xs font-medium text-gray-600 dark:text-gray-300">Lost/Damaged</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-800/30 rounded-b-lg">
+<button class="w-full flex items-center justify-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                                    Export Master Audit (XLS)
+                                </button>
+</div>
+</div>
+</div>
+<!-- Detailed Data Table -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg border border-[#dcdee5] dark:border-gray-700 shadow-sm overflow-hidden flex flex-col min-h-[400px]">
+<div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-center justify-between gap-4 bg-gray-50/50 dark:bg-gray-800/50">
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Current Asset Registry</h3>
+<p class="text-sm text-gray-500">Term 3, 2024 • Verified 2 days ago</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 text-gray-500 hover:text-primary transition-colors" title="Filter"><span class="material-symbols-outlined">filter_list</span></button>
+<button class="p-1.5 text-gray-500 hover:text-primary transition-colors" title="Settings"><span class="material-symbols-outlined">settings</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+<thead class="bg-gray-50 dark:bg-gray-800">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Asset ID</th>
+<th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Description</th>
+<th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Category</th>
+<th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Location</th>
+<th class="px-6 py-3 text-right text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Original Cost</th>
+<th class="px-6 py-3 text-right text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Current Value</th>
+<th class="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider" scope="col">Status</th>
+<th class="relative px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-surface-light dark:bg-surface-dark divide-y divide-gray-200 dark:divide-gray-700">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">AST-2024-001</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">MacBook Air M2 13"</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IT Equipment</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Computer Lab A</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right tabular-nums">$1,199.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right font-medium tabular-nums">$950.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Good</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-[18px]">edit</span></a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">AST-2023-842</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">Varsity Football Gear (Set)</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sports Equipment</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Gym Storage B</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right tabular-nums">$3,500.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right font-medium tabular-nums">$2,100.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Inspect</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-[18px]">edit</span></a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">AST-2022-115</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">Smartboard Pro 75"</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Electronics</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Room 304</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right tabular-nums">$4,200.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right font-medium tabular-nums">$2,800.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Good</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-[18px]">edit</span></a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">AST-2021-009</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">Dormitory Bunk Beds (Wing A)</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Furniture</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dorm Block A</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right tabular-nums">$12,000.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right font-medium tabular-nums">$6,500.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Damaged</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-[18px]">edit</span></a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">AST-2024-055</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">Chemistry Glassware Kit</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Lab Consumables</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Science Lab B</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right tabular-nums">$850.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right font-medium tabular-nums">$600.00</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Good</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-gray-400 hover:text-primary" href="#"><span class="material-symbols-outlined text-[18px]">edit</span></a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex items-center justify-between">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-gray-700 dark:text-gray-400">
+                                        Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">1240</span> results
+                                    </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm">
+<a class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</a>
+<a aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">1</a>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0" href="#">2</a>
+<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-offset-0">...</span>
+<a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

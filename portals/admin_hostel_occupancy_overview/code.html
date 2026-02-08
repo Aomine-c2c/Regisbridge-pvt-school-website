@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Hostel Occupancy Overview</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2957e0",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111521",
+                        "surface-dark": "#1a202e",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111317] dark:text-gray-100 overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-surface-dark border-r border-[#dcdee5] dark:border-gray-700 flex flex-col justify-between h-full overflow-y-auto">
+<div class="flex flex-col gap-4 p-4">
+<!-- User Profile -->
+<div class="flex gap-3 items-center pb-4 border-b border-[#dcdee5] dark:border-gray-700">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 shadow-sm" data-alt="Admin user profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCIk5xLrKAHrZElDQfZy8AvJ2xvx8BBisT7lL95ZWrwi8Yr5xCYaK-FRo8hQ8yM6UxiJnPvuv0iQ-a7rQ2yYVOUZDArr2IrMnTNYafnjpWALNQpyrpkscUGRAQNJ96HcFtP5daNfa6_cietrvuMKoYohDzq87cXXr9RzZSqn8XmXHCYBCIxZbUto_A5QcZwn7ffSMet-ye05nc5gFNNwAAxSq1jCPGt8jzLNOjOLWSd2zUMfX_dd8NuNz2sxxQxGDcyg3etSW9zQyY");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#111317] dark:text-white text-base font-bold leading-normal">Admin Portal</h1>
+<p class="text-[#646d87] dark:text-gray-400 text-sm font-normal leading-normal">Saint Mary's Institute</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 group-hover:text-primary">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 group-hover:text-primary">school</span>
+<p class="text-sm font-medium leading-normal">Students</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 group-hover:text-primary">menu_book</span>
+<p class="text-sm font-medium leading-normal">Academics</p>
+</a>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined fill-1">bed</span>
+<p class="text-sm font-bold leading-normal">Hostel &amp; Dorms</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 group-hover:text-primary">account_balance</span>
+<p class="text-sm font-medium leading-normal">Finance</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-[#111317] dark:text-gray-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400 group-hover:text-primary">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#dcdee5] dark:border-gray-700">
+<button class="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Sign Out</p>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 h-full overflow-y-auto bg-background-light dark:bg-background-dark">
+<div class="max-w-[1200px] mx-auto p-4 md:p-8 flex flex-col gap-6">
+<!-- Hero Section -->
+<div class="relative w-full rounded-xl overflow-hidden shadow-sm min-h-[180px] flex items-end">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Modern university dormitory hallway with clean lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAH09Op5NL12fBvx1SSLOmn-2-58A_DsvXXdmeAVTn6nmClNg5zdAC_E18Xrq4BqibX7L0aH0eOEignqnrIBQa6VP7crV0HVNxTrHXmuzsqhuGVVAEAShKLnSvdVsMmhqZk3rV_eG2zsaszwq8aq-gmhgK0jck44AESg3fwEOXieueKs7xM9Xk6hvQV8IxIR1hkZ6fuO6XUFyaO2BD6hRfRdMIK1NuZCNDwE3Y6ytCuE1tMpG2lsFgA2CT67oG4jFkJcTkffaOlPZM");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+<div class="relative z-10 p-6 flex justify-between items-end w-full">
+<div>
+<p class="text-gray-300 text-sm font-medium uppercase tracking-wider mb-1">Saint Mary's Institute</p>
+<h1 class="text-white text-3xl font-bold leading-tight">Hostel Management Dashboard</h1>
+</div>
+<div class="hidden sm:block">
+<button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                                Assign Student
+                            </button>
+</div>
+</div>
+</div>
+<!-- Metrics Section -->
+<section>
+<h3 class="text-[#111317] dark:text-white text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                        Occupancy Metrics
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric Card 1 -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Capacity</p>
+<span class="material-symbols-outlined text-blue-500 bg-blue-50 dark:bg-blue-900/30 p-1 rounded">apartment</span>
+</div>
+<p class="text-[#111317] dark:text-white text-2xl font-bold">1,200 Beds</p>
+<div class="flex items-center gap-1 text-xs">
+<span class="text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded">+0%</span>
+<span class="text-gray-400">vs last semester</span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Current Residents</p>
+<span class="material-symbols-outlined text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 p-1 rounded">groups</span>
+</div>
+<p class="text-[#111317] dark:text-white text-2xl font-bold">1,050 Students</p>
+<div class="flex items-center gap-1 text-xs">
+<span class="text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded">+5%</span>
+<span class="text-gray-400">year-over-year</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Occupancy Rate</p>
+<span class="material-symbols-outlined text-orange-500 bg-orange-50 dark:bg-orange-900/30 p-1 rounded">pie_chart</span>
+</div>
+<p class="text-[#111317] dark:text-white text-2xl font-bold">87.5%</p>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-1">
+<div class="bg-orange-500 h-1.5 rounded-full" style="width: 87.5%"></div>
+</div>
+</div>
+<!-- Metric Card 4 -->
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Maintenance</p>
+<span class="material-symbols-outlined text-red-500 bg-red-50 dark:bg-red-900/30 p-1 rounded">engineering</span>
+</div>
+<p class="text-[#111317] dark:text-white text-2xl font-bold">15 Rooms</p>
+<p class="text-[#646d87] dark:text-gray-400 text-xs font-medium">3 pending urgent requests</p>
+</div>
+</div>
+</section>
+<!-- Room Overview Section -->
+<section class="flex flex-col gap-4 flex-1">
+<div class="flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4">
+<h3 class="text-[#111317] dark:text-white text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+                            Dormitory Status
+                        </h3>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-2">
+<div class="relative">
+<select class="appearance-none bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+<option>North Wing (Boys)</option>
+<option>South Wing (Girls)</option>
+<option>East Wing (Juniors)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+<option>Floor 1</option>
+<option>Floor 2</option>
+<option>Floor 3</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">expand_more</span>
+</div>
+<button class="bg-white dark:bg-surface-dark border border-[#dcdee5] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg text-gray-500 dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Room Grid -->
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-[#dcdee5] dark:border-gray-700 p-5 shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-gray-700 dark:text-gray-200">North Wing - Floor 1</h4>
+<div class="flex gap-4 text-xs font-medium">
+<div class="flex items-center gap-1.5"><span class="size-2.5 rounded-full bg-emerald-500"></span> Available</div>
+<div class="flex items-center gap-1.5"><span class="size-2.5 rounded-full bg-blue-500"></span> Occupied</div>
+<div class="flex items-center gap-1.5"><span class="size-2.5 rounded-full bg-amber-500"></span> Maintenance</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Room Card 1 (Full) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary bg-gray-50 dark:bg-gray-800/50 transition-all cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-bold px-2 py-1 rounded text-sm">Room 101</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Occupancy</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-blue-500 w-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-200">4/4</span>
+</div>
+</div>
+<div class="flex -space-x-2 overflow-hidden py-1">
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Male student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxMz9nyrmPiwltas2iwjMpu5WZObsuDY1kn0VnsmXzI-ioX8XYcuKVzMzLulroAZzBa7WF2u9z-aCAxTizIz4MNLZybzBwD4tJovFMzcesl9TjM9zB2Y8CrIpztnVXsKZbg_8WGjbg_TRgjTKC_2JCGLQq-ZoLHC-JkHXkMY3yU3d1bUjwtKnBshSW3N077tEyq2fqgVEPGX0B8K_KE_fseykz4bkf2GRcwslfjm5t8hCson6kR1_IExSqkujvHWfX9qvIE4QmUf4"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Female student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxdFGt202J6OGsZjw1fs1fQaoexXNPS3Ukj_RRWynvdnC5ZayWXKrPCf_l-6Wc-MWSdWCogoC2L8DmKcYCP2-S0XUrGarF0cgm-4K8UpTmzrhy-sVHBwpO3ef3QRUq_EzIydSIk5u6agszKBYe9Sg9ccJUH43LqhDy2eYTbbGG9tYyoiUoH5pjj8ZfNf-rZ4vydxlBkfeNhgxM016LTVo7BeLpoPHEsU-_bcoLeTEQbvDdHhZBcR3_brrF-OuI2td1SLfhJVCSep0"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Male student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAigRsWRKLLM8nRL-gx0qpNFP-5hHfsuwbnNr_K5DDMKL6QRmEXd5Vh6xwXxSg3AOefAaviOvJ1ZV-dBNnYY69r-vzNuxAgY4BY6ejPrh_8iBXaMuQyMPkGH_6z5STCyXzhjeaPs4yUcP53gZQc44H5nhqnGPkvehPPKe6Xhn9g_AS6OaPqb5hvax6T2wyNfA6OCUBqC9c4Iq5FOvpx9nWskKIQb0LG7PNz_5lVXOXmrNodJxZBnZTr4uCgX9wKcHmcf4liXqWZiTQ"/>
+<div class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 text-xs font-medium flex items-center justify-center ring-2 ring-white dark:ring-gray-800">+1</div>
+</div>
+</div>
+<!-- Room Card 2 (Available) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 bg-white dark:bg-surface-dark transition-all cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start">
+<div class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-1 rounded text-sm">Room 102</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Occupancy</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-1/2"></div>
+</div>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-200">2/4</span>
+</div>
+</div>
+<div class="flex -space-x-2 overflow-hidden py-1">
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Male student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9WX6VRJrtGHg5IQaajoxWlEf3cpVLBthwbgaJaiQMPrcI7VtIt4M-vMGXjkPcrj1QJj4KWACstBVTczt344s2bRUqgzO2LL1duXwII4yQGf75iJk_hU2v-6Fw6Vam-2WqKl1S1Kx_JwV06A1tasoUgbupvjlxNLBFRRLZQ7JI5HHhDVWRXIlyYZlAfHrsiFVTEkl_0PkD4Zmioo_uvcOBQWEKzSqBbnhzLM9YRmfjEQ5c819fhSEIzdHqj5kug8XRJva3TEflArw"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Female student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbewwcDKFNVu-AxzWv2gJA184wFIHU7X8Q4ng7Xs5ePHGIQkkoU3ODzI47QJxGj3_SHGhr2etVJJEYM9Lm5UrFEGEIT5m9P-dI50R6BWC9sXjOEHaA5mm38q_KAom0BWqBrXLLkW1g0WA6jztN1wTnPg3bt8Rncfl9vQfKviO_6yevVcpBGz5Z1sIUKZ1Uu2GKQwUwK2VF-roMAkTz0iEDT9wYME6unhccJdLpt8HGCpF-4UkVb-vmL4togEawLXco1debHaMLbbQ"/>
+</div>
+</div>
+<!-- Room Card 3 (Empty) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 bg-white dark:bg-surface-dark transition-all cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start">
+<div class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-1 rounded text-sm">Room 103</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Occupancy</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-0"></div>
+</div>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-200">0/4</span>
+</div>
+</div>
+<div class="flex items-center gap-2 py-1.5">
+<span class="text-xs text-gray-400 italic">No students assigned</span>
+</div>
+</div>
+<!-- Room Card 4 (Maintenance) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-900/10 transition-all cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-bold px-2 py-1 rounded text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">build</span> Room 104
+                                    </div>
+<span class="material-symbols-outlined text-amber-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-amber-600 dark:text-amber-400 font-medium uppercase tracking-wide">Status</p>
+<div class="flex items-center gap-2">
+<p class="text-sm font-semibold text-amber-800 dark:text-amber-200">Under Repair</p>
+</div>
+</div>
+<div class="flex items-center gap-2 py-1.5">
+<p class="text-xs text-amber-600 dark:text-amber-400">ETA: 2 Days</p>
+</div>
+</div>
+<!-- Room Card 5 (Full) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary bg-gray-50 dark:bg-gray-800/50 transition-all cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-bold px-2 py-1 rounded text-sm">Room 105</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Occupancy</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-blue-500 w-full"></div>
+</div>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-200">4/4</span>
+</div>
+</div>
+<div class="flex -space-x-2 overflow-hidden py-1">
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Male student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuCE7p1eTug3wCfDE8zR5BC4EH8nPXx4JDllG55y2S6O-P1a_O9dcJ5V7k8_0BnOTGNd70ReRLV_jgkGknl_bgqEdemmHcy5_h9bd2y3yt4vt-NOm8e9NJUkRQ5zxWaVkQi8_IE6-KElKr7voP4UpS8u5hjgeiNz7-QhyZPZ4R6CdAlf8pZU5pk7Nmr410klnnlvmSxz11FAMgviEyjSyQNRZ-qkXHq6fuY1Pnz-w_6Fu4G_WDac7NYOLMI3FCIZx5DU7fSEFyMdo"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Female student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBejXT7oh35IL7KA8vZwEfqIeLSv9r0WfTmKpquzDUMqzW2FbKFg6aGUntmHmwDf7UOt3RFVsnruVl6TDrb_iSeofAnPoi99flFhV8csbohOMYsFbGDxERqfk6-0l7nQDhWy287eDO7dNCpZ-weackhxgQLfO22F3lXFoV5e14biajZE48fEAuQb95mIMwrw-hfGWL-3YKfDxfXF5bcmZ9IebplhWhdAAKdkNbxQS42WhnnFcscvCkKp9cPeZxFKdjpbvcDXLv4Q8"/>
+<div class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 text-xs font-medium flex items-center justify-center ring-2 ring-white dark:ring-gray-800">+2</div>
+</div>
+</div>
+<!-- Room Card 6 (Available) -->
+<div class="group relative flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 bg-white dark:bg-surface-dark transition-all cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start">
+<div class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-1 rounded text-sm">Room 106</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">more_horiz</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Occupancy</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-3/4"></div>
+</div>
+<span class="text-xs font-bold text-gray-700 dark:text-gray-200">3/4</span>
+</div>
+</div>
+<div class="flex -space-x-2 overflow-hidden py-1">
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Female student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW-xsdP5WQnR-4YirNgzgAKmZqIq5m5zZSoBbPTftPeckFHOg2wFD1CGIOC2kizH39RrTsOT4Dm4EaOha-JtbmhOdvTH9WDLT_cVWCmwyBaFbsHKQ5wzdwfBVRgmWw56Vzw_yP-2FIBjLIX8IDz9Ii3C6-MAfTOzF-Z-qy4lvUj1j-jUSRSUNdirO8EFFV7cmarEmzcClVqeqo1lCg-7eDNZVATgAM01KKkZPFUwJKwbVqegd1C1r63lOU13A5sk1Wjoc2WMZWgMg"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Female student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSvxzs-iDHIyq8TyJ2AW98lz3Z12-QDn7vBzIANCedrpPsACbPiD826MQH0PoHwiTazaMsZeqyAT1kJSq_GwIw_mEHIFETop574vmbcTXZhv7BcJ6v54XyB_7-Gjpq5KGnTnyDZtFTUuH_6VzXPIX64vr058FreTS9l2pNCgP6bcKzQX4WN3UGmErNfpppVdawZOUnrJDFFIYNncByWZmgvvC8F6fgim5-fuS8QjrIulfDSL3NzZ1vnOpcSIJqJ35c6WfjfutWN2s"/>
+<img alt="Student" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800" data-alt="Male student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_AqEOAJR6LFy7OZ9Ze5XxmD970W1neZiJsl36ju-ZCLxdVviiimQvS1UUtYWTmXKrfhat5tYdmOMkc6zLSy6G8SOecRix9L7Z98H3j-ewkxiJjOuGsT7mUCxDk2Q59gMm7Vrm1oXKoSaKE9Vi9WDzNV-EYS2rjGVVIRhJA0mce4Cgg70GNCGg8eqaxn_EjbBgKOSWxwqHI2UqoaatbEnxc9UI_icJGUQ9nai2EDr1hPw9B8PqMszd21HtvGfafBx-EwtzrKSNZtw"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer area / Secondary Table -->
+<section class="mb-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-[#dcdee5] dark:border-gray-700 p-0 shadow-sm overflow-hidden">
+<div class="p-4 border-b border-[#dcdee5] dark:border-gray-700 flex justify-between items-center">
+<h4 class="font-bold text-[#111317] dark:text-white">Recent Maintenance Requests</h4>
+<a class="text-primary text-sm font-medium hover:underline" href="#">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
+<tr>
+<th class="px-6 py-3">Room</th>
+<th class="px-6 py-3">Issue</th>
+<th class="px-6 py-3">Reported By</th>
+<th class="px-6 py-3">Date</th>
+<th class="px-6 py-3">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-[#111317] dark:text-gray-200">104</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Broken AC Unit</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Warden Smith</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Oct 24, 2023</td>
+<td class="px-6 py-4"><span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full font-medium">In Progress</span></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-[#111317] dark:text-gray-200">205</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Leaking Faucet</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Sarah Jones (Student)</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Oct 23, 2023</td>
+<td class="px-6 py-4"><span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">Pending</span></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-[#111317] dark:text-gray-200">301</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Window Latch</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Warden Smith</td>
+<td class="px-6 py-4 text-gray-600 dark:text-gray-400">Oct 20, 2023</td>
+<td class="px-6 py-4"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full font-medium">Resolved</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

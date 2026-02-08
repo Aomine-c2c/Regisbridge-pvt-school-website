@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fleet Maintenance &amp; Compliance Tool</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a222c",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "sans": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-gray-100 min-h-screen flex overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-[#dbe0e6] dark:border-gray-800 flex-col hidden lg:flex h-screen sticky top-0">
+<div class="p-6 border-b border-[#dbe0e6] dark:border-gray-800">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 shrink-0 shadow-sm" data-alt="School Administrator Profile Picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDj_aJQYMbnS9vjFEs-MxXY0KPbUrrxA05DNkj-jjBedBPXwc6DkTOoG1GfsBo8QjnnO6nPGBx-4-GKmmjAjpWheBatQtavnm7yd5I7lM_MD615NKpey8Nxlc_1QMJhKYzk6NXGtLpHJtjumo1ySpPp_84ZId5jgZDiaoRy7AA0AlaaQF0vrmRqYr2nSizzU2vspREfAw1Eg1JpKznJnvK0yjrHotWaD4Ce-QDmZorsVirCh8ie1qBAwpGqdlxU1J-TSW9CTOwOCB0");'></div>
+<div class="flex flex-col overflow-hidden">
+<h1 class="text-[#111418] dark:text-white text-base font-bold leading-normal truncate">Sarah Jenkins</h1>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal truncate">Eagleton Academy Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-background-light dark:hover:bg-gray-800 text-[#617589] dark:text-gray-400 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-400 group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium leading-normal group-hover:text-[#111418] dark:group-hover:text-white transition-colors">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined fill text-primary">directions_bus</span>
+<span class="text-sm font-bold leading-normal">Transport</span>
+</a>
+<div class="pl-11 pr-3 flex flex-col gap-1">
+<a class="text-sm font-medium text-[#617589] dark:text-gray-400 py-1.5 hover:text-primary transition-colors" href="#">Routes &amp; Schedules</a>
+<a class="text-sm font-bold text-primary py-1.5" href="#">Fleet Maintenance</a>
+<a class="text-sm font-medium text-[#617589] dark:text-gray-400 py-1.5 hover:text-primary transition-colors" href="#">Drivers</a>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-background-light dark:hover:bg-gray-800 text-[#617589] dark:text-gray-400 group transition-colors mt-2" href="#">
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-400 group-hover:text-primary transition-colors">school</span>
+<span class="text-sm font-medium leading-normal group-hover:text-[#111418] dark:group-hover:text-white transition-colors">Students</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-background-light dark:hover:bg-gray-800 text-[#617589] dark:text-gray-400 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-400 group-hover:text-primary transition-colors">group</span>
+<span class="text-sm font-medium leading-normal group-hover:text-[#111418] dark:group-hover:text-white transition-colors">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-background-light dark:hover:bg-gray-800 text-[#617589] dark:text-gray-400 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-400 group-hover:text-primary transition-colors">payments</span>
+<span class="text-sm font-medium leading-normal group-hover:text-[#111418] dark:group-hover:text-white transition-colors">Financials</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#dbe0e6] dark:border-gray-800">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-background-light dark:hover:bg-gray-800 text-[#617589] dark:text-gray-400 group transition-colors" href="#">
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-400 group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium leading-normal group-hover:text-[#111418] dark:group-hover:text-white transition-colors">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto">
+<!-- Header -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-[#dbe0e6] dark:border-gray-800 sticky top-0 z-10">
+<div class="px-6 py-4 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sm text-[#617589] dark:text-gray-400">
+<a class="hover:text-primary" href="#">Home</a>
+<span>/</span>
+<a class="hover:text-primary" href="#">Transport</a>
+<span>/</span>
+<span class="text-[#111418] dark:text-white font-medium">Maintenance</span>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h2 class="text-2xl md:text-3xl font-bold text-[#111418] dark:text-white tracking-tight">Fleet Maintenance &amp; Compliance</h2>
+<p class="text-[#617589] dark:text-gray-400 text-sm mt-1">Monitor vehicle health, insurance status, and operational costs.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-light dark:bg-gray-800 border border-[#dbe0e6] dark:border-gray-700 rounded-lg text-sm font-semibold text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-base">file_download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-blue-600 text-white rounded-lg text-sm font-bold shadow-sm transition-colors">
+<span class="material-symbols-outlined text-base">add</span>
+                            Add Vehicle
+                        </button>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="px-6 flex gap-6 overflow-x-auto border-t border-[#dbe0e6] dark:border-gray-800 mt-2">
+<button class="py-3 text-sm font-bold text-primary border-b-2 border-primary whitespace-nowrap">Dashboard Overview</button>
+<button class="py-3 text-sm font-medium text-[#617589] dark:text-gray-400 hover:text-[#111418] dark:hover:text-white border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap">Fleet Registry</button>
+<button class="py-3 text-sm font-medium text-[#617589] dark:text-gray-400 hover:text-[#111418] dark:hover:text-white border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap">Maintenance History</button>
+<button class="py-3 text-sm font-medium text-[#617589] dark:text-gray-400 hover:text-[#111418] dark:hover:text-white border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors whitespace-nowrap">Fuel &amp; Expenses</button>
+</div>
+</header>
+<div class="p-6 flex flex-col gap-6 max-w-[1600px] mx-auto w-full">
+<!-- Alert Banner -->
+<div class="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex gap-4">
+<div class="bg-red-100 dark:bg-red-900/50 p-2 rounded-full h-10 w-10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400">warning</span>
+</div>
+<div>
+<h3 class="text-red-900 dark:text-red-200 font-bold text-sm">Critical Compliance Warning</h3>
+<p class="text-red-700 dark:text-red-300 text-sm mt-0.5">Vehicle #402 (Ford Transit) and Vehicle #110 (Blue Bird) have overdue inspections. Immediate action required to maintain active status.</p>
+</div>
+</div>
+<button class="whitespace-nowrap px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors w-full sm:w-auto text-center">
+                    Schedule Inspection
+                </button>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-[#dbe0e6] dark:border-gray-800 shadow-sm flex flex-col justify-between h-full">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Total Fleet Size</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-md text-xl">directions_bus</span>
+</div>
+<div>
+<p class="text-3xl font-black text-[#111418] dark:text-white tracking-tight">42</p>
+<div class="flex items-center gap-1 mt-1 text-emerald-600 dark:text-emerald-400 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+2 Vehicles vs last year</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-[#dbe0e6] dark:border-gray-800 shadow-sm flex flex-col justify-between h-full">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Service Due (7 Days)</p>
+<span class="material-symbols-outlined text-amber-500 bg-amber-50 dark:bg-amber-900/30 p-1.5 rounded-md text-xl">build</span>
+</div>
+<div>
+<p class="text-3xl font-black text-[#111418] dark:text-white tracking-tight">3</p>
+<div class="flex items-center gap-1 mt-1 text-amber-600 dark:text-amber-400 text-xs font-bold">
+<span>Pending Maintenance</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-[#dbe0e6] dark:border-gray-800 shadow-sm flex flex-col justify-between h-full">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Insurance Alerts</p>
+<span class="material-symbols-outlined text-red-500 bg-red-50 dark:bg-red-900/30 p-1.5 rounded-md text-xl">policy</span>
+</div>
+<div>
+<p class="text-3xl font-black text-[#111418] dark:text-white tracking-tight">2</p>
+<div class="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-xs font-bold">
+<span>Expiring within 30 days</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-[#dbe0e6] dark:border-gray-800 shadow-sm flex flex-col justify-between h-full">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Monthly Fuel Spend</p>
+<span class="material-symbols-outlined text-blue-500 bg-blue-50 dark:bg-blue-900/30 p-1.5 rounded-md text-xl">local_gas_station</span>
+</div>
+<div>
+<p class="text-3xl font-black text-[#111418] dark:text-white tracking-tight">$12,450</p>
+<div class="flex items-center gap-1 mt-1 text-[#617589] dark:text-gray-400 text-xs font-medium">
+<span class="text-emerald-600 dark:text-emerald-400 font-bold">+5%</span> vs last month
+                        </div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Main Data Table (Wider Column) -->
+<div class="xl:col-span-2 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white">Fleet Registry</h3>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-[#617589] dark:text-gray-400 text-lg">search</span>
+<input class="pl-9 pr-4 py-1.5 text-sm bg-white dark:bg-surface-dark border border-[#dbe0e6] dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-[#111418] dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 w-48 lg:w-64" placeholder="Search vehicle..." type="text"/>
+</div>
+<button class="p-1.5 bg-white dark:bg-surface-dark border border-[#dbe0e6] dark:border-gray-700 rounded-lg text-[#617589] dark:text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">filter_list</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="bg-gray-50 dark:bg-gray-800/50 text-[#617589] dark:text-gray-400 font-semibold border-b border-[#dbe0e6] dark:border-gray-800">
+<tr>
+<th class="px-5 py-4 w-16">ID</th>
+<th class="px-5 py-4">Vehicle Info</th>
+<th class="px-5 py-4">Assigned Driver</th>
+<th class="px-5 py-4">Next Service</th>
+<th class="px-5 py-4">Status</th>
+<th class="px-5 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#dbe0e6] dark:divide-gray-800">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-5 py-4 font-mono text-xs text-[#617589] dark:text-gray-500">#402</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="White Ford Transit Van" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD0Q1EYABp6b_aUBbzPmD3dzY78A9Vg9Dytr_yyMfUhUMTOnrv_liN_dw-yV0voXrnIOnCj65DTpZQoY0vl38E7JcLbosjEdBxDOB8fLjyyNslZJLbsGjqqmf0eh_oWGMKjB4CsKiDCOy_TRVZHQOo57gdC8ek4IlvVW84QT6QI3maJZ4cW_Y9UZA3libEjrYyh4GSven37-k56hIvlgSOjmKe6biM9gtFGWcJYGgkC1Nd5drqfbInkfPjTLHaIr60bkQdG8Y9iSk');"></div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Ford Transit 350</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Reg: GWA-4482 • 2021</p>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">JD</div>
+<span class="text-[#111418] dark:text-gray-200">John Doe</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="text-red-600 dark:text-red-400 font-bold">Overdue (2 days)</span>
+<p class="text-xs text-[#617589]">Odo: 45,200 km</p>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+<span class="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                                                Action Required
+                                            </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-semibold text-sm">Manage</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-5 py-4 font-mono text-xs text-[#617589] dark:text-gray-500">#110</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="Yellow School Bus" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAjgFKnRjOp_wSwnAy7qBJ8w-F5lmKrajUbW5J_7QuR-4Y6wxMmqlDBEkMDC57aAdyAeAvT6vMPzpUzo0CEMPjSFvsT_JQxJEZ7WapXrGMhumr_lsMlyxOQHzgcaG4PThcUyueQHmIbGkJ9NPnnxSdmdF_r524-WFGbqiTlHayaGvZutxwu0cmbhtbimo34ggb3IIgexr0yauuhIl4CzxI8s82K4UY_h-wFsquuqD5YtD7eKgH1GGfq7XKIGTNlo2p1x1yEstRPv8Q');"></div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Blue Bird Vision</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Reg: BUS-0092 • 2019</p>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold">MR</div>
+<span class="text-[#111418] dark:text-gray-200">Mike Ross</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="text-amber-600 dark:text-amber-400 font-bold">Oct 24, 2023</span>
+<p class="text-xs text-[#617589]">Due in 5 days</p>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+<span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span>
+                                                Maintenance
+                                            </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-semibold text-sm">Manage</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-5 py-4 font-mono text-xs text-[#617589] dark:text-gray-500">#205</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="Silver Sedan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHy621QpBSCTboc-qE7J9CqNwPjOFjsyUt-hIYPzooW49VHKn2yietOWoW0idon1IVWxAR0wL23lw7ZkF8c433JEzKfgqYMS9K8vxplEGmeJWKQcMvBhHyPg8rC7rZPJg4OdjatpB4OAVgW4gnhJOPULhOrMhQ1e1Noa3J1qbgKLX1P1VoWNeLrf1o_kLLLFsNjfewYRFfHaGA6vmCTkQmftY-vOKVTqmo8Y_8PvdEpyfWrOwXZhVPAZpIfK-H4AVQSo6zMGGrNt8');"></div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Toyota Camry</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Reg: ADM-1123 • 2022</p>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">AS</div>
+<span class="text-[#111418] dark:text-gray-200">Alice Smith</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="text-[#111418] dark:text-white font-medium">Nov 15, 2023</span>
+<p class="text-xs text-[#617589]">Odo: 12,100 km</p>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-semibold text-sm">Manage</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-5 py-4 font-mono text-xs text-[#617589] dark:text-gray-500">#315</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="White Minivan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8qcUAx7oZbBbNS2VZAPuiLL9QWQB_-ADyfEJJaZfQpUQt4tnKqjLjlC-xrdglyQTREXT0oonXXybgSDVANLJQt9RQT2gYlpsHYW9DOiLoX7FGDIZmudHVK9UWyM91W74cOqBzboCx9jbI5XKjVO7cQctn_m3EzpaIF9xR19RoqOJygmPrv4CvYhb1Oq7KCJZj79yjdAwAw4l3rVWTaXkogRLK1J35xP5dKEs4AREvAZALukHhfkAaW4NqA_umqk-RaD1kjFJs3y8');"></div>
+<div>
+<p class="font-bold text-[#111418] dark:text-white">Honda Odyssey</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Reg: FAM-8892 • 2020</p>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-2">
+<span class="text-[#617589] italic">Unassigned</span>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="text-[#111418] dark:text-white font-medium">Dec 02, 2023</span>
+<p class="text-xs text-[#617589]">Odo: 28,400 km</p>
+</td>
+<td class="px-5 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-5 py-4 text-right">
+<button class="text-primary hover:text-blue-700 dark:hover:text-blue-400 font-semibold text-sm">Manage</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-5 py-3 border-t border-[#dbe0e6] dark:border-gray-800 flex items-center justify-between bg-gray-50 dark:bg-gray-800/30">
+<span class="text-xs text-[#617589] dark:text-gray-400">Showing 4 of 42 vehicles</span>
+<div class="flex gap-1">
+<button class="h-8 w-8 flex items-center justify-center rounded border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-surface-dark text-[#617589] hover:bg-gray-50 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="h-8 w-8 flex items-center justify-center rounded border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-surface-dark text-[#617589] hover:bg-gray-50 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Compliance Calendar & Tools (Narrower Column) -->
+<div class="xl:col-span-1 flex flex-col gap-6">
+<!-- Compliance Calendar Widget -->
+<div class="bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-gray-800 rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-[#111418] dark:text-white">Compliance Calendar</h3>
+<div class="flex items-center text-sm font-semibold text-primary cursor-pointer hover:underline">
+                                Oct 2023
+                                <span class="material-symbols-outlined text-base">arrow_drop_down</span>
+</div>
+</div>
+<!-- Visual Mini Calendar Row -->
+<div class="grid grid-cols-7 gap-1 text-center mb-4">
+<div class="text-[10px] font-bold text-[#617589] uppercase">M</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">T</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">W</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">T</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">F</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">S</div>
+<div class="text-[10px] font-bold text-[#617589] uppercase">S</div>
+<!-- Days -->
+<div class="h-8 flex items-center justify-center text-xs text-gray-400">16</div>
+<div class="h-8 flex items-center justify-center text-xs text-gray-400">17</div>
+<div class="h-8 flex items-center justify-center text-xs text-[#111418] dark:text-white relative font-bold bg-primary/10 rounded-full text-primary">
+                                 18
+                                 <span class="absolute bottom-1 w-1 h-1 bg-primary rounded-full"></span>
+</div>
+<div class="h-8 flex items-center justify-center text-xs text-[#111418] dark:text-white">19</div>
+<div class="h-8 flex items-center justify-center text-xs text-[#111418] dark:text-white relative">
+                                 20
+                                 <span class="absolute bottom-1 w-1 h-1 bg-red-500 rounded-full"></span>
+</div>
+<div class="h-8 flex items-center justify-center text-xs text-[#111418] dark:text-white">21</div>
+<div class="h-8 flex items-center justify-center text-xs text-[#111418] dark:text-white">22</div>
+</div>
+<!-- Upcoming Events List -->
+<div class="flex flex-col gap-3">
+<h4 class="text-xs font-bold text-[#617589] uppercase tracking-wide">Upcoming Events</h4>
+<div class="flex gap-3 items-start p-3 rounded-lg border border-[#dbe0e6] dark:border-gray-800 bg-gray-50 dark:bg-gray-800/30">
+<div class="bg-white dark:bg-gray-700 border border-[#dbe0e6] dark:border-gray-600 rounded flex flex-col items-center justify-center h-10 w-10 shrink-0">
+<span class="text-[10px] font-bold text-red-600 uppercase">Oct</span>
+<span class="text-sm font-bold text-[#111418] dark:text-white">20</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111418] dark:text-white">Insurance Renewal</p>
+<p class="text-xs text-[#617589]">Fleet Policy #99238 • High Priority</p>
+</div>
+</div>
+<div class="flex gap-3 items-start p-3 rounded-lg border border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-surface-dark">
+<div class="bg-white dark:bg-gray-700 border border-[#dbe0e6] dark:border-gray-600 rounded flex flex-col items-center justify-center h-10 w-10 shrink-0">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Oct</span>
+<span class="text-sm font-bold text-[#111418] dark:text-white">24</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111418] dark:text-white">Inspection: Bus #110</p>
+<p class="text-xs text-[#617589]">Scheduled with City Garage</p>
+</div>
+</div>
+<div class="flex gap-3 items-start p-3 rounded-lg border border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-surface-dark">
+<div class="bg-white dark:bg-gray-700 border border-[#dbe0e6] dark:border-gray-600 rounded flex flex-col items-center justify-center h-10 w-10 shrink-0">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Oct</span>
+<span class="text-sm font-bold text-[#111418] dark:text-white">28</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#111418] dark:text-white">Driver License Renewal</p>
+<p class="text-xs text-[#617589]">Mike Ross (Expires Nov 1)</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 rounded-lg transition-colors">View Full Calendar</button>
+</div>
+<!-- Fuel & Expenses Quick Log -->
+<div class="bg-primary text-white rounded-xl p-5 shadow-lg relative overflow-hidden">
+<!-- Decorative bg circle -->
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined">receipt_long</span>
+<h3 class="font-bold text-lg">Quick Expense Log</h3>
+</div>
+<p class="text-blue-100 text-sm mb-4">Instantly log fuel receipts or minor repairs to keep audit trails up to date.</p>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-white text-primary font-bold text-sm py-2.5 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">local_gas_station</span>
+                                    Log Fuel
+                                </button>
+<button class="w-full bg-blue-600 text-white border border-blue-500 font-bold text-sm py-2.5 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">build</span>
+                                    Log Repair
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

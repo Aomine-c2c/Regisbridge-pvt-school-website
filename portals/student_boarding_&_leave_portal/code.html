@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage - Student Boarding Portal</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2957e0",
+              "primary-dark": "#1d40b0",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111521",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1e2330",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "2xl": "1rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-[#111317] dark:text-gray-100 transition-colors duration-200">
+<!-- Top Navigation -->
+<div class="w-full bg-surface-light dark:bg-surface-dark border-b border-[#f0f1f4] dark:border-gray-800 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<header class="flex items-center justify-between h-16">
+<!-- Logo & Brand -->
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">school</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-[#111317] dark:text-white">EduManage</h2>
+</div>
+<!-- Desktop Nav Links -->
+<nav class="hidden md:flex items-center gap-1">
+<a class="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-white/5" href="#">Dashboard</a>
+<a class="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-white/5" href="#">Academics</a>
+<a class="px-3 py-2 text-sm font-medium text-primary bg-primary/10 dark:bg-primary/20 dark:text-primary rounded-lg" href="#">Boarding</a>
+<a class="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-white/5" href="#">Finances</a>
+</nav>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-4">
+<!-- Search -->
+<div class="hidden sm:flex items-center relative">
+<span class="material-symbols-outlined absolute left-3 text-gray-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-[#f0f1f4] dark:bg-gray-800 border-none rounded-lg text-sm w-64 focus:ring-2 focus:ring-primary/50 text-[#111317] dark:text-white placeholder-gray-500" placeholder="Search..." type="text"/>
+</div>
+<!-- Notification -->
+<button class="relative p-2 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-surface-dark"></span>
+</button>
+<!-- User Profile -->
+<div class="size-9 rounded-full bg-cover bg-center border-2 border-white dark:border-gray-700 shadow-sm cursor-pointer" data-alt="Student profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCBwsrd0l-kH2Sqn26mzicfg3MyPuAYJ0hCwfICh2ur9f3TduFtQNZRfD-L-bUYiI2lZhk5T1iXgMwgDLGbePSyofKPRwK7UZ66psJguHkG2UxYV4Tk4JsevOoT7OqrF3V_0Q_8aqf6Umvdx1o8ka9hxrY-bKaxQh0I18j3ZPohiYrJuv1UVVYgkqsaRfqmFEvUc11E3Ga_pvmssiuAfuSjTww9s3SSbPq5er6IxrYWOUyKrk2vYtbCTvY6jdUmLfgT85Xf3R2LM8");'>
+</div>
+</div>
+</header>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#111317] dark:text-white mb-2">Boarding &amp; Hostel</h1>
+<p class="text-gray-500 dark:text-gray-400 text-lg max-w-2xl">
+                    View your room details, manage leave requests, and access hostel services.
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-[#111317] dark:text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Handbook</span>
+</button>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-md shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>New Leave Request</span>
+</button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Room & Personal Info (2/3 width) -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<!-- Room Stats Cards -->
+<section>
+<h3 class="text-lg font-bold text-[#111317] dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                        My Assignment
+                    </h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-1">
+<span class="text-gray-500 dark:text-gray-400 text-sm font-medium">Room Number</span>
+<span class="text-3xl font-bold text-[#111317] dark:text-white">304-B</span>
+<div class="mt-2 flex items-center text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded w-fit">
+<span class="size-2 bg-green-500 rounded-full mr-1.5"></span> Occupied
+                            </div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-1">
+<span class="text-gray-500 dark:text-gray-400 text-sm font-medium">Building</span>
+<span class="text-3xl font-bold text-[#111317] dark:text-white">West Wing</span>
+<div class="mt-2 text-xs text-gray-400">Boys Hostel Block A</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-1">
+<span class="text-gray-500 dark:text-gray-400 text-sm font-medium">Floor</span>
+<span class="text-3xl font-bold text-[#111317] dark:text-white">2nd</span>
+<div class="mt-2 text-xs text-gray-400">Near North Stairwell</div>
+</div>
+</div>
+</section>
+<!-- Roommates Section -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-[#111317] dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">group</span>
+                            Roommates
+                        </h3>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Roommate 1 -->
+<div class="p-4 flex items-center justify-between group hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-cover bg-center bg-gray-200" data-alt="Portrait of roommate David" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUdqVD6NtXzgJjvvl5jIA9OZh-ItTWkEV6g15XGmzffW97kkaWhGEfnkNzgkAtz81ap_8stwZQ4gD3BTYGmvAKTjuQx84GEBq5q7bQcil1bMa7ljr9DPWRa3LAlluiKZGiKIX_-Pu2RIxtQNbJhKPVu4lhrSuGXKQ4wkDznv1eps4uBDrMqucgOqM85gV2WxugcsN6UOM1suu0vWAZ8aPc973XQ3FzZNCMwbyXjZqOhBZyhffnPdIONzrQaSDaThO_B2jWDysiCTw");'></div>
+<div>
+<p class="font-bold text-[#111317] dark:text-white">David Chen</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Grade 11 - Science Stream</p>
+</div>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-gray-400 hover:text-primary dark:hover:text-white transition-colors" title="Message">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+<!-- Roommate 2 -->
+<div class="p-4 flex items-center justify-between group hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-cover bg-center bg-gray-200" data-alt="Portrait of roommate Marcus" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBm2zEkncUa37PmdgK6_8GpYKAB01IFDhVxnYWdSPsrzjlIBzzelscFskErj3vuHS81T7Dng7lXM0vH1sRdEbGsVr3BIvvlhbScVH5pvJmFaByD-FlZUKE-pYkDibp-m19DVEtCaW7tQRqCyq6hWsBraqOPnjcXWKJt76MWCUvg1vcKXRAwHbLCCONJlCPlCHTr45SV5N5FdN4PzrK5GhSP3vJrSiv-QrX-Jt5d_SRFnnHwVn870DYNGIWzfjWzIkeGZ1sismzyakw");'></div>
+<div>
+<p class="font-bold text-[#111317] dark:text-white">Marcus Johnson</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Grade 11 - Arts Stream</p>
+</div>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-gray-400 hover:text-primary dark:hover:text-white transition-colors" title="Message">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Leave Request Form -->
+<section>
+<h3 class="text-lg font-bold text-[#111317] dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">flight_takeoff</span>
+                        Request Weekend Leave
+                    </h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Departure -->
+<div class="col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Departure Date &amp; Time</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary dark:text-white text-sm" type="datetime-local"/>
+</div>
+</div>
+<!-- Return -->
+<div class="col-span-1">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Return Date &amp; Time</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary dark:text-white text-sm" type="datetime-local"/>
+</div>
+</div>
+<!-- Destination -->
+<div class="col-span-1 md:col-span-2">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Destination / Address</label>
+<div class="flex items-center bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary">
+<div class="pl-3 text-gray-400">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+<input class="w-full bg-transparent border-none focus:ring-0 text-sm dark:text-white placeholder-gray-500 py-2.5" placeholder="123 Family Home Lane, Cityville" type="text"/>
+</div>
+</div>
+<!-- Reason -->
+<div class="col-span-1 md:col-span-2">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reason for Leave</label>
+<textarea class="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary dark:text-white text-sm resize-none" placeholder="Visiting parents for the weekend..." rows="2"></textarea>
+</div>
+<!-- Consent Checkbox -->
+<div class="col-span-1 md:col-span-2">
+<label class="flex items-start gap-3 cursor-pointer">
+<input class="mt-1 rounded border-gray-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm text-gray-600 dark:text-gray-400">
+                                        I confirm that my parents/guardians are aware of this request and have granted permission. They may be contacted for verification.
+                                    </span>
+</label>
+</div>
+<!-- Submit Action -->
+<div class="col-span-1 md:col-span-2 flex justify-end">
+<button class="bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-6 rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95" type="button">
+                                    Submit Request
+                                </button>
+</div>
+</form>
+</div>
+</section>
+</div>
+<!-- Right Column: Maintenance & Info (1/3 width) -->
+<div class="flex flex-col gap-8">
+<!-- Active Status Widget -->
+<div class="bg-gradient-to-br from-primary to-primary-dark rounded-xl p-6 text-white shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-primary-100 text-sm font-medium uppercase tracking-wider mb-1">Current Status</h4>
+<div class="flex items-center gap-2 mb-4">
+<span class="size-3 bg-green-400 rounded-full animate-pulse"></span>
+<span class="text-2xl font-bold">In Dorm</span>
+</div>
+<div class="text-sm text-blue-100 bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+<p>Last check-in: Today at 4:30 PM</p>
+<p>Curfew tonight: 9:00 PM</p>
+</div>
+</div>
+<!-- Decorative background icon -->
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 pointer-events-none">bed</span>
+</div>
+<!-- Maintenance Report -->
+<section>
+<h3 class="text-lg font-bold text-[#111317] dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500">build</span>
+                        Report Issue
+                    </h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm p-5">
+<div class="mb-4">
+<label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">Category</label>
+<select class="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary dark:text-white text-sm">
+<option>Plumbing (Leak, blockage)</option>
+<option>Electrical (Light, socket)</option>
+<option>Furniture (Broken bed, desk)</option>
+<option>HVAC (AC, Heating)</option>
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">Description</label>
+<textarea class="w-full bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary dark:text-white text-sm resize-none" placeholder="Describe the issue..." rows="3"></textarea>
+</div>
+<button class="w-full bg-surface-light dark:bg-surface-dark border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-[#111317] dark:text-white font-medium py-2 rounded-lg transition-colors text-sm">
+                            Submit Ticket
+                        </button>
+</div>
+</section>
+<!-- Resources Links -->
+<section>
+<h3 class="text-lg font-bold text-[#111317] dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-500">library_books</span>
+                        Resources
+                    </h3>
+<div class="flex flex-col gap-3">
+<a class="flex items-center p-3 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary dark:hover:border-primary transition-colors group" href="#">
+<div class="size-10 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center mr-3">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1">
+<p class="font-medium text-sm text-[#111317] dark:text-white group-hover:text-primary transition-colors">Hostel Rules PDF</p>
+<p class="text-xs text-gray-500">2.4 MB • Updated Aug 2023</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">download</span>
+</a>
+<a class="flex items-center p-3 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary dark:hover:border-primary transition-colors group" href="#">
+<div class="size-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mr-3">
+<span class="material-symbols-outlined">contact_phone</span>
+</div>
+<div class="flex-1">
+<p class="font-medium text-sm text-[#111317] dark:text-white group-hover:text-primary transition-colors">Emergency Contacts</p>
+<p class="text-xs text-gray-500">Warden &amp; Medical</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">chevron_right</span>
+</a>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="w-full py-6 mt-12 border-t border-gray-200 dark:border-gray-800 bg-surface-light dark:bg-surface-dark">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2023 EduManage Systems. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

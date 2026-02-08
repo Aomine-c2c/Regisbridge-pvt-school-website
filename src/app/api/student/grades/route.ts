@@ -1,46 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { verifyAccessToken } from '@/lib/auth'
-
-// Helper to verify student or teacher access
-async function verifyStudentAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload) {
-        return { authorized: false, error: 'Invalid token' }
-    }
-
-    return { authorized: true, userId: payload.userId, role: payload.role }
-}
+import { requireStudent } from '@/lib/api/auth-middleware'
 
 // GET /api/student/grades - Get student grades
 export async function GET(request: NextRequest) {
     try {
-        const auth = await verifyStudentAccess(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
+        const { user, error } = await requireStudent(request)
+        if (error) return error
+
+        if (!user) {
+             return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
         }
 
         const { searchParams } = new URL(request.url)
-        const studentId = searchParams.get('studentId') || auth.userId
+        const studentId = searchParams.get('studentId') || user.userId
 
-        // Only allow students to view their own grades, teachers/admins can view any
-        if (auth.role === 'student' && studentId !== auth.userId) {
+        // Only allow students to view their own grades, unless they are admin (handled by RequireStudent allowing admin? No, requireStudent allows admin/superadmin too)
+        // requireStudent logic: if (user?.role !== 'student' && user?.role !== 'admin' && user?.role !== 'superadmin')
+        // So if I am admin, I pass requireStudent.
+        
+        if (user.role === 'student' && studentId !== user.userId) {
             return NextResponse.json(
                 { success: false, message: 'Unauthorized' },
                 { status: 403 }
             )
         }
+
+        // If I am admin, I can see any student's grades if I provide studentId.
+        // If I don't provide studentId as admin, it defaults to my userId, which might not have grades.
+        // That is acceptable behavior.
 
         const grades = await prisma.grade.findMany({
             where: { studentId },
