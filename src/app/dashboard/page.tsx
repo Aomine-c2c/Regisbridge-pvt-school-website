@@ -10,8 +10,6 @@ export default function DashboardPage() {
 
     useEffect(() => {
         if (!loading && user) {
-            console.log('DashboardPage: User found:', user)
-            console.log('DashboardPage: User role:', user.role)
             
             // Route to appropriate dashboard based on role
             const dashboards: Record<string, string> = {
@@ -22,10 +20,8 @@ export default function DashboardPage() {
             }
 
             const normalizedRole = user.role.toLowerCase().trim()
-            console.log('DashboardPage: Normalized role:', normalizedRole)
             
             const destination = dashboards[normalizedRole] || '/'
-            console.log('DashboardPage: Redirecting to:', destination)
             
             router.push(destination)
         } else if (!loading && !user) {

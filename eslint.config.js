@@ -42,14 +42,19 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      // Console statements are warnings - Next.js compiler removes them in production
-      "no-console": "warn",
+      // Console statements: allow error/warn logging, warn on debug logs
+      "no-console": ["warn", { "allow": ["error", "warn"] }],
       "no-debugger": process.env.NODE_ENV === 'production' ? "error" : "warn",
       "no-empty": "error",
       "no-useless-escape": "error",
       "prefer-const": "error",
       "no-var": "error",
-      "@typescript-eslint/no-unused-vars": "warn",
+      // Allow _ prefix for intentionally unused variables
+      "@typescript-eslint/no-unused-vars": ["warn", {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }],
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-require-imports": "error",
       "@typescript-eslint/ban-ts-comment": "error",

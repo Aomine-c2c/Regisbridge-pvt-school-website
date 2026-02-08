@@ -77,7 +77,6 @@ export async function generateRegistrationNumber(
 
     if (role === 'student') {
         // Check Student table
-        // @ts-expect-error - Student model availability check
         const students = await prisma.student.findMany({
             where: { rollNumber: { startsWith: pattern } },
             select: { rollNumber: true },
@@ -101,7 +100,6 @@ export async function generateRegistrationNumber(
         }) ?? []
         
         if (staff.length > 0) {
-            // @ts-expect-error
             lastSequence = extractSequence(staff[0].employeeId, pattern)
         }
     }
@@ -170,7 +168,7 @@ export async function generateUniqueRegistrationNumber(
 /**
  * Get stats
  */
-export async function getRegistrationStats(year?: number) {
+export async function getRegistrationStats() {
     // Simplified stats for now
     return {
         total: 0,

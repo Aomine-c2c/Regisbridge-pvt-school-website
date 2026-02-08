@@ -28,6 +28,7 @@ model User {
   teacherSubjects Subject[]     @relation("TeacherSubjects")
   classes         Class[]       @relation("ClassTeacher")
   staffProfile    StaffProfile?
+  documents       Document[]
 
   @@index([email])
   @@index([role])
@@ -640,4 +641,20 @@ model StudentApplication {
 
   @@index([status])
   @@index([gradeApplying])
+}
+
+model Document {
+  id            String   @id @default(cuid())
+  filename      String   // Stored filename
+  originalName  String   // Original filename when uploaded
+  fileSize      Int      // File size in bytes
+  mimeType      String   // File MIME type
+  uploadedBy    String   // User ID who uploaded
+  uploadedByUser User    @relation(fields: [uploadedBy], references: [id])
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([uploadedBy])
+  @@index([createdAt])
 }

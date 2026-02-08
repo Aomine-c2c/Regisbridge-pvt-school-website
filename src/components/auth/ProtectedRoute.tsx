@@ -21,22 +21,17 @@ export default function ProtectedRoute({
     useEffect(() => {
         if (!loading) {
             if (!user) {
-                console.log('ProtectedRoute: No user found, redirecting to login')
                 router.push(redirectTo)
                 return
             }
 
             const userRole = user.role.toLowerCase().trim()
-            console.log(`ProtectedRoute: Checking access. User Role: "${user.role}" (normalized: "${userRole}"), Allowed Roles: ${JSON.stringify(allowedRoles)}`)
             
             const isAllowed = allowedRoles 
                 ? allowedRoles.some(r => r.toLowerCase().trim() === userRole)
                 : true
 
-            console.log(`ProtectedRoute: Access Allowed? ${isAllowed}`)
-
             if (!isAllowed) {
-                console.log('ProtectedRoute: Access denied. Redirecting...')
                 // Redirect to appropriate dashboard based on role
                 const dashboards: Record<string, string> = {
                     admin: '/admin',
@@ -45,7 +40,6 @@ export default function ProtectedRoute({
                     parent: '/parent',
                 }
                 const dashboard = dashboards[userRole]
-                console.log(`ProtectedRoute: Redirecting to ${dashboard || '/'}`)
                 router.push(dashboard || '/')
             }
         }
