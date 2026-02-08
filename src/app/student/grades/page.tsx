@@ -97,128 +97,191 @@ export default function GradesPage() {
         : 0
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto">
             {/* Header */}
-            <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                        <Button variant="ghost" onClick={() => router.push('/student')}>
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back
-                        </Button>
-                        <div>
-                            <h1 className="text-2xl font-bold">My Grades</h1>
-                            <p className="text-sm text-muted-foreground">Academic performance overview</p>
-                        </div>
-                    </div>
-                    <Button onClick={() => { logout(); router.push('/login') }} variant="outline">
-                        Logout
-                    </Button>
+            <div className="mb-6 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl font-black text-gray-900">My Grades</h1>
+                <p className="text-gray-500 mt-1">Track your academic performance and progress</p>
+            </div>
+
+            {loading ? (
+                <div className="flex flex-col items-center justify-center py-16">
+                    <div className="w-12 h-12 border-4 border-brand-navy border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p className="text-gray-500">Loading grades...</p>
                 </div>
-            </header>
-
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Overall Summary */}
-                <Card className="mb-8">
-                    <CardHeader>
-                        <CardTitle>Overall Performance</CardTitle>
-                        <CardDescription>Your cumulative grade across all subjects</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="flex items-center gap-8">
-                            <div>
-                                <div className={`text-6xl font-bold ${getGradeColor(overallAverage)}`}>
-                                    {getGradeLetter(overallAverage)}
-                                </div>
-                                <p className="text-sm text-muted-foreground mt-2">
-                                    {overallAverage.toFixed(1)}% Average
-                                </p>
+            ) : subjectAverages.length === 0 ? (
+                <div className="text-center py-20 bg-white rounded-2xl border-2 border-dashed border-gray-300">
+                    <span className="material-symbols-outlined text-7xl text-gray-300 mb-4 block">school</span>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">No grades yet</h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                        Your grades will appear here once your teachers enter them into the system.
+                    </p>
+                </div>
+            ) : (
+                <div className="space-y-6">
+                    {/* Overall Performance Card */}
+                    <div className="bg-gradient-to-r from-brand-navy to-blue-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-10 rounded-full blur-3xl"></div>
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400 opacity-10 rounded-full blur-2xl"></div>
+                        
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                                <span className="material-symbols-outlined text-2xl sm:text-3xl text-brand-gold">emoji_events</span>
+                                <h2 className="text-xl sm:text-2xl font-black">Overall Performance</h2>
                             </div>
-                            <div className="flex-1 grid grid-cols-3 gap-4">
-                                <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                    <p className="text-2xl font-bold text-green-600">
-                                        {subjectAverages.filter(s => s.average >= 70).length}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">Passing</p>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                                {/* GPA Circle */}
+                                <div className="flex items-center justify-center py-4">
+                                    <div className="relative">
+                                        {/* Circular progress */}
+                                        <svg className="transform -rotate-90" width="180" height="180">
+                                            <circle
+                                                cx="90"
+                                                cy="90"
+                                                r="75"
+                                                stroke="rgba(255,255,255,0.2)"
+                                                strokeWidth="10"
+                                                fill="none"
+                                            />
+                                            <circle
+                                                cx="90"
+                                                cy="90"
+                                                r="75"
+                                                stroke="#F4C430"
+                                                strokeWidth="10"
+                                                fill="none"
+                                                strokeDasharray={`${(overallAverage / 100) * 471.24} 471.24`}
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                            <div className="text-5xl sm:text-6xl font-black text-brand-gold">
+                                                {getGradeLetter(overallAverage)}
+                                            </div>
+                                            <p className="text-base sm:text-lg font-semibold mt-1">
+                                                {overallAverage.toFixed(1)}%
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                    <p className="text-2xl font-bold text-blue-600">
-                                        {subjectAverages.length}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">Subjects</p>
-                                </div>
-                                <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                    <p className="text-2xl font-bold text-purple-600">
-                                        {grades.length}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">Total Grades</p>
+                                
+                                {/* Stats Grid */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="material-symbols-outlined text-green-300">check_circle</span>
+                                            <p className="text-sm text-blue-100">Passing Subjects</p>
+                                        </div>
+                                        <p className="text-3xl font-black">
+                                            {subjectAverages.filter(s => s.average >= 70).length}/{subjectAverages.length}
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="material-symbols-outlined text-purple-300">assignment_turned_in</span>
+                                            <p className="text-sm text-blue-100">Total Grades</p>
+                                        </div>
+                                        <p className="text-3xl font-black">{grades.length}</p>
+                                    </div>
+                                    
+                                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 col-span-2">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="material-symbols-outlined text-blue-300">insights</span>
+                                            <p className="text-sm text-blue-100">Performance Insight</p>
+                                        </div>
+                                        <p className="text-sm font-medium">
+                                            {overallAverage >= 90 ? '🌟 Outstanding! Keep up the excellent work!' :
+                                             overallAverage >= 80 ? '💪 Great job! You\'re doing really well!' :
+                                             overallAverage >= 70 ? '📈 Good progress! Keep pushing forward!' :
+                                             '💡 Let\'s work on improving together!'}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
 
-                {/* Subject Breakdown */}
-                {loading ? (
-                    <div className="text-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                    </div>
-                ) : subjectAverages.length === 0 ? (
-                    <Card>
-                        <CardContent className="text-center py-8 text-muted-foreground">
-                            <p>No grades available yet</p>
-                            <p className="text-sm mt-2">Grades will appear here once your teachers enter them</p>
-                        </CardContent>
-                    </Card>
-                ) : (
-                    <div className="space-y-6">
-                        {subjectAverages.map(({ subject, average, grades: subjectGrades }) => (
-                            <Card key={subject}>
-                                <CardHeader>
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <CardTitle>{subject}</CardTitle>
-                                            <CardDescription>{subjectGrades.length} assessments</CardDescription>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className={`text-3xl font-bold ${getGradeColor(average)}`}>
-                                                {getGradeLetter(average)}
-                                            </div>
-                                            <p className="text-sm text-muted-foreground">{average.toFixed(1)}%</p>
-                                        </div>
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-3">
-                                        {subjectGrades.map((grade) => {
-                                            const percentage = parseFloat(calculatePercentage(grade.score, grade.maxScore))
-                                            return (
-                                                <div key={grade.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                                                    <div className="flex-1">
-                                                        <p className="font-medium">{grade.assessmentType}</p>
-                                                        <p className="text-sm text-muted-foreground">
-                                                            {new Date(grade.createdAt).toLocaleDateString()}
-                                                        </p>
-                                                    </div>
-                                                    <div className="text-right">
-                                                        <p className="text-lg font-semibold">
-                                                            {grade.score}/{grade.maxScore}
-                                                        </p>
-                                                        <p className={`text-sm ${getGradeColor(percentage)}`}>
-                                                            {percentage}% • {getGradeLetter(percentage)}
-                                                        </p>
-                                                    </div>
+                    {/* Subject Breakdown */}
+                    <div>
+                        <h2 className="text-2xl font-black text-gray-900 mb-4">Subject Performance</h2>
+                        <div className="grid gap-5">
+                            {subjectAverages.map(({ subject, average, grades: subjectGrades }) => {
+                                const percentage = average;
+                                const progressColor = 
+                                    percentage >= 90 ? 'bg-green-500' :
+                                    percentage >= 80 ? 'bg-blue-500' :
+                                    percentage >= 70 ? 'bg-yellow-500' :
+                                    percentage >= 60 ? 'bg-orange-500' : 'bg-red-500';
+                                
+                                return (
+                                    <div key={subject} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all">
+                                        {/* Subject Header */}
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-3 bg-brand-navy/10 rounded-xl">
+                                                    <span className="material-symbols-outlined text-2xl text-brand-navy">school</span>
                                                 </div>
-                                            )
-                                        })}
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-gray-900">{subject}</h3>
+                                                    <p className="text-sm text-gray-500">{subjectGrades.length} assessments</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className={`text-4xl font-black ${getGradeColor(average)}`}>
+                                                    {getGradeLetter(average)}
+                                                </div>
+                                                <p className="text-sm text-gray-500 font-semibold">{average.toFixed(1)}%</p>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Progress Bar */}
+                                        <div className="mb-4">
+                                            <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                                                <div 
+                                                    className={`h-full ${progressColor} transition-all duration-1000 ease-out rounded-full`}
+                                                    style={{ width: `${percentage}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Individual Grades */}
+                                        <div className="space-y-2">
+                                            {subjectGrades.map((grade, idx) => {
+                                                const gradePercentage = parseFloat(calculatePercentage(grade.score, grade.maxScore));
+                                                return (
+                                                    <div key={grade.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                                        <div className="flex items-center gap-3">
+                                                            <span className="inline-flex items-center justify-center size-8 bg-brand-navy/10 text-brand-navy font-bold text-sm rounded-lg">
+                                                                {idx + 1}
+                                                            </span>
+                                                            <div>
+                                                                <p className="font-semibold text-gray-900">{grade.assessmentType}</p>
+                                                                <p className="text-xs text-gray-500">
+                                                                    {new Date(grade.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className="font-bold text-gray-900">
+                                                                {grade.score}<span className="text-gray-400">/{grade.maxScore}</span>
+                                                            </p>
+                                                            <p className={`text-sm font-semibold ${getGradeColor(gradePercentage)}`}>
+                                                                {gradePercentage}% • {getGradeLetter(gradePercentage)}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                                );
+                            })}
+                        </div>
                     </div>
-                )}
-            </main>
+                </div>
+            )}
         </div>
     )
 }

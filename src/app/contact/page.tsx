@@ -12,12 +12,34 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send to actual API endpoint
-    // await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
-    alert('Thank you for your message! We will get back to you soon.');
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData) 
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.message || 'Failed to send message' });
+      }
+    } catch (_error) {
+      setSubmitStatus({ type: 'error', message: 'Network error. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -186,11 +208,18 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {submitStatus && (
+                    <div className={`p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+                      {submitStatus.message}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full md:w-auto px-8 py-3 bg-brand-navy hover:bg-brand-navy-dark text-white font-bold rounded-lg transition-colors shadow-md"
+                    disabled={isSubmitting}
+                    className="w-full md:w-auto px-8 py-3 bg-brand-navy hover:bg-brand-navy-dark text-white font-bold rounded-lg transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>

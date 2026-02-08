@@ -253,7 +253,8 @@ export default function SystemUserManagementPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                      {filteredUsers.map((user) => (
+                      {filteredUsers.length > 0 ? (
+                        filteredUsers.map((user) => (
                         <tr key={user.id} className="hover:bg-gray-50 transition-colors group">
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
@@ -309,7 +310,23 @@ export default function SystemUserManagementPage() {
                             </button>
                           </td>
                         </tr>
-                      ))}
+                      ))
+                      ) : (
+                        <tr>
+                          <td colSpan={6} className="px-6 py-16">
+                            <div className="text-center">
+                              <span className="material-symbols-outlined text-6xl text-gray-300 mb-4 block">person_search</span>
+                              <h3 className="text-lg font-semibold text-gray-900 mb-2">No users found</h3>
+                              <p className="text-gray-500 max-w-md mx-auto">
+                                {searchQuery 
+                                  ? `No users match "${searchQuery}". Try adjusting your search.`
+                                  : 'No users available in the system.'
+                                }
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

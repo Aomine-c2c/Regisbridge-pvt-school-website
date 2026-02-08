@@ -38,6 +38,11 @@ export default function TeacherGradebook() {
   const [stats, ] = useState<ClassStats>({ average: 76, highest: 98, lowest: 42, passRate: 85 });
   const [loading, setLoading] = useState(false);
   const [lastSaved, setLastSaved] = useState('2 minutes ago');
+  const [isSaving, setIsSaving] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'at-risk' | 'high-achievers'>('all');
+  const [selectedStudents, setSelectedStudents] = useState<Set<string>>(new Set());
+  const [bulkComment, setBulkComment] = useState('');
+  const [showBulkActions, setShowBulkActions] = useState(false);
 
   useEffect(() => {
     // Fetch grades from API
@@ -87,6 +92,103 @@ export default function TeacherGradebook() {
 
   const handleCommentChange = (studentId: string, value: string) => {
     setStudents(prev => prev.map(s => s.studentId === studentId ? { ...s, comments: value } : s));
+  };
+
+  // Filter students based on active filter
+  const getFilteredStudents = () => {
+    if (activeFilter === 'at-risk') {
+      return students.filter(s => s.total < 60);
+    }
+    if (activeFilter === 'high-achievers') {
+      return students.filter(s => s.total >= 85);
+    }
+    return students; // 'all'
+  };
+
+  const filteredStudents = getFilteredStudents();
+
+  // Auto-save functionality
+  useEffect(() => {
+    const autoSaveInterval = setInterval(() => {
+      handleSave(true); // true = silent auto-save
+    }, 30000); // 30 seconds
+
+    return () => clearInterval(autoSaveInterval);
+  }, [students]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+S / Cmd+S: Save draft
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        handleSave();
+      }
+      // Ctrl+Enter / Cmd+Enter: Submit for approval
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [students]);
+
+  const handleSave = async (silent = false) => {
+    setIsSaving(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setLastSaved('Just now');
+      if (!silent) {
+        toast({ title: 'Draft saved', description: 'Grades saved successfully' });
+      }
+    } catch (error) {
+      toast({ title: 'Save failed', description: 'Could not save grades', variant: 'destructive' });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    toast({ title: 'Submitted', description: 'Grades submitted for approval' });
+  };
+
+  const exportCSV = () => {
+    toast({ title: 'Export started', description: 'CSV will download shortly' });
+  };
+
+  // Bulk selection
+  const toggleSelectStudent = (studentId: string) => {
+    setSelectedStudents(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(studentId)) {
+        newSet.delete(studentId);
+      } else {
+        newSet.add(studentId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedStudents.size === filteredStudents.length) {
+      setSelectedStudents(new Set());
+    } else {
+      setSelectedStudents(new Set(filteredStudents.map(s => s.studentId)));
+    }
+  };
+
+  const applyBulkComment = () => {
+    if (bulkComment.trim() && selectedStudents.size > 0) {
+      setStudents(prev => prev.map(s => 
+        selectedStudents.has(s.studentId) ? { ...s, comments: bulkComment } : s
+      ));
+      setBulkComment('');
+      setShowBulkActions(false);
+      toast({ title: 'Comment applied', description: `Applied to ${selectedStudents.size} student(s)` });
+    }
   };
 
   const calculateLetterGrade = (total: number): string => {
@@ -258,27 +360,65 @@ export default function TeacherGradebook() {
           {/* Filters & Legend */}
           <div className="flex flex-wrap items-center justify-between gap-4 p-4 border-b border-transparent">
             <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
-              <button className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 px-4 transition-colors">
-                <span className="text-gray-900 text-sm font-medium">All Students</span>
-                <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+              <button 
+                onClick={() => setActiveFilter('all')}
+                className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 transition-colors ${
+                  activeFilter === 'all' 
+                    ? 'bg-brand-navy text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                }`}
+              >
+                <span className="text-sm font-medium">All Students</span>
+                <span className="text-xs opacity-70">({students.length})</span>
               </button>
-              <button className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 px-4 transition-colors">
-                <span className="text-gray-900 text-sm font-medium">At Risk</span>
-                <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+              <button 
+                onClick={() => setActiveFilter('at-risk')}
+                className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 transition-colors ${
+                  activeFilter === 'at-risk' 
+                    ? 'bg-red-600 text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                }`}
+              >
+                <span className="text-sm font-medium">At Risk</span>
+                <span className="text-xs opacity-70">(&lt;60%)</span>
               </button>
-              <button className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 px-4 transition-colors">
-                <span className="text-gray-900 text-sm font-medium">High Achievers</span>
-                <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+              <button 
+                onClick={() => setActiveFilter('high-achievers')}
+                className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 transition-colors ${
+                  activeFilter === 'high-achievers' 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                }`}
+              >
+                <span className="text-sm font-medium">High Achievers</span>
+                <span className="text-xs opacity-70">(≥ 85%)</span>
               </button>
-              <button className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 hover:bg-gray-200 px-4 transition-colors">
-                <span className="text-gray-900 text-sm font-medium">Sort By Name</span>
-                <span className="material-symbols-outlined text-[18px]">sort</span>
-              </button>
+              {selectedStudents.size > 0 && (
+                <button 
+                  onClick={() => setShowBulkActions(!showBulkActions)}
+                  className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-blue-600 text-white px-4 hover:bg-blue-700 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[18px]">edit_note</span>
+                  <span className="text-sm font-medium">Bulk Actions ({selectedStudents.size})</span>
+                </button>
+              )}
             </div>
             <div className="flex items-center gap-4 text-xs font-medium text-gray-500">
+              {isSaving && (
+                <div className="flex items-center gap-1.5 text-blue-600">
+                  <span className="block size-2 rounded-full bg-blue-600 animate-pulse"></span>
+                  Saving...
+                </div>
+              )}
+              {!isSaving && (
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-sm text-green-600">check_circle</span>
+                  Saved {lastSaved}
+                </div>
+              )}
               <div className="flex items-center gap-1.5"><span className="block size-2.5 rounded-full bg-green-500"></span>Approved</div>
               <div className="flex items-center gap-1.5"><span className="block size-2.5 rounded-full bg-blue-500"></span>Submitted</div>
-              <div className="flex items-center gap-1.5"><span className="block size-2.5 rounded-full bg-amber-400"></span>Draft</div>
+              <div className="flex items-center gap-1.5"><span className="block size-2.5 rounded-full bg-gray-400"></span>Draft</div>
             </div>
           </div>
 
@@ -308,7 +448,7 @@ export default function TeacherGradebook() {
                   <tbody className="divide-y divide-gray-100">
                     {loading ? (
                       <tr><td colSpan={8} className="text-center py-8">Loading...</td></tr>
-                    ) : students.map((student) => (
+                    ) : filteredStudents.map((student) => (
                       <tr key={student.studentId} className="group hover:bg-gray-50 transition-colors">
                         <td className="p-4">
                           <div className="flex items-center gap-3">

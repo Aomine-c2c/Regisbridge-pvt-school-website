@@ -89,11 +89,39 @@ export default function StudentAcademicCommandCenter() {
     performanceTrend: []
   };
 
+  // Time-based greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  };
+
+  // Get motivational message based on stats
+  const getMotivationalMessage = () => {
+    const pending = d.stats.pendingAssignments;
+    if (pending === 0) return 'All caught up! Great work! 🎉';
+    if (pending <= 2) return 'Just a few tasks left. Keep it up! 💪';
+    return 'Stay focused—you\'ve got this! 🚀';
+  };
+
   // Calculate GPA from grades
   const calculateGPA = () => {
     if (!d.grades || d.grades.length === 0) return '0.0';
     const total = d.grades.reduce((sum: number, g: any) => sum + (g.percentage / 25), 0);
     return (total / d.grades.length).toFixed(1);
+  };
+
+  // Deadline urgency calculator
+  const getDeadlineUrgency = (dueDate: string) => {
+    const now = new Date();
+    const due = new Date(dueDate);
+    const hoursUntilDue = (due.getTime() - now.getTime()) / (1000 * 60 * 60);
+    
+    if (hoursUntilDue < 0) return { level: 'overdue', color: 'red', icon: 'error' };
+    if (hoursUntilDue < 24) return { level: 'urgent', color: 'red', icon: 'warning' };
+    if (hoursUntilDue < 72) return { level: 'soon', color: 'orange', icon: 'schedule' };
+    return { level: 'normal', color: 'gray', icon: 'schedule' };
   };
 
   // Calculate attendance percentage
@@ -203,91 +231,142 @@ export default function StudentAcademicCommandCenter() {
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-6 lg:p-10 scroll-smooth">
           <div className="max-w-7xl mx-auto space-y-8">
-            {/* Page Title & Welcome */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <h1 className="text-3xl font-black tracking-tight text-gray-900">Academic Command Center</h1>
-                <p className="text-gray-500 mt-1">Here is your academic overview for Term 3.</p>
-              </div>
-              <div className="flex gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                  <span className="size-2 rounded-full bg-green-500"></span>
-                  Active Term
-                </span>
+            {/* Enhanced Welcome Section */}
+            <div className="bg-gradient-to-r from-brand-navy to-blue-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+              {/* Decorative background elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-10 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400 opacity-10 rounded-full blur-2xl"></div>
+              
+              <div className="relative z-10">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="material-symbols-outlined text-4xl text-brand-gold">wb_sunny</span>
+                      <div>
+                        <p className="text-sm text-blue-200">{getGreeting()},</p>
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tight">{d.profile.name}</h1>
+                      </div>
+                    </div>
+                    <p className="text-blue-100 mt-3 text-base max-w-2xl">
+                      {getMotivationalMessage()}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-white/20 backdrop-blur-sm border border-white/30">
+                      <span className="size-2 rounded-full bg-green-400 animate-pulse"></span>
+                      Term 3 Active
+                    </span>
+                    {d.stats.pendingAssignments === 0 && (
+                      <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-brand-gold/20 backdrop-blur-sm border border-brand-gold/30 text-brand-gold">
+                        <span className="material-symbols-outlined text-sm">check_circle</span>
+                        All Caught Up!
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Top Stats Row */}
+            {/* Enhanced Stats Row with Better Hierarchy */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Attendance */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Attendance Rate</p>
-                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{attendancePercentage}</h3>
+              <Link href="/student/attendance" className="group">
+                <div className="bg-white p-6 rounded-xl border-2 border-gray-100 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-500">Attendance Rate</p>
+                      <h3 className="text-3xl font-black text-gray-900 mt-2">{attendancePercentage}</h3>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:bg-blue-100 transition-colors">
+                      <span className="material-symbols-outlined text-2xl">diversity_3</span>
+                    </div>
                   </div>
-                  <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-                    <span className="material-symbols-outlined">diversity_3</span>
+                  <div className="mt-4 flex items-center text-xs font-bold text-green-600">
+                    <span className="material-symbols-outlined text-base mr-1">trending_up</span>
+                    +2% from last month
                   </div>
                 </div>
-                <div className="mt-4 flex items-center text-xs font-medium text-green-600">
-                  <span className="material-symbols-outlined text-sm mr-1">trending_up</span>
-                  +2% from last month
-                </div>
-              </div>
+              </Link>
 
-              {/* Behavior Score - Calculated from data */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Academic Status</p>
-                    <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                      {d.stats.housePoints || 95}
-                      <span className="text-lg text-gray-400 font-medium">/100</span>
-                    </h3>
+              {/* House Points */}
+              <Link href="/student/house" className="group">
+                <div className="bg-white p-6 rounded-xl border-2 border-gray-100 shadow-sm hover:shadow-lg hover:border-purple-300 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-500">House Points</p>
+                      <h3 className="text-3xl font-black text-gray-900 mt-2">
+                        {d.stats.housePoints || 95}
+                        <span className="text-lg text-gray-400 font-medium ml-1">pts</span>
+                      </h3>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded-xl text-purple-600 group-hover:bg-purple-100 transition-colors">
+                      <span className="material-symbols-outlined text-2xl">star</span>
+                    </div>
                   </div>
-                  <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
-                    <span className="material-symbols-outlined">psychology</span>
+                  <div className="mt-4 flex items-center text-xs font-bold text-purple-600">
+                    <span className="material-symbols-outlined text-base mr-1">check_circle</span>
+                    Top 15% in {d.profile.house}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center text-xs font-medium text-green-600">
-                  <span className="material-symbols-outlined text-sm mr-1">check_circle</span>
-                  Excellent Standing
-                </div>
-              </div>
+              </Link>
 
               {/* GPA */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Current GPA</p>
-                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{calculateGPA()}</h3>
+              <Link href="/student/grades" className="group">
+                <div className="bg-white p-6 rounded-xl border-2 border-gray-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-500">Current GPA</p>
+                      <h3 className="text-3xl font-black text-gray-900 mt-2">{calculateGPA()}</h3>
+                    </div>
+                    <div className="p-3 bg-orange-50 rounded-xl text-orange-600 group-hover:bg-orange-100 transition-colors">
+                      <span className="material-symbols-outlined text-2xl">school</span>
+                    </div>
                   </div>
-                  <div className="p-2 bg-orange-50 rounded-lg text-orange-600">
-                    <span className="material-symbols-outlined">school</span>
+                  <div className="mt-4 flex items-center text-xs font-bold text-gray-500">
+                    <span className="material-symbols-outlined text-base mr-1">update</span>
+                    Updated Today
                   </div>
                 </div>
-                <div className="mt-4 flex items-center text-xs font-medium text-gray-500">
-                  <span className="material-symbols-outlined text-sm mr-1">update</span>
-                  Last updated: Today
-                </div>
-              </div>
+              </Link>
 
-              {/* Assignments Pending */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">Assignments Due</p>
-                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{d.stats.pendingAssignments}</h3>
+              {/* Assignments Pending with urgency */}
+              <Link href="/student/assignments" className="group">
+                <div className={`p-6 rounded-xl border-2 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full ${
+                  d.stats.pendingAssignments > 5 ? 'bg-red-50 border-red-200 hover:border-red-400' :
+                  d.stats.pendingAssignments > 2 ? 'bg-orange-50 border-orange-200 hover:border-orange-400' :
+                  d.stats.pendingAssignments > 0 ? 'bg-yellow-50 border-yellow-200 hover:border-yellow-400' :
+                  'bg-green-50 border-green-200 hover:border-green-400'
+                }`}>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-700">Assignments Due</p>
+                      <h3 className="text-3xl font-black text-gray-900 mt-2">{d.stats.pendingAssignments}</h3>
+                    </div>
+                    <div className={`p-3 rounded-xl transition-colors ${
+                      d.stats.pendingAssignments > 5 ? 'bg-red-100 text-red-600' :
+                      d.stats.pendingAssignments > 2 ? 'bg-orange-100 text-orange-600' :
+                      d.stats.pendingAssignments > 0 ? 'bg-yellow-100 text-yellow-600' :
+                      'bg-green-100 text-green-600'
+                    }`}>
+                      <span className="material-symbols-outlined text-2xl">
+                        {d.stats.pendingAssignments === 0 ? 'check_circle' : 'assignment_late'}
+                      </span>
+                    </div>
                   </div>
-                  <div className="p-2 bg-pink-50 rounded-lg text-pink-600">
-                    <span className="material-symbols-outlined">assignment_late</span>
+                  <div className={`mt-4 flex items-center text-xs font-bold ${
+                    d.stats.pendingAssignments > 5 ? 'text-red-700' :
+                    d.stats.pendingAssignments > 2 ? 'text-orange-700' :
+                    d.stats.pendingAssignments > 0 ? 'text-yellow-700' :
+                    'text-green-700'
+                  }`}>
+                    <span className="material-symbols-outlined text-base mr-1">
+                      {d.stats.pendingAssignments === 0 ? 'celebration' : 'warning'}
+                    </span>
+                    {d.stats.pendingAssignments === 0 ? 'All caught up!' : '2 due within 24h'}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center text-xs font-medium text-gray-500">
-                  2 due tomorrow
-                </div>
-              </div>
+              </Link>
             </div>
 
             {/* Main Dashboard Grid */}
@@ -345,42 +424,63 @@ export default function StudentAcademicCommandCenter() {
                     </Link>
                   </div>
                   <div className="divide-y divide-gray-100">
-                    {d.assignments.slice(0, 3).map((assignment, index) => (
-                      <div
-                        key={index}
-                        className="p-4 hover:bg-gray-50 transition-colors flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className={`size-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                            index === 0 ? 'bg-orange-100 text-orange-600' :
-                            index === 1 ? 'bg-blue-100 text-blue-600' :
-                            'bg-purple-100 text-purple-600'
-                          }`}>
-                            <span className="material-symbols-outlined text-xl">
-                              {index === 0 ? 'science' : index === 1 ? 'history_edu' : 'calculate'}
+                    {d.assignments.slice(0, 3).map((assignment, index) => {
+                      const urgency = getDeadlineUrgency(assignment.due);
+                      return (
+                        <div
+                          key={index}
+                          className={`p-5 hover:bg-gray-50 transition-all flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between border-l-4 ${
+                            urgency.level === 'overdue' ? 'border-l-red-500 bg-red-50/30' :
+                            urgency.level === 'urgent' ? 'border-l-orange-500 bg-orange-50/30' :
+                            urgency.level === 'soon' ? 'border-l-yellow-500' :
+                            'border-l-gray-200'
+                          }`}
+                        >
+                          <div className="flex items-center gap-4 flex-1">
+                            <div className={`size-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm ${
+                              index === 0 ? 'bg-gradient-to-br from-orange-100 to-orange-200 text-orange-700' :
+                              index === 1 ? 'bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700' :
+                              'bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700'
+                            }`}>
+                              <span className="material-symbols-outlined text-2xl font-bold">
+                                {index === 0 ? 'science' : index === 1 ? 'history_edu' : 'calculate'}
+                              </span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="text-sm font-bold text-gray-900 mb-1">{assignment.title}</h4>
+                              <div className="flex items-center gap-3 text-xs text-gray-500">
+                                <span className="font-medium">{assignment.subject}</span>
+                                <span className="text-gray-300">•</span>
+                                <span className="flex items-center gap-1">
+                                  <span className={`material-symbols-outlined text-sm text-${urgency.color}-600`}>{urgency.icon}</span>
+                                  {assignment.status === 'OVERDUE' ? (
+                                    <span className="font-bold text-red-600">Overdue</span>
+                                  ) : (
+                                    <span>Due {formatDistanceToNow(new Date(assignment.due), { addSuffix: true })}</span>
+                                  )}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                            {urgency.level === 'urgent' && (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 animate-pulse">
+                                <span className="material-symbols-outlined text-sm">priority_high</span>
+                                Urgent
+                              </span>
+                            )}
+                            <span className={`px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm ${
+                              assignment.status === 'SUBMITTED' ? 'bg-green-100 text-green-700 border border-green-200' :
+                              assignment.status === 'OVERDUE' ? 'bg-red-100 text-red-700 border border-red-200' :
+                              'bg-yellow-100 text-yellow-700 border border-yellow-200'
+                            }`}>
+                              {assignment.status === 'SUBMITTED' ? '✓ Submitted' :
+                               assignment.status === 'OVERDUE' ? '⚠ Overdue' : '○ Pending'}
                             </span>
                           </div>
-                          <div>
-                            <h4 className="text-sm font-bold text-gray-900">{assignment.title}</h4>
-                            <p className="text-xs text-gray-500">{assignment.subject}</p>
-                          </div>
                         </div>
-                        <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-                          <span className="text-xs font-medium text-gray-500 flex items-center gap-1">
-                            <span className="material-symbols-outlined text-sm">schedule</span>
-                            {assignment.status === 'OVERDUE' ? 'Overdue' : formatDistanceToNow(new Date(assignment.due), { addSuffix: true })}
-                          </span>
-                          <span className={`px-2.5 py-1 rounded-md text-xs font-bold ${
-                            assignment.status === 'SUBMITTED' ? 'bg-green-100 text-green-700' :
-                            assignment.status === 'OVERDUE' ? 'bg-red-100 text-red-700' :
-                            'bg-yellow-100 text-yellow-700'
-                          }`}>
-                            {assignment.status === 'SUBMITTED' ? 'Submitted' :
-                             assignment.status === 'OVERDUE' ? 'Overdue' : 'Pending'}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     {d.assignments.length === 0 && (
                       <div className="p-8 text-center text-gray-500">
                         No upcoming assignments

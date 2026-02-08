@@ -10,7 +10,7 @@ import TestimonialCard from '@/components/home/TestimonialCard';
 import NewsletterSignup from '@/components/home/NewsletterSignup';
 import FAQSection from '@/components/home/FAQSection';
 import VirtualTour from '@/components/home/VirtualTour';
-import FeeCalculator from '@/components/home/FeeCalculator';
+
 import EventsCalendar from '@/components/home/EventsCalendar';
 import { ScrollReveal } from '@/hooks/useScrollAnimation';
 import { trackCTAClick } from '@/lib/analytics';
@@ -135,31 +135,44 @@ export default function Home() {
         <div className="absolute bottom-20 left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none z-0" />
         
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[600px] px-6 py-20 text-center max-w-[1400px] mx-auto">
-          <div className="flex flex-col gap-6 max-w-3xl">
-            <p className="text-white/90 font-medium tracking-widest text-sm uppercase">
-              Est. <time dateTime="1974">1974</time>
-            </p>
-            <h1 className="text-white text-4xl md:text-6xl font-black leading-tight tracking-tight">
-              Regisbridge Academy: Excellence in Education. Character for Life.
+          <div className="flex flex-col gap-8 max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Badge */}
+            <div className="inline-flex items-center justify-center">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 font-semibold text-sm">
+                <span className="material-symbols-outlined text-brand-gold text-base" aria-hidden="true">verified</span>
+                Celebrating 50+ Years of Excellence Since <time dateTime="1974">1974</time>
+              </span>
+            </div>
+            
+            {/* Main Headline */}
+            <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight">
+              Where Excellence
+              <span className="block text-brand-gold mt-2">Meets Character</span>
             </h1>
-            <p className="text-gray-200 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
-              Nurturing future leaders from Early Childhood through A-Level in a world-class boarding
-              environment. Experience the Regisbridge difference.
+            
+            {/* Subheadline */}
+            <p className="text-gray-100 text-xl md:text-2xl font-medium leading-relaxed max-w-3xl mx-auto">
+              Empowering students from Early Childhood through A-Level to become confident leaders, 
+              critical thinkers, and compassionate global citizens.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center mt-4">
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <Link
                 href="/admissions"
-                onClick={() => trackCTAClick('Apply Now', 'Hero')}
-                className="flex items-center justify-center rounded-lg h-12 px-8 bg-brand-gold text-brand-navy text-base font-bold shadow-lg hover:bg-brand-gold-dark hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 transition-all"
+                onClick={() => trackCTAClick('Start Your Application', 'Hero')}
+                className="group flex items-center justify-center gap-2 rounded-xl h-14 px-10 bg-brand-gold text-brand-navy text-lg font-bold shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
               >
-                Apply Now
+                <span>Start Your Application</span>
+                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
               </Link>
               <Link
                 href="/contact"
-                onClick={() => trackCTAClick('Book a Tour', 'Hero')}
-                className="flex items-center justify-center rounded-lg h-12 px-8 bg-white/10 backdrop-blur-md border border-white/30 text-white text-base font-bold hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transition-all"
+                onClick={() => trackCTAClick('Schedule Campus Tour', 'Hero')}
+                className="group flex items-center justify-center gap-2 rounded-xl h-14 px-10 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white text-lg font-bold hover:bg-white/20 hover:border-white/50 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
               >
-                Book a Tour
+                <span className="material-symbols-outlined text-xl" aria-hidden="true">tour</span>
+                <span>Schedule Campus Tour</span>
               </Link>
             </div>
           </div>
@@ -167,9 +180,13 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section id="stats" aria-label="Key Statistics" className="bg-white border-b border-gray-100">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section id="stats" aria-label="Key Statistics" className="bg-gradient-to-b from-white to-gray-50/50 border-y border-gray-100">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-20 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Excellence in Numbers</h2>
+            <p className="text-gray-600 text-lg">Our track record speaks for itself</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {STATS.map((stat, index) => (
               <StatCard key={index} {...stat} />
             ))}
@@ -290,15 +307,22 @@ export default function Home() {
       {/* Events Calendar */}
       <EventsCalendar />
 
-      {/* Fee Calculator */}
-      <FeeCalculator />
+
 
       {/* Testimonials */}
-      <section id="testimonials" aria-label="Community Testimonials" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto">
+      <section id="testimonials" aria-label="Community Testimonials" className="py-20 px-6 lg:px-20 max-w-[1200px] mx-auto">
         <ScrollReveal animation="fadeInUp">
-          <h2 className="text-center text-3xl font-bold text-gray-900 mb-12">
-            From Our Community
-          </h2>
+          <div className="text-center mb-14">
+            <span className="inline-block px-4 py-2 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-navy font-semibold text-sm mb-4">
+              Testimonials
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Voices from Our Community
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Hear from parents, students, and staff about their Regisbridge experience
+            </p>
+          </div>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {TESTIMONIALS.map((testimonial, index) => (
@@ -319,28 +343,49 @@ export default function Home() {
         </ScrollReveal>
       </section>
 
-      {/* CTA Strip */}
-      <section id="cta" aria-label="Call to Action" className="bg-brand-navy py-16 px-6 text-center">
-        <h2 className="text-white text-3xl font-bold mb-4">Start Your Journey Today</h2>
-        <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg">
-          Applications for the next academic year are now open. Secure your child's place at
-          Regisbridge Academy.
-        </p>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Link
-            href="/admissions"
-            onClick={() => trackCTAClick('Apply Now', 'Footer CTA')}
-            className="bg-brand-gold text-brand-navy px-8 py-3 rounded-lg font-bold hover:bg-brand-gold-dark focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 focus:ring-offset-brand-navy transition-colors"
-          >
-            Apply Now
-          </Link>
-          <Link
-            href="/contact"
-            onClick={() => trackCTAClick('Contact Admissions', 'Footer CTA')}
-            className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-primary transition-colors"
-          >
-            Contact Admissions
-          </Link>
+      {/* Final CTA Strip */}
+      <section id="cta" aria-label="Call to Action" className="relative bg-gradient-to-br from-brand-navy via-brand-navy to-brand-navy/90 py-20 px-6 text-center overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl" />
+        
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <span className="inline-block px-4 py-2 rounded-full bg-brand-gold/20 border border-brand-gold/30 text-brand-gold font-semibold text-sm mb-6">
+            <span className="material-symbols-outlined text-base inline align-middle mr-1" aria-hidden="true">schedule</span>
+            Applications Now Open for 2026-2027
+          </span>
+          
+          <h2 className="text-white text-4xl md:text-5xl font-black mb-6 leading-tight">
+            Begin Your Regisbridge Journey
+          </h2>
+          
+          <p className="text-gray-200 max-w-2xl mx-auto mb-10 text-xl leading-relaxed">
+            Join a community of excellence where every student is known, valued, and empowered to reach their full potential.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/admissions"
+              onClick={() => trackCTAClick('Apply Today', 'Footer CTA')}
+              className="group inline-flex items-center justify-center gap-2 bg-brand-gold text-brand-navy px-10 py-4 rounded-xl text-lg font-bold shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
+            >
+              <span>Apply Today</span>
+              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+            </Link>
+            <Link
+              href="/contact"
+              onClick={() => trackCTAClick('Speak with Admissions', 'Footer CTA')}
+              className="group inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-white/10 hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
+            >
+              <span className="material-symbols-outlined" aria-hidden="true">call</span>
+              <span>Speak with Admissions</span>
+            </Link>
+          </div>
+          
+          <p className="text-gray-400 text-sm mt-8">
+            <span className="material-symbols-outlined text-base inline align-middle mr-1" aria-hidden="true">phone</span>
+            Questions? Contact us at <a href="tel:+1234567890" className="text-brand-gold hover:underline font-semibold">+27 123 456 7890</a>
+          </p>
         </div>
       </section>
       </main>

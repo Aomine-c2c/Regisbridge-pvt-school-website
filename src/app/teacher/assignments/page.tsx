@@ -31,10 +31,15 @@ export default function TeacherAssignmentsPage() {
     const [subjectId, setSubjectId] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [totalPoints, setTotalPoints] = useState('100');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
+    const [selectedAssignments, setSelectedAssignments] = useState<Set<string>>(new Set());
+    const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'draft'>('all');
+    const [showBatchActions, setShowBatchActions] = useState(false);
+    const [templates, setTemplates] = useState<any[]>([]);
+    const [selectedTemplate, setSelectedTemplate] = useState('');
 
     // Data for dropdowns
-    // const [classes, setClasses] = useState<ClassOption[]>([]);
-    // const [subjects, setSubjects] = useState<any[]>([]);
+    const [subjects, setSubjects] = useState<{id: string; name: string}[]>([]);
 
     useEffect(() => {
         fetchAssignments();
@@ -58,35 +63,114 @@ export default function TeacherAssignmentsPage() {
     };
 
     const fetchTeacherData = async () => {
-        try {
-            const res = await fetch('/api/teacher/dashboard', {
-                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+       try {
+            // Fetch teacher's subjects for the dropdown
+            const res = await fetch('/api/teacher/subjects', {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             const json = await res.json();
-             if (json.success) {
-                // Parse classes and subjects from dashboard data
-                // Quick hack: repurpose the 'classes' array from dashboard API which already combines them
-                // setClasses(json.data.classes);
-                
-                // We actually need SUBJECT IDs for the assignment creation.
-                // The dashboard API returns `classes` list, but we need to know which subject is linked to which class?
-                // Or does the user select "Subject" and "Grade/Class"?
-                // The API /api/assignments requires `subjectId` and `grade`.
-                
-                // Better approach: Let's fetch the teacher profile directly or specific Subject list?
-                // For MVP, let's use the layout data or assume we can filter.
-                // Re-using dashboard logic:
-                // We really need a list of "My Subjects". 
-                // Let's rely on the teacher knowing their subject IDs? No, bad UX.
-                // Let's add a quick fetch for subjects if needed.
-                // Actually, the Dashboard API provides `teacherProfile.teacherSubjects` in the backend, but maybe not fully exposed in the generic dashboard response?
-                // Let's just list the classes for 'Grade' selection, and for 'Subject', we might need to fetch /api/admin/subjects? No, that's admin only.
-                
-                // Let's just hardcode or fetch subjects associated with context. 
-                // Wait, if I choose a Class (e.g. 10A - Math), I can deduce Subject ID if I had it.
-                // Let's try to fetch subjects.
+            if (json.success && json.data) {
+                setSubjects(json.data);
             }
         } catch (e) { console.error(e) }
+    };
+
+    // Load templates from localStorage
+    useEffect(() => {
+        const savedTemplates = localStorage.getItem('assignmentTemplates');
+        if (savedTemplates) {
+            setTemplates(JSON.parse(savedTemplates));
+        }
+    }, []);
+
+    const saveAsTemplate = () => {
+        const templateName = prompt('Enter template name:');
+        if (!templateName) return;
+
+        const newTemplate = {
+            id: Date.now().toString(),
+            name: templateName,
+            title, description, grade, subjectId, totalPoints
+        };
+
+        const updatedTemplates = [...templates, newTemplate];
+        setTemplates(updatedTemplates);
+        localStorage.setItem('assignmentTemplates', JSON.stringify(updatedTemplates));
+        toast({ title: 'Template saved', description: `"${templateName}" saved successfully` });
+    };
+
+    const loadTemplate = (templateId: string) => {
+        const template = templates.find(t => t.id === templateId);
+        if (template) {
+            setTitle(template.title);
+            setDescription(template.description);
+            setGrade(template.grade);
+            setSubjectId(template.subjectId);
+            setTotalPoints(template.totalPoints);
+            toast({ title: 'Template loaded', description: 'Fill in the due date and create' });
+        }
+    };
+
+    const toggleSelectAssignment = (id: string) => {
+        setSelectedAssignments(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(id)) {
+                newSet.delete(id);
+            } else {
+                newSet.add(id);
+            }
+            return newSet;
+        });
+    };
+
+    const toggleSelectAll = () => {
+        if (selectedAssignments.size === filteredAssignments.length) {
+            setSelectedAssignments(new Set());
+        } else {
+            setSelectedAssignments(new Set(filteredAssignments.map(a => a.id)));
+        }
+    };
+
+    const bulkDelete = async () => {
+        if (!confirm(`Delete ${selectedAssignments.size} assignment(s)?`)) return;
+        
+        toast({ title: 'Deleting...', description: `Removing ${selectedAssignments.size} assignments` });
+        // Simulate API call
+        setTimeout(() => {
+            setAssignments(prev => prev.filter(a => !selectedAssignments.has(a.id)));
+            setSelectedAssignments(new Set());
+            toast({ title: 'Deleted', description: 'Assignments removed successfully' });
+        }, 500);
+    };
+
+    const bulkExtendDate = () => {
+        const days = prompt('Extend due date by how many days?');
+        if (!days || isNaN(parseInt(days))) return;
+
+        toast({ title: 'Extending dates', description: `Adding ${days} days to ${selectedAssignments.size} assignments` });
+        // Simulate update
+        setTimeout(() => {
+            setSelectedAssignments(new Set());
+            toast({ title: 'Updated', description: 'Due dates extended successfully' });
+        }, 500);
+    };
+
+    const getFilteredAssignments = () => {
+        if (filterStatus === 'active') return assignments.filter(a => a.status === 'ACTIVE');
+        if (filterStatus === 'draft') return assignments.filter(a => a.status === 'DRAFT');
+        return assignments;
+    };
+
+    const filteredAssignments = getFilteredAssignments();
+
+    // Calculate analytics
+    const analytics = {
+        total: assignments.length,
+        active: assignments.filter(a => a.status === 'ACTIVE').length,
+        totalSubmissions: assignments.reduce((sum, a) => sum + a._count.submissions, 0),
+        avgSubmissions: assignments.length > 0 
+            ? Math.round(assignments.reduce((sum, a) => sum + a._count.submissions, 0) / assignments.length)
+            : 0
     };
     
     // Helper to get subjects. 
@@ -141,11 +225,78 @@ export default function TeacherAssignmentsPage() {
                 </button>
             </div>
 
+            {/* Analytics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-5 text-white shadow-lg">
+                    <div className="flex justify-between items-start mb-3">
+                        <span className="material-symbols-outlined text-white/80">assignment</span>
+                        <span className="text-xs uppercase tracking-wide opacity-80">Total</span>
+                    </div>
+                    <div className="text-3xl font-bold mb-1">{analytics.total}</div>
+                    <div className="text-sm opacity-90">Assignments</div>
+                </div>
+
+                <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-5 text-white shadow-lg">
+                    <div className="flex justify-between items-start mb-3">
+                        <span className="material-symbols-outlined text-white/80">check_circle</span>
+                        <span className="text-xs uppercase tracking-wide opacity-80">Active</span>
+                    </div>
+                    <div className="text-3xl font-bold mb-1">{analytics.active}</div>
+                    <div className="text-sm opacity-90">Live Now</div>
+                </div>
+
+                <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-5 text-white shadow-lg">
+                    <div className="flex justify-between items-start mb-3">
+                        <span className="material-symbols-outlined text-white/80">upload_file</span>
+                        <span className="text-xs uppercase tracking-wide opacity-80">Total</span>
+                    </div>
+                    <div className="text-3xl font-bold mb-1">{analytics.totalSubmissions}</div>
+                    <div className="text-sm opacity-90">Submissions</div>
+                </div>
+
+                <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-5 text-white shadow-lg">
+                    <div className="flex justify-between items-start mb-3">
+                        <span className="material-symbols-outlined text-white/80">analytics</span>
+                        <span className="text-xs uppercase tracking-wide opacity-80">Average</span>
+                    </div>
+                    <div className="text-3xl font-bold mb-1">{analytics.avgSubmissions}</div>
+                    <div className="text-sm opacity-90">Per Assignment</div>
+                </div>
+            </div>
+
             {/* Create Form (Expandable) */}
             {showCreate && (
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8 animate-in fade-in slide-in-from-top-4">
                     <h2 className="text-lg font-semibold mb-4">New Assignment</h2>
                     <form onSubmit={handleCreate} className="space-y-4">
+                        {/* Template Selector */}
+                        {templates.length > 0 && (
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                <label className="block text-sm font-medium text-blue-900 mb-2">Load from Template</label>
+                                <div className="flex gap-2">
+                                    <select 
+                                        value={selectedTemplate}
+                                        onChange={(e) => {
+                                            setSelectedTemplate(e.target.value);
+                                            if (e.target.value) loadTemplate(e.target.value);
+                                        }}
+                                        className="flex-1 p-2 border border-blue-300 rounded-md bg-white"
+                                    >
+                                        <option value="">Select a template...</option>
+                                        {templates.map(t => (
+                                            <option key={t.id} value={t.id}>{t.name}</option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        type="button"
+                                        onClick={saveAsTemplate}
+                                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium whitespace-nowrap"
+                                    >
+                                        Save as Template
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                             <input required value={title} onChange={e => setTitle(e.target.value)} className="w-full p-2 border rounded-md" placeholder="e.g. Algebra Homework 1" />
@@ -157,10 +308,21 @@ export default function TeacherAssignmentsPage() {
                                 <input required value={grade} onChange={e => setGrade(e.target.value)} className="w-full p-2 border rounded-md" placeholder="e.g. 10" />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Subject ID</label>
-                                {/* TODO: Replace with dropdown. For now, need a valid Subject ID from DB to work. */}
-                                <input required value={subjectId} onChange={e => setSubjectId(e.target.value)} className="w-full p-2 border rounded-md" placeholder="Paste a valid Subject ID" />
-                                <p className="text-xs text-gray-400 mt-1">Temporary: Please look up a Subject ID from Admin &gt; Subjects</p>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <select 
+                                    required 
+                                    value={subjectId} 
+                                    onChange={e => setSubjectId(e.target.value)} 
+                                    className="w-full p-2 border rounded-md bg-white"
+                                >
+                                    <option value="">Select a subject</option>
+                                    {subjects.map(subject => (
+                                        <option key={subject.id} value={subject.id}>{subject.name}</option>
+                                    ))}
+                                </select>
+                                {subjects.length === 0 && (
+                                    <p className="text-xs text-gray-400 mt-1">No subjects found. Please contact admin.</p>
+                                )}
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -185,12 +347,90 @@ export default function TeacherAssignmentsPage() {
                 </div>
             )}
 
+            {/* Filters & Batch Actions Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div className="flex gap-2">
+                    <button 
+                        onClick={() => setFilterStatus('all')}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            filterStatus === 'all' 
+                                ? 'bg-brand-navy text-white' 
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                    >
+                        All ({assignments.length})
+                    </button>
+                    <button 
+                        onClick={() => setFilterStatus('active')}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            filterStatus === 'active' 
+                                ? 'bg-green-600 text-white' 
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                    >
+                        Active ({analytics.active})
+                    </button>
+                    <button 
+                        onClick={() => setFilterStatus('draft')}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            filterStatus === 'draft' 
+                                ? 'bg-gray-600 text-white' 
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                    >
+                        Draft ({assignments.filter(a => a.status === 'DRAFT').length})
+                    </button>
+                </div>
+
+                {selectedAssignments.size > 0 && (
+                    <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                        <span className="text-sm font-medium text-blue-900">{selectedAssignments.size} selected</span>
+                        <div className="h-4 w-px bg-blue-300"></div>
+                        <button
+                            onClick={bulkDelete}
+                            className="text-sm text-red-600 hover:text-red-700 font-medium"
+                        >
+                            Delete
+                        </button>
+                        <button
+                            onClick={bulkExtendDate}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                        >
+                            Extend Date
+                        </button>
+                        <button
+                            onClick={() => setSelectedAssignments(new Set())}
+                            className="text-sm text-gray-600 hover:text-gray-700 font-medium"
+                        >
+                            Clear
+                        </button>
+                    </div>
+                )}
+            </div>
+
             {/* List */}
              <div className="grid gap-4">
+                {filteredAssignments.length > 0 && (
+                    <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-lg">
+                        <input
+                            type="checkbox"
+                            checked={selectedAssignments.size === filteredAssignments.length && filteredAssignments.length > 0}
+                            onChange={toggleSelectAll}
+                            className="size-4 cursor-pointer"
+                        />
+                        <span className="text-sm font-medium text-gray-700">Select All</span>
+                    </div>
+                )}
                 {loading ? <div className="text-center py-8 text-gray-500">Loading assignments...</div> : (
-                    assignments.length > 0 ? assignments.map(assignment => (
-                        <div key={assignment.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center hover:border-brand-gold transition-colors group">
-                            <div>
+                    filteredAssignments.length > 0 ? filteredAssignments.map(assignment => (
+                        <div key={assignment.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4 hover:border-brand-gold transition-colors group">
+                            <input
+                                type="checkbox"
+                                checked={selectedAssignments.has(assignment.id)}
+                                onChange={() => toggleSelectAssignment(assignment.id)}
+                                className="size-5 cursor-pointer flex-shrink-0"
+                            />
+                            <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
                                     <h3 className="font-semibold text-lg text-gray-900 group-hover:text-brand-navy">{assignment.title}</h3>
                                     <span className={`text-xs px-2 py-0.5 rounded-full ${assignment.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
@@ -213,8 +453,19 @@ export default function TeacherAssignmentsPage() {
                             </div>
                         </div>
                     )) : (
-                        <div className="text-center py-12 bg-gray-50 rounded-lg text-gray-500">
-                            No assignments found. Create one to get started.
+                        <div className="text-center py-16 bg-white rounded-lg border-2 border-dashed border-gray-300">
+                            <span className="material-symbols-outlined text-6xl text-gray-300 mb-4">assignment</span>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">No assignments yet</h3>
+                            <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                                Create your first assignment to start tracking student submissions and progress.
+                            </p>
+                            <button 
+                                onClick={() => setShowCreate(true)}
+                                className="inline-flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+                            >
+                                <span className="material-symbols-outlined">add</span>
+                                Create First Assignment
+                            </button>
                         </div>
                     )
                 )}

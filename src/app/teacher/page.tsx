@@ -65,6 +65,22 @@ export default function TeacherDashboard() {
     fetchDashboard();
   }, [toast]);
 
+  // Time-based greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  };
+
+  // Motivational message based on stats
+  const getMotivationalMessage = () => {
+    if (d.stats.pendingGrading === 0) return "🎉 All caught up on grading! Great work!";
+    if (d.stats.pendingGrading <= 5) return "💪 You're almost there! Just a few more to grade.";
+    if (d.stats.alerts > 0) return "⚠️ Some students need your attention today.";
+    return "📚 Ready to make a difference today!";
+  };
+
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-background-dark">Loading dashboard...</div>;
   }
@@ -79,35 +95,94 @@ export default function TeacherDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-background-dark">
-      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <MaterialIcon icon="school" className="text-design-primary" size="3xl" />
-            <h1 className="text-xl font-bold">Staff Portal</h1>
+      <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        {/* Enhanced Hero Section */}
+        <div className="bg-gradient-to-r from-brand-navy to-blue-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden mb-6 sm:mb-8">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400 opacity-10 rounded-full blur-2xl"></div>
+          
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="material-symbols-outlined text-3xl sm:text-4xl text-brand-gold">wb_sunny</span>
+              <div>
+                <p className="text-sm text-blue-200">{getGreeting()},</p>
+                <h2 className="text-2xl sm:text-3xl font-black">{d.profile.name}</h2>
+              </div>
+            </div>
+            <p className="text-blue-100 mt-2 text-sm sm:text-base">{d.profile.department} Department • {d.profile.formClass !== 'N/A' && `Form Tutor: ${d.profile.formClass}`}</p>
+            <p className="text-brand-gold font-medium mt-3">{getMotivationalMessage()}</p>
           </div>
-          <div className="flex items-center gap-4">
-            <MaterialIcon icon="notifications" className="text-gray-600 dark:text-gray-400 cursor-pointer" />
-            <div className="w-10 h-10 rounded-full bg-design-primary text-white flex items-center justify-center font-bold">
-              {d.profile.name.substring(0, 2).toUpperCase()}
+        </div>
+
+        {/* Enhanced Stat Cards with Gradients */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          {/* Total Students */}
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-5 sm:p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="material-symbols-outlined text-3xl opacity-80">people</span>
+              <span className="text-xs font-bold bg-white/20 px-2 py-1 rounded-full">Total</span>
+            </div>
+            <div className="text-3xl sm:text-4xl font-black mb-1">{d.stats.totalStudents}</div>
+            <p className="text-sm text-blue-100">Students</p>
+          </div>
+
+          {/* Pending Grading */}
+          <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-5 sm:p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="material-symbols-outlined text-3xl opacity-80">assignment</span>
+              {d.stats.pendingGrading > 0 && (
+                <span className="text-xs font-bold bg-white/20 px-2 py-1 rounded-full animate-pulse">Urgent</span>
+              )}
+            </div>
+            <div className="text-3xl sm:text-4xl font-black mb-1">{d.stats.pendingGrading}</div>
+            <p className="text-sm text-orange-100">Pending Grading</p>
+          </div>
+
+          {/* Classes Today */}
+          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-5 sm:p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="material-symbols-outlined text-3xl opacity-80">event</span>
+              <span className="text-xs font-bold bg-white/20 px-2 py-1 rounded-full">Today</span>
+            </div>
+            <div className="text-3xl sm:text-4xl font-black mb-1">{d.stats.classesToday}</div>
+            <p className="text-sm text-green-100">Classes</p>
+          </div>
+
+          {/* Alerts */}
+          <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-xl p-5 sm:p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="material-symbols-outlined text-3xl opacity-80">warning</span>
+              {d.stats.alerts > 0 && (
+                <span className="text-xs font-bold bg-white/20 px-2 py-1 rounded-full">!</span>
+              )}
+            </div>
+            <div className="text-3xl sm:text-4xl font-black mb-1">{d.stats.alerts}</div>
+            <p className="text-sm text-red-100">Alerts</p>
+          </div>
+        </div>
+
+        {/* Actionable Insights Bar */}
+        {(d.stats.pendingGrading > 0 || d.stats.alerts > 0) && (
+          <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg mb-6 sm:mb-8">
+            <div className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-amber-600 text-2xl">lightbulb</span>
+              <div className="flex-1">
+                <h3 className="font-bold text-amber-900 mb-2">Action Required</h3>
+                <div className="space-y-1 text-sm text-amber-800">
+                  {d.stats.pendingGrading > 0 && (
+                    <p>• <a href="/teacher/grades" className="font-medium underline hover:text-amber-900">{d.stats.pendingGrading} assignment{d.stats.pendingGrading !== 1 ? 's' : ''} waiting for your review</a></p>
+                  )}
+                  {d.stats.alerts > 0 && (
+                    <p>• <a href="/teacher/attendance" className="font-medium underline hover:text-amber-900">{d.stats.alerts} student{d.stats.alerts !== 1 ? 's need' : ' needs'} your attention</a></p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        )}
 
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-text-dark dark:text-white mb-2">Good Morning, {d.profile.name}</h2>
-          <p className="text-gray-600 dark:text-gray-400">{d.profile.department} Department • {d.profile.formClass !== 'N/A' && `Form Tutor: ${d.profile.formClass}`}</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <StatCard icon="people" label="Total Students" value={d.stats.totalStudents.toString()} />
-          <StatCard icon="assignment" label="Pending Grading" value={d.stats.pendingGrading.toString()} />
-          <StatCard icon="event" label="Classes Today" value={d.stats.classesToday.toString()} />
-          <StatCard icon="warning" label="Alerts" value={d.stats.alerts.toString()} />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           <div className="lg:col-span-2 space-y-6">
             {/* Today's Schedule */}
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">

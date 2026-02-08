@@ -10,20 +10,32 @@ export default function DashboardPage() {
 
     useEffect(() => {
         if (!loading && user) {
+            // Redirect based on role
+            const role = user.role.toLowerCase().trim()
             
-            // Route to appropriate dashboard based on role
-            const dashboards: Record<string, string> = {
-                admin: '/admin',
-                teacher: '/teacher',
-                student: '/student',
-                parent: '/parent',
+            switch (role) {
+                case 'admin':
+                case 'administrator':
+                case 'superadmin':
+                    router.push('/admin')
+                    break
+                case 'teacher':
+                    router.push('/teacher')
+                    break
+                case 'student':
+                    router.push('/student')
+                    break
+                case 'parent':
+                    router.push('/parent')
+                    break
+                case 'staff':
+                    router.push('/staff')
+                    break
+                default:
+                    // If role is unrecognized, redirect to home
+                    router.push('/')
+                    break
             }
-
-            const normalizedRole = user.role.toLowerCase().trim()
-            
-            const destination = dashboards[normalizedRole] || '/'
-            
-            router.push(destination)
         } else if (!loading && !user) {
             // Not authenticated, redirect to login
             router.push('/login')

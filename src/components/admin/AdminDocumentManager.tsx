@@ -165,7 +165,7 @@ export function AdminDocumentManager() {
     }
   }
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!selectedFile) {
       toast({
         title: 'No file selected',
@@ -175,31 +175,108 @@ export function AdminDocumentManager() {
       return
     }
 
-    // TODO: Implement actual file upload API call
-    toast({
-      title: 'Upload successful',
-      description: `${selectedFile.name} has been uploaded`,
-    })
+    try {
+      const formData = new FormData()
+      formData.append('file', selectedFile)
+      
+      const response = await fetch('/api/admin/documents', {
+        method: 'POST',
+        body: formData,
+      })
 
-    setSelectedFile(null)
-    setUploadDialogOpen(false)
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        toast({
+          title: 'Upload successful',
+          description: `${selectedFile.name} has been uploaded`,
+        })
+        // Refresh documents list
+        // In production, you'd fetch the updated list from API
+        setSelectedFile(null)
+        setUploadDialogOpen(false)
+      } else {
+        toast({
+          title: 'Upload failed',
+          description: data.message || 'Failed to upload document',
+          variant: 'destructive',
+        })
+      }
+    } catch (_error) {
+      toast({
+        title: 'Upload error',
+        description: 'Network error occurred',
+        variant: 'destructive',
+      })
+    }
   }
 
-  const handleDownload = (doc: Document) => {
-    // TODO: Implement actual download functionality
-    toast({
-      title: 'Download started',
-      description: `Downloading ${doc.fileName}`,
-    })
+  const handleDownload = async (doc: Document) => {
+    try {
+      const response = await fetch(`/api/admin/documents?id=${doc.id}`, {
+        method: 'GET',
+      })
+
+      if (response.ok) {
+        // Create download link
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = doc.fileName
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+
+        toast({
+          title: 'Download started',
+          description: `Downloading ${doc.fileName}`,
+        })
+      } else {
+        toast({
+          title: 'Download failed',
+          description: 'Failed to download document',
+          variant: 'destructive',
+        })
+      }
+    } catch (_error) {
+      toast({
+        title: 'Download error',
+        description: 'Network error occurred',
+        variant: 'destructive',
+      })
+    }
   }
 
-  const handleDelete = (doc: Document) => {
-    // TODO: Implement actual delete API call
-    setDocuments(documents.filter((d) => d.id !== doc.id))
-    toast({
-      title: 'Document deleted',
-      description: `${doc.title} has been deleted`,
-    })
+  const handleDelete = async (doc: Document) => {
+    try {
+      const response = await fetch(`/api/admin/documents?id=${doc.id}`, {
+        method: 'DELETE',
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        setDocuments(documents.filter((d) => d.id !== doc.id))
+        toast({
+          title: 'Document deleted',
+          description: `${doc.title} has been deleted`,
+        })
+      } else {
+        toast({
+          title: 'Delete failed',
+          description: data.message || 'Failed to delete document',
+          variant: 'destructive',
+        })
+      }
+    } catch (_error) {
+      toast({
+        title: 'Delete error',
+        description: 'Network error occurred',
+        variant: 'destructive',
+      })
+    }
   }
 
   return (
