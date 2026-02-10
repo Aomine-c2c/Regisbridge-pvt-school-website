@@ -1,4 +1,5 @@
-'use client';
+import { Metadata } from 'next';
+import { getSettings } from '@/lib/settings';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,11 +26,22 @@ const BOARDING_HOUSES = [
     capacity: '70 Students',
     age: 'Years 7-11',
     image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
-    housemaster: 'Dr. Michael Chen',
   },
 ];
 
-export default function BoardingPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  
+  return {
+    title: `Boarding at ${schoolName} - A Home Away From Home`,
+    description: `Discover our nurturing boarding environment. With modern facilities and dedicated pastoral care, ${schoolName} offers a truly international boarding experience.`,
+  };
+}
+
+export default async function BoardingPage() {
+  const settings = await getSettings();
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white">
       <PremiumHeader />
@@ -64,7 +76,7 @@ export default function BoardingPage() {
               </h3>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
-                  With over 300 boarders from across the country and around the world, Regisbridge Academy offers a truly international boarding experience.
+                  With over 300 boarders from across the country and around the world, {schoolName} offers a truly international boarding experience.
                 </p>
                 <p>
                   Our three purpose-built boarding houses provide comfortable, modern accommodation with dedicated house staff who ensure every student feels supported and valued.
@@ -175,7 +187,7 @@ export default function BoardingPage() {
         {/* CTA */}
         <section className="bg-brand-navy py-16 text-center">
           <div className="max-w-[960px] mx-auto px-4">
-            <h2 className="text-white text-3xl font-bold mb-4">Experience Boarding at Regisbridge</h2>
+            <h2 className="text-white text-3xl font-bold mb-4">Experience Boarding at {schoolName.split(' ')[0]}</h2>
             <p className="text-gray-200 mb-8 text-lg max-w-2xl mx-auto">
               Visit us to tour our boarding houses and meet our dedicated staff.
             </p>

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import DropdownMenu from '@/components/ui/DropdownMenu';
+import { useSettings } from '@/contexts';
 
 export default function PremiumHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -55,7 +56,7 @@ export default function PremiumHeader() {
           <div className="relative size-12">
             <Image
               src="/logo.png"
-              alt="Regisbridge Private School Logo"
+              alt={`${settings?.schoolName || 'Regisbridge'} Logo`}
               width={48}
               height={48}
               className="object-contain"
@@ -64,10 +65,10 @@ export default function PremiumHeader() {
           </div>
           <div className="flex flex-col">
             <h2 className="text-[#111318] text-lg font-bold leading-tight font-heading">
-              Regisbridge
+              {settings?.schoolName || 'Regisbridge'}
             </h2>
             <span className="text-xs text-gray-600 font-medium">
-              Private School
+              {settings?.schoolName ? 'Academy' : 'Private School'}
             </span>
           </div>
         </Link>

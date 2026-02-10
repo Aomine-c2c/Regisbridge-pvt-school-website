@@ -2,8 +2,11 @@
 
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
+import { useSettings } from '@/contexts';
 
 export default function PressKitPage() {
+  const { settings } = useSettings();
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white">
       <PremiumHeader />
@@ -15,10 +18,10 @@ export default function PressKitPage() {
 
           {/* School Information */}
           <div className="bg-white rounded-xl border border-gray-200 p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">About Regisbridge Academy</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">About {schoolName}</h2>
             <div className="space-y-4 text-gray-700">
               <p>
-                <strong>Founded:</strong> 2015
+                <strong>Founded:</strong> {settings?.establishmentYear || '2015'}
               </p>
               <p>
                 <strong>Type:</strong> Independent Co-educational Boarding & Day School
@@ -30,7 +33,7 @@ export default function PressKitPage() {
                 <strong>Student Body:</strong> 450 students (300+ boarders)
               </p>
               <p>
-                <strong>Location:</strong> Cambridge, United Kingdom
+                <strong>Location:</strong> {settings?.locationSummary || 'Located in the heart of our vibrant community'}
               </p>
             </div>
           </div>
@@ -66,9 +69,9 @@ export default function PressKitPage() {
               For media inquiries, interview requests, or school information, contact our Communications Office.
             </p>
             <div className="space-y-2 text-gray-200">
-              <p><strong>Email:</strong> press@regisbridge.edu</p>
-              <p><strong>Phone:</strong> +44 (0) 1234 567890</p>
-              <p><strong>Hours:</strong> Monday-Friday, 9:00 AM - 5:00 PM</p>
+              <p><strong>Email:</strong> {settings?.schoolEmail || 'press@regisbridge.ac.zw'}</p>
+              <p><strong>Phone:</strong> {settings?.schoolPhone || '+263 4 123456'}</p>
+              <p><strong>Hours:</strong> Monday-Friday, 8:00 AM - 5:00 PM</p>
             </div>
           </div>
         </div>

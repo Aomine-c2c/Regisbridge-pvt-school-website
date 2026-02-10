@@ -1,11 +1,15 @@
-'use client'
+'use client';
 
-import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import React from 'react';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { SettingsProvider } from '@/contexts/SettingsContext';
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      {children}
-    </NextThemesProvider>
-  )
+    <SettingsProvider>
+      <AuthProvider>
+        {children}
+      </AuthProvider>
+    </SettingsProvider>
+  );
 }

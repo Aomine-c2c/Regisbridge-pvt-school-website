@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
+import { StatusMessage } from '@/components/ui/StatusMessage';
 
 const FORM_STEPS = ['Student Information', 'Parent/Guardian Details', 'Academic History', 'Submit'];
 
@@ -24,6 +25,8 @@ export default function ApplicationFormPage() {
     gradeApplying: '',
     startDate: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   const handleNext = () => {
     if (currentStep < FORM_STEPS.length - 1) {
@@ -39,6 +42,8 @@ export default function ApplicationFormPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
     try {
       const res = await fetch('/api/admissions/apply', {
         method: 'POST',
@@ -48,15 +53,26 @@ export default function ApplicationFormPage() {
       const json = await res.json();
       
       if (json.success) {
-        alert('Application submitted successfully! We will review your application soon.');
-        // Reset form or redirect
-        window.location.href = '/'; 
+        setSubmitStatus({ 
+          type: 'success', 
+          message: 'Application submitted successfully! Redirecting to homepage...' 
+        });
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 3000);
       } else {
-        alert('Submission failed: ' + json.message);
+        setSubmitStatus({ 
+          type: 'error', 
+          message: json.message || 'Submission failed. Please check your data and try again.' 
+        });
       }
     } catch (err) {
-      console.error(err);
-      alert('An error occurred. Please try again.');
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'A network error occurred. Please try again later.' 
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -260,6 +276,16 @@ export default function ApplicationFormPage() {
                 </div>
               )}
 
+              {submitStatus && (
+                <div className="mb-6">
+                  <StatusMessage 
+                    type={submitStatus.type} 
+                    message={submitStatus.message} 
+                    onClose={() => setSubmitStatus(null)}
+                  />
+                </div>
+              )}
+
               {/* Step 3: Review & Submit */}
               {currentStep === 3 && (
                 <div className="space-y-6">
@@ -312,9 +338,10 @@ export default function ApplicationFormPage() {
                 ) : (
                   <button
                     type="submit"
-                    className="px-8 py-3 bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-bold rounded-lg transition-colors shadow-md"
+                    disabled={isSubmitting}
+                    className="px-8 py-3 bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-bold rounded-lg transition-colors shadow-md disabled:opacity-50"
                   >
-                    Submit Application
+                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
                   </button>
                 )}
               </div>

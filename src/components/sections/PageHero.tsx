@@ -23,7 +23,7 @@ export interface PageHeroProps {
  * @example
  * <PageHero 
  *   title="About Our Institution"
- *   subtitle="Excellence in education since 1974"
+ *   subtitle="Excellence in education since 2015"
  *   variant="navy"
  * />
  */

@@ -43,6 +43,17 @@ export interface Settings {
   backupFrequency: string;
   backupTime: string;
   backupRetentionDays: number;
+
+  // Institutional Info
+  motto: string;
+  establishmentYear: string;
+  campusSize: string;
+  locationSummary: string;
+  facebookUrl: string;
+  twitterUrl: string;
+  instagramUrl: string;
+  linkedinUrl: string;
+  youtubeUrl: string;
 }
 
 export const defaultSettings: Settings = {
@@ -85,6 +96,16 @@ export const defaultSettings: Settings = {
   backupFrequency: 'daily',
   backupTime: '02:00',
   backupRetentionDays: 30,
+
+  motto: 'Academic Excellence and Strong Character',
+  establishmentYear: '2015',
+  campusSize: '50+ Acres',
+  locationSummary: 'Located in the heart of Harare, Zimbabwe',
+  facebookUrl: 'https://facebook.com/regisbridge',
+  twitterUrl: 'https://twitter.com/regisbridge',
+  instagramUrl: 'https://instagram.com/regisbridge',
+  linkedinUrl: 'https://linkedin.com/school/regisbridge',
+  youtubeUrl: '',
 };
 
 // Ensure config dir exists

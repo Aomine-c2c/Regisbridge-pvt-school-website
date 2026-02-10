@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
-import { AuthProvider } from '@/contexts/AuthContext'
+import { Providers } from '@/components/providers'
+import { getSettings } from '@/lib/settings'
 
 // Optimized font loading
 const playfair = Playfair_Display({
@@ -18,88 +19,96 @@ const inter = Inter({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://regisbridge.page'),
-  title: {
-    default: 'Regisbridge Academy - Excellence in Education Since 1974',
-    template: '%s | Regisbridge Academy',
-  },
-  description: 'Regisbridge Academy offers world-class education from Early Childhood through A-Level with exceptional boarding facilities. 100% pass rate, 98% university acceptance. Apply now for excellence in education and character development.',
-  keywords: [
-    'Regisbridge Academy',
-    'private school Zimbabwe',
-    'boarding school',
-    'A-Level education',
-    'early childhood development',
-    'primary school',
-    'high school',
-    'international education',
-    'best school Zimbabwe',
-    'academic excellence',
-  ],
-  authors: [{ name: 'Regisbridge Academy' }],
-  creator: 'Regisbridge Academy',
-  publisher: 'Regisbridge Academy',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://regisbridge.page',
-    siteName: 'Regisbridge Academy',
-    title: 'Regisbridge Academy - Excellence in Education Since 1974',
-    description: 'World-class education from Early Childhood through A-Level. 100% pass rate, 98% university acceptance. Join our boarding community.',
-    images: [
-      {
-        url: 'https://regisbridge.page/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Regisbridge Academy Campus',
-        type: 'image/jpeg',
-      },
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  const motto = settings.motto || 'Excellence in Education';
+  const estYear = settings.establishmentYear || '2015';
+
+  return {
+    metadataBase: new URL('https://regisbridge.page'),
+    title: {
+      default: `${schoolName} - ${motto} Since ${estYear}`,
+      template: `%s | ${schoolName}`,
+    },
+    description: `${schoolName} offers world-class education from Early Childhood through A-Level with exceptional boarding facilities. 100% pass rate, 98% university acceptance. Apply now for excellence in education and character development.`,
+    keywords: [
+      schoolName,
+      'private school Zimbabwe',
+      'boarding school',
+      'A-Level education',
+      'early childhood development',
+      'primary school',
+      'high school',
+      'international education',
+      'best school Zimbabwe',
+      'academic excellence',
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Regisbridge Academy - Excellence in Education Since 1974',
-    description: 'World-class education from Early Childhood through A-Level. 100% pass rate, 98% university acceptance.',
-    images: ['https://regisbridge.page/og-image.jpg'],
-    creator: '@regisbridgeacademy',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    authors: [{ name: schoolName }],
+    creator: schoolName,
+    publisher: schoolName,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      url: 'https://regisbridge.page',
+      siteName: schoolName,
+      title: `${schoolName} - Excellence in Education Since ${estYear}`,
+      description: `World-class education from Early Childhood through A-Level. 100% pass rate, 98% university acceptance. Join our boarding community.`,
+      images: [
+        {
+          url: 'https://regisbridge.page/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${schoolName} Campus`,
+          type: 'image/jpeg',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${schoolName} - Excellence in Education Since ${estYear}`,
+      description: `World-class education from Early Childhood through A-Level. 100% pass rate, 98% university acceptance.`,
+      images: ['https://regisbridge.page/og-image.jpg'],
+      creator: '@regisbridgeacademy',
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
-  manifest: '/manifest.json',
-  verification: {
-    google: 'verification-token',
-  },
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+      ],
+      apple: [
+        { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      ],
+    },
+    manifest: '/manifest.json',
+  };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  const estYear = settings.establishmentYear || '2015';
+
   return (
     <html lang="en" className={`light ${playfair.variable} ${inter.variable}`}>
       <head>
@@ -118,21 +127,27 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'EducationalOrganization',
-              name: 'Regisbridge Academy',
-              alternateName: 'Regisbridge School',
+              name: schoolName,
+              alternateName: schoolName.includes(' Academy') 
+                ? schoolName.replace(' Academy', ' School') 
+                : schoolName.includes(' School') 
+                  ? schoolName.replace(' School', ' Academy')
+                  : schoolName,
               url: 'https://regisbridge.page',
               logo: 'https://regisbridge.page/logo.png',
-              description: 'Premier boarding and day school offering education from Early Childhood through A-Level',
-              foundingDate: '1974',
+              description: settings.motto || 'Premier boarding and day school offering education from Early Childhood through A-Level',
+              foundingDate: estYear,
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'ZW',
+                streetAddress: settings.schoolAddress,
               },
               sameAs: [
-                'https://facebook.com/regisbridgeacademy',
-                'https://twitter.com/regisbridgeacademy',
-                'https://linkedin.com/school/regisbridge-academy',
-              ],
+                settings.facebookUrl,
+                settings.twitterUrl,
+                settings.linkedinUrl,
+                settings.instagramUrl,
+              ].filter(Boolean),
               offers: {
                 '@type': 'Offer',
                 category: 'Education',
@@ -143,9 +158,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-gray-900">
-        <AuthProvider>
+        <Providers>
           {children}
-        </AuthProvider>
+        </Providers>
       </body>
     </html>
   )

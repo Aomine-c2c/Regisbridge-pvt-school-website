@@ -1,4 +1,5 @@
-'use client';
+import { Metadata } from 'next';
+import { getSettings } from '@/lib/settings';
 
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
@@ -21,8 +22,24 @@ const STATS = [
   { icon: 'school', value: '100%', label: 'Pass Rate' },
   { icon: 'groups', value: '1:10', label: 'Teacher Ratio' },
   { icon: 'history_edu', value: '98%', label: 'Uni Acceptance' },
-  { icon: 'verified', value: '50+', label: 'Years of Excellence' },
+  { icon: 'verified', value: '10+ Years', label: 'Of Excellence' },
 ];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  const motto = settings.motto || 'Academic Excellence';
+  const estYear = settings.establishmentYear || '2015';
+
+  return {
+    title: `${schoolName} - ${motto}`,
+    description: `Established in ${estYear}, ${schoolName} provides world-class education from ECD to A-Level in Harare, Zimbabwe. 100% pass rate and exceptional facilities.`,
+    openGraph: {
+      title: `${schoolName} | Premier Private Education`,
+      description: `Join ${schoolName} for excellence in education and character development since ${estYear}.`,
+    }
+  };
+}
 
 const PATHWAYS = [
   {
@@ -108,7 +125,9 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const settings = await getSettings();
+  
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
       <SkipToContent />
@@ -355,7 +374,7 @@ export default function Home() {
           </span>
           
           <h2 className="text-white text-4xl md:text-5xl font-black mb-6 leading-tight">
-            Enroll at Regisbridge Academy
+            Enroll at {settings?.schoolName || 'Regisbridge Academy'}
           </h2>
           
           <p className="text-gray-200 max-w-2xl mx-auto mb-10 text-xl leading-relaxed">
@@ -383,7 +402,7 @@ export default function Home() {
           
           <p className="text-gray-400 text-sm mt-8">
             <span className="material-symbols-outlined text-base inline align-middle mr-1" aria-hidden="true">phone</span>
-            Questions? Contact us at <a href="tel:+1234567890" className="text-brand-gold hover:underline font-semibold">+27 123 456 7890</a>
+            Questions? Contact us at <a href={`tel:${settings?.schoolPhone || '+27 123 456 7890'}`} className="text-brand-gold hover:underline font-semibold">{settings?.schoolPhone || '+27 123 456 7890'}</a>
           </p>
         </div>
       </section>

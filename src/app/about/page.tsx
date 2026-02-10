@@ -1,4 +1,5 @@
-'use client';
+import { Metadata } from 'next';
+import { getSettings } from '@/lib/settings';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -58,7 +59,19 @@ const LEADERSHIP = [
   },
 ];
 
-export default function AboutPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  
+  return {
+    title: `About ${schoolName} - Our Legacy of Excellence`,
+    description: `Discover the history, mission, and vision of ${schoolName}. Founded in ${settings.establishmentYear || '2015'}, we have been nurturing future leaders for nearly a decade.`,
+  };
+}
+
+export default async function AboutPage() {
+  const settings = await getSettings();
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
       <PremiumHeader />
@@ -71,7 +84,7 @@ export default function AboutPage() {
               <div className="flex flex-col gap-6 flex-1 text-center lg:text-left">
                 <div className="flex flex-col gap-4">
                   <span className="text-brand-gold font-bold tracking-wider uppercase text-sm">
-                    Est. 2015
+                    Est. {settings?.establishmentYear || '1974'}
                   </span>
                   <h1 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900">
                     A Legacy of{' '}
@@ -81,7 +94,7 @@ export default function AboutPage() {
                     </span>
                   </h1>
                   <p className="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                    Welcome to Regisbridge Academy. For nearly 10 years, we have nurtured future leaders through a unique blend of academic rigor, character development, and world-class boarding facilities.
+                    Welcome to {schoolName}. Founded in {settings?.establishmentYear || '1974'}, we have nurtured future leaders through a unique blend of academic rigor, character development, and world-class boarding facilities.
                   </p>
                 </div>
                 <div className="flex gap-4 justify-center lg:justify-start pt-4">
@@ -244,7 +257,7 @@ export default function AboutPage() {
             }}
           ></div>
           <div className="max-w-[1280px] mx-auto px-4 sm:px-10 text-center relative z-10">
-            <h2 className="text-3xl md:text-5xl font-black mb-6">Join the Regisbridge Family</h2>
+            <h2 className="text-3xl md:text-5xl font-black mb-6">Join the {schoolName.replace(' Academy', '')} Family</h2>
             <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
               Applications for the next academic year are now open.
             </p>

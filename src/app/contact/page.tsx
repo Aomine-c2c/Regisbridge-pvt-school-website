@@ -1,10 +1,11 @@
-'use client';
-
 import { useState } from 'react';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
+import { useSettings } from '@/contexts';
+import { StatusMessage } from '@/components/ui/StatusMessage';
 
 export default function ContactPage() {
+  const { settings } = useSettings();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -50,7 +51,7 @@ export default function ContactPage() {
         {/* Hero */}
         <section className="bg-brand-navy py-16 text-white text-center">
           <div className="max-w-[960px] mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-black mb-4">Contact Regisbridge Academy</h1>
+            <h1 className="text-4xl md:text-5xl font-black mb-4">Contact {settings?.schoolName || 'Regisbridge Academy'}</h1>
             <p className="text-gray-200 text-lg max-w-2xl mx-auto">
               Contact our admissions office or administrative team with your inquiries.
             </p>
@@ -72,10 +73,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Address</h3>
-                    <p className="text-gray-600">
-                      123 Academic Avenue<br />
-                      Cambridge, CB2 1AB<br />
-                      United Kingdom
+                    <p className="text-gray-600 whitespace-pre-line">
+                      {settings?.schoolAddress || '123 Education Street\nHarare, Zimbabwe'}
                     </p>
                   </div>
                 </div>
@@ -86,7 +85,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Phone</h3>
-                    <p className="text-gray-600">+44 (0) 1234 567890</p>
+                    <p className="text-gray-600">{settings?.schoolPhone || '+263 4 123456'}</p>
                     <p className="text-sm text-gray-500">Mon-Fri, 8:00 AM - 5:00 PM</p>
                   </div>
                 </div>
@@ -97,8 +96,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600">admissions@regisbridge.edu</p>
-                    <p className="text-gray-600">info@regisbridge.edu</p>
+                    <p className="text-gray-600 font-medium">{settings?.schoolEmail || 'info@regisbridge.ac.zw'}</p>
                   </div>
                 </div>
               </div>
@@ -209,9 +207,11 @@ export default function ContactPage() {
                   </div>
 
                   {submitStatus && (
-                    <div className={`p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-                      {submitStatus.message}
-                    </div>
+                    <StatusMessage 
+                      type={submitStatus.type} 
+                      message={submitStatus.message} 
+                      onClose={() => setSubmitStatus(null)}
+                    />
                   )}
 
                   <button

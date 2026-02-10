@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PremiumHeader from '@/components/layout/PremiumHeader';
 import PremiumFooter from '@/components/layout/PremiumFooter';
+import { useSettings } from '@/contexts';
 
 const FACILITIES = [
   {
@@ -33,6 +34,9 @@ const FACILITIES = [
 ];
 
 export default function CampusTourPage() {
+  const { settings } = useSettings();
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
+  const campusSize = settings?.campusSize || '50+ Acres';
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white">
       <PremiumHeader />
@@ -50,7 +54,7 @@ export default function CampusTourPage() {
               Explore Our Campus
             </h1>
             <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
-              Tour our 50-acre campus featuring state-of-the-art academic facilities, sports complexes, and comfortable boarding houses.
+              Tour our {campusSize} campus featuring state-of-the-art academic facilities, sports complexes, and comfortable boarding houses.
             </p>
             <Link
               href="/contact"
@@ -139,7 +143,7 @@ export default function CampusTourPage() {
           <div className="max-w-[1200px] mx-auto px-4 sm:px-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Getting to Campus</h2>
-              <p className="text-gray-600">Located in the heart of Cambridge, easily accessible by road and rail</p>
+              <p className="text-gray-600">{settings?.locationSummary || 'Located in the heart of our vibrant community'}</p>
             </div>
             <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
               <div className="text-center text-gray-500">

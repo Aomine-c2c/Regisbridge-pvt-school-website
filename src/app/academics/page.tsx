@@ -1,4 +1,5 @@
-'use client';
+import { Metadata } from 'next';
+import { getSettings } from '@/lib/settings';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -43,7 +44,19 @@ const ACHIEVEMENTS = [
   { stat: '1:10', label: 'Student-Teacher Ratio' },
 ];
 
-export default function AcademicExcellencePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  
+  return {
+    title: `Academics at ${schoolName} - Excellence in Education`,
+    description: `Explore our rigorous academic programs from ECD and Primary to IGCSE and A-Level. Preparing students for global success through character and competence.`,
+  };
+}
+
+export default async function AcademicExcellencePage() {
+  const settings = await getSettings();
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white">
       <PremiumHeader />
@@ -147,7 +160,7 @@ export default function AcademicExcellencePage() {
         {/* CTA */}
         <section className="bg-brand-navy py-16 text-center">
           <div className="max-w-[960px] mx-auto px-4">
-            <h2 className="text-white text-3xl font-bold mb-4">Discover Your Path to Excellence</h2>
+            <h2 className="text-white text-3xl font-bold mb-4">Discover Your Path to Excellence at {schoolName.split(' ')[0]}</h2>
             <p className="text-gray-200 mb-8 text-lg max-w-2xl mx-auto">
               Schedule a visit to see our academic environment first-hand.
             </p>

@@ -1,10 +1,23 @@
-'use client';
+import { Metadata } from 'next';
+import { getSettings } from '@/lib/settings';
 
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
 import Link from 'next/link';
 
-export default function EnhancedAdmissionsPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const schoolName = settings.schoolName || 'Regisbridge Academy';
+  const academicYear = settings.academicYear || '2026-2027';
+  
+  return {
+    title: `Admissions | ${schoolName} - Join Our Community`,
+    description: `Begin your journey at ${schoolName}. Applications for the ${academicYear} academic year are now open. Learn about our admissions process, requirements, and fees.`,
+  };
+}
+
+export default async function EnhancedAdmissionsPage() {
+  const settings = await getSettings();
+  const academicYear = settings?.academicYear || '2026-2027';
+  const schoolName = settings?.schoolName || 'Regisbridge Academy';
 
   return (
     <div className="relative flex w-full flex-col bg-background-light dark:bg-background-dark min-h-screen">
@@ -26,10 +39,10 @@ export default function EnhancedAdmissionsPage() {
               <span className="text-white">Admissions</span>
             </div>
             <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-6xl">
-              Join Regisbridge Academy
+              Join {schoolName}
             </h1>
             <p className="text-slate-100 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-              Applications for 2026-2027 academic year now open.
+              Applications for {academicYear} academic year now open.
             </p>
             <div className="flex flex-wrap gap-4 justify-center mt-4">
               <Link
@@ -238,7 +251,7 @@ export default function EnhancedAdmissionsPage() {
       <section className="bg-brand-navy py-16 px-6 text-center">
         <h2 className="text-white text-3xl font-bold mb-4">Ready to Apply?</h2>
         <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
-          Take the first step towards an exceptional education at Regisbridge Academy.
+          Take the first step towards an exceptional education at {schoolName}.
         </p>
         <Link
           href="/admissions/apply"

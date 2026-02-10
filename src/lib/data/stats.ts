@@ -20,10 +20,10 @@ export const CORE_STATS = {
 
 // Heritage and history stats
 export const HERITAGE_STATS = {
-  founded: { value: '1974', label: 'Founded', icon: 'calendar_today' },
+  founded: { value: '2015', label: 'Founded', icon: 'calendar_today' },
   passRate: { value: '100%', label: 'Pass Rate', icon: 'verified' },
-  boarders: { value: '300+', label: 'Boarders', icon: 'home' },
-  campusAcres: { value: '50+', label: 'Acres of Campus', icon: 'terrain' },
+  boarders: { value: '50+', label: 'Boarders', icon: 'home' },
+  campusAcres: { value: '10+', label: 'Acres of Campus', icon: 'terrain' },
 } as const;
 
 // Academic-specific stats
