@@ -33,6 +33,15 @@ const DEFAULT_PERMISSIONS = {
 
 const SYSTEM_ROLES = ['Super Admin', 'Teacher', 'Registrar', 'Accountant'];
 
+interface ApiUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  status: string;
+}
+
 export default function SystemUserManagementPage() {
   const { toast } = useToast();
   const [users, setUsers] = useState<User[]>([]);
@@ -47,37 +56,47 @@ export default function SystemUserManagementPage() {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       try {
-        const res = await fetch('/api/admin/users', {
+        const queryParams = new URLSearchParams();
+        if (searchQuery) queryParams.append('search', searchQuery);
+        
+        const res = await fetch(`/api/admin/users?${queryParams.toString()}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         const json = await res.json();
-        if (json.success) {
-          // Normalize user data from API if needed, for now assuming simpler shape or mock fallback
-          const apiUsers = json.users.map((u: any) => ({
+        
+        if (json.users) {
+          const apiUsers = json.users.map((u: ApiUser) => ({
              id: u.id,
              name: `${u.firstName} ${u.lastName}`,
              email: u.email,
              role: u.role,
              roleColor: getRoleColor(u.role),
-             accessModules: [], // API doesn't return this yet
+             accessModules: [], 
              status: u.status === 'active' ? 'Active' : 'Disabled',
              lastLogin: 'N/A',
              lastIP: 'N/A'
           }));
-          setUsers(apiUsers.length ? apiUsers : getMockUsers());
+          setUsers(apiUsers);
         } else {
-          setUsers(getMockUsers());
+          setUsers([]);
         }
       } catch (error) {
-        console.error(error);
-        setUsers(getMockUsers());
+        console.error("Failed to fetch users", error);
+        toast({ title: "Error", description: "Failed to load users", variant: "destructive" });
+        setUsers([]);
       } finally {
         setLoading(false);
       }
     };
-    fetchUsers();
-  }, []);
+
+    const debounceTimer = setTimeout(() => {
+        fetchUsers();
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery, toast]);
 
   const getRoleColor = (role: string) => {
     switch(role.toLowerCase()) {
@@ -89,18 +108,9 @@ export default function SystemUserManagementPage() {
     }
   };
 
-  const getMockUsers = (): User[] => [
-    { id: '1', name: 'Sarah Jenkins', email: 'sarah.j@eagle.edu', role: 'Super Admin', roleColor: 'purple', accessModules: ['Finance', 'HR', 'Academics', 'All'], status: 'Active', lastLogin: 'Today, 9:00 AM', lastIP: '192.168.1.1' },
-    { id: '2', name: 'Michael Ross', email: 'm.ross@eagle.edu', role: 'Teacher', roleColor: 'blue', accessModules: ['Academics', 'Students'], status: 'Active', lastLogin: 'Yesterday', lastIP: '192.168.1.42' },
-    { id: '3', name: 'Elena Gomez', email: 'e.gomez@eagle.edu', role: 'Registrar', roleColor: 'indigo', accessModules: ['Students', 'Enrollment'], status: 'Away', lastLogin: '2 days ago', lastIP: '192.168.1.12', avatar: 'https://via.placeholder.com/150' },
-    { id: '4', name: 'David Chen', email: 'd.chen@eagle.edu', role: 'Accountant', roleColor: 'teal', accessModules: ['Finance'], status: 'Active', lastLogin: 'Today, 8:30 AM', lastIP: '192.168.1.88' },
-  ];
-
-  const filteredUsers = users.filter(u =>
-    u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    u.role.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Removed mock users to force API usage
+  // Client-side filtering removed in favor of server-side search below
+  const filteredUsers = users; // Users are already filtered by API
 
   const togglePermission = (category: keyof typeof DEFAULT_PERMISSIONS, key: string) => {
     setPermissionSettings(prev => ({
@@ -137,7 +147,7 @@ export default function SystemUserManagementPage() {
       } else {
         throw new Error(json.message || 'Failed to update');
       }
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: "Error",
         description: "Failed to save permissions. Please try again.",
@@ -334,7 +344,7 @@ export default function SystemUserManagementPage() {
                 {/* Pagination */}
                 <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
                   <p className="text-sm text-gray-500">
-                    Showing <span className="font-bold text-gray-900">1-{filteredUsers.length}</span> of <span className="font-bold text-gray-900">{users.length}</span> users
+                    Showing <span className="font-bold text-gray-900">{users.length}</span> users
                   </p>
                   <div className="flex gap-2">
                     <button className="px-3 py-1 rounded border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>

@@ -1,12 +1,65 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useToast } from "@/components/ui/use-toast";
+
+interface AnalyticsData {
+  counts: {
+    students: number;
+    staff: number;
+  };
+  financial: {
+    collectionRate: number;
+    totalCollected: number;
+    totalExpected: number;
+  };
+  academic: {
+    avgScore: number;
+  };
+  charts: {
+    distribution: { label: string; value: number }[];
+  };
+}
 
 export default function ExecutiveAnalyticsPage() {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<AnalyticsData | null>(null);
+
+  // Filter states (kept for UI consistency, though API might not support all yet)
   const [cohort, setCohort] = useState('2023-2024');
-  const [level, setLevel] = useState('A-Level');
-  const [department, setDepartment] = useState('All Sciences');
-  const [term, setTerm] = useState('Finals');
+
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const res = await fetch('/api/admin/analytics', {
+             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        const json = await res.json();
+        
+        if (json.success) {
+          setData(json.data);
+        } else {
+          toast({ title: "Error", description: json.message || "Failed to load analytics", variant: "destructive" });
+        }
+      } catch (error) {
+        console.error("Analytics Load Error:", error);
+        toast({ title: "Error", description: "Failed to connect to server", variant: "destructive" });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnalytics();
+  }, [toast]);
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#f6f6f8] dark:bg-[#111521]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2957e0]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-[#f6f6f8] dark:bg-[#111521] text-[#111317] dark:text-white font-sans transition-colors duration-200">
@@ -22,7 +75,7 @@ export default function ExecutiveAnalyticsPage() {
              </div>
              <h1 className="text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em] text-[#111317] dark:text-white">Academic Performance Trends</h1>
              <p className="text-[#646d87] dark:text-gray-400 text-base max-w-2xl">
-               Analyze exam results against predictions, evaluate faculty effectiveness, and identify subject-level opportunities for the current academic cycle.
+               Real-time overview of student enrollment, financial performance, and academic metrics for the current academic cycle.
              </p>
           </div>
           <div className="flex items-center gap-3">
@@ -30,15 +83,11 @@ export default function ExecutiveAnalyticsPage() {
               <span className="material-symbols-outlined text-[20px]">file_download</span>
               <span>Export Report</span>
             </button>
-            <button className="flex items-center gap-2 px-4 h-10 rounded-lg bg-[#2957e0] text-white text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20">
-              <span className="material-symbols-outlined text-[20px]">add</span>
-              <span>New Analysis</span>
-            </button>
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="w-full bg-white dark:bg-[#1e2330] p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col md:flex-row gap-4 items-center flex-wrap">
+        {/* Filters - Visual Only for now */}
+        <div className="w-full bg-white dark:bg-[#1e2330] p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col md:flex-row gap-4 items-center flex-wrap opacity-60">
           <div className="flex items-center gap-2 text-[#646d87] dark:text-gray-400 text-sm font-bold mr-2">
             <span className="material-symbols-outlined">filter_list</span>
             <span>Filters:</span>
@@ -50,66 +99,50 @@ export default function ExecutiveAnalyticsPage() {
               <select 
                 value={cohort}
                 onChange={(e) => setCohort(e.target.value)}
+                disabled
                 className="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-[#2957e0] focus:border-[#2957e0] text-[#111317] dark:text-white appearance-none cursor-pointer"
               >
                 <option>2023-2024</option>
-                <option>2022-2023</option>
-                <option>2021-2022</option>
               </select>
-              <span className="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
+               <span className="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">lock</span>
             </div>
-             {/* Level */}
-            <div className="relative group">
-              <label className="absolute -top-2 left-2 px-1 bg-white dark:bg-[#1e2330] text-xs font-bold text-[#2957e0] z-10">Level</label>
-               <select 
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
-                className="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-[#2957e0] focus:border-[#2957e0] text-[#111317] dark:text-white appearance-none cursor-pointer"
-              >
-                <option>A-Level</option>
-                <option>O-Level/IGCSE</option>
-                <option>IB Diploma</option>
-              </select>
-              <span className="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
-            </div>
-             {/* Department */}
-            <div className="relative group">
-              <label className="absolute -top-2 left-2 px-1 bg-white dark:bg-[#1e2330] text-xs font-bold text-[#2957e0] z-10">Department</label>
-               <select 
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                className="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-[#2957e0] focus:border-[#2957e0] text-[#111317] dark:text-white appearance-none cursor-pointer"
-              >
-                <option>All Sciences</option>
-                <option>Humanities</option>
-                <option>Mathematics</option>
-                <option>Arts</option>
-              </select>
-              <span className="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
-            </div>
-             {/* Term */}
-            <div className="relative group">
-              <label className="absolute -top-2 left-2 px-1 bg-white dark:bg-[#1e2330] text-xs font-bold text-[#2957e0] z-10">Term</label>
-               <select 
-                value={term}
-                onChange={(e) => setTerm(e.target.value)}
-                className="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-[#2957e0] focus:border-[#2957e0] text-[#111317] dark:text-white appearance-none cursor-pointer"
-              >
-                <option>Finals</option>
-                <option>Mid-Term</option>
-                <option>Mocks</option>
-              </select>
-              <span className="material-symbols-outlined absolute right-2 top-2.5 text-gray-400 pointer-events-none text-lg">arrow_drop_down</span>
-            </div>
+            {/* Other filters disabled for this version */}
+             <div className="col-span-3 flex items-center text-xs text-gray-500 italic">
+                * Global filters are currently read-only in this version.
+             </div>
           </div>
         </div>
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <KPICard title="Average Grade Points" icon="school" value="3.82" sub="/ 4.0" trend="+2.4% vs last year" trendUp={true} color="blue" />
-          <KPICard title="Pass Rate (A*-C)" icon="check_circle" value="98.2%" sub="" trend="+1.2% vs target" trendUp={true} color="purple" />
-          <KPICard title="Top Subject" icon="emoji_events" value="Physics" sub="" badge="42 Students • 4.0 Avg" color="yellow" />
-          <KPICard title="Performance Alert" icon="warning" value="History" sub="" trend="-5.4% deviation" trendUp={false} color="red" />
+          <KPICard 
+            title="Total Students" 
+            icon="school" 
+            value={data?.counts.students.toString() || "0"} 
+            sub="Active Enrollments" 
+            color="blue" 
+          />
+          <KPICard 
+             title="Total Staff" 
+             icon="group" 
+             value={data?.counts.staff.toString() || "0"} 
+             sub="Active Faculty & Staff" 
+             color="purple" 
+           />
+          <KPICard 
+            title="Fees Collected" 
+            icon="payments" 
+            value={`$${(data?.financial.totalCollected || 0).toLocaleString()}`} 
+            sub={`of $${(data?.financial.totalExpected || 0).toLocaleString()} Expected`}
+            color="green" 
+          />
+           <KPICard 
+            title="Avg Academic Score" 
+            icon="emoji_events" 
+            value={data?.academic.avgScore ? `${data.academic.avgScore}%` : "N/A"} 
+            sub="Across all recent grades"
+            color="yellow" 
+          />
         </div>
 
         {/* Analytics Grid */}
@@ -118,92 +151,60 @@ export default function ExecutiveAnalyticsPage() {
            <div className="xl:col-span-2 bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col">
              <div className="flex justify-between items-center mb-8">
                <div>
-                 <h3 className="text-lg font-bold text-[#111317] dark:text-white">Predicted vs. Actual Grades</h3>
-                 <p className="text-sm text-[#646d87] dark:text-gray-400">Comparing faculty predictions against final exam results</p>
-               </div>
-               <div className="flex gap-4 text-xs font-bold">
-                 <div className="flex items-center gap-2">
-                   <div className="size-3 rounded-sm bg-gray-300 dark:bg-gray-600"></div>
-                   <span className="text-[#646d87] dark:text-gray-400">Predicted</span>
-                 </div>
-                 <div className="flex items-center gap-2">
-                   <div className="size-3 rounded-sm bg-[#2957e0]"></div>
-                   <span className="text-[#111317] dark:text-white">Actual</span>
-                 </div>
+                 <h3 className="text-lg font-bold text-[#111317] dark:text-white">Student Distribution</h3>
+                 <p className="text-sm text-[#646d87] dark:text-gray-400">Enrollment count by Grade Level</p>
                </div>
              </div>
              
              {/* CSS Bar Chart */}
-             <div className="flex-1 w-full min-h-[300px] flex items-end justify-between gap-4 md:gap-8 px-2">
-                <BarGroup label="Physics" pred={70} act={85} pVal="3.5" aVal="4.0" />
-                <BarGroup label="Chem" pred={75} act={78} pVal="3.7" aVal="3.8" />
-                <BarGroup label="Bio" pred={80} act={65} pVal="3.9" aVal="3.2" />
-                <BarGroup label="Math" pred={88} act={92} pVal="4.2" aVal="4.5" />
-                <BarGroup label="Eng" pred={60} act={65} pVal="3.0" aVal="3.2" />
-                <BarGroup label="Hist" pred={70} act={50} pVal="3.5" aVal="2.5" />
+             <div className="flex-1 w-full min-h-[300px] flex items-end justify-center gap-4 md:gap-8 px-2">
+                {data?.charts.distribution && data.charts.distribution.length > 0 ? (
+                    data?.charts.distribution.map((item) => {
+                         // Calculate relative height based on max value
+                         const maxVal = Math.max(...data.charts.distribution.map(d => d.value));
+                         const heightPct = maxVal > 0 ? (item.value / maxVal) * 100 : 0;
+                         
+                         return (
+                            <div key={item.label} className="flex flex-col items-center flex-1 group cursor-pointer max-w-[100px]">
+                                <div className="relative w-full flex justify-center h-full items-end" style={{height: '250px'}}>
+                                    <div 
+                                        className="w-8 md:w-12 bg-[#2957e0] rounded-t-sm group-hover:bg-blue-600 transition-all relative shadow-[0_0_15px_-3px_rgba(41,87,224,0.3)]" 
+                                        style={{ height: `${Math.max(heightPct, 5)}%` }} // Min height 5% for visibility
+                                    >
+                                        <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-[#2957e0] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 transition-opacity">
+                                            {item.value} Students
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="mt-3 text-xs md:text-sm font-bold text-[#646d87] dark:text-gray-400 text-center">{item.label}</p>
+                            </div>
+                         );
+                    })
+                ) : (
+                    <div className="flex items-center justify-center w-full h-full text-gray-400 italic">
+                        No student distribution data available
+                    </div>
+                )}
              </div>
            </div>
 
-           {/* Chart 2: Matrix */}
+           {/* Chart 2: Recent Activity / Placeholder */}
            <div className="xl:col-span-1 bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col">
               <div className="mb-6">
-                <h3 className="text-lg font-bold text-[#111317] dark:text-white">Subject Matrix</h3>
-                <p className="text-sm text-[#646d87] dark:text-gray-400">Popularity vs. Performance</p>
+                <h3 className="text-lg font-bold text-[#111317] dark:text-white">System Insights</h3>
+                <p className="text-sm text-[#646d87] dark:text-gray-400">Quick stats overview</p>
               </div>
-              <div className="relative flex-1 w-full min-h-[300px] border-l border-b border-gray-300 dark:border-gray-600">
-                <div className="absolute -left-8 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-bold text-gray-400 tracking-wider">PERFORMANCE</div>
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-400 tracking-wider">POPULARITY</div>
-                {/* Grid Lines */}
-                <div className="absolute top-1/2 w-full h-px bg-gray-200 dark:bg-gray-700 border-t border-dashed border-gray-300 dark:border-gray-600"></div>
-                <div className="absolute left-1/2 h-full w-px bg-gray-200 dark:bg-gray-700 border-l border-dashed border-gray-300 dark:border-gray-600"></div>
-                
-                {/* Bubbles */}
-                <Bubble top="10%" right="10%" size="size-20" color="blue" label="Physics" />
-                <Bubble top="5%" right="25%" size="size-24" color="blue" label="Math" />
-                <Bubble bottom="20%" left="45%" size="size-16" color="red" label="History" />
-                <Bubble top="40%" left="10%" size="size-12" color="gray" label="Art" />
-                <Bubble bottom="30%" right="15%" size="size-20" color="yellow" label="Bio" />
+              <div className="flex-1 flex flex-col justify-center items-center gap-4 text-center p-4">
+                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
+                    <span className="material-symbols-outlined text-4xl text-[#2957e0]">insights</span>
+                 </div>
+                 <h4 className="font-bold text-gray-900 dark:text-white">Data Collection Active</h4>
+                 <p className="text-sm text-gray-500">
+                    The system is actively collecting data for detailed academic and financial analysis. More advanced charts will appear here as data grows.
+                 </p>
               </div>
            </div>
         </div>
-
-        {/* Faculty Table */}
-        <div className="bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden flex flex-col">
-           <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-             <div>
-               <h3 className="text-lg font-bold text-[#111317] dark:text-white">Faculty Impact Matrix</h3>
-               <p className="text-sm text-[#646d87] dark:text-gray-400">Deviation from predicted grades by instructor</p>
-             </div>
-             <button className="text-[#2957e0] text-sm font-bold hover:underline">View All Staff</button>
-           </div>
-           <div className="overflow-x-auto">
-             <table className="w-full text-left border-collapse">
-               <thead className="bg-gray-50 dark:bg-gray-800/50 text-[#646d87] dark:text-gray-400 text-xs uppercase tracking-wider font-semibold">
-                 <tr>
-                   <th className="px-6 py-4">Faculty Member</th>
-                   <th className="px-6 py-4">Department</th>
-                   <th className="px-6 py-4">Students</th>
-                   <th className="px-6 py-4">Avg. Grade</th>
-                   <th className="px-6 py-4">Pred. vs Actual</th>
-                   <th className="px-6 py-4 text-right">Action</th>
-                 </tr>
-               </thead>
-               <tbody className="divide-y divide-gray-200 dark:divide-gray-700 text-sm">
-                 <FacultyRow name="Dr. Sarah Chen" dept="Physics" students="42" grade="4.0 (A)" deviation="+0.5" isPositive={true} />
-                 <FacultyRow name="Mr. James Wilson" dept="History" students="28" grade="2.8 (C+)" deviation="-0.8" isPositive={false} />
-                 <FacultyRow name="Prof. Anita Roy" dept="Mathematics" students="55" grade="3.9 (A-)" deviation="+0.2" isPositive={true} />
-                 <FacultyRow name="Mr. David Kim" dept="Biology" students="38" grade="3.2 (B)" deviation="0.0" isNeutral={true} />
-               </tbody>
-             </table>
-           </div>
-           <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/20 flex justify-center">
-             <button className="text-sm font-bold text-[#646d87] dark:text-gray-400 hover:text-[#2957e0] flex items-center gap-1 transition-colors">
-               Show All 34 Faculty Members
-               <span className="material-symbols-outlined text-sm">expand_more</span>
-             </button>
-           </div>
-        </div>
-
       </main>
     </div>
   );

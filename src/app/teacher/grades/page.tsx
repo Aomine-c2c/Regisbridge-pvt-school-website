@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import Link from 'next/link';
 
@@ -112,7 +112,7 @@ export default function TeacherGradebook() {
     }, 30000); // 30 seconds
 
     return () => clearInterval(autoSaveInterval);
-  }, [students]);
+  }, [students, handleSave]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -131,9 +131,9 @@ export default function TeacherGradebook() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [students]);
+  }, [students, handleSave, handleSubmit]);
 
-  const handleSave = async (silent = false) => {
+  const handleSave = useCallback(async (silent = false) => {
     setIsSaving(true);
     try {
       // Simulate API call
@@ -142,16 +142,16 @@ export default function TeacherGradebook() {
       if (!silent) {
         toast({ title: 'Draft saved', description: 'Grades saved successfully' });
       }
-    } catch (error) {
+    } catch (_error) {
       toast({ title: 'Save failed', description: 'Could not save grades', variant: 'destructive' });
     } finally {
       setIsSaving(false);
     }
-  };
+  }, [toast]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     toast({ title: 'Submitted', description: 'Grades submitted for approval' });
-  };
+  }, [toast]);
 
 
 

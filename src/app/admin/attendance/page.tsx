@@ -1,289 +1,317 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { 
+  Calendar, 
+  CheckCircle2, 
+  XCircle, 
+  Clock, 
+  Save,
+  Search
+} from 'lucide-react';
+
+interface AttendanceRecord {
+  studentId: string;
+  rollNumber: string;
+  studentName: string;
+  grade: string;
+  status: 'PRESENT' | 'ABSENT' | 'LATE' | null;
+  remarks: string;
+  markedAt: string | null;
+}
 
 export default function AttendancePage() {
-  return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-[#f6f6f8] dark:bg-[#111521] text-[#111317] dark:text-[#e2e8f0]">
-      {/* Top Navbar skipped (part of layout usually) */}
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  
+  // Filters
+  const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [grade, setGrade] = useState<string>('10');
+  
+  // Data
+  const [students, setStudents] = useState<AttendanceRecord[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Fetch Attendance Data
+  const fetchAttendance = useCallback(async () => {
+    setLoading(true);
+    try {
+      const queryParams = new URLSearchParams({
+        date: date,
+        grade: grade
+      });
       
-      <main className="flex flex-1 overflow-hidden">
-        {/* Left Panel: Calendar & Scheduler */}
-        <section className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#f6f6f8] dark:bg-[#111521] relative">
-          {/* Breadcrumbs & Header */}
-          <div className="px-6 pt-5 pb-2 shrink-0">
-            <div className="flex flex-wrap gap-2 mb-2 items-center text-sm">
-              <span className="text-[#646d87] font-medium">Dashboard</span>
-              <span className="text-[#646d87] material-symbols-outlined text-[16px]">chevron_right</span>
-              <span className="text-[#646d87] font-medium">HR Management</span>
-              <span className="text-[#646d87] material-symbols-outlined text-[16px]">chevron_right</span>
-              <span className="text-[#111317] dark:text-white font-semibold">Leave & Substitution</span>
-            </div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-bold text-[#111317] dark:text-white">Leave Calendar</h1>
-                <p className="text-[#646d87] text-sm mt-1">Manage staff absences and coverage for Spring Semester 2024</p>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-lg text-sm font-medium text-[#111317] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">download</span>
-                  Export
-                </button>
-                <button className="flex items-center gap-2 px-3 py-2 bg-[#1349ec] text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
-                  <span className="material-symbols-outlined text-[18px]">add</span>
-                  New Request
-                </button>
-              </div>
-            </div>
-          </div>
+      const res = await fetch(`/api/admin/attendance?${queryParams.toString()}`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      const json = await res.json();
+      
+      if (json.success) {
+        setStudents(json.data);
+      } else {
+        toast({ title: "Error", description: json.message, variant: "destructive" });
+        setStudents([]);
+      }
+    } catch (_error) {
+      console.error("Failed to fetch attendance:", _error);
+      toast({ title: "Error", description: "Failed to load student list", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  }, [date, grade, toast]);
 
-          {/* Toolbar */}
-          <div className="px-6 py-4 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center shrink-0">
-            {/* Filters */}
-            <div className="flex flex-wrap gap-3">
-              <div className="relative group">
-                <button className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-lg text-sm text-[#646d87] hover:text-[#111317] dark:hover:text-white transition-colors">
-                  <span>Department: <b>All</b></span>
-                  <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
-                </button>
-              </div>
-              <div className="relative group">
-                <button className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-lg text-sm text-[#646d87] hover:text-[#111317] dark:hover:text-white transition-colors">
-                  <span>Type: <b>All Leaves</b></span>
-                  <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
-                </button>
-              </div>
-              <div className="h-9 w-[1px] bg-[#dcdee5] dark:bg-[#334155] mx-1 hidden md:block"></div>
-              <div className="flex items-center bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-lg px-3 py-2 w-full md:w-64">
-                <span className="material-symbols-outlined text-[#646d87] text-[18px]">search</span>
-                <input className="border-none bg-transparent focus:ring-0 p-0 text-sm ml-2 w-full text-[#111317] dark:text-white placeholder:text-[#646d87]" placeholder="Find staff member..." type="text" />
-              </div>
-            </div>
-            
-            {/* View Switcher & Date Nav */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center bg-white dark:bg-[#1e293b] rounded-lg p-1 border border-[#dcdee5] dark:border-[#334155]">
-                <button className="px-3 py-1 rounded text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 text-[#646d87]">Day</button>
-                <button className="px-3 py-1 rounded text-sm font-medium bg-[#1349ec]/10 text-[#1349ec] shadow-sm">Week</button>
-                <button className="px-3 py-1 rounded text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 text-[#646d87]">Month</button>
-              </div>
-              <div className="flex items-center gap-1">
-                <button className="size-8 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-[#646d87] transition-colors">
-                  <span className="material-symbols-outlined">chevron_left</span>
-                </button>
-                <span className="text-sm font-semibold text-[#111317] dark:text-white min-w-[100px] text-center">Oct 12 - 18</span>
-                <button className="size-8 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-[#646d87] transition-colors">
-                  <span className="material-symbols-outlined">chevron_right</span>
-                </button>
-              </div>
-            </div>
-          </div>
+  // Load data on filter change
+  useEffect(() => {
+    fetchAttendance();
+  }, [date, grade, fetchAttendance]);
 
-          {/* Calendar Grid Container */}
-          <div className="flex-1 overflow-auto px-6 pb-6 no-scrollbar">
-            <div className="bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-xl shadow-sm min-w-[800px]">
-              {/* Header Row */}
-              <div className="grid grid-cols-[200px_repeat(5,_1fr)] border-b border-[#dcdee5] dark:border-[#334155] sticky top-0 bg-white dark:bg-[#1e293b] z-10 rounded-t-xl">
-                <div className="p-4 text-xs font-bold uppercase tracking-wider text-[#646d87] border-r border-[#dcdee5] dark:border-[#334155] bg-gray-50/50 dark:bg-gray-800/50">Staff Member</div>
-                <div className="p-3 text-center border-r border-[#dcdee5] dark:border-[#334155] last:border-r-0">
-                  <div className="text-xs text-[#646d87] font-medium uppercase">Mon</div>
-                  <div className="text-lg font-bold text-[#111317] dark:text-white">12</div>
-                </div>
-                <div className="p-3 text-center border-r border-[#dcdee5] dark:border-[#334155] last:border-r-0 bg-[#1349ec]/5">
-                  <div className="text-xs text-[#1349ec] font-bold uppercase">Tue</div>
-                  <div className="text-lg font-bold text-[#1349ec]">13</div>
-                </div>
-                {['14', '15', '16'].map((date, i) => (
-                   <div key={date} className="p-3 text-center border-r border-[#dcdee5] dark:border-[#334155] last:border-r-0">
-                    <div className="text-xs text-[#646d87] font-medium uppercase">{['Wed', 'Thu', 'Fri'][i]}</div>
-                    <div className="text-lg font-bold text-[#111317] dark:text-white">{date}</div>
-                  </div>
-                ))}
-              </div>
+  // Handle Marking
+  const handleMark = (studentId: string, status: 'PRESENT' | 'ABSENT' | 'LATE') => {
+    setStudents(prev => prev.map(s => 
+      s.studentId === studentId ? { ...s, status } : s
+    ));
+  };
 
-              {/* Row 1 */}
-              <div className="grid grid-cols-[200px_repeat(5,_1fr)] border-b border-[#dcdee5] dark:border-[#334155] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
-                <div className="p-4 flex items-center gap-3 border-r border-[#dcdee5] dark:border-[#334155]">
-                  <div className="size-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs">SJ</div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#111317] dark:text-white">Sarah Jenkins</p>
-                    <p className="text-xs text-[#646d87]">Science Dept</p>
-                  </div>
-                </div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155] relative col-span-3">
-                  {/* Multi-day event */}
-                  <div className="absolute inset-y-2 left-2 right-2 bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 rounded text-xs p-2 flex flex-col justify-center cursor-pointer hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-red-700 dark:text-red-300">Sick Leave</span>
-                      <span className="bg-white dark:bg-gray-800 text-[#111317] dark:text-white px-1.5 py-0.5 rounded text-[10px] shadow-sm border border-gray-200 dark:border-gray-600">Pending Sub</span>
-                    </div>
-                    <span className="text-red-600/80 dark:text-red-400 text-[10px] mt-1 flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[12px]">warning</span> No Coverage
-                    </span>
-                  </div>
-                </div>
-                <div className="border-r border-[#dcdee5] dark:border-[#334155] hidden"></div>
-                <div className="border-r border-[#dcdee5] dark:border-[#334155] hidden"></div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1"></div>
-              </div>
+  const handleRemarkChange = (studentId: string, remarks: string) => {
+    setStudents(prev => prev.map(s => 
+      s.studentId === studentId ? { ...s, remarks } : s
+    ));
+  };
 
-              {/* Row 2 */}
-              <div className="grid grid-cols-[200px_repeat(5,_1fr)] border-b border-[#dcdee5] dark:border-[#334155] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                <div className="p-4 flex items-center gap-3 border-r border-[#dcdee5] dark:border-[#334155]">
-                  <div className="size-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">MR</div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#111317] dark:text-white">Mark Rivera</p>
-                    <p className="text-xs text-[#646d87]">Math Dept</p>
-                  </div>
-                </div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]">
-                  {/* Single day event */}
-                  <div className="h-full bg-blue-100 dark:bg-blue-900/30 border-l-4 border-blue-500 rounded text-xs p-2 flex flex-col justify-center cursor-pointer hover:shadow-md transition-shadow mx-1">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">Prof. Dev</span>
-                    <span className="text-blue-600/80 dark:text-blue-400 text-[10px] mt-1 flex items-center gap-1">
-                      <span className="material-symbols-outlined text-[12px]">check_circle</span> Sub: A. Thompson
-                    </span>
-                  </div>
-                </div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1"></div>
-              </div>
+  // Mark All functionality
+  const markAll = (status: 'PRESENT' | 'ABSENT') => {
+    setStudents(prev => prev.map(s => ({ ...s, status })));
+  };
 
-              {/* Row 3 */}
-              <div className="grid grid-cols-[200px_repeat(5,_1fr)] border-b border-[#dcdee5] dark:border-[#334155] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                <div className="p-4 flex items-center gap-3 border-r border-[#dcdee5] dark:border-[#334155]">
-                  <div className="size-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold text-xs">EC</div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#111317] dark:text-white">Emily Chen</p>
-                    <p className="text-xs text-[#646d87]">Math Dept</p>
-                  </div>
+  // Submit Data
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      const payload = {
+        date: date,
+        records: students
+          .filter(s => s.status !== null) // Only send marked records
+          .map(s => ({
+            studentId: s.studentId,
+            status: s.status,
+            remarks: s.remarks
+          }))
+      };
+
+      const res = await fetch('/api/admin/attendance', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}` 
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+      
+      if (json.success) {
+        toast({ title: "Success", description: "Attendance saved successfully" });
+        fetchAttendance(); // Refresh to show "markedAt" timestamps if needed
+      } else {
+        toast({ title: "Error", description: json.message, variant: "destructive" });
+      }
+    } catch (error) {
+       console.error("Failed to save attendance:", error);
+       toast({ title: "Error", description: "Failed to save records", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const filteredStudents = students.filter(s => 
+    s.studentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    s.rollNumber.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const stats = {
+    total: filteredStudents.length,
+    present: filteredStudents.filter(s => s.status === 'PRESENT').length,
+    absent: filteredStudents.filter(s => s.status === 'ABSENT').length,
+    late: filteredStudents.filter(s => s.status === 'LATE').length,
+    unmarked: filteredStudents.filter(s => s.status === null).length,
+  };
+
+  return (
+    <div className="flex flex-col h-full space-y-6 p-6">
+      <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Student Attendance</h1>
+          <p className="text-slate-500">Manage daily attendance records for students.</p>
+        </div>
+        <div className="flex items-center gap-3">
+            <div className="bg-white p-2 rounded-lg border shadow-sm flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2 text-green-600">
+                    <CheckCircle2 size={16} />
+                    <span className="font-bold">{stats.present}</span> Present
                 </div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155]"></div>
-                <div className="p-1 border-r border-[#dcdee5] dark:border-[#334155] col-span-2 relative">
-                  {/* Pending event */}
-                  <div className="absolute inset-y-2 left-2 right-2 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-dashed border-yellow-400 rounded text-xs p-2 flex flex-col justify-center cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-yellow-700 dark:text-yellow-500">Requested</span>
-                    </div>
-                    <span className="text-yellow-600/80 dark:text-yellow-400 text-[10px] mt-1">Pending Approval</span>
-                  </div>
+                <div className="w-px h-4 bg-slate-200"></div>
+                <div className="flex items-center gap-2 text-red-600">
+                    <XCircle size={16} />
+                    <span className="font-bold">{stats.absent}</span> Absent
                 </div>
-                <div className="border-r border-[#dcdee5] dark:border-[#334155] hidden"></div>
-                <div className="p-1"></div>
-              </div>
+                <div className="w-px h-4 bg-slate-200"></div>
+                <div className="flex items-center gap-2 text-orange-600">
+                    <Clock size={16} />
+                    <span className="font-bold">{stats.late}</span> Late
+                </div>
             </div>
-          </div>
-        </section>
+            <Button onClick={handleSubmit} disabled={submitting || loading} className="bg-brand-navy hover:bg-brand-navy/90">
+                <Save className="mr-2 h-4 w-4" />
+                {submitting ? 'Saving...' : 'Save Changes'}
+            </Button>
+        </div>
+      </div>
 
-        {/* Right Sidebar: Action Panel */}
-        <aside className="w-[400px] bg-white dark:bg-[#1e293b] border-l border-[#dcdee5] dark:border-[#334155] flex flex-col shrink-0 z-10 shadow-xl overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b border-[#dcdee5] dark:border-[#334155]">
-            <button className="flex-1 py-4 text-sm font-bold text-[#1349ec] border-b-2 border-[#1349ec] bg-[#1349ec]/5">
-              Pending Requests <span className="ml-2 bg-[#1349ec] text-white text-[10px] px-1.5 py-0.5 rounded-full">3</span>
-            </button>
-            <button className="flex-1 py-4 text-sm font-medium text-[#646d87] hover:text-[#111317] dark:hover:text-white transition-colors">
-              Substitution Needs <span className="ml-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-[10px] px-1.5 py-0.5 rounded-full">1</span>
-            </button>
-          </div>
-          
-          <div className="flex-1 overflow-y-auto p-5 space-y-6 no-scrollbar">
-            {/* Request Card 1 (Active) */}
-            <div className="bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-[#334155] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#1349ec]"></div>
-              <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-3">
-                   <div className="size-10 rounded-full bg-pink-100 flex items-center justify-center font-bold text-sm text-pink-600">EC</div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#111317] dark:text-white">Emily Chen</h3>
-                    <p className="text-xs text-[#646d87]">Math Teacher • Grade 10</p>
-                  </div>
+      {/* Controls Toolbar */}
+      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 items-end md:items-center">
+        <div className="flex items-center gap-2 w-full md:w-auto">
+            <div className="grid gap-1.5 flex-1">
+                <label className="text-xs font-semibold text-slate-500">Date</label>
+                <div className="relative">
+                    <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <input 
+                        type="date" 
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        className="pl-9 h-10 w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
+                    />
                 </div>
-                <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Personal</span>
-              </div>
-              <div className="mb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-[#646d87] text-[18px]">calendar_month</span>
-                  <span className="text-sm font-medium text-[#111317] dark:text-white">Oct 14 - Oct 15</span>
-                  <span className="text-xs text-[#646d87] bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">2 Days</span>
-                </div>
-                <p className="text-xs text-[#646d87] italic">"Attending a family wedding out of town."</p>
-              </div>
-              {/* Leave Balance */}
-              <div className="mb-4">
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-[#646d87]">Personal Leave Balance</span>
-                  <span className="font-semibold text-[#111317] dark:text-white">5/10 Days</span>
-                </div>
-                <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-green-500 h-1.5 rounded-full" style={{ width: '50%' }}></div>
-                </div>
-              </div>
-              {/* Conflict Warning */}
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50 rounded-lg p-3 mb-4 flex gap-2">
-                <span className="material-symbols-outlined text-red-600 dark:text-red-400 text-[18px] shrink-0">warning</span>
-                <div>
-                  <p className="text-xs font-bold text-red-800 dark:text-red-300">Staffing Conflict</p>
-                  <p className="text-[11px] text-red-600 dark:text-red-400 mt-0.5">2 other Math teachers are absent on Oct 14.</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <button className="flex justify-center items-center py-2 px-4 rounded-lg border border-[#dcdee5] dark:border-[#334155] text-sm font-medium text-[#646d87] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                  Deny
-                </button>
-                <button className="flex justify-center items-center py-2 px-4 rounded-lg bg-[#1349ec] text-white text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-200 dark:shadow-none">
-                  Approve
-                </button>
-              </div>
             </div>
-            
-            {/* Substitution Widget (Inline) */}
-            <div className="mt-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-[#111317] dark:text-white uppercase tracking-wider">Quick Substitute</h3>
-                <a className="text-xs text-[#1349ec] font-medium hover:underline" href="#">View All Needs</a>
-              </div>
-              <div className="bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-800/30 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-3 text-orange-800 dark:text-orange-200">
-                  <span className="material-symbols-outlined">person_alert</span>
-                  <span className="text-sm font-bold">Uncovered Class</span>
-                </div>
-                <div className="space-y-3">
-                  <div className="bg-white dark:bg-[#1e293b] p-2.5 rounded-lg border border-orange-100 dark:border-gray-600 text-sm">
-                    <div className="flex justify-between mb-1">
-                      <span className="text-[#646d87] text-xs">Absent:</span>
-                      <span className="font-medium text-[#111317] dark:text-white">Sarah Jenkins</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-[#646d87] text-xs">Class:</span>
-                      <span className="font-medium text-[#111317] dark:text-white">Grade 9 Biology (Per 3)</span>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <select className="w-full pl-3 pr-10 py-2.5 bg-white dark:bg-[#1e293b] border border-[#dcdee5] dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-[#1349ec] focus:border-transparent appearance-none text-[#111317] dark:text-white">
-                      <option disabled selected value="">Select Relief Teacher</option>
-                      <option value="1">Amanda Thompson (Free)</option>
-                      <option value="2">Robert Fox (Free)</option>
-                      <option value="3">Lisa Ray (On Call)</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#646d87]">
-                      <span className="material-symbols-outlined text-[18px]">expand_more</span>
-                    </div>
-                  </div>
-                  <button className="w-full flex items-center justify-center gap-2 bg-[#111317] dark:bg-white text-white dark:text-[#111317] py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
-                    <span className="material-symbols-outlined text-[18px]">assignment_add</span>
-                    Assign Substitute
-                  </button>
-                </div>
-              </div>
+            <div className="grid gap-1.5 flex-1 w-[180px]">
+                <label className="text-xs font-semibold text-slate-500">Grade Level</label>
+                <Select value={grade} onValueChange={setGrade}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select Grade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="10">Grade 10</SelectItem>
+                        <SelectItem value="11">Grade 11</SelectItem>
+                        <SelectItem value="12">Grade 12</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
-          </div>
-        </aside>
-      </main>
+        </div>
+
+        <div className="flex-1 w-full">
+            <div className="grid gap-1.5 w-full md:max-w-md ml-auto">
+                 <label className="text-xs font-semibold text-slate-500">Search Students</label>
+                 <div className="relative">
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Input 
+                        placeholder="Search by name or ID..." 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-9"
+                    />
+                 </div>
+            </div>
+        </div>
+      </div>
+
+      {/* Attendance Table */}
+      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex-1 flex flex-col">
+         <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+            <h3 className="font-semibold text-slate-700">Class Register: Grade {grade}</h3>
+            <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => markAll('PRESENT')} className="text-green-700 hover:text-green-800 hover:bg-green-50">
+                    Mark All Present
+                </Button>
+            </div>
+         </div>
+         
+         <div className="overflow-auto flex-1">
+            <table className="w-full text-left text-sm">
+                <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 sticky top-0 z-10">
+                    <tr>
+                        <th className="px-6 py-3">Roll No.</th>
+                        <th className="px-6 py-3">Student Name</th>
+                        <th className="px-6 py-3 text-center">Status</th>
+                        <th className="px-6 py-3">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                    {loading ? (
+                         <tr><td colSpan={4} className="p-8 text-center text-slate-500">Loading student list...</td></tr>
+                    ) : filteredStudents.length === 0 ? (
+                         <tr><td colSpan={4} className="p-8 text-center text-slate-500">No students found for this grade.</td></tr>
+                    ) : (
+                        filteredStudents.map((student) => (
+                            <tr key={student.studentId} className={`hover:bg-slate-50 transition-colors ${student.status === 'ABSENT' ? 'bg-red-50/30' : ''}`}>
+                                <td className="px-6 py-4 font-mono text-slate-600">{student.rollNumber || '-'}</td>
+                                <td className="px-6 py-4 font-medium text-slate-900">{student.studentName}</td>
+                                <td className="px-6 py-4">
+                                    <div className="flex justify-center gap-2">
+                                        <button 
+                                            onClick={() => handleMark(student.studentId, 'PRESENT')}
+                                            className={`flex flex-col items-center gap-1 p-2 rounded-lg border transition-all ${
+                                                student.status === 'PRESENT' 
+                                                ? 'bg-green-50 border-green-200 text-green-700 shadow-sm' 
+                                                : 'border-transparent text-slate-400 hover:bg-slate-100'
+                                            }`}
+                                        >
+                                            <CheckCircle2 size={20} className={student.status === 'PRESENT' ? 'fill-current' : ''} />
+                                            <span className="text-[10px] font-bold">Present</span>
+                                        </button>
+
+                                        <button 
+                                            onClick={() => handleMark(student.studentId, 'ABSENT')}
+                                            className={`flex flex-col items-center gap-1 p-2 rounded-lg border transition-all ${
+                                                student.status === 'ABSENT' 
+                                                ? 'bg-red-50 border-red-200 text-red-700 shadow-sm' 
+                                                : 'border-transparent text-slate-400 hover:bg-slate-100'
+                                            }`}
+                                        >
+                                            <XCircle size={20} className={student.status === 'ABSENT' ? 'fill-current' : ''} />
+                                            <span className="text-[10px] font-bold">Absent</span>
+                                        </button>
+
+                                        <button 
+                                            onClick={() => handleMark(student.studentId, 'LATE')}
+                                            className={`flex flex-col items-center gap-1 p-2 rounded-lg border transition-all ${
+                                                student.status === 'LATE' 
+                                                ? 'bg-orange-50 border-orange-200 text-orange-700 shadow-sm' 
+                                                : 'border-transparent text-slate-400 hover:bg-slate-100'
+                                            }`}
+                                        >
+                                            <Clock size={20} className={student.status === 'LATE' ? 'fill-current' : ''} />
+                                            <span className="text-[10px] font-bold">Late</span>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <Input 
+                                        placeholder="Add remark..." 
+                                        value={student.remarks || ''}
+                                        onChange={(e) => handleRemarkChange(student.studentId, e.target.value)}
+                                        className="h-8 text-xs w-full min-w-[150px]"
+                                    />
+                                </td>
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
+         </div>
+         <div className="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 text-center">
+            Attendance records are automatically visible to parents and students via their portals.
+         </div>
+      </div>
     </div>
   );
 }
