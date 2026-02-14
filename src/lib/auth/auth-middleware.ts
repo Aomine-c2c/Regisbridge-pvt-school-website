@@ -9,11 +9,6 @@ interface User {
   tenantId?: string;
 }
 
-interface AuthPayload extends User {
-  exp?: number;
-  iat?: number;
-}
-
 export async function authMiddleware(request: NextRequest): Promise<NextResponse | User> {
   const token = request.cookies.get('accessToken')?.value || 
                 request.headers.get('authorization')?.replace('Bearer ', '')
@@ -27,7 +22,7 @@ export async function authMiddleware(request: NextRequest): Promise<NextResponse
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
   }
 
-  return payload
+  return payload as User
 }
 
 export function withAuth(handler: (request: NextRequest, user: User) => Promise<NextResponse>) {
