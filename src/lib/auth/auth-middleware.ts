@@ -22,7 +22,7 @@ export async function authMiddleware(request: NextRequest): Promise<NextResponse
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
   }
 
-  return payload as User
+  return payload as unknown as User
 }
 
 export function withAuth(handler: (request: NextRequest, user: User) => Promise<NextResponse>) {
