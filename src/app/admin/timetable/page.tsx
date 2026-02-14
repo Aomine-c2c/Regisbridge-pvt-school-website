@@ -2,20 +2,67 @@
 
 import React, { useState } from 'react';
 
+interface ScheduleItem {
+  id: string;
+  subject: {
+    name: string;
+  };
+  startTime: string;
+  endTime: string;
+  room?: string;
+}
+
+type WeekDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+type ScheduleData = Partial<Record<WeekDay, ScheduleItem[]>>;
+
 export default function TimetablePage() {
-  const [selectedClass, setSelectedClass] = useState("Year 10A");
+  const [selectedClass, setSelectedClass] = useState("");
 
-  // Mock data for unassigned classes
-  const unassignedClasses = [
-    { id: 1, name: 'Chemistry 101', type: 'Lab', duration: '90m', color: 'blue', icon: 'science' },
-    { id: 2, name: 'Adv. Calculus', type: 'Lecture', duration: '60m', color: 'purple', icon: 'calculate' },
-    { id: 3, name: 'Art History', type: 'Studio', duration: '120m', color: 'orange', icon: 'palette' },
-  ];
+  const [classes, setClasses] = useState<{id: string, name: string}[]>([]);
+  const [schedule, setSchedule] = useState<ScheduleData>({});
+  const [loading, setLoading] = useState(true);
 
-  // Mock data for subject blocks
-  const subjectBlocks = [
-    { id: 101, name: 'Biology Block A', details: 'Grade 10 • 3 Sections', color: 'emerald', icon: 'forest' }
-  ];
+  // Fetch Classes for dropdown
+  React.useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
+        const res = await fetch('/api/admin/classes', { headers });
+        const json = await res.json();
+        if (json.success) {
+          setClasses(json.data);
+          if (json.data.length > 0 && !selectedClass) {
+             setSelectedClass(json.data[0].id);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch classes", error);
+      }
+    };
+    fetchClasses();
+  }, [selectedClass]);
+
+  // Fetch Schedule when class changes
+  React.useEffect(() => {
+    if (!selectedClass) return;
+    
+    const fetchSchedule = async () => {
+      setLoading(true);
+      try {
+        const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
+        const res = await fetch(`/api/admin/timetable?classId=${selectedClass}`, { headers });
+        const json = await res.json();
+        if (json.success) {
+          setSchedule(json.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch schedule", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSchedule();
+  }, [selectedClass]);
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-[#f6f6f8] dark:bg-[#111521] text-[#111317] dark:text-[#e2e8f0]">
@@ -23,7 +70,6 @@ export default function TimetablePage() {
       {/* Integrating into existing admin layout usually, but designs have specific headers. I will keep the page content focused. */}
       
       <main className="flex flex-1 overflow-hidden">
-        {/* Sidebar: Draggables & Tools */}
         <aside className="w-80 flex-shrink-0 flex flex-col border-r border-[#dcdee5] dark:border-[#334155] bg-white dark:bg-[#1e293b] overflow-y-auto z-10">
           <div className="p-6 border-b border-[#dcdee5] dark:border-[#334155]">
             <h1 className="text-xl font-bold tracking-tight mb-1">Timetable Engine</h1>
@@ -35,47 +81,22 @@ export default function TimetablePage() {
           </div>
           
           <div className="flex-1 p-4 space-y-6">
-            {/* Section 1: Unassigned Classes */}
+            {/* Section 1: Select Class */}
             <div>
               <div className="flex items-center justify-between mb-3 px-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-[#94a3b8]">Unassigned Classes</h3>
-                <span className="bg-gray-200 dark:bg-gray-700 text-[#646d87] dark:text-[#94a3b8] text-[10px] font-bold px-1.5 py-0.5 rounded">12</span>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-[#94a3b8]">Select Class</h3>
               </div>
-              <div className="space-y-2">
-                {unassignedClasses.map((item) => (
-                  <div key={item.id} className="group flex items-center gap-3 p-3 rounded-lg bg-[#f6f6f8] dark:bg-[#111521] border border-transparent hover:border-[#2957e0]/30 cursor-grab active:cursor-grabbing transition-all hover:shadow-sm">
-                    <div className={`flex items-center justify-center size-8 rounded bg-${item.color}-100 dark:bg-${item.color}-900/30 text-${item.color}-600 dark:text-${item.color}-400`}>
-                      <span className="material-symbols-outlined text-lg">{item.icon}</span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-[#111317] dark:text-[#e2e8f0]">{item.name}</p>
-                      <p className="text-xs text-[#646d87] dark:text-[#94a3b8]">{item.type} • {item.duration}</p>
-                    </div>
-                    <span className="material-symbols-outlined ml-auto text-gray-400 opacity-0 group-hover:opacity-100">drag_indicator</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Section 2: Subject Blocks */}
-            <div>
-              <div className="flex items-center justify-between mb-3 px-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#646d87] dark:text-[#94a3b8]">Subject Blocks</h3>
-                <span className="bg-gray-200 dark:bg-gray-700 text-[#646d87] dark:text-[#94a3b8] text-[10px] font-bold px-1.5 py-0.5 rounded">4</span>
-              </div>
-              <div className="space-y-2">
-                {subjectBlocks.map((item) => (
-                  <div key={item.id} className="group flex items-center gap-3 p-3 rounded-lg bg-[#f6f6f8] dark:bg-[#111521] border border-transparent hover:border-[#2957e0]/30 cursor-grab active:cursor-grabbing transition-all hover:shadow-sm">
-                    <div className={`flex items-center justify-center size-8 rounded bg-${item.color}-100 dark:bg-${item.color}-900/30 text-${item.color}-600 dark:text-${item.color}-400`}>
-                      <span className="material-symbols-outlined text-lg">{item.icon}</span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-[#111317] dark:text-[#e2e8f0]">{item.name}</p>
-                      <p className="text-xs text-[#646d87] dark:text-[#94a3b8]">{item.details}</p>
-                    </div>
-                    <span className="material-symbols-outlined ml-auto text-gray-400 opacity-0 group-hover:opacity-100">drag_indicator</span>
-                  </div>
-                ))}
+              <div className="px-2">
+                 <select 
+                    value={selectedClass} 
+                    onChange={(e) => setSelectedClass(e.target.value)}
+                    className="w-full rounded-lg border-[#dcdee5] dark:border-[#334155] bg-[#f6f6f8] dark:bg-[#111521] text-sm py-2 px-3"
+                 >
+                    <option value="">Select a Class...</option>
+                    {classes.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                 </select>
               </div>
             </div>
 
@@ -128,7 +149,12 @@ export default function TimetablePage() {
           </div>
 
           {/* Calendar Grid Container */}
-          <div className="flex-1 overflow-auto p-6">
+          <div className="flex-1 overflow-auto p-6 relative">
+            {loading && (
+              <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50 dark:bg-[#1e293b]/50 backdrop-blur-sm">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+              </div>
+            )}
             <div className="min-w-[1000px] bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-[#dcdee5] dark:border-[#334155] overflow-hidden">
               {/* Table Header */}
               <div className="grid grid-cols-[100px_repeat(5,1fr)] bg-gray-50 dark:bg-gray-800/50 border-b border-[#dcdee5] dark:border-[#334155]">
@@ -143,140 +169,73 @@ export default function TimetablePage() {
 
               {/* Table Body */}
               <div className="divide-y divide-[#dcdee5] dark:divide-[#334155]">
-                {/* 08:00 AM Row */}
+                {/* 08:00 AM Row - Full Grid Row */}
                 <div className="grid grid-cols-[100px_repeat(5,1fr)] min-h-[120px]">
-                  <div className="p-4 text-xs font-medium text-[#646d87] dark:text-[#94a3b8] text-right bg-gray-50/50 dark:bg-gray-800/30">
-                    08:00 AM
-                  </div>
-                  {/* Mon */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-blue-700 dark:text-blue-300">Math 101</span>
-                        <span className="material-symbols-outlined text-[16px] text-blue-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-blue-600/80 dark:text-blue-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Rm 304</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Mr. Smith</div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Tue */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border-l-4 border-emerald-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300">Bio Lab</span>
-                        <span className="material-symbols-outlined text-[16px] text-emerald-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-emerald-600/80 dark:text-emerald-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Lab 2</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Mrs. Davis</div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Wed */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    {/* Empty Slot */}
-                  </div>
-                  {/* Thu */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-purple-700 dark:text-purple-300">English Lit</span>
-                        <span className="material-symbols-outlined text-[16px] text-purple-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-purple-600/80 dark:text-purple-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Rm 102</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Ms. Alcott</div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Fri */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-orange-700 dark:text-orange-300">History</span>
-                        <span className="material-symbols-outlined text-[16px] text-orange-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-orange-600/80 dark:text-orange-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Rm 201</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Mr. Jones</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 09:00 AM Row */}
-                <div className="grid grid-cols-[100px_repeat(5,1fr)] min-h-[120px]">
-                  <div className="p-4 text-xs font-medium text-[#646d87] dark:text-[#94a3b8] text-right bg-gray-50/50 dark:bg-gray-800/30">
-                    09:00 AM
-                  </div>
-                  {/* Mon: Conflict Example */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group bg-red-50/30 dark:bg-red-900/10 animate-pulse">
-                    <div className="h-[48%] w-full rounded bg-white dark:bg-[#1e293b] border border-[#ef4444] shadow-sm p-1.5 mb-[4%] opacity-90">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-bold text-[#111317] dark:text-[#e2e8f0] truncate">Math 101 (Grp B)</span>
-                        <span className="material-symbols-outlined text-[#ef4444] text-[14px]">error</span>
-                      </div>
-                      <div className="text-[10px] text-[#ef4444] font-medium truncate">Rm 304 (Double Booked)</div>
-                    </div>
-                    <div className="h-[48%] w-full rounded bg-white dark:bg-[#1e293b] border border-[#ef4444] shadow-sm p-1.5 opacity-90">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-bold text-[#111317] dark:text-[#e2e8f0] truncate">Physics (Grp A)</span>
-                        <span className="material-symbols-outlined text-[#ef4444] text-[14px]">error</span>
-                      </div>
-                      <div className="text-[10px] text-[#ef4444] font-medium truncate">Rm 304 (Double Booked)</div>
-                    </div>
-                  </div>
-                  {/* Tue */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    {/* Empty Slot */}
-                  </div>
-                  {/* Wed: Teacher Conflict */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group bg-red-50/30 dark:bg-red-900/10">
-                    <div className="h-full w-full rounded-lg bg-white dark:bg-[#1e293b] border-2 border-dashed border-[#ef4444] p-2 flex flex-col justify-center items-center text-center">
-                      <span className="material-symbols-outlined text-[#ef4444] text-2xl mb-1">person_alert</span>
-                      <span className="text-xs font-bold text-[#111317] dark:text-[#e2e8f0]">Mr. Smith</span>
-                      <span className="text-[10px] text-[#ef4444] font-bold uppercase mt-1">Schedule Overlap</span>
-                    </div>
-                  </div>
-                  {/* Thu */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-blue-700 dark:text-blue-300">Math 102</span>
-                        <span className="material-symbols-outlined text-[16px] text-blue-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-blue-600/80 dark:text-blue-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Rm 305</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Mr. Smith</div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Fri */}
-                  <div className="p-2 border-l border-[#dcdee5] dark:border-[#334155] relative group hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                    <div className="h-full w-full rounded-lg bg-teal-50 dark:bg-teal-900/20 border-l-4 border-teal-500 p-2 cursor-pointer hover:shadow-md transition-all">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-teal-700 dark:text-teal-300">Comp Sci</span>
-                        <span className="material-symbols-outlined text-[16px] text-teal-400">more_horiz</span>
-                      </div>
-                      <div className="mt-1 text-xs text-teal-600/80 dark:text-teal-400/80">
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">location_on</span> Lab 1</div>
-                        <div className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">person</span> Mrs. Lee</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 10:00 AM Row */}
-                <div className="grid grid-cols-[100px_repeat(5,1fr)] min-h-[120px]">
-                   <div className="p-4 text-xs font-medium text-[#646d87] dark:text-[#94a3b8] text-right bg-gray-50/50 dark:bg-gray-800/30">
-                     10:00 AM
+                   {/* Time Column */}
+                   <div className="p-4 text-xs font-medium text-[#646d87] dark:text-[#94a3b8] text-right bg-gray-50/50 dark:bg-gray-800/30 border-r border-[#dcdee5] dark:border-[#334155]">
+                     08:00 AM
                    </div>
-                   <div className="col-span-5 p-1 relative">
-                     <div className="w-full h-full rounded bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center">
-                       <span className="text-sm font-bold text-[#646d87] dark:text-[#94a3b8] tracking-widest uppercase">Morning Break</span>
-                     </div>
+
+                   {/* Monday Column */}
+                   <div className="relative p-2 border-r border-[#dcdee5] dark:border-[#334155]">
+                       {schedule['Monday']?.map((s: ScheduleItem) => (
+                          <div key={s.id} className="absolute inset-0 p-2 z-10">
+                              <div className="h-full w-full rounded-lg bg-blue-50 border-l-4 border-blue-500 p-2 shadow-sm">
+                                <div className="text-xs font-bold text-blue-700 truncate">{s.subject.name}</div>
+                                <div className="text-[10px] text-blue-500">{s.startTime} - {s.endTime}</div>
+                                <div className="text-[10px] text-blue-400 truncate">{s.room}</div>
+                              </div>
+                          </div>
+                       ))}
+                       {!schedule['Monday'] && <div className="h-full flex items-center justify-center text-xs text-gray-300">Free</div>}
+                   </div>
+
+                   {/* Tuesday Column */}
+                   <div className="relative p-2 border-r border-[#dcdee5] dark:border-[#334155]">
+                       {schedule['Tuesday']?.map((s: ScheduleItem) => (
+                          <div key={s.id} className="absolute inset-0 p-2 z-10">
+                                <div className="h-full w-full rounded-lg bg-purple-50 border-l-4 border-purple-500 p-2 shadow-sm">
+                                      <div className="text-xs font-bold text-purple-700 truncate">{s.subject.name}</div>
+                                      <div className="text-[10px] text-purple-500">{s.startTime} - {s.endTime}</div>
+                                </div>
+                          </div>
+                       ))}
+                   </div>
+
+                    {/* Wednesday Column */}
+                    <div className="relative p-2 border-r border-[#dcdee5] dark:border-[#334155]">
+                       {schedule['Wednesday']?.map((s: ScheduleItem) => (
+                          <div key={s.id} className="absolute inset-0 p-2 z-10">
+                                <div className="h-full w-full rounded-lg bg-emerald-50 border-l-4 border-emerald-500 p-2 shadow-sm">
+                                      <div className="text-xs font-bold text-emerald-700 truncate">{s.subject.name}</div>
+                                      <div className="text-[10px] text-emerald-500">{s.startTime} - {s.endTime}</div>
+                                </div>
+                          </div>
+                       ))}
+                   </div>
+
+                    {/* Thursday Column */}
+                    <div className="relative p-2 border-r border-[#dcdee5] dark:border-[#334155]">
+                       {schedule['Thursday']?.map((s: ScheduleItem) => (
+                          <div key={s.id} className="absolute inset-0 p-2 z-10">
+                                <div className="h-full w-full rounded-lg bg-orange-50 border-l-4 border-orange-500 p-2 shadow-sm">
+                                      <div className="text-xs font-bold text-orange-700 truncate">{s.subject.name}</div>
+                                      <div className="text-[10px] text-orange-500">{s.startTime} - {s.endTime}</div>
+                                </div>
+                          </div>
+                       ))}
+                   </div>
+
+                    {/* Friday Column */}
+                    <div className="relative p-2">
+                       {schedule['Friday']?.map((s: ScheduleItem) => (
+                          <div key={s.id} className="absolute inset-0 p-2 z-10">
+                                <div className="h-full w-full rounded-lg bg-pink-50 border-l-4 border-pink-500 p-2 shadow-sm">
+                                      <div className="text-xs font-bold text-pink-700 truncate">{s.subject.name}</div>
+                                      <div className="text-[10px] text-pink-500">{s.startTime} - {s.endTime}</div>
+                                </div>
+                          </div>
+                       ))}
                    </div>
                 </div>
               </div>

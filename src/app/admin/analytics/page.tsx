@@ -211,12 +211,24 @@ export default function ExecutiveAnalyticsPage() {
 }
 
 // Subcomponents for cleaner code
-function KPICard({ title, icon, value, sub, trend, trendUp, color, badge }: any) {
-  const colors: any = {
+interface KPICardProps {
+  title: string;
+  icon: React.ReactNode;
+  value: string | number;
+  sub: string;
+  trend?: string;
+  trendUp?: boolean;
+  color: 'blue' | 'purple' | 'yellow' | 'red' | 'green';
+  badge?: string;
+}
+
+function KPICard({ title, icon, value, sub, trend, trendUp, color, badge }: KPICardProps) {
+  const colors: Record<string, string> = {
     blue: 'bg-blue-50 text-[#2957e0] dark:bg-blue-900/20',
     purple: 'bg-purple-50 text-purple-600 dark:bg-purple-900/20',
     yellow: 'bg-yellow-50 text-yellow-600 dark:bg-yellow-900/20',
     red: 'bg-red-50 text-red-600 dark:bg-red-900/20',
+    green: 'bg-green-50 text-green-600 dark:bg-green-900/20',
   };
   
   return (
@@ -246,7 +258,15 @@ function KPICard({ title, icon, value, sub, trend, trendUp, color, badge }: any)
   );
 }
 
-function BarGroup({ label, pred, act, pVal, aVal }: any) {
+interface BarGroupProps {
+  label: string;
+  pred: number;
+  act: number;
+  pVal: string | number;
+  aVal: string | number;
+}
+
+function BarGroup({ label, pred, act, pVal, aVal }: BarGroupProps) {
   return (
     <div className="flex flex-col items-center flex-1 group cursor-pointer">
       <div className="relative w-full flex justify-center gap-1 h-full items-end">
@@ -262,14 +282,24 @@ function BarGroup({ label, pred, act, pVal, aVal }: any) {
   );
 }
 
-function Bubble({ top, left, right, bottom, size, color, label }: any) {
-    const style: any = {};
+interface BubbleProps {
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  size: string;
+  color: 'blue' | 'red' | 'yellow' | 'gray';
+  label: string;
+}
+
+function Bubble({ top, left, right, bottom, size, color, label }: BubbleProps) {
+    const style: React.CSSProperties = {};
     if (top) style.top = top;
     if (left) style.left = left;
     if (right) style.right = right;
     if (bottom) style.bottom = bottom;
 
-    const colors: any = {
+    const colors: Record<string, string> = {
         blue: 'bg-[#2957e0]/20 border-[#2957e0] text-[#2957e0]',
         red: 'bg-red-100 border-red-500 text-red-600',
         yellow: 'bg-yellow-100 border-yellow-500 text-yellow-700',
@@ -287,7 +317,17 @@ function Bubble({ top, left, right, bottom, size, color, label }: any) {
     );
 }
 
-function FacultyRow({ name, dept, students, grade, deviation, isPositive, isNeutral }: any) {
+interface FacultyRowProps {
+  name: string;
+  dept: string;
+  students: number;
+  grade: string;
+  deviation: string;
+  isPositive?: boolean;
+  isNeutral?: boolean;
+}
+
+function FacultyRow({ name, dept, students, grade, deviation, isPositive, isNeutral }: FacultyRowProps) {
   return (
     <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
       <td className="px-6 py-4 font-bold text-[#111317] dark:text-white">
