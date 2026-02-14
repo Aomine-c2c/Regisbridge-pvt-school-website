@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import { getSettings } from '@/lib/settings';
 
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
+
 import SkipToContent from '@/components/SkipToContent';
 import StatCard from '@/components/home/StatCard';
 import PathwayCard from '@/components/home/PathwayCard';
@@ -14,16 +15,9 @@ import VirtualTour from '@/components/home/VirtualTour';
 
 import EventsCalendar from '@/components/home/EventsCalendar';
 import { ScrollReveal } from '@/hooks/useScrollAnimation';
-import { trackCTAClick } from '@/lib/analytics';
+
 import Link from 'next/link';
 import Image from 'next/image';
-
-const STATS = [
-  { icon: 'school', value: '100%', label: 'Pass Rate' },
-  { icon: 'groups', value: '1:10', label: 'Teacher Ratio' },
-  { icon: 'history_edu', value: '98%', label: 'Uni Acceptance' },
-  { icon: 'verified', value: '10+ Years', label: 'Of Excellence' },
-];
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -40,6 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   };
 }
+const STATS = [
+  { value: '100%', label: 'Pass Rate', icon: 'school' },
+  { value: '1:15', label: 'Teacher-Student Ratio', icon: 'groups' },
+  { value: '50+', label: 'Extracurriculars', icon: 'sports_soccer' },
+  { value: '100%', label: 'University Acceptance', icon: 'workspace_premium' },
+];
 
 const PATHWAYS = [
   {
@@ -178,7 +178,6 @@ export default async function Home() {
             <div className="flex flex-col sm:flex-row gap-5 justify-center mt-8">
               <Link
                 href="/admissions"
-                onClick={() => trackCTAClick('Start Your Application', 'Hero')}
                 className="group inline-flex items-center justify-center gap-2 btn-gold h-16 shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
               >
                 <span>Apply Now</span>
@@ -186,7 +185,6 @@ export default async function Home() {
               </Link>
               <Link
                 href="/contact"
-                onClick={() => trackCTAClick('Schedule Campus Tour', 'Hero')}
                 className="group inline-flex items-center justify-center gap-2 btn-secondary bg-white/10 backdrop-blur-md border-white/30 text-white h-16 hover:bg-white/20 hover:border-white/50 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
               >
                 <span className="material-symbols-outlined text-xl" aria-hidden="true">tour</span>
@@ -295,7 +293,7 @@ export default async function Home() {
                   alt="Students engaged in boarding life activities"
                   fill
                   placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
@@ -384,7 +382,6 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/admissions"
-              onClick={() => trackCTAClick('Apply Today', 'Footer CTA')}
               className="group inline-flex items-center justify-center gap-2 bg-brand-gold text-brand-navy px-10 py-4 rounded-xl text-lg font-bold shadow-2xl hover:shadow-brand-gold/50 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-gold/50 transition-all duration-300"
             >
               <span>Apply Now</span>
@@ -392,7 +389,6 @@ export default async function Home() {
             </Link>
             <Link
               href="/contact"
-              onClick={() => trackCTAClick('Speak with Admissions', 'Footer CTA')}
               className="group inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl text-lg font-bold hover:bg-white/10 hover:border-brand-gold hover:text-brand-gold focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
             >
               <span className="material-symbols-outlined" aria-hidden="true">call</span>

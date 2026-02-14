@@ -21,20 +21,11 @@ export default {
     },
     extend: {
       colors: {
-        // Existing shadcn colors (keep for compatibility)
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
-        // School Brand Colors
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -45,23 +36,23 @@ export default {
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))'
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
           DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          foreground: 'hsl(var(--card-foreground))',
         },
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
@@ -71,23 +62,42 @@ export default {
           accent: 'hsl(var(--sidebar-accent))',
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))'
+          ring: 'hsl(var(--sidebar-ring))',
         },
-        
-        // Elite Education Color System
-        'brand-navy': '#0B1F3B',
-        'brand-navy-light': '#162D4A',
-        'brand-navy-dark': '#061220',
-        'brand-gold': '#C9A227',
-        'brand-gold-light': '#D4B347',
-        'brand-gold-dark': '#A38620',
-        'brand-white': '#FFFFFF',
-        'brand-grey': '#F4F6F8',
-        'brand-text': '#2E2E2E',
-        // Backward compatibility
-        'brand-primary': '#0B1F3B',
-        'brand-primary-dark': '#061220',
-        'brand-primary-light': '#162D4A',
+        // Brand Colors - Direct usage (bg-brand-navy, text-brand-gold, etc.)
+        brand: {
+          navy: 'var(--brand-navy)',
+          'navy-light': '#1E293B',
+          'navy-dark': '#020617',
+          gold: 'var(--brand-gold)',
+          'gold-light': '#E5C158',
+          'gold-dark': '#B4941F',
+          primary: 'var(--brand-navy)',
+          'primary-dark': '#020617',
+          blue: '#2563EB',
+        },
+        // Modern Academic Palette (Slate/Blue/Amber)
+        slate: {
+            50: '#F8FAFC',
+            100: '#F1F5F9',
+            200: '#E2E8F0',
+            300: '#CBD5E1',
+            400: '#94A3B8',
+            500: '#64748B', 
+            600: '#475569',
+            700: '#334155',
+            800: '#1E293B',
+            900: 'var(--brand-navy)', // Brand Navy (Dynamic)
+            950: '#020617',
+        },
+        amber: {
+            500: '#F59E0B',
+            600: 'var(--brand-gold)', // Brand Gold (Dynamic)
+        },
+        blue: {
+            500: '#3B82F6', // Action Blue
+            600: '#2563EB',
+        }
       },
       fontFamily: {
         // Primary fonts for school branding (optimized with next/font)

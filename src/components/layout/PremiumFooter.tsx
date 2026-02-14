@@ -1,7 +1,9 @@
-import Link from 'next/link';
-import { useSettings } from '@/contexts';
+'use client';
 
-export default function PremiumFooter() {
+import Link from 'next/link';
+import { useSettings } from '@/contexts/SettingsContext';
+
+export function PremiumFooter() {
   const { settings } = useSettings();
   
   return (
@@ -275,4 +277,3 @@ export default function PremiumFooter() {
     </footer>
   );
 }
-

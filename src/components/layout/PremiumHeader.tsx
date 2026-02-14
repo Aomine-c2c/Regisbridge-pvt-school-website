@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import DropdownMenu from '@/components/ui/DropdownMenu';
-import { useSettings } from '@/contexts';
+import NavDropdown from '@/components/ui/NavDropdown';
+import { useSettings } from '@/contexts/SettingsContext';
 
-export default function PremiumHeader() {
+export function PremiumHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { settings } = useSettings();
 
   const menuItems = {
     about: [
@@ -76,27 +77,27 @@ export default function PremiumHeader() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex flex-1 justify-end gap-8 items-center">
           <nav className="flex items-center gap-6">
-            <DropdownMenu
+            <NavDropdown
               label="About"
               items={menuItems.about}
               isActive={isActive('/about')}
             />
-            <DropdownMenu
+            <NavDropdown
               label="Admissions"
               items={menuItems.admissions}
               isActive={isActive('/admissions')}
             />
-            <DropdownMenu
+            <NavDropdown
               label="Academics"
               items={menuItems.academics}
               isActive={isActive('/academics')}
             />
-            <DropdownMenu
+            <NavDropdown
               label="Student Life"
               items={menuItems.studentLife}
               isActive={isActive('/student-life') || isActive('/boarding') || isActive('/wellness')}
             />
-            <DropdownMenu
+            <NavDropdown
               label="Community"
               items={menuItems.community}
               isActive={isActive('/news') || isActive('/alumni') || isActive('/support')}
@@ -193,4 +194,3 @@ export default function PremiumHeader() {
     </header>
   );
 }
-
