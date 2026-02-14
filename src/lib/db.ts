@@ -69,17 +69,17 @@ export function getTenantDb(tenantId: string) {
             // Write operations: Inject tenantId
             if (operation === 'create') {
                if (!argsAny.data) argsAny.data = {};
-               argsAny.data.tenantId = tenantId;
+               (argsAny.data as Record<string, unknown>).tenantId = tenantId;
             } else if (operation === 'createMany') {
                if (Array.isArray(argsAny.data)) {
                   argsAny.data.forEach((item: Record<string, unknown>) => (item as Record<string, unknown>).tenantId = tenantId);
                } else {
-                  argsAny.data.tenantId = tenantId;
+                  (argsAny.data as Record<string, unknown>).tenantId = tenantId;
                }
             } else if (operation !== 'findUnique' && operation !== 'findUniqueOrThrow') {
                 // Read/Update/Delete operations: Inject tenantId into where clause
                 if (!argsAny.where) argsAny.where = {};
-                argsAny.where.tenantId = tenantId;
+                (argsAny.where as Record<string, unknown>).tenantId = tenantId;
             }
           }
           return query(args);
