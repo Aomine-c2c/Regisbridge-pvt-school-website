@@ -105,6 +105,27 @@ export default function TeacherGradebook() {
 
   const filteredStudents = getFilteredStudents();
 
+  // Handler functions (declared before useEffect to avoid temporal dead zone)
+  const handleSave = useCallback(async (silent = false) => {
+    setIsSaving(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setLastSaved('Just now');
+      if (!silent) {
+        toast({ title: 'Draft saved', description: 'Grades saved successfully' });
+      }
+    } catch (_error) {
+      toast({ title: 'Save failed', description: 'Could not save grades', variant: 'destructive' });
+    } finally {
+      setIsSaving(false);
+    }
+  }, [toast]);
+
+  const handleSubmit = useCallback(async () => {
+    toast({ title: 'Submitted', description: 'Grades submitted for approval' });
+  }, [toast]);
+
   // Auto-save functionality
   useEffect(() => {
     const autoSaveInterval = setInterval(() => {
@@ -132,26 +153,6 @@ export default function TeacherGradebook() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [students, handleSave, handleSubmit]);
-
-  const handleSave = useCallback(async (silent = false) => {
-    setIsSaving(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      setLastSaved('Just now');
-      if (!silent) {
-        toast({ title: 'Draft saved', description: 'Grades saved successfully' });
-      }
-    } catch (_error) {
-      toast({ title: 'Save failed', description: 'Could not save grades', variant: 'destructive' });
-    } finally {
-      setIsSaving(false);
-    }
-  }, [toast]);
-
-  const handleSubmit = useCallback(async () => {
-    toast({ title: 'Submitted', description: 'Grades submitted for approval' });
-  }, [toast]);
 
 
 
