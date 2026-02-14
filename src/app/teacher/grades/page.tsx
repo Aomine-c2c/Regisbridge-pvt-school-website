@@ -40,9 +40,7 @@ export default function TeacherGradebook() {
   const [lastSaved, setLastSaved] = useState('2 minutes ago');
   const [isSaving, setIsSaving] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'at-risk' | 'high-achievers'>('all');
-  const [selectedStudents, setSelectedStudents] = useState<Set<string>>(new Set());
-  const [bulkComment, setBulkComment] = useState('');
-  const [showBulkActions, setShowBulkActions] = useState(false);
+
 
   useEffect(() => {
     // Fetch grades from API
@@ -155,41 +153,7 @@ export default function TeacherGradebook() {
     toast({ title: 'Submitted', description: 'Grades submitted for approval' });
   };
 
-  const exportCSV = () => {
-    toast({ title: 'Export started', description: 'CSV will download shortly' });
-  };
 
-  // Bulk selection
-  const toggleSelectStudent = (studentId: string) => {
-    setSelectedStudents(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(studentId)) {
-        newSet.delete(studentId);
-      } else {
-        newSet.add(studentId);
-      }
-      return newSet;
-    });
-  };
-
-  const toggleSelectAll = () => {
-    if (selectedStudents.size === filteredStudents.length) {
-      setSelectedStudents(new Set());
-    } else {
-      setSelectedStudents(new Set(filteredStudents.map(s => s.studentId)));
-    }
-  };
-
-  const applyBulkComment = () => {
-    if (bulkComment.trim() && selectedStudents.size > 0) {
-      setStudents(prev => prev.map(s => 
-        selectedStudents.has(s.studentId) ? { ...s, comments: bulkComment } : s
-      ));
-      setBulkComment('');
-      setShowBulkActions(false);
-      toast({ title: 'Comment applied', description: `Applied to ${selectedStudents.size} student(s)` });
-    }
-  };
 
   const calculateLetterGrade = (total: number): string => {
     if (total >= 90) return 'A';
@@ -225,7 +189,8 @@ export default function TeacherGradebook() {
   };
 
   const exportCSV = () => {
-    toast({ title: 'Exporting...', description: 'Downloading CSV file' });
+    toast({ title: 'Exporting...', description: 'CSV export started' });
+    // API call to export CSV
   };
 
   return (
@@ -393,15 +358,7 @@ export default function TeacherGradebook() {
                 <span className="text-sm font-medium">High Achievers</span>
                 <span className="text-xs opacity-70">(≥ 85%)</span>
               </button>
-              {selectedStudents.size > 0 && (
-                <button 
-                  onClick={() => setShowBulkActions(!showBulkActions)}
-                  className="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-blue-600 text-white px-4 hover:bg-blue-700 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[18px]">edit_note</span>
-                  <span className="text-sm font-medium">Bulk Actions ({selectedStudents.size})</span>
-                </button>
-              )}
+
             </div>
             <div className="flex items-center gap-4 text-xs font-medium text-gray-500">
               {isSaving && (
