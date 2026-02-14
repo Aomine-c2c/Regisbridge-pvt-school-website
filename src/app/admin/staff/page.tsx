@@ -37,7 +37,6 @@ export default function StaffPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filterDepartment, setFilterDepartment] = useState('All Departments');
-  const [filterRole, setFilterRole] = useState('All Roles');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,8 +50,8 @@ export default function StaffPage() {
           setError(result.message);
         }
       } catch (err) {
-        setError('An error occurred while loading data');
-        console.error(err);
+        console.error("HR Dashboard Error:", err);
+        setError('Failed to load staff data. Please check your connection or try again later.');
       } finally {
         setLoading(false);
       }
