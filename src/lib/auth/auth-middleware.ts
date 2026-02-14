@@ -2,7 +2,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAccessToken } from '../auth-service'
 
-export async function authMiddleware(request: NextRequest) {
+interface User {
+  id: string;
+  email: string;
+  role: string;
+  tenantId?: string;
+}
+
+interface AuthPayload extends User {
+  exp?: number;
+  iat?: number;
+}
+
+export async function authMiddleware(request: NextRequest): Promise<NextResponse | AuthPayload> {
   const token = request.cookies.get('accessToken')?.value || 
                 request.headers.get('authorization')?.replace('Bearer ', '')
   
