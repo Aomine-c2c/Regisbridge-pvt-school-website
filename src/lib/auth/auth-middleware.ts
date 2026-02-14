@@ -14,7 +14,7 @@ interface AuthPayload extends User {
   iat?: number;
 }
 
-export async function authMiddleware(request: NextRequest): Promise<NextResponse | AuthPayload> {
+export async function authMiddleware(request: NextRequest): Promise<NextResponse | User> {
   const token = request.cookies.get('accessToken')?.value || 
                 request.headers.get('authorization')?.replace('Bearer ', '')
   
