@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyRefreshToken, generateAccessToken } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { rbacService } from '@/services/rbac-service'
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,11 +37,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Fetch permissions
+    const permissions = await rbacService.getUserPermissions(user.id)
+
     // Generate new access token
     const newAccessToken = await generateAccessToken({
       userId: user.id,
       email: user.email,
       role: user.role,
+      permissions
     })
 
     return NextResponse.json({

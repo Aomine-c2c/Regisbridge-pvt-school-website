@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 import { useSettings } from '@/contexts';
 
 const FACILITIES = [
@@ -35,7 +35,7 @@ const FACILITIES = [
 
 export default function CampusTourPage() {
   const { settings } = useSettings();
-  const schoolName = settings?.schoolName || 'Regisbridge Academy';
+  // const schoolName = settings?.schoolName || 'Regisbridge Academy';
   const campusSize = settings?.campusSize || '50+ Acres';
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-white">

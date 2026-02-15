@@ -10,15 +10,31 @@ export async function GET(request: NextRequest) {
 
         // Get Student Profile
         const student = await prisma.student.findUnique({
-            where: { userId: user.userId }
+            where: { userId: user.userId },
+            select: { id: true, class: { select: { id: true } } }
         });
 
         if (!student) return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
+        
+        if (!student.class) {
+             return NextResponse.json({ success: true, data: [] });
+        }
 
-        // Get Assignments for their grade
+        const classId = student.class.id;
+
+        // Get Subjects for the student's class from Timetable
+        const classSubjects = await prisma.timetablePeriod.findMany({
+            where: { classId },
+            select: { subjectId: true },
+            distinct: ['subjectId']
+        });
+
+        const subjectIds = classSubjects.map(s => s.subjectId);
+
+        // Get Assignments for these subjects
         const assignments = await prisma.assignment.findMany({
             where: {
-                grade: student.currentGrade,
+                subjectId: { in: subjectIds },
                 status: 'ACTIVE'
             },
             include: {
@@ -32,10 +48,18 @@ export async function GET(request: NextRequest) {
             where: {
                 studentId: student.id,
                 assignmentId: { in: assignments.map(a => a.id) }
+            },
+            select: {
+                assignmentId: true,
+                score: true,
+                remarks: true, // This field exists in schema
+                submittedAt: true
             }
         });
 
-        const submissionMap = new Map(submissions.map(s => [s.assignmentId, s]));
+        const submissionMap = new Map<string, typeof submissions[0]>(
+            submissions.map(s => [s.assignmentId, s])
+        );
 
         const data = assignments.map(a => {
             const sub = submissionMap.get(a.id);
@@ -46,8 +70,8 @@ export async function GET(request: NextRequest) {
                 description: a.description,
                 dueDate: a.dueDate,
                 status: sub ? 'SUBMITTED' : (new Date(a.dueDate) < new Date() ? 'OVERDUE' : 'PENDING'),
-                grade: sub?.score ? `${sub.score}/${a.totalPoints}` : null,
-                feedback: sub?.feedback || null,
+                grade: sub?.score ? `${sub.score}/${a.maxScore}` : null,
+                remarks: sub?.remarks || null,
                 submissionDate: sub?.submittedAt || null
             };
         });

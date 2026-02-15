@@ -1,34 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyAccessToken } from '@/lib/auth'
-
-async function verifyTeacherAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload || (payload.role !== 'teacher' && payload.role !== 'admin')) {
-        return { authorized: false, error: 'Teacher access required' }
-    }
-
-    return { authorized: true, userId: payload.userId }
-}
+import { getTenantDb } from '@/lib/db'
+import { requireTeacher } from '@/lib/api/auth-middleware';
 
 // POST /api/teacher/attendance/mark - Mark attendance
 export async function POST(request: NextRequest) {
     try {
-        const auth = await verifyTeacherAccess(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
+        const { user, error } = await requireTeacher(request);
+        if (error) return error; 
+        if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
+
+        const db = getTenantDb(tenantId);
 
         const body = await request.json()
         const { studentId, subjectId, status, date, notes } = body
@@ -43,10 +29,12 @@ export async function POST(request: NextRequest) {
         }
 
         // Verify teacher teaches this subject
-        const subject = await prisma.subject.findFirst({
+        const subject = await db.subject.findFirst({
             where: {
                 id: subjectId,
-                teacherId: auth.userId,
+                teachers: {
+                    some: { teacherId: user.userId }
+                }
             },
         })
 
@@ -61,7 +49,7 @@ export async function POST(request: NextRequest) {
         attendanceDate.setHours(0, 0, 0, 0) // Normalize to start of day
 
         // Check if attendance already exists for this day
-        const existing = await prisma.attendance.findFirst({
+        const existing = await db.attendance.findFirst({
             where: {
                 studentId,
                 date: attendanceDate,
@@ -71,11 +59,11 @@ export async function POST(request: NextRequest) {
         let attendance
         if (existing) {
             // Update existing
-            attendance = await prisma.attendance.update({
+            attendance = await db.attendance.update({
                 where: { id: existing.id },
                 data: {
                     status,
-                    notes: notes || null,
+                    remarks: notes || null,
                 },
                 include: {
                     student: {
@@ -92,13 +80,13 @@ export async function POST(request: NextRequest) {
             })
         } else {
             // Create new
-            attendance = await prisma.attendance.create({
+            attendance = await db.attendance.create({
                 data: {
                     studentId,
                     status,
                     date: attendanceDate,
-                    notes: notes || null,
-                    markedBy: auth.userId!,
+                    remarks: notes || null,
+                    recordedById: user.userId,
                 },
                 include: {
                     student: {

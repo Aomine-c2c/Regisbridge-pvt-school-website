@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, BookOpen, CheckCircle, Circle, Plus, Edit, Trash2, Target, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Calendar, Clock, BookOpen, CheckCircle, Circle, Plus, Trash2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
 
@@ -43,15 +42,15 @@ interface StudyPlannerProps {
 }
 
 export function StudyPlanner({
-  studentId = 'student-123',
-  studentName = 'John Smith'
+  studentId: _studentId = 'student-123',
+  studentName: _studentName = 'John Smith'
 }: StudyPlannerProps) {
   const [tasks, setTasks] = useState<StudyTask[]>([]);
   const [sessions, setSessions] = useState<StudySession[]>([]);
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [isSessionDialogOpen, setIsSessionDialogOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTask, setSelectedTask] = useState<StudyTask | null>(null);
+  const [selectedDate, _setSelectedDate] = useState<Date | undefined>(new Date());
+  const [_selectedTask, _setSelectedTask] = useState<StudyTask | null>(null);
   const [formData, setFormData] = useState<{
     title: string;
     description: string;
@@ -293,8 +292,8 @@ export function StudyPlanner({
     return sessions.filter(session => isSameDay(session.date, date));
   };
 
-  const weekStart = startOfWeek(selectedDate);
-  const weekEnd = endOfWeek(selectedDate);
+  const weekStart = startOfWeek(selectedDate || new Date());
+  const weekEnd = endOfWeek(selectedDate || new Date());
   const weekDays = eachDayOfInterval({ start: weekStart, end: weekEnd });
 
   const totalTasks = tasks.length;

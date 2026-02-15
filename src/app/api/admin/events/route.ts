@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/events - List events
 export async function GET(request: NextRequest) {
   try {
+    const { error, user } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = (user as any)?.tenantId || request.headers.get('x-tenant-id');
+    
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -14,11 +20,12 @@ export async function GET(request: NextRequest) {
     // Default: List upcoming events first
     const [events, total] = await prisma.$transaction([
       prisma.event.findMany({
+        where: { tenantId },
         skip,
         take: limit,
         orderBy: { eventDate: 'asc' },
       }),
-      prisma.event.count(),
+      prisma.event.count({ where: { tenantId } }),
     ]);
 
     const formattedEvents = events.map(event => ({
@@ -39,9 +46,6 @@ export async function GET(request: NextRequest) {
       success: true,
       data: formattedEvents, // api.ts expects Event[] mainly, or we should check if it handles pagination. 
       // adminService.ts getAllEvents expects Event[] directly in data. 
-      // Let's check adminService.ts... it expects Event[].
-      // But getAllUsers expected PaginatedResponse.
-      // Let's stick to returning array for now as per likely usage in dashboard or update adminService if needed.
     });
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -55,6 +59,9 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/events - Create event
 export async function POST(request: NextRequest) {
   try {
+    const { error, user } = await requireAdmin(request);
+    if (error) return error;
+
     const body = await request.json();
     const {
       title,
@@ -75,6 +82,7 @@ export async function POST(request: NextRequest) {
 
     const event = await prisma.event.create({
       data: {
+      tenantId: (user as any)?.tenantId || request.headers.get('x-tenant-id'),
         title,
         description: description || '',
         eventDate: new Date(eventDate),

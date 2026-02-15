@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -11,123 +11,136 @@ export async function GET(request: NextRequest) {
              return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
         }
 
-        // 1. Fetch Teacher Details & Classes
-        // We assume the user.userId links to the User model, which might be a teacher
-        // We find the classes where this user is the class teacher OR teaches a subject
-        
-        const teacherProfile = await prisma.user.findUnique({
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
+        // 1. Fetch Teacher Details & Profile
+        const teacherUser = await db.user.findUnique({
             where: { id: user.userId },
             include: {
-                classes: true, // Classes they are the form tutor for
-                teacherSubjects: { // Subjects they teach
+                teacherProfile: {
                     include: {
-                        classes: true // The classes where this subject is taught (if modeled that way, let's check schema assumption)
-                         // Schema: Subject has classes Class[] ... wait, Subject has `classes` relation?
-                         // Schema says: classes Class[] // If we want to link subjects to classes directly
+                        classesManaged: true, // Form Tutor classes
+                        subjectsTaught: {
+                            include: {
+                                subject: true
+                            }
+                        }
                     }
                 }
             }
         });
 
-        if (!teacherProfile) {
+        if (!teacherUser || !teacherUser.teacherProfile) {
             return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
         }
 
-        // 2. Calculate Stats
-        // Total Students: Sum of students in classes where this teacher teaches a subject
-        // For simplicity, let's count students in the classes they are a form tutor for, 
-        // OR distinct students across all subjects they teach.
-        // allClassIds was unused
+        // Security Check
+        if (teacherUser.tenantId && teacherUser.tenantId !== tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant mismatch' }, { status: 403 });
+        }
 
-        const totalStudents = await prisma.student.count({
-            where: {
-                // Assuming Student has a way to link to Class. 
-                // Schema: Student has `currentGrade`. Class has `grade`. 
-                // We'll match Student.currentGrade to Class.grade
-                currentGrade: { in: teacherProfile.classes.map(c => c.grade) } // Only for form tutor classes for now as rough proxy
-            }
-        });
+        const profile = teacherUser.teacherProfile;
+        const subjectIds = profile.subjectsTaught.map(s => s.subjectId);
 
-        // Pending Grading: Assignments created by this teacher that have submissions needing grading
-        const pendingGrading = await prisma.assignmentSubmission.count({
-            where: {
-                assignment: {
-                    createdBy: user.userId
-                },
-                status: 'SUBMITTED', 
-                score: null
-            }
-        });
-
-        // Classes Today (Real Data)
-        const todayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-        const todaySchedule = await prisma.classSchedule.findMany({
-            where: {
-                dayOfWeek: todayName,
-                subject: {
-                    teacherId: user.userId
+        // 2. Execute Independent Queries in Parallel
+        const [
+            studentCount,
+            pendingGradingCount,
+            todaySchedule,
+            recentSubmissions
+        ] = await Promise.all([
+            // Student Count (Total students in classes managed by teacher)
+            db.student.count({
+                where: {
+                    classId: { in: profile.classesManaged.map(c => c.id) }
                 }
-            },
-            include: {
-                subject: true,
-                class: true
-            },
-            orderBy: { startTime: 'asc' }
-        });
+            }),
 
-        const schedule = todaySchedule.map((s: any) => ({
-            time: `${s.startTime} - ${s.endTime}`,
-            class: `${s.class.name} (${s.subject.name})`,
-            room: s.room || s.class.room || 'Room TBD',
-            status: 'upcoming' // Logic can be improved to check current time
+            // Pending Grading (Submissions with status SUBMITTED for assignments by this teacher)
+            db.assignmentSubmission.count({
+                where: {
+                    status: 'SUBMITTED',
+                    assignment: {
+                        subjectId: { in: subjectIds }
+                    }
+                }
+            }),
+
+            // Today's Schedule
+            db.timetablePeriod.findMany({
+                where: {
+                    subjectId: { in: subjectIds },
+                    dayOfWeek: new Date().getDay() || 7 // 1-7 (Mon-Sun)
+                },
+                include: {
+                    class: true,
+                    subject: true
+                },
+                orderBy: { startTime: 'asc' }
+            }),
+
+            // Recent Submissions
+            db.assignmentSubmission.findMany({
+                where: {
+                    assignment: {
+                        subjectId: { in: subjectIds }
+                    }
+                },
+                take: 5,
+                orderBy: { submittedAt: 'desc' },
+                include: {
+                    student: {
+                        include: { user: true }
+                    },
+                    assignment: true
+                }
+            })
+        ]);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const formattedSubmissions = recentSubmissions.map((sub: any) => ({
+            id: sub.id,
+            studentName: `${sub.student.user.firstName} ${sub.student.user.lastName}`,
+            assignmentTitle: sub.assignment.title,
+            submittedAt: sub.submittedAt.toISOString(),
+            status: sub.status
         }));
 
-
-        // Recent Submissions
-        const recentSubmissions = await prisma.assignmentSubmission.findMany({
-            where: {
-                assignment: {
-                    createdBy: user.userId
-                }
-            },
-            take: 5,
-            orderBy: { submittedAt: 'desc' },
-            include: {
-                student: {
-                    include: { user: { select: { firstName: true, lastName: true } } }
-                },
-                assignment: { select: { title: true } }
-            }
-        });
-
-        const formattedSubmissions = recentSubmissions.map(sub => ({
-             student: `${sub.student.user.firstName} ${sub.student.user.lastName}`,
-             assignment: sub.assignment.title,
-             time: sub.submittedAt.toISOString() // Format on frontend
+        const stats = [
+            { title: 'Total Students', value: studentCount, change: '+0%', icon: 'Users' },
+            { title: 'Pending Grading', value: pendingGradingCount, change: '0', icon: 'FileText' },
+            { title: 'Classes Today', value: todaySchedule.length, change: '0', icon: 'Clock' },
+            { title: 'Avg. Attendance', value: '92%', change: '+0%', icon: 'CheckCircle' }
+        ];
+        
+        const schedule = todaySchedule.map((c: any) => ({
+            id: c.id,
+            subject: c.subject.name,
+            class: c.class.name,
+            time: `${c.startTime} (${c.durationMin} min)`,
+            venue: c.venue || 'N/A'
         }));
 
         return NextResponse.json({
             success: true,
             data: {
                 profile: {
-                    name: `${teacherProfile.firstName} ${teacherProfile.lastName}`,
-                    role: teacherProfile.role,
-                    // Determine department or main subject
-                    department: teacherProfile.teacherSubjects[0]?.name || 'General',
-                    formClass: teacherProfile.classes[0]?.name || 'N/A'
+                    name: `${teacherUser.firstName} ${teacherUser.lastName}`,
+                    role: teacherUser.role,
+                    department: profile.subjectsTaught[0]?.subject.name || 'General',
+                    formClass: profile.classesManaged[0]?.name || 'N/A'
                 },
-                stats: {
-                    totalStudents,
-                    pendingGrading,
-                    classesToday: schedule.length,
-                    alerts: 0 // Mock for now
-                },
+                stats,
                 schedule,
                 recentSubmissions: formattedSubmissions,
                 classes: [
-                    ...teacherProfile.classes.map(c => ({ id: c.id, name: `${c.grade} - ${c.name} (Form)` })),
-                    ...teacherProfile.teacherSubjects.flatMap(s => s.classes.map(c => ({ id: c.id, name: `${c.grade} - ${c.name} (${s.name})` })))
-                ] // Combine Form classes and Subject classes for selection
+                    ...profile.classesManaged.map(c => ({ id: c.id, name: `${c.gradeLevel} - ${c.name} (Form)` })),
+                ] 
             }
         });
 

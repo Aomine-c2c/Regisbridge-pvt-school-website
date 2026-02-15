@@ -52,7 +52,7 @@ export function LoginForm() {
     try {
       const user = await login(formData.email, formData.password);
       // Redirect based on user role
-      if (user.role === 'admin' || user.role === 'superadmin') {
+      if (user && (user.role === 'admin' || user.role === 'superadmin')) {
         router.push('/admin');
       } else {
         router.push('/portal');

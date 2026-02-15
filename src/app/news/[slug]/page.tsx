@@ -3,11 +3,20 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
+
+interface Article {
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  image: string;
+  content: string[];
+}
 
 // This would normally come from a database or CMS
-const ARTICLES: Record<string, any> = {
+const ARTICLES: Record<string, Article> = {
   'rugby-championship': {
     title: 'Rugby First XV Wins National Championship',
     date: 'January 15, 2026',

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Plus, Search, Trash2, Edit, Filter } from 'lucide-react'
+import { Plus, Search, Trash2 } from 'lucide-react'
 import {
   Dialog,
   DialogContent,

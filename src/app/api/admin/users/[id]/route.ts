@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { hashPassword } from '@/lib/auth';
+import { getTenantDb } from '@/lib/db';
+import { hashPassword } from '@/lib/password';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/users/[id]
 export async function GET(
@@ -9,7 +10,17 @@ export async function GET(
 ) {
   const { id } = await params
   try {
-    const user = await prisma.user.findUnique({
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
+    const user = await db.user.findUnique({
       where: { id: id },
       select: {
         id: true,
@@ -18,10 +29,7 @@ export async function GET(
         email: true,
         role: true,
         status: true,
-        grade: true,
-        studentId: true,
         phoneNumber: true,
-        permissions: true,
         createdAt: true
       }
     });
@@ -47,16 +55,25 @@ export async function PATCH(
 ) {
   const { id } = await params
   try {
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
-    const { firstName, lastName, email, role, status, password, grade } = body;
+    const { firstName, lastName, email, role, status, password } = body;
 
     const dataToUpdate: any = {
       firstName,
       lastName,
       email,
       role,
-      status,
-      grade
+      status
     };
 
     if (password) {
@@ -68,7 +85,7 @@ export async function PATCH(
       dataToUpdate[key] === undefined && delete dataToUpdate[key]
     );
 
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await db.user.update({
       where: { id: id },
       data: dataToUpdate,
       select: {
@@ -80,6 +97,23 @@ export async function PATCH(
         status: true
       }
     });
+
+    // Audit Log
+    try {
+      const { auditService } = await import('@/services/audit-service');
+      await auditService.log({
+        action: 'UPDATE',
+        resource: 'User',
+        resourceId: id,
+        details: { fields: Object.keys(dataToUpdate) },
+        userId: request.headers.get('x-user-id') || undefined,
+        tenantId: tenantId,
+        ipAddress: request.headers.get('x-forwarded-for') || undefined,
+        userAgent: request.headers.get('user-agent') || undefined
+      });
+    } catch (e) {
+      console.error('Audit log failed', e);
+    }
 
     return NextResponse.json({
       success: true,
@@ -102,9 +136,35 @@ export async function DELETE(
 ) {
   const { id } = await params
   try {
-    await prisma.user.delete({
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
+    await db.user.delete({
       where: { id: id }
     });
+
+    // Audit Log
+    try {
+      const { auditService } = await import('@/services/audit-service');
+      await auditService.log({
+        action: 'DELETE',
+        resource: 'User',
+        resourceId: id,
+        userId: request.headers.get('x-user-id') || undefined,
+        tenantId: tenantId,
+        ipAddress: request.headers.get('x-forwarded-for') || undefined,
+        userAgent: request.headers.get('user-agent') || undefined
+      });
+    } catch (e) {
+      console.error('Audit log failed', e);
+    }
 
     return NextResponse.json({
       success: true,

@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import { AdminHeader } from './shared/AdminHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, Users, TrendingUp, DollarSign, GraduationCap, BarChart as BarChartIcon } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { Download, Users, TrendingUp, DollarSign, GraduationCap } from 'lucide-react';
+// import { useToast } from '@/components/ui/use-toast';
 
 export function ReportsAnalytics() {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 

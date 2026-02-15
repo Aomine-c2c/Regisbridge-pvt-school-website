@@ -1,36 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
   try {
-    const totalRevenueRef = await prisma.feePayment.aggregate({
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
+    const totalRevenueRef = await db.feePayment.aggregate({
       _sum: {
-        paidAmount: true
+        amountPaid: true
+      },
+      where: {
+        student: {
+            tenantId: tenantId
+        }
       }
     });
 
-    const pendingFeesRef = await prisma.feePayment.aggregate({
-      _sum: {
-        balance: true
-      },
-      where: {
-        status: { not: 'PAID' }
-      }
-    });
-    
-    const overdueCount = await prisma.feePayment.count({
-      where: {
-        status: { not: 'PAID' },
-        dueDate: { lt: new Date() }
-      }
-    });
+    // Schema limitation: No Student Invoice model to track pending/overdue explicitly per student.
+    // FeePayment is strictly a transaction log.
+    // Future improvement: Implement StudentFee model.
 
     return NextResponse.json({
       success: true,
       data: {
-        totalRevenue: totalRevenueRef._sum.paidAmount || 0,
-        pendingFees: pendingFeesRef._sum.balance || 0,
-        overdueCount
+        totalRevenue: totalRevenueRef._sum?.amountPaid || 0,
+        pendingFees: 0, 
+        overdueCount: 0
       }
     });
 

@@ -13,10 +13,10 @@
  * - Collision detection
  */
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { prisma, TenantClient } from '@/lib/db';
 
-const prisma = new PrismaClient()
-const isDbEnabled = Boolean(process.env.DATABASE_URL)
+const isDbEnabled = true; // Use shared prisma instance
 
 export type UserRole = 'student' | 'teacher' | 'staff'
 
@@ -43,7 +43,8 @@ const DEFAULT_CONFIG: Required<RegNumberConfig> = {
  * Generate the next available registration number
  */
 export async function generateRegistrationNumber(
-  config: RegNumberConfig = {}
+  config: RegNumberConfig = {},
+  db: PrismaClient | TenantClient = prisma
 ): Promise<string> {
   const finalConfig = { ...DEFAULT_CONFIG, ...config }
   const { role, yearFormat, sequencePadding } = finalConfig
@@ -68,39 +69,47 @@ export async function generateRegistrationNumber(
   
   try {
     // Determine which table to check based on role
-    // For now, we'll check the User table or Student table depending on implementation
-    // Assuming 'rollNumber' exists on Student, and maybe 'employeeId' on Staff?
-    // For simplicity/safety, we'll check the specific tables if they exist, 
-    // or fallback to a string check if we can't determine.
     
     let lastSequence = 0
 
     if (role === 'student') {
         // Check Student table
-        const students = await prisma.student.findMany({
-            where: { rollNumber: { startsWith: pattern } },
-            select: { rollNumber: true },
-            orderBy: { rollNumber: 'desc' },
+        const students = await db.student.findMany({
+            where: { admissionIdentifier: { startsWith: pattern } },
+            select: { admissionIdentifier: true },
+            orderBy: { admissionIdentifier: 'desc' },
             take: 1,
         })
         if (students.length > 0) {
-            lastSequence = extractSequence(students[0].rollNumber, pattern)
+            lastSequence = extractSequence(students[0].admissionIdentifier, pattern)
         }
     } else {
-        // For Teachers/Staff, check User table or Staff table
-        // Assuming 'staffId' or similar field on a Staff model, or we store it in User
-        // Let's assume there's a custom field or we just look for collisions in a generic way if possible.
-        // For this demo, let's assume we maintain a sequence counter or check a Staff model.
-        // @ts-expect-error - Staff model might differ
-        const staff = await prisma.staff?.findMany({
-             where: { employeeId: { startsWith: pattern } },
-             select: { employeeId: true },
-             orderBy: { employeeId: 'desc' },
-             take: 1,
-        }) ?? []
+        // For Teachers/Staff, check StaffProfile table
+        // Employees (Teachers and Staff) both need IDs.
         
-        if (staff.length > 0) {
-            lastSequence = extractSequence(staff[0].employeeId, pattern)
+        let lastId = ''
+        
+        if (role === 'teacher') {
+             // Check if teacherProfile exists on db instance (it might be strict typed, so use any if needed for now or just trust it)
+             const teachers = await db.teacherProfile.findMany({
+                 where: { employeeId: { startsWith: pattern } },
+                 select: { employeeId: true },
+                 orderBy: { employeeId: 'desc' },
+                 take: 1
+             })
+             if (teachers.length > 0) lastId = teachers[0].employeeId
+        } else {
+             const staff = await db.staffProfile.findMany({
+                 where: { employeeId: { startsWith: pattern } },
+                 select: { employeeId: true },
+                 orderBy: { employeeId: 'desc' },
+                 take: 1,
+             })
+             if (staff.length > 0) lastId = staff[0].employeeId
+        }
+
+        if (lastId) {
+            lastSequence = extractSequence(lastId, pattern)
         }
     }
     
@@ -131,27 +140,28 @@ function extractSequence(fullNumber: string, prefixPattern: string): number {
  */
 export async function generateUniqueRegistrationNumber(
   config: RegNumberConfig = {},
+  db: PrismaClient | TenantClient = prisma,
   maxRetries: number = 3
 ): Promise<string> {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
-    const regNumber = await generateRegistrationNumber(config)
+    const regNumber = await generateRegistrationNumber(config, db)
     
     // Check uniqueness
     let exists = false
     if (config.role === 'student') {
-        const found = await prisma.student.findUnique({ where: { rollNumber: regNumber } })
+        const found = await db.student.findUnique({ where: { admissionIdentifier: regNumber } })
         exists = !!found
     } else {
-        const found = await prisma.staffProfile?.findUnique({ where: { userId: regNumber } }) // Assuming userId or employeeId?
-        // Wait, schema says StaffProfile has userId (unique) and id.
-        // registration-number.ts used employeeId?
-        // Let's check Schema for StaffProfile again.
-        // id, userId, designation... NO employeeId.
-        // Users have `id`.
-        // Maybe regNumber is the User ID? Or we need to add employeeId to StaffProfile?
-        // Or maybe it refers to User ID?
-
-        exists = !!found
+        const user = await db.user.findFirst({ where: { email: regNumber } })
+        exists = !!user
+        // Actually, we should check the same field we generated from.
+        if (config.role === 'teacher') {
+             const t = await db.teacherProfile.findUnique({ where: { employeeId: regNumber } })
+             exists = !!t
+        } else {
+             const s = await db.staffProfile.findUnique({ where: { employeeId: regNumber } })
+             exists = !!s
+        }
     }
     
     if (!exists) return regNumber
@@ -160,7 +170,7 @@ export async function generateUniqueRegistrationNumber(
   }
   
   // Create randomized fallback
-  const base = await generateRegistrationNumber(config)
+  const base = await generateRegistrationNumber(config, db)
   const random = Math.floor(Math.random() * 99).toString().padStart(2, '0')
   return `${base}${random}`
 }
@@ -168,20 +178,20 @@ export async function generateUniqueRegistrationNumber(
 /**
  * Get stats
  */
-export async function getRegistrationStats() {
+export async function getRegistrationStats(_year?: number, db: PrismaClient | TenantClient = prisma) {
     // Simplified stats for now
     return {
         total: 0,
-        nextStudent: await generateRegistrationNumber({ role: 'student' }),
-        nextTeacher: await generateRegistrationNumber({ role: 'teacher' })
+        nextStudent: await generateRegistrationNumber({ role: 'student' }, db),
+        nextTeacher: await generateRegistrationNumber({ role: 'teacher' }, db)
     }
 }
 
 // Keep legacy exports for compatibility if needed, but updated
 export const isValidRegistrationNumber = (reg: string) => /^[A-Z]{2}\d{5,}$/.test(reg)
 export const parseRegistrationNumber = (reg: string) => ({ prefix: reg.slice(0,2), year: reg.slice(2,4), sequence: reg.slice(4) })
-export const bulkGenerateRegistrationNumbers = async (count: number, config: RegNumberConfig) => {
+export const bulkGenerateRegistrationNumbers = async (count: number, config: RegNumberConfig, db: PrismaClient | TenantClient = prisma) => {
     const nums = []
-    for(let i=0; i<count; i++) nums.push(await generateUniqueRegistrationNumber(config))
+    for(let i=0; i<count; i++) nums.push(await generateUniqueRegistrationNumber(config, db))
     return nums
 }

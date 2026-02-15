@@ -33,6 +33,28 @@ export async function GET(request: NextRequest) {
                     gte: startDate,
                     lte: endDate
                 }
+            },
+            // Adding classTeacher relation through student and class for potential future use or detailed reports
+            include: {
+                student: {
+                    include: {
+                        class: {
+                            include: {
+                                classTeacher: {
+                                    include: {
+                                        user: {
+                                            select: {
+                                                firstName: true,
+                                                lastName: true,
+                                                email: true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -70,7 +92,7 @@ export async function GET(request: NextRequest) {
             id: r.studentId,
             name: `${r.student.user.firstName} ${r.student.user.lastName}`,
             grade: r.student.currentGrade,
-            reason: r.notes || 'No reason provided'
+            reason: r.remarks || 'No reason provided'
         }));
 
         return NextResponse.json({

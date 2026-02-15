@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { MaterialIcon } from '@/components/ui/material-icon';
 import { BadgeNew } from '@/components/ui/badge-new';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 interface ClassItem {
     id: string;
@@ -17,7 +17,7 @@ interface ClassItem {
 
 export default function MyClassesPage() {
     const { toast } = useToast();
-    const router = useRouter();
+    // const router = useRouter();
     const [classes, setClasses] = useState<ClassItem[]>([]);
     const [loading, setLoading] = useState(true);
 

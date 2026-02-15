@@ -1,6 +1,6 @@
 'use client'
 
-import { Component, ReactNode, ReactElement } from 'react'
+import { Component, ReactNode } from 'react'
 import { AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -48,7 +48,7 @@ export class AdminErrorBoundary extends Component<Props, State> {
     window.location.reload()
   }
 
-  render(): ReactElement {
+  render(): ReactNode {
     if (this.state.hasError) {
       return (
         this.props.fallback || (
@@ -92,7 +92,7 @@ export class AdminErrorBoundary extends Component<Props, State> {
       )
     }
 
-    return this.props.children as ReactElement
+    return this.props.children
   }
 }
 

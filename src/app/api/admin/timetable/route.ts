@@ -1,34 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { verifyAccessToken } from '@/lib/auth';
-
-// Helper to verify admin access
-async function verifyAdminAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization');
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' };
-    }
-
-    const token = authHeader.substring(7);
-    const payload = await verifyAccessToken(token);
-
-    if (!payload || (payload.role !== 'admin' && payload.role !== 'administrator')) {
-        return { authorized: false, error: 'Unauthorized' };
-    }
-
-    return { authorized: true, userId: payload.userId };
-}
+import { getTenantDb } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/timetable?classId=...
 export async function GET(request: NextRequest) {
     try {
-        // Verify Admin (or potentially Teacher/Student if we want to reuse this for read-only)
-        // For admin route, strict admin check.
-        const auth = await verifyAdminAccess(request);
-        if (!auth.authorized) { // Allow students/teachers to fetch? Maybe separate route or check role.
-             return NextResponse.json({ success: false, message: auth.error }, { status: 401 });
+        const { error } = await requireAdmin(request);
+        if (error) return error; // Allow students/teachers to fetch? Maybe separate route or check role.
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
+
+        const db = getTenantDb(tenantId);
 
         const { searchParams } = new URL(request.url);
         const classId = searchParams.get('classId');
@@ -39,23 +24,38 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ success: false, message: 'Class ID required' }, { status: 400 });
         }
 
-        const schedule = await prisma.classSchedule.findMany({
+        const schedule = await db.classSchedule.findMany({
             where: { classId },
             include: {
                 subject: {
-                    select: { id: true, name: true, code: true, teacher: { select: { firstName: true, lastName: true } } }
+                    select: { 
+                        id: true, 
+                        name: true, 
+                        code: true, 
+                        teachers: { 
+                            include: { 
+                                teacher: { 
+                                    include: { 
+                                        user: { select: { firstName: true, lastName: true } } 
+                                    } 
+                                } 
+                            } 
+                        } 
+                    }
                 }
             }
         });
 
         // Group by day for easier frontend consumption
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-        const grouped: Record<string, any[]> = {};
+        
+        type ScheduleItem = typeof schedule[number];
+        const grouped: Record<string, ScheduleItem[]> = {};
         
         days.forEach(day => {
             grouped[day] = schedule
-                .filter((s: any) => s.dayOfWeek === day)
-                .sort((a: any, b: any) => a.startTime.localeCompare(b.startTime));
+                .filter((s) => s.dayOfWeek === day) // Type inferred
+                .sort((a, b) => a.startTime.localeCompare(b.startTime));
         });
 
         return NextResponse.json({
@@ -72,10 +72,15 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/timetable
 export async function POST(request: NextRequest) {
     try {
-        const auth = await verifyAdminAccess(request);
-        if (!auth.authorized) {
-            return NextResponse.json({ success: false, message: auth.error }, { status: 401 });
+        const { error } = await requireAdmin(request);
+        if (error) return error;
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
+
+        const db = getTenantDb(tenantId);
 
         const body = await request.json();
         const { classId, subjectId, dayOfWeek, startTime, endTime, room } = body;
@@ -85,7 +90,7 @@ export async function POST(request: NextRequest) {
         }
 
         // 1. Fetch Subject to get Teacher info
-        const subject = await prisma.subject.findUnique({
+        const subject = await db.subject.findUnique({
             where: { id: subjectId }
         });
 
@@ -103,7 +108,7 @@ export async function POST(request: NextRequest) {
         };
 
         // Check A: Class Conflict
-        const classConflict = await prisma.classSchedule.findFirst({
+        const classConflict = await db.classSchedule.findFirst({
             where: {
                 classId,
                 ...timeOverlapConditions
@@ -118,10 +123,16 @@ export async function POST(request: NextRequest) {
         }
 
         // Check B: Teacher Conflict (if teacher assigned)
-        if (subject.teacherId) {
-            const teacherConflict = await prisma.classSchedule.findFirst({
+        // In our schema, subjects can have multiple teachers. 
+        // We'll check the teacher assigned to the ClassSchedule if we add it.
+        // For now, let's assume we want to check if the subject's primary teacher is busy.
+        // But subject.teacherId doesn't exist if it's M:M.
+        
+        const teacherId = body.teacherId; // Prefer explicit teacherId from body
+        if (teacherId) {
+            const teacherConflict = await db.classSchedule.findFirst({
                 where: {
-                    subject: { teacherId: subject.teacherId },
+                    teacherId,
                     ...timeOverlapConditions
                 },
                 include: { class: true } // format message with class name
@@ -135,13 +146,10 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // Check C: Room Conflict (if room specified)
+        // Check C: Room Conflict (if room specified) // TODO: Make room tenant-aware or use string for now
         if (room) {
-            // Check explicit room assignments in schedule
-            // Note: This doesn't check if the room corresponds to a class's default room that is occupied, 
-            // unless that default room is explicitly stored in schedule. 
-            // For MVP, we check explicit room bookings.
-            const roomConflict = await prisma.classSchedule.findFirst({
+            // Check explicit room bookings.
+            const roomConflict = await db.classSchedule.findFirst({
                 where: {
                     room,
                     ...timeOverlapConditions
@@ -157,14 +165,15 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        const newEntry = await prisma.classSchedule.create({
+        const newEntry = await db.classSchedule.create({
             data: {
                 classId,
                 subjectId,
                 dayOfWeek,
                 startTime,
                 endTime,
-                room
+                room,
+                teacherId: teacherId || null
             },
             include: {
                 subject: true
@@ -186,10 +195,15 @@ export async function POST(request: NextRequest) {
 // DELETE /api/admin/timetable?id=...
 export async function DELETE(request: NextRequest) {
     try {
-        const auth = await verifyAdminAccess(request);
-        if (!auth.authorized) {
-            return NextResponse.json({ success: false, message: auth.error }, { status: 401 });
+        const { error } = await requireAdmin(request);
+        if (error) return error;
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
+
+        const db = getTenantDb(tenantId);
 
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');
@@ -198,7 +212,7 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ success: false, message: 'ID required' }, { status: 400 });
         }
 
-        await prisma.classSchedule.delete({
+        await db.classSchedule.delete({
             where: { id }
         });
 

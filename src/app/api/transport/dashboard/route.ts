@@ -26,24 +26,9 @@ export async function GET(request: NextRequest) {
 
         const serviceDueCount = 3; // Mocked
 
-        const recentActivity = await (prisma as any).vehicle.findMany({
-            take: 5,
-            orderBy: { updatedAt: 'desc' },
-            select: {
-                id: true,
-                registrationNumber: true,
-                status: true,
-                driverName: true,
-                updatedAt: true
-            }
-        });
 
-        const activity = recentActivity.map((v: any) => ({
-            id: v.id,
-            description: `Vehicle ${v.registrationNumber} is ${v.status}`,
-            time: v.updatedAt.toISOString(),
-            type: v.status === 'MAINTENANCE' ? 'alert' : 'info'
-        }));
+
+
 
         // Fetch vehicles for fleet list separately
         const vehicles = await prisma.vehicle.findMany({

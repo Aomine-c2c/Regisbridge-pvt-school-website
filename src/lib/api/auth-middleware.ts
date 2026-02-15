@@ -7,6 +7,9 @@ export interface AuthUser {
   userId: string
   email: string
   role: string
+  tenantId?: string
+  firstName?: string
+  lastName?: string
 }
 
 export async function verifyAuth(request: NextRequest): Promise<{ user: AuthUser | null; error: NextResponse | null }> {

@@ -1,7 +1,7 @@
 'use client';
 
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 import { useSettings } from '@/contexts';
 
 export default function PressKitPage() {

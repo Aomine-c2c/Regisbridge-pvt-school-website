@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 
 const CALENDAR_EVENTS = [
   { date: '2026-02-15', title: 'Parent-Teacher Conference', type: 'Academic', color: 'blue' },

@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { getSettings } from '@/lib/settings';
 
 import Link from 'next/link';
+import { PremiumHeader as Header } from '@/components/layout/PremiumHeader';
+import { PremiumFooter as Footer } from '@/components/layout/PremiumFooter';
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -21,7 +23,7 @@ export default async function EnhancedAdmissionsPage() {
 
   return (
     <div className="relative flex w-full flex-col bg-background-light dark:bg-background-dark min-h-screen">
-      <PremiumHeader />
+      <Header />
 
       {/* Hero Section */}
       <div className="@container w-full bg-white dark:bg-background-dark">
@@ -261,7 +263,7 @@ export default async function EnhancedAdmissionsPage() {
         </Link>
       </section>
 
-      <PremiumFooter />
+      <Footer />
     </div>
   );
 }

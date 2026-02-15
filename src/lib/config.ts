@@ -118,9 +118,9 @@ export const config = {
 
 // Validate critical configuration on startup
 if (!isDevelopment && !isTest) {
-  console.log('✅ Environment configuration validated successfully');
-  console.log(`🚀 Running in ${config.app.env} mode`);
-  console.log(`🔒 Security features enabled: JWT auth, bcrypt hashing`);
+  // console.log('✅ Environment configuration validated successfully');
+  // console.log(`🚀 Running in ${config.app.env} mode`);
+  // console.log(`🔒 Security features enabled: JWT auth, bcrypt hashing`);
   
   if (!config.sendgrid.enabled) {
     console.warn('⚠️  SendGrid not configured - email features will be disabled');

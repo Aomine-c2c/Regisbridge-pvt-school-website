@@ -1,37 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyAccessToken, hashPassword } from '@/lib/auth'
-
-async function verifyAdmin(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload || payload.role !== 'admin') {
-        return { authorized: false, error: 'Admin access required' }
-    }
-
-    return { authorized: true, userId: payload.userId }
-}
+import { getTenantDb } from '@/lib/db'
+import { hashPassword } from '@/lib/password'
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // POST /api/admin/users/create - Create new user
 export async function POST(request: NextRequest) {
     try {
-        const auth = await verifyAdmin(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
+        const { error } = await requireAdmin(request);
+        if (error) return error;
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
+        const db = getTenantDb(tenantId);
+
         const body = await request.json()
-        const { email, password, firstName, lastName, role, grade, studentId, phoneNumber } = body
+        const { email, password, firstName, lastName, role, phoneNumber } = body
 
         // Validate required fields
         if (!email || !password || !firstName || !lastName || !role) {
@@ -42,7 +28,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if email already exists
-        const existingUser = await prisma.user.findUnique({
+        const existingUser = await db.user.findFirst({
             where: { email },
         })
 
@@ -57,15 +43,13 @@ export async function POST(request: NextRequest) {
         const hashedPassword = await hashPassword(password)
 
         // Create user
-        const user = await prisma.user.create({
+        const user = await db.user.create({
             data: {
                 email,
                 password: hashedPassword,
                 firstName,
                 lastName,
                 role,
-                grade: grade || null,
-                studentId: studentId || null,
                 phoneNumber: phoneNumber || null,
                 status: 'ACTIVE',
             },
@@ -75,8 +59,6 @@ export async function POST(request: NextRequest) {
                 firstName: true,
                 lastName: true,
                 role: true,
-                grade: true,
-                studentId: true,
                 phoneNumber: true,
                 status: true,
                 createdAt: true,

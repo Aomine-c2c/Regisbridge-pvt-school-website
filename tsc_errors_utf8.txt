@@ -1,0 +1,439 @@
+﻿src/app/admin/finance/page.tsx(22,9): error TS6133: 'toast' is declared but its value is never read.
+src/app/admin/page.tsx(35,9): error TS6133: 'toast' is declared but its value is never read.
+src/app/admin/releases/page.tsx(6,10): error TS6133: 'filterType' is declared but its value is never read.
+src/app/admin/releases/page.tsx(6,22): error TS6133: 'setFilterType' is declared but its value is never read.
+src/app/admin/setup/page.tsx(3,17): error TS6133: 'useState' is declared but its value is never read.
+src/app/admin/setup/wizard/page.tsx(7,9): error TS6133: 'router' is declared but its value is never read.
+src/app/admin/staff/page.tsx(40,10): error TS6133: 'filterRole' is declared but its value is never read.
+src/app/admin/staff/page.tsx(40,22): error TS6133: 'setFilterRole' is declared but its value is never read.
+src/app/admin/timetable/page.tsx(6,10): error TS6133: 'selectedClass' is declared but its value is never read.
+src/app/admin/timetable/page.tsx(6,25): error TS6133: 'setSelectedClass' is declared but its value is never read.
+src/app/admissions/page.tsx(24,8): error TS2304: Cannot find name 'PremiumHeader'.
+src/app/admissions/page.tsx(264,8): error TS2304: Cannot find name 'PremiumFooter'.
+src/app/api/admin/analytics/route.ts(20,17): error TS2353: Object literal may only specify known properties, and 'amount' does not exist in type 'FeePaymentSelect<DefaultArgs>'.
+src/app/api/admin/analytics/route.ts(26,73): error TS2339: Property 'amount' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'.
+src/app/api/admin/analytics/route.ts(27,74): error TS2339: Property 'paidAmount' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'.
+src/app/api/admin/analytics/route.ts(35,23): error TS2353: Object literal may only specify known properties, and 'percentage' does not exist in type 'GradeSelect<DefaultArgs>'.
+src/app/api/admin/analytics/route.ts(39,61): error TS2339: Property 'percentage' does not exist on type '{ id: string; studentId: string; createdAt: Date; updatedAt: Date; subjectId: string; termId: string; assessmentType: string; score: number; maxScore: number; weightage: number; remarks: string | null; }'.
+src/app/api/admin/analytics/route.ts(44,13): error TS2322: Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum | StudentScalarFieldEnum[]'.
+  Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum[]'.
+    Type '"currentGrade"' is not assignable to type 'StudentScalarFieldEnum'.
+src/app/api/admin/analytics/route.ts(46,17): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentCountAggregateInputType'.
+src/app/api/admin/analytics/route.ts(52,31): error TS2339: Property 'currentGrade' does not exist on type 'PickEnumerable<StudentGroupByOutputType, StudentScalarFieldEnum | StudentScalarFieldEnum[]> & { ...; }'.
+src/app/api/admin/analytics/route.ts(53,20): error TS18048: 'd._count' is possibly 'undefined'.
+src/app/api/admin/analytics/route.ts(53,29): error TS2339: Property 'currentGrade' does not exist on type 'true | { id?: number | undefined; userId?: number | undefined; admissionIdentifier?: number | undefined; dateOfBirth?: number | undefined; gender?: number | undefined; bloodGroup?: number | undefined; ... 4 more ...; _all?: number | undefined; }'.
+  Property 'currentGrade' does not exist on type 'true'.
+src/app/api/admin/analytics/route.ts(63,24): error TS2353: Object literal may only specify known properties, and 'dueDate' does not exist in type 'FeePaymentOrderByWithRelationInput | FeePaymentOrderByWithRelationInput[]'.
+src/app/api/admin/analytics/route.ts(77,31): error TS2551: Property 'student' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'. Did you mean 'studentId'?
+src/app/api/admin/analytics/route.ts(77,63): error TS2551: Property 'student' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'. Did you mean 'studentId'?
+src/app/api/admin/analytics/route.ts(78,27): error TS2339: Property 'amount' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'.
+src/app/api/admin/analytics/route.ts(78,42): error TS2339: Property 'paidAmount' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'.
+src/app/api/admin/analytics/route.ts(79,25): error TS2339: Property 'dueDate' does not exist on type '{ status: string; id: string; studentId: string; feeStructureId: string | null; amountPaid: number; paymentDate: Date; method: string; transactionId: string | null; recordedBy: string | null; createdAt: Date; updatedAt: Date; }'.
+src/app/api/admin/analytics/strategic/route.ts(17,11): error TS6133: 'totalStaff' is declared but its value is never read.
+src/app/api/admin/analytics/strategic/route.ts(22,11): error TS6133: 'costs' is declared but its value is never read.
+src/app/api/admin/attendance/report/route.ts(72,30): error TS2339: Property 'currentGrade' does not exist on type '{ user: { firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/report/route.ts(73,23): error TS2339: Property 'notes' does not exist on type '{ student: { user: { firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/attendance/route.ts(33,18): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]'.
+src/app/api/admin/attendance/route.ts(54,29): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/route.ts(55,30): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/route.ts(55,48): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/route.ts(55,74): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/route.ts(56,24): error TS2339: Property 'currentGrade' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/attendance/route.ts(58,34): error TS2339: Property 'notes' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; termId: string | null; remarks: string | null; date: Date; recordedById: string | null; }'.
+src/app/api/admin/attendance/route.ts(59,35): error TS2339: Property 'markedAt' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; termId: string | null; remarks: string | null; date: Date; recordedById: string | null; }'.
+src/app/api/admin/attendance/route.ts(107,17): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceUpdateInput, AttendanceUncheckedUpdateInput> & AttendanceUncheckedUpdateInput) | (Without<...> & AttendanceUpdateInput)'.
+src/app/api/admin/attendance/route.ts(115,17): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceCreateInput, AttendanceUncheckedCreateInput> & AttendanceUncheckedCreateInput) | (Without<...> & AttendanceCreateInput)'.
+src/app/api/admin/classes/route.ts(19,9): error TS2353: Object literal may only specify known properties, and 'teacher' does not exist in type 'ClassInclude<DefaultArgs>'.
+src/app/api/admin/classes/route.ts(79,9): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<ClassCreateInput, ClassUncheckedCreateInput> & ClassUncheckedCreateInput) | (Without<...> & ClassCreateInput)'.
+src/app/api/admin/documents/route.ts(17,24): error TS2561: Object literal may only specify known properties, but 'uploadedByUser' does not exist in type 'DocumentInclude<DefaultArgs>'. Did you mean to write 'uploadedBy'?
+src/app/api/admin/documents/route.ts(59,17): error TS2559: Type 'string' has no properties in common with type 'UserCreateNestedOneWithoutDocumentsInput'.
+src/app/api/admin/events/route.ts(15,20): error TS6133: 'total' is declared but its value is never read.
+src/app/api/admin/events/route.ts(16,14): error TS2339: Property 'event' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/events/route.ts(21,14): error TS2339: Property 'event' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/events/route.ts(24,40): error TS7006: Parameter 'event' implicitly has an 'any' type.
+src/app/api/admin/events/route.ts(76,32): error TS2339: Property 'event' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/finance/payments/route.ts(40,28): error TS2339: Property 'rollNumber' does not exist on type '{ user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/finance/payments/route.ts(41,17): error TS2339: Property 'amount' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(42,21): error TS2339: Property 'paidAmount' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(43,18): error TS2339: Property 'balance' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(44,18): error TS2339: Property 'feeType' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(46,18): error TS2339: Property 'dueDate' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(48,17): error TS2339: Property 'paymentMethod' does not exist on type '{ student: { user: { email: string; firstName: string; lastName: string; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }; } & { ...; }'.
+src/app/api/admin/finance/payments/route.ts(112,9): error TS2322: Type 'Date | null' is not assignable to type 'string | Date | undefined'.
+  Type 'null' is not assignable to type 'string | Date | undefined'.
+src/app/api/admin/finance/stats/route.ts(4,27): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/finance/stats/route.ts(8,9): error TS2353: Object literal may only specify known properties, and 'paidAmount' does not exist in type 'FeePaymentSumAggregateInputType'.
+src/app/api/admin/finance/stats/route.ts(14,9): error TS2353: Object literal may only specify known properties, and 'balance' does not exist in type 'FeePaymentSumAggregateInputType'.
+src/app/api/admin/finance/stats/route.ts(24,9): error TS2353: Object literal may only specify known properties, and 'dueDate' does not exist in type 'FeePaymentWhereInput'.
+src/app/api/admin/finance/stats/route.ts(31,23): error TS18048: 'totalRevenueRef._sum' is possibly 'undefined'.
+src/app/api/admin/finance/stats/route.ts(31,44): error TS2339: Property 'paidAmount' does not exist on type '{ amountPaid?: number | null | undefined; }'.
+src/app/api/admin/finance/stats/route.ts(32,22): error TS18048: 'pendingFeesRef._sum' is possibly 'undefined'.
+src/app/api/admin/finance/stats/route.ts(32,42): error TS2339: Property 'balance' does not exist on type '{ amountPaid?: number | null | undefined; }'.
+src/app/api/admin/news/route.ts(34,14): error TS2339: Property 'newsArticle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/news/route.ts(40,14): error TS2339: Property 'newsArticle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/news/route.ts(44,44): error TS7006: Parameter 'article' implicitly has an 'any' type.
+src/app/api/admin/news/route.ts(100,34): error TS2339: Property 'newsArticle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/registration-numbers/route.ts(35,46): error TS2554: Expected 0 arguments, but got 1.
+src/app/api/admin/reports/stats/route.ts(3,32): error TS6133: 'subDays' is declared but its value is never read.
+src/app/api/admin/reports/stats/route.ts(5,27): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/reports/stats/route.ts(10,7): error TS2322: Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum | StudentScalarFieldEnum[]'.
+  Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum[]'.
+    Type '"currentGrade"' is not assignable to type 'StudentScalarFieldEnum'.
+src/app/api/admin/reports/stats/route.ts(50,9): error TS2353: Object literal may only specify known properties, and 'paidAmount' does not exist in type 'FeePaymentSumAggregateInputType'.
+src/app/api/admin/reports/stats/route.ts(60,59): error TS2339: Property 'currentGrade' does not exist on type 'PickEnumerable<StudentGroupByOutputType, StudentScalarFieldEnum | StudentScalarFieldEnum[]> & { ...; }'.
+src/app/api/admin/reports/stats/route.ts(60,80): error TS18048: 'g._count' is possibly 'undefined'.
+src/app/api/admin/reports/stats/route.ts(60,89): error TS2339: Property 'id' does not exist on type 'true | { id?: number | undefined; userId?: number | undefined; admissionIdentifier?: number | undefined; dateOfBirth?: number | undefined; gender?: number | undefined; bloodGroup?: number | undefined; ... 4 more ...; _all?: number | undefined; }'.
+  Property 'id' does not exist on type 'true'.
+src/app/api/admin/reports/stats/route.ts(70,22): error TS18048: 'financials._sum' is possibly 'undefined'.
+src/app/api/admin/reports/stats/route.ts(70,38): error TS2339: Property 'paidAmount' does not exist on type '{ amountPaid?: number | null | undefined; }'.
+src/app/api/admin/reports/stats/route.ts(71,22): error TS18048: 'financials._sum' is possibly 'undefined'.
+src/app/api/admin/reports/stats/route.ts(71,38): error TS2339: Property 'balance' does not exist on type '{ amountPaid?: number | null | undefined; }'.
+src/app/api/admin/roles/permissions/route.ts(26,9): error TS2353: Object literal may only specify known properties, and 'permissions' does not exist in type '(Without<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput> & UserUncheckedUpdateManyInput) | (Without<...> & UserUpdateManyMutationInput)'.
+src/app/api/admin/settings/route.ts(5,27): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/setup/route.ts(15,35): error TS2339: Property 'systemSettings' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/setup/route.ts(40,35): error TS2339: Property 'systemSettings' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/setup/route.ts(44,31): error TS2339: Property 'systemSettings' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/setup/route.ts(52,31): error TS2339: Property 'systemSettings' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/students/[id]/route.ts(6,3): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/students/[id]/route.ts(41,22): error TS2339: Property 'currentGrade' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(42,26): error TS2339: Property 'section' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(43,31): error TS2339: Property 'enrollmentDate' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(48,23): error TS2339: Property 'parentName' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(49,24): error TS2339: Property 'parentEmail' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(50,24): error TS2339: Property 'parentPhone' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(53,27): error TS2339: Property 'rollNumber' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/[id]/route.ts(114,11): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type '(Without<StudentUpdateInput, StudentUncheckedUpdateInput> & StudentUncheckedUpdateInput) | (Without<...> & StudentUpdateInput)'.
+src/app/api/admin/students/[id]/route.ts(139,3): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/students/route.ts(71,22): error TS2339: Property 'currentGrade' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(72,26): error TS2339: Property 'section' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(73,31): error TS2339: Property 'enrollmentDate' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(78,23): error TS2339: Property 'parentName' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(79,24): error TS2339: Property 'parentEmail' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(80,24): error TS2339: Property 'parentPhone' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(83,27): error TS2339: Property 'rollNumber' does not exist on type '{ user: { email: string; status: string; id: string; firstName: string; lastName: string; phoneNumber: string | null; }; } & { userId: string; id: string; createdAt: Date; updatedAt: Date; ... 5 more ...; classId: string | null; }'.
+src/app/api/admin/students/route.ts(117,7): error TS6133: 'gender' is declared but its value is never read.
+src/app/api/admin/students/route.ts(179,11): error TS2322: Type 'Date | null' is not assignable to type 'string | Date'.
+  Type 'null' is not assignable to type 'string | Date'.
+src/app/api/admin/students/route.ts(193,36): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/admin/subjects/route.ts(30,17): error TS2561: Object literal may only specify known properties, but 'teacher' does not exist in type 'SubjectInclude<DefaultArgs>'. Did you mean to write 'teachers'?
+src/app/api/admin/timetable/route.ts(42,39): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/timetable/route.ts(106,44): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/timetable/route.ts(121,21): error TS2339: Property 'teacherId' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; description: string | null; code: string; }'.
+src/app/api/admin/timetable/route.ts(122,50): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/timetable/route.ts(124,51): error TS2339: Property 'teacherId' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; description: string | null; code: string; }'.
+src/app/api/admin/timetable/route.ts(144,47): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/timetable/route.ts(160,39): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/timetable/route.ts(201,22): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/admin/users/[id]/route.ts(7,3): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/users/[id]/route.ts(21,9): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'UserSelect<DefaultArgs>'.
+src/app/api/admin/users/[id]/route.ts(100,3): error TS6133: 'request' is declared but its value is never read.
+src/app/api/admin/users/create/route.ts(67,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'.
+src/app/api/admin/users/create/route.ts(78,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'UserSelect<DefaultArgs>'.
+src/app/api/admin/users/route.ts(43,11): error TS2561: Object literal may only specify known properties, but 'studentId' does not exist in type 'UserSelect<DefaultArgs>'. Did you mean to write 'student'?
+src/app/api/admin/users/route.ts(113,9): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'.
+src/app/api/admissions/apply/route.ts(18,38): error TS2339: Property 'studentApplication' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/assignments/[id]/grade/route.ts(54,17): error TS2353: Object literal may only specify known properties, and 'gradedBy' does not exist in type '(Without<AssignmentSubmissionUpdateInput, AssignmentSubmissionUncheckedUpdateInput> & AssignmentSubmissionUncheckedUpdateInput) | (Without<...> & AssignmentSubmissionUpdateInput)'.
+src/app/api/assignments/[id]/grade/route.ts(63,17): error TS2353: Object literal may only specify known properties, and 'gradedBy' does not exist in type 'Without<AssignmentSubmissionCreateInput, AssignmentSubmissionUncheckedCreateInput> & AssignmentSubmissionUncheckedCreateInput'.
+src/app/api/assignments/[id]/submit/route.ts(63,17): error TS2353: Object literal may only specify known properties, and 'fileUrl' does not exist in type '(Without<AssignmentSubmissionUpdateInput, AssignmentSubmissionUncheckedUpdateInput> & AssignmentSubmissionUncheckedUpdateInput) | (Without<...> & AssignmentSubmissionUpdateInput)'.
+src/app/api/assignments/[id]/submit/route.ts(71,17): error TS2353: Object literal may only specify known properties, and 'fileUrl' does not exist in type 'Without<AssignmentSubmissionCreateInput, AssignmentSubmissionUncheckedCreateInput> & AssignmentSubmissionUncheckedCreateInput'.
+src/app/api/assignments/route.ts(40,35): error TS2339: Property 'currentGrade' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/assignments/route.ts(100,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<AssignmentCreateInput, AssignmentUncheckedCreateInput> & AssignmentUncheckedCreateInput) | (Without<...> & AssignmentCreateInput)'.
+src/app/api/attendance/class/[classId]/route.ts(3,1): error TS6133: 'verifyAccessToken' is declared but its value is never read.
+src/app/api/attendance/class/[classId]/route.ts(45,17): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentWhereInput'.
+src/app/api/attendance/class/[classId]/route.ts(45,40): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/attendance/class/[classId]/route.ts(82,34): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/attendance/class/[classId]/route.ts(82,60): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/attendance/class/[classId]/route.ts(83,37): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/attendance/class/[classId]/route.ts(85,32): error TS2339: Property 'notes' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; termId: string | null; remarks: string | null; date: Date; recordedById: string | null; }'.
+src/app/api/attendance/mark/route.ts(43,25): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceUpdateInput, AttendanceUncheckedUpdateInput> & AttendanceUncheckedUpdateInput) | (Without<...> & AttendanceUpdateInput)'.
+src/app/api/attendance/mark/route.ts(51,25): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceCreateInput, AttendanceUncheckedCreateInput> & AttendanceUncheckedCreateInput) | (Without<...> & AttendanceCreateInput)'.
+src/app/api/auth/register/route.ts(67,9): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'.
+src/app/api/auth/verify/route.ts(38,9): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'UserSelect<DefaultArgs>'.
+src/app/api/exams/dashboard/admin/route.ts(22,21): error TS2353: Object literal may only specify known properties, and 'results' does not exist in type 'ExamScheduleInclude<DefaultArgs>'.
+src/app/api/exams/dashboard/admin/route.ts(32,36): error TS2551: Property 'subject' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'subjectId'?
+src/app/api/exams/dashboard/admin/route.ts(32,61): error TS2551: Property 'subject' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'subjectId'?
+src/app/api/exams/dashboard/admin/route.ts(33,33): error TS2551: Property 'subject' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'subjectId'?
+src/app/api/exams/dashboard/admin/route.ts(36,34): error TS2339: Property 'results' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'.
+src/app/api/exams/dashboard/admin/route.ts(37,29): error TS2339: Property 'venue' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'.
+src/app/api/exams/dashboard/admin/route.ts(38,30): error TS2551: Property 'session' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'sessionId'?
+src/app/api/exams/dashboard/student/route.ts(14,23): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/exams/dashboard/student/route.ts(24,28): error TS2561: Object literal may only specify known properties, but 'grade' does not exist in type '(Without<SubjectRelationFilter, SubjectWhereInput> & SubjectWhereInput) | (Without<SubjectWhereInput, SubjectRelationFilter> & SubjectRelationFilter)'. Did you mean to write 'grades'?
+src/app/api/exams/dashboard/student/route.ts(24,43): error TS2339: Property 'currentGrade' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/exams/dashboard/student/route.ts(42,31): error TS2551: Property 'subject' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'subjectId'?
+src/app/api/exams/dashboard/student/route.ts(43,29): error TS2551: Property 'subject' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'subjectId'?
+src/app/api/exams/dashboard/student/route.ts(44,29): error TS2339: Property 'venue' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'.
+src/app/api/exams/dashboard/student/route.ts(45,35): error TS2551: Property 'durationMinutes' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'durationMin'?
+src/app/api/exams/dashboard/student/route.ts(46,55): error TS2551: Property 'durationMinutes' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'durationMin'?
+src/app/api/exams/dashboard/student/route.ts(46,90): error TS2551: Property 'durationMinutes' does not exist on type '{ id: string; subjectId: string; date: Date; startTime: string; sessionId: string; durationMin: number; }'. Did you mean 'durationMin'?
+src/app/api/exams/invigilation/route.ts(16,11): error TS6133: 'where' is declared but its value is never read.
+src/app/api/exams/invigilation/route.ts(23,9): error TS2353: Object literal may only specify known properties, and 'invigilatorId' does not exist in type 'ExamScheduleWhereInput'.
+src/app/api/exams/invigilation/route.ts(55,13): error TS2353: Object literal may only specify known properties, and 'invigilatorId' does not exist in type '(Without<ExamScheduleUpdateInput, ExamScheduleUncheckedUpdateInput> & ExamScheduleUncheckedUpdateInput) | (Without<...> & ExamScheduleUpdateInput)'.
+src/app/api/exams/sessions/route.ts(47,9): error TS2353: Object literal may only specify known properties, and 'academicYear' does not exist in type '(Without<ExamSessionCreateInput, ExamSessionUncheckedCreateInput> & ExamSessionUncheckedCreateInput) | (Without<...> & ExamSessionCreateInput)'.
+src/app/api/hostel/dashboard/admin/route.ts(12,16): error TS6133: 'totalRooms' is declared but its value is never read.
+src/app/api/hostel/dashboard/admin/route.ts(16,20): error TS2339: Property 'hostelBlock' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/hostel/dashboard/student/route.ts(14,67): error TS2353: Object literal may only specify known properties, and 'block' does not exist in type 'HostelRoomInclude<DefaultArgs>'.
+src/app/api/hostel/rooms/route.ts(22,17): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/hostel/rooms/route.ts(29,19): error TS2322: Type '{ name: string; }' is not assignable to type 'SortOrder | undefined'.
+src/app/api/hostel/rooms/route.ts(54,9): error TS2561: Object literal may only specify known properties, but 'blockId' does not exist in type '(Without<HostelRoomCreateInput, HostelRoomUncheckedCreateInput> & HostelRoomUncheckedCreateInput) | (Without<...> & HostelRoomCreateInput)'. Did you mean to write 'block'?
+src/app/api/hr/dashboard/staff/route.ts(17,20): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/hr/dashboard/staff/route.ts(31,20): error TS2339: Property 'newsArticle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/hr/dashboard/staff/route.ts(42,43): error TS7006: Parameter 'schedule' implicitly has an 'any' type.
+src/app/api/hr/dashboard/staff/route.ts(52,48): error TS7006: Parameter 'notice' implicitly has an 'any' type.
+src/app/api/hr/leave/route.ts(16,11): error TS6133: 'where' is declared but its value is never read.
+src/app/api/hr/staff/route.ts(60,9): error TS2353: Object literal may only specify known properties, and 'joinDate' does not exist in type 'Without<StaffProfileUncheckedCreateInput, StaffProfileCreateInput> & StaffProfileCreateInput'.
+src/app/api/library/books/route.ts(50,9): error TS2353: Object literal may only specify known properties, and 'category' does not exist in type '(Without<BookCreateInput, BookUncheckedCreateInput> & BookUncheckedCreateInput) | (Without<...> & BookCreateInput)'.
+src/app/api/library/dashboard/admin/route.ts(21,97): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/library/dashboard/admin/route.ts(41,26): error TS2339: Property 'book' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; dueDate: Date; bookId: string; issueDate: Date; returnDate: Date | null; }'.
+src/app/api/library/dashboard/admin/route.ts(42,31): error TS2551: Property 'student' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; dueDate: Date; bookId: string; issueDate: Date; returnDate: Date | null; }'. Did you mean 'studentId'?
+src/app/api/library/dashboard/admin/route.ts(42,59): error TS2551: Property 'student' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; dueDate: Date; bookId: string; issueDate: Date; returnDate: Date | null; }'. Did you mean 'studentId'?
+src/app/api/library/dashboard/admin/route.ts(43,22): error TS2551: Property 'student' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; dueDate: Date; bookId: string; issueDate: Date; returnDate: Date | null; }'. Did you mean 'studentId'?
+src/app/api/library/dashboard/admin/route.ts(55,32): error TS2339: Property 'category' does not exist on type '{ issues: ({ student: { user: { firstName: string; lastName: string; }; }; } & { status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; dueDate: Date; bookId: string; issueDate: Date; returnDate: Date | null; })[]; } & { ...; }'.
+src/app/api/library/issues/route.ts(26,13): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/library/issues/route.ts(58,16): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentWhereUniqueInput'.
+src/app/api/library/issues/route.ts(67,23): error TS2339: Property 'available' does not exist on type '{ id: string; createdAt: Date; updatedAt: Date; title: string; author: string; isbn: string | null; copies: number; }'.
+src/app/api/library/issues/route.ts(72,19): error TS6133: 'updatedBook' is declared but its value is never read.
+src/app/api/library/issues/route.ts(83,17): error TS2353: Object literal may only specify known properties, and 'available' does not exist in type '(Without<BookUpdateInput, BookUncheckedUpdateInput> & BookUncheckedUpdateInput) | (Without<...> & BookUpdateInput)'.
+src/app/api/parent/dashboard/route.ts(18,17): error TS2353: Object literal may only specify known properties, and 'parentEmail' does not exist in type 'StudentWhereInput'.
+src/app/api/parent/dashboard/route.ts(37,29): error TS2353: Object literal may only specify known properties, and 'gradedAt' does not exist in type 'GradeOrderByWithRelationInput | GradeOrderByWithRelationInput[]'.
+src/app/api/parent/dashboard/route.ts(49,26): error TS2353: Object literal may only specify known properties, and 'balance' does not exist in type 'FeePaymentSumAggregateInputType'.
+src/app/api/parent/dashboard/route.ts(52,72): error TS18048: 'curr._sum' is possibly 'undefined'.
+src/app/api/parent/dashboard/route.ts(52,82): error TS2339: Property 'balance' does not exist on type '{ amountPaid?: number | null | undefined; }'.
+src/app/api/parent/dashboard/route.ts(56,33): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(56,57): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(57,31): error TS2339: Property 'currentGrade' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(58,36): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(59,68): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(59,92): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/parent/dashboard/route.ts(66,33): error TS2551: Property 'subject' does not exist on type '{ id: string; studentId: string; createdAt: Date; updatedAt: Date; subjectId: string; termId: string; assessmentType: string; score: number; maxScore: number; weightage: number; remarks: string | null; }'. Did you mean 'subjectId'?
+src/app/api/parent/dashboard/route.ts(67,31): error TS2339: Property 'letterGrade' does not exist on type '{ id: string; studentId: string; createdAt: Date; updatedAt: Date; subjectId: string; termId: string; assessmentType: string; score: number; maxScore: number; weightage: number; remarks: string | null; }'.
+src/app/api/parent/dashboard/route.ts(69,40): error TS2339: Property 'attendance' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/student/assignments/route.ts(21,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'AssignmentWhereInput'.
+src/app/api/student/assignments/route.ts(21,32): error TS2339: Property 'currentGrade' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/student/assignments/route.ts(45,28): error TS2551: Property 'subject' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'. Did you mean 'subjectId'?
+src/app/api/student/assignments/route.ts(49,55): error TS2339: Property 'totalPoints' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'.
+src/app/api/student/timetable/route.ts(60,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'ClassWhereInput'.
+src/app/api/student/timetable/route.ts(60,32): error TS2339: Property 'currentGrade' does not exist on type '{ user: { email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }; } & { ...; }'.
+src/app/api/student/timetable/route.ts(65,29): error TS2339: Property 'section' does not exist on type '{ user: { email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }; } & { ...; }'.
+src/app/api/student/timetable/route.ts(65,67): error TS2339: Property 'section' does not exist on type '{ user: { email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }; } & { ...; }'.
+src/app/api/student/timetable/route.ts(73,46): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/teacher/analytics/route.ts(16,30): error TS2322: Type 'string' is not assignable to type '(Without<TermRelationFilter, TermWhereInput> & TermWhereInput) | (Without<TermWhereInput, TermRelationFilter> & TermRelationFilter) | undefined'.
+src/app/api/teacher/analytics/route.ts(21,24): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]'.
+src/app/api/teacher/analytics/route.ts(26,36): error TS2339: Property 'grades' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/analytics/route.ts(28,34): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/app/api/teacher/analytics/route.ts(28,39): error TS7006: Parameter 'g' implicitly has an 'any' type.
+src/app/api/teacher/analytics/route.ts(32,39): error TS2339: Property 'attendance' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/analytics/route.ts(33,41): error TS2339: Property 'attendance' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/analytics/route.ts(33,59): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/app/api/teacher/analytics/route.ts(46,28): error TS7006: Parameter 'g' implicitly has an 'any' type.
+src/app/api/teacher/analytics/route.ts(52,34): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/analytics/route.ts(52,60): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/assignments/create/route.ts(30,17): error TS2561: Object literal may only specify known properties, but 'teacherId' does not exist in type 'SubjectWhereInput'. Did you mean to write 'teachers'?
+src/app/api/teacher/assignments/create/route.ts(47,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<AssignmentCreateInput, AssignmentUncheckedCreateInput> & AssignmentUncheckedCreateInput) | (Without<...> & AssignmentCreateInput)'.
+src/app/api/teacher/assignments/create/route.ts(47,32): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; description: string | null; code: string; }'.
+src/app/api/teacher/assignments/route.ts(14,17): error TS2353: Object literal may only specify known properties, and 'createdBy' does not exist in type 'AssignmentWhereInput'.
+src/app/api/teacher/assignments/route.ts(27,24): error TS2551: Property 'subject' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'. Did you mean 'subjectId'?
+src/app/api/teacher/assignments/route.ts(28,22): error TS2339: Property 'grade' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'.
+src/app/api/teacher/assignments/route.ts(29,21): error TS2339: Property 'assignmentType' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'.
+src/app/api/teacher/assignments/route.ts(32,33): error TS2339: Property '_count' does not exist on type '{ status: string; id: string; createdAt: Date; updatedAt: Date; subjectId: string; maxScore: number; dueDate: Date; title: string; description: string | null; type: string; }'.
+src/app/api/teacher/assignments/route.ts(64,17): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type '(Without<AssignmentCreateInput, AssignmentUncheckedCreateInput> & AssignmentUncheckedCreateInput) | (Without<...> & AssignmentCreateInput)'.
+src/app/api/teacher/attendance/mark/route.ts(49,17): error TS2561: Object literal may only specify known properties, but 'teacherId' does not exist in type 'SubjectWhereInput'. Did you mean to write 'teachers'?
+src/app/api/teacher/attendance/mark/route.ts(78,21): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceUpdateInput, AttendanceUncheckedUpdateInput> & AttendanceUncheckedUpdateInput) | (Without<...> & AttendanceUpdateInput)'.
+src/app/api/teacher/attendance/mark/route.ts(100,21): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceCreateInput, AttendanceUncheckedCreateInput> & AttendanceUncheckedCreateInput) | (Without<...> & AttendanceCreateInput)'.
+src/app/api/teacher/class-attendance/route.ts(7,17): error TS6133: 'user' is declared but its value is never read.
+src/app/api/teacher/class-attendance/route.ts(18,15): error TS6133: 'date' is declared but its value is never read.
+src/app/api/teacher/class-attendance/route.ts(23,23): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'ClassSelect<DefaultArgs>'.
+src/app/api/teacher/class-attendance/route.ts(31,22): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentWhereInput'.
+src/app/api/teacher/class-attendance/route.ts(31,49): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/class-attendance/route.ts(32,88): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/teacher/class-attendance/route.ts(62,28): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/class-attendance/route.ts(62,48): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/class-attendance/route.ts(63,31): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/class-attendance/route.ts(65,34): error TS2339: Property 'notes' does not exist on type '{ status: string; id: string; studentId: string; createdAt: Date; updatedAt: Date; termId: string | null; remarks: string | null; date: Date; recordedById: string | null; }'.
+src/app/api/teacher/class-attendance/route.ts(107,21): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceUpdateInput, AttendanceUncheckedUpdateInput> & AttendanceUncheckedUpdateInput) | (Without<...> & AttendanceUpdateInput)'.
+src/app/api/teacher/class-attendance/route.ts(115,21): error TS2353: Object literal may only specify known properties, and 'notes' does not exist in type '(Without<AttendanceCreateInput, AttendanceUncheckedCreateInput> & AttendanceUncheckedCreateInput) | (Without<...> & AttendanceCreateInput)'.
+src/app/api/teacher/classes/[id]/route.ts(11,17): error TS6133: 'user' is declared but its value is never read.
+src/app/api/teacher/classes/[id]/route.ts(26,17): error TS2353: Object literal may only specify known properties, and 'teacher' does not exist in type 'ClassInclude<DefaultArgs>'.
+src/app/api/teacher/classes/[id]/route.ts(54,17): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentWhereInput'.
+src/app/api/teacher/classes/[id]/route.ts(54,44): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(64,25): error TS2561: Object literal may only specify known properties, but 'studentId' does not exist in type 'UserSelect<DefaultArgs>'. Did you mean to write 'student'?
+src/app/api/teacher/classes/[id]/route.ts(80,24): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(80,44): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(81,27): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(82,30): error TS2339: Property '_count' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(92,41): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(93,41): error TS2339: Property 'teacher' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(93,67): error TS2339: Property 'teacher' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/classes/[id]/route.ts(93,101): error TS2339: Property 'teacher' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/classes/route.ts(16,17): error TS2353: Object literal may only specify known properties, and 'classes' does not exist in type 'UserInclude<DefaultArgs>'.
+src/app/api/teacher/classes/route.ts(39,44): error TS2339: Property 'classes' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/classes/route.ts(39,56): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/api/teacher/classes/route.ts(49,47): error TS2339: Property 'teacherSubjects' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/classes/route.ts(49,71): error TS7006: Parameter 'sub' implicitly has an 'any' type.
+src/app/api/teacher/classes/route.ts(50,29): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/api/teacher/classes/route.ts(68,13): error TS2322: Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum | StudentScalarFieldEnum[]'.
+  Type '"currentGrade"[]' is not assignable to type 'StudentScalarFieldEnum[]'.
+    Type '"currentGrade"' is not assignable to type 'StudentScalarFieldEnum'.
+src/app/api/teacher/classes/route.ts(72,58): error TS2339: Property 'currentGrade' does not exist on type 'PickEnumerable<StudentGroupByOutputType, StudentScalarFieldEnum | StudentScalarFieldEnum[]> & { ...; }'.
+src/app/api/teacher/classes/route.ts(72,72): error TS18048: 'g._count' is possibly 'undefined'.
+src/app/api/teacher/classes/route.ts(72,81): error TS2339: Property 'userId' does not exist on type 'true | { id?: number | undefined; userId?: number | undefined; admissionIdentifier?: number | undefined; dateOfBirth?: number | undefined; gender?: number | undefined; bloodGroup?: number | undefined; ... 4 more ...; _all?: number | undefined; }'.
+  Property 'userId' does not exist on type 'true'.
+src/app/api/teacher/dashboard/route.ts(21,17): error TS2353: Object literal may only specify known properties, and 'classes' does not exist in type 'UserInclude<DefaultArgs>'.
+src/app/api/teacher/dashboard/route.ts(47,17): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentWhereInput'.
+src/app/api/teacher/dashboard/route.ts(47,52): error TS2339: Property 'classes' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/dashboard/route.ts(47,64): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/api/teacher/dashboard/route.ts(55,21): error TS2353: Object literal may only specify known properties, and 'createdBy' does not exist in type '(Without<AssignmentRelationFilter, AssignmentWhereInput> & AssignmentWhereInput) | (Without<...> & AssignmentRelationFilter)'.
+src/app/api/teacher/dashboard/route.ts(64,44): error TS2339: Property 'classSchedule' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/teacher/dashboard/route.ts(90,21): error TS2353: Object literal may only specify known properties, and 'createdBy' does not exist in type '(Without<AssignmentRelationFilter, AssignmentWhereInput> & AssignmentWhereInput) | (Without<...> & AssignmentRelationFilter)'.
+src/app/api/teacher/dashboard/route.ts(104,30): error TS2551: Property 'student' does not exist on type '{ content: string | null; status: string; id: string; studentId: string; score: number | null; assignmentId: string; submittedAt: Date; feedback: string | null; gradedAt: Date | null; }'. Did you mean 'studentId'?
+src/app/api/teacher/dashboard/route.ts(104,60): error TS2551: Property 'student' does not exist on type '{ content: string | null; status: string; id: string; studentId: string; score: number | null; assignmentId: string; submittedAt: Date; feedback: string | null; gradedAt: Date | null; }'. Did you mean 'studentId'?
+src/app/api/teacher/dashboard/route.ts(105,30): error TS2551: Property 'assignment' does not exist on type '{ content: string | null; status: string; id: string; studentId: string; score: number | null; assignmentId: string; submittedAt: Date; feedback: string | null; gradedAt: Date | null; }'. Did you mean 'assignmentId'?
+src/app/api/teacher/dashboard/route.ts(116,48): error TS2339: Property 'teacherSubjects' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/dashboard/route.ts(117,47): error TS2339: Property 'classes' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/dashboard/route.ts(128,39): error TS2339: Property 'classes' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/dashboard/route.ts(128,51): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/api/teacher/dashboard/route.ts(129,39): error TS2339: Property 'teacherSubjects' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/teacher/dashboard/route.ts(129,63): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/api/teacher/dashboard/route.ts(129,82): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/api/teacher/grades/create/route.ts(34,72): error TS6133: 'weight' is declared but its value is never read.
+src/app/api/teacher/grades/create/route.ts(48,17): error TS2561: Object literal may only specify known properties, but 'teacherId' does not exist in type 'SubjectWhereInput'. Did you mean to write 'teachers'?
+src/app/api/teacher/grades/create/route.ts(67,17): error TS2353: Object literal may only specify known properties, and 'letterGrade' does not exist in type '(Without<GradeCreateInput, GradeUncheckedCreateInput> & GradeUncheckedCreateInput) | (Without<...> & GradeCreateInput)'.
+src/app/api/teacher/grades/create/route.ts(67,17): error TS18004: No value exists in scope for the shorthand property 'letterGrade'. Either declare one or provide an initializer.
+src/app/api/teacher/grades/create/route.ts(68,17): error TS18004: No value exists in scope for the shorthand property 'remarks'. Either declare one or provide an initializer.
+src/app/api/teacher/grades/route.ts(7,17): error TS6133: 'user' is declared but its value is never read.
+src/app/api/teacher/grades/route.ts(23,23): error TS2353: Object literal may only specify known properties, and 'grade' does not exist in type 'ClassSelect<DefaultArgs>'.
+src/app/api/teacher/grades/route.ts(32,22): error TS2353: Object literal may only specify known properties, and 'currentGrade' does not exist in type 'StudentWhereInput'.
+src/app/api/teacher/grades/route.ts(32,49): error TS2339: Property 'grade' does not exist on type '{ name: string; id: string; createdAt: Date; updatedAt: Date; gradeLevel: string; section: string | null; academicYearId: string; classTeacherId: string | null; }'.
+src/app/api/teacher/grades/route.ts(33,88): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentSelect<DefaultArgs>'.
+src/app/api/teacher/grades/route.ts(34,24): error TS2353: Object literal may only specify known properties, and 'rollNumber' does not exist in type 'StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]'.
+src/app/api/teacher/grades/route.ts(42,17): error TS2322: Type 'string' is not assignable to type '(Without<TermRelationFilter, TermWhereInput> & TermWhereInput) | (Without<TermWhereInput, TermRelationFilter> & TermRelationFilter) | undefined'.
+src/app/api/teacher/grades/route.ts(53,28): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/grades/route.ts(53,48): error TS2339: Property 'user' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/grades/route.ts(54,31): error TS2339: Property 'rollNumber' does not exist on type '{ userId: string; id: string; createdAt: Date; updatedAt: Date; admissionIdentifier: string; dateOfBirth: Date; gender: string; bloodGroup: string | null; address: string | null; classId: string | null; }'.
+src/app/api/teacher/grades/route.ts(104,21): error TS2353: Object literal may only specify known properties, and 'studentId_subjectId_term_academicYear' does not exist in type 'GradeWhereUniqueInput'.
+src/app/api/teacher/grades/route.ts(114,21): error TS2353: Object literal may only specify known properties, and 'percentage' does not exist in type '(Without<GradeUpdateInput, GradeUncheckedUpdateInput> & GradeUncheckedUpdateInput) | (Without<...> & GradeUpdateInput)'.
+src/app/api/teacher/grades/route.ts(124,21): error TS2353: Object literal may only specify known properties, and 'academicYear' does not exist in type '(Without<GradeCreateInput, GradeUncheckedCreateInput> & GradeUncheckedCreateInput) | (Without<...> & GradeCreateInput)'.
+src/app/api/teacher/subjects/route.ts(14,17): error TS2353: Object literal may only specify known properties, and 'teacherSubjects' does not exist in type 'UserSelect<DefaultArgs>'.
+src/app/api/teacher/subjects/route.ts(28,65): error TS2339: Property 'teacherSubjects' does not exist on type '{ email: string; role: string; status: string; id: string; createdAt: Date; updatedAt: Date; password: string; firstName: string; lastName: string; phoneNumber: string | null; lastLoginAt: Date | null; }'.
+src/app/api/transport/dashboard/route.ts(41,15): error TS6133: 'activity' is declared but its value is never read.
+src/app/api/transport/dashboard/route.ts(49,39): error TS2339: Property 'vehicle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/transport/dashboard/route.ts(55,40): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/api/transport/routes/route.ts(15,33): error TS2339: Property 'route' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/transport/routes/route.ts(49,32): error TS2339: Property 'route' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/transport/vehicles/route.ts(21,35): error TS2339: Property 'vehicle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/transport/vehicles/route.ts(54,34): error TS2339: Property 'vehicle' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/campus-tour/page.tsx(38,9): error TS6133: 'schoolName' is declared but its value is never read.
+src/app/parent/page.tsx(26,11): error TS6133: 'toast' is declared but its value is never read.
+src/app/student/grades/page.tsx(6,1): error TS6133: 'Button' is declared but its value is never read.
+src/app/student/grades/page.tsx(7,1): error TS6192: All imports in import declaration are unused.
+src/app/student/grades/page.tsx(8,1): error TS6133: 'ArrowLeft' is declared but its value is never read.
+src/app/student/grades/page.tsx(24,26): error TS6133: 'logout' is declared but its value is never read.
+src/app/student/grades/page.tsx(25,11): error TS6133: 'router' is declared but its value is never read.
+src/app/student/page.tsx(502,57): error TS6133: 'index' is declared but its value is never read.
+src/app/teacher/analytics/page.tsx(5,1): error TS6133: 'Link' is declared but its value is never read.
+src/app/teacher/analytics/page.tsx(18,9): error TS6133: 'toast' is declared but its value is never read.
+src/app/teacher/assignments/page.tsx(16,11): error TS6196: 'ClassOption' is declared but never used.
+src/app/teacher/assignments/page.tsx(34,12): error TS6133: 'viewMode' is declared but its value is never read.
+src/app/teacher/assignments/page.tsx(34,22): error TS6133: 'setViewMode' is declared but its value is never read.
+src/app/teacher/assignments/page.tsx(37,12): error TS6133: 'showBatchActions' is declared but its value is never read.
+src/app/teacher/assignments/page.tsx(37,30): error TS6133: 'setShowBatchActions' is declared but its value is never read.
+src/app/teacher/classes/page.tsx(20,11): error TS6133: 'router' is declared but its value is never read.
+src/app/teacher/grades/page.tsx(158,9): error TS2451: Cannot redeclare block-scoped variable 'exportCSV'.
+src/app/teacher/grades/page.tsx(163,9): error TS6133: 'toggleSelectStudent' is declared but its value is never read.
+src/app/teacher/grades/page.tsx(175,9): error TS6133: 'toggleSelectAll' is declared but its value is never read.
+src/app/teacher/grades/page.tsx(183,9): error TS6133: 'applyBulkComment' is declared but its value is never read.
+src/app/teacher/grades/page.tsx(227,9): error TS2451: Cannot redeclare block-scoped variable 'exportCSV'.
+src/app/teacher/page.tsx(5,1): error TS6133: 'StatCard' is declared but its value is never read.
+src/app/teacher/results/page.tsx(163,160): error TS2322: Type '{ children: string; class: string; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>'.
+  Property 'class' does not exist on type 'DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>'. Did you mean 'className'?
+src/app/teacher/results/page.tsx(164,157): error TS2322: Type '{ children: string; class: string; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>'.
+  Property 'class' does not exist on type 'DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>'. Did you mean 'className'?
+src/app/wellness/page.tsx(3,1): error TS6133: 'Link' is declared but its value is never read.
+src/components/admin/AcademicManagement.tsx(31,41): error TS6133: 'Users' is declared but its value is never read.
+src/components/admin/AcademicManagement.tsx(38,10): error TS6133: 'subjects' is declared but its value is never read.
+src/components/admin/AcademicManagement.tsx(38,20): error TS6133: 'setSubjects' is declared but its value is never read.
+src/components/admin/AcademicManagement.tsx(39,10): error TS6133: 'loading' is declared but its value is never read.
+src/components/admin/AdminDocumentManager.tsx(37,3): error TS6133: 'File' is declared but its value is never read.
+src/components/admin/AdminDocumentManager.tsx(41,3): error TS6133: 'Eye' is declared but its value is never read.
+src/components/admin/AdminErrorBoundary.tsx(53,7): error TS2322: Type 'string | number | bigint | true | Iterable<ReactNode> | Promise<AwaitedReactNode> | Element' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
+  Type 'string' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
+src/components/admin/AttendanceManagement.tsx(28,3): error TS6133: 'Download' is declared but its value is never read.
+src/components/admin/AttendanceManagement.tsx(29,3): error TS6133: 'Upload' is declared but its value is never read.
+src/components/admin/AttendanceManagement.tsx(36,3): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/components/admin/ContentManagement.tsx(20,3): error TS6133: 'DialogDescription' is declared but its value is never read.
+src/components/admin/ContentManagement.tsx(34,16): error TS6133: 'Search' is declared but its value is never read.
+src/components/admin/ContentManagement.tsx(34,24): error TS6133: 'Calendar' is declared but its value is never read.
+src/components/admin/ContentManagement.tsx(34,34): error TS6133: 'MoreVertical' is declared but its value is never read.
+src/components/admin/ContentManagement.tsx(34,55): error TS6133: 'Edit' is declared but its value is never read.
+src/components/admin/NotificationCenter.tsx(2,20): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/admin/NotificationCenter.tsx(11,3): error TS6133: 'UserPlus' is declared but its value is never read.
+src/components/admin/Overview.tsx(10,10): error TS6133: 'LineChart' is declared but its value is never read.
+src/components/admin/Overview.tsx(10,21): error TS6133: 'Line' is declared but its value is never read.
+src/components/admin/Overview.tsx(19,10): error TS6133: 'enrollmentData' is declared but its value is never read.
+src/components/admin/RegistrationGenerator.tsx(12,11): error TS6196: 'GeneratedResult' is declared but never used.
+src/components/admin/ReportsAnalytics.tsx(7,78): error TS6133: 'BarChartIcon' is declared but its value is never read.
+src/components/admin/ReportsAnalytics.tsx(11,9): error TS6133: 'toast' is declared but its value is never read.
+src/components/admin/shared/AdminHeader.tsx(6,10): error TS6133: 'ChevronLeft' is declared but its value is never read.
+src/components/admin/shared/DataTable.tsx(20,1): error TS6192: All imports in import declaration are unused.
+src/components/admin/shared/DataTable.tsx(33,3): error TS6133: 'MoreHorizontal' is declared but its value is never read.
+src/components/admin/StudentManagement.tsx(22,3): error TS6133: 'DialogTrigger' is declared but its value is never read.
+src/components/admin/StudentManagement.tsx(33,24): error TS6133: 'Filter' is declared but its value is never read.
+src/components/admin/UserManagement.tsx(7,32): error TS6133: 'Edit' is declared but its value is never read.
+src/components/admin/UserManagement.tsx(7,38): error TS6133: 'Filter' is declared but its value is never read.
+src/components/forms/LoginForm.tsx(55,11): error TS18047: 'user' is possibly 'null'.
+src/components/forms/LoginForm.tsx(55,36): error TS18047: 'user' is possibly 'null'.
+src/components/forms/OnlineApplication.tsx(300,24): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+  No index signature with a parameter of type 'string' was found on type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+src/components/forms/OnlineApplication.tsx(322,20): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+  No index signature with a parameter of type 'string' was found on type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+src/components/forms/OnlineApplication.tsx(324,30): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+  No index signature with a parameter of type 'string' was found on type '{ birthCertificate: null; schoolReports: null; medicalReport: null; passportPhoto: null; }'.
+src/components/layout/PremiumHeader.tsx(8,1): error TS6133: 'useSettings' is declared but its value is never read.
+src/components/layout/PremiumHeader.tsx(59,23): error TS2304: Cannot find name 'settings'.
+src/components/layout/PremiumHeader.tsx(68,16): error TS2304: Cannot find name 'settings'.
+src/components/layout/PremiumHeader.tsx(71,16): error TS2304: Cannot find name 'settings'.
+src/components/ui/calendar.tsx(55,20): error TS6133: '_props' is declared but its value is never read.
+src/components/ui/calendar.tsx(56,21): error TS6133: '_props' is declared but its value is never read.
+src/components/ui/ChatWidget.tsx(4,56): error TS6133: 'Paperclip' is declared but its value is never read.
+src/components/ui/ChatWidget.tsx(33,3): error TS6133: 'userName' is declared but its value is never read.
+src/components/ui/ChatWidget.tsx(34,3): error TS6133: 'userAvatar' is declared but its value is never read.
+src/components/ui/EmailCampaignManager.tsx(2,22): error TS6133: 'Users' is declared but its value is never read.
+src/components/ui/EmailCampaignManager.tsx(12,1): error TS6133: 'emailService' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(3,70): error TS6133: 'Filter' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(3,88): error TS6133: 'Eye' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(5,29): error TS6133: 'CardDescription' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(10,1): error TS6192: All imports in import declaration are unused.
+src/components/ui/GradeBook.tsx(17,3): error TS6133: 'AreaChart' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(18,3): error TS6133: 'Area' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(28,3): error TS6133: 'Legend' is declared but its value is never read.
+src/components/ui/GradeBook.tsx(88,3): error TS6133: 'userRole' is declared but its value is never read.
+src/components/ui/LanguageToggle.tsx(21,9): error TS6133: 'currentLanguage' is declared but its value is never read.
+src/components/ui/LearningPlatform.tsx(2,66): error TS6133: 'Users' is declared but its value is never read.
+src/components/ui/LearningPlatform.tsx(2,95): error TS6133: 'Calendar' is declared but its value is never read.
+src/components/ui/MeetingScheduler.tsx(2,33): error TS6133: 'MessageSquare' is declared but its value is never read.
+src/components/ui/MeetingScheduler.tsx(12,27): error TS6133: 'startOfDay' is declared but its value is never read.
+src/components/ui/NotificationManager.tsx(3,25): error TS6133: 'Settings' is declared but its value is never read.
+src/components/ui/NotificationManager.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/ui/NotificationManager.tsx(72,13): error TS6133: 'subscription' is declared but its value is never read.
+src/components/ui/sidebar.tsx(11,1): error TS6192: All imports in import declaration are unused.
+src/components/ui/sidebar.tsx(23,7): error TS6133: 'SIDEBAR_WIDTH_MOBILE' is declared but its value is never read.
+src/components/ui/SMSManager.tsx(2,38): error TS6133: 'Users' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(2,64): error TS6133: 'Edit' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(2,78): error TS6133: 'Target' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(2,86): error TS6133: 'TrendingUp' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(11,1): error TS6133: 'Progress' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(45,30): error TS6198: All destructured elements are unused.
+src/components/ui/StudyPlanner.tsx(53,24): error TS6133: 'setSelectedDate' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(54,10): error TS6133: 'selectedTask' is declared but its value is never read.
+src/components/ui/StudyPlanner.tsx(54,24): error TS6133: 'setSelectedTask' is declared but its value is never read.
+src/components/ui/VideoConference.tsx(2,40): error TS6133: 'Phone' is declared but its value is never read.
+src/components/ui/VideoConference.tsx(5,60): error TS6133: 'DialogTrigger' is declared but its value is never read.
+src/components/ui/VideoConference.tsx(30,3): error TS6133: 'roomId' is declared but its value is never read.
+src/components/ui/VideoConference.tsx(35,10): error TS6133: 'isConnected' is declared but its value is never read.
+src/components/ui/VideoConferenceButton.tsx(4,17): error TS6133: 'X' is declared but its value is never read.
+src/components/ui/VirtualizedList.tsx(2,1): error TS6192: All imports in import declaration are unused.
+src/components/ui/VirtualizedList.tsx(3,1): error TS6133: 'Skeleton' is declared but its value is never read.
+src/lib/api/security-headers.ts(80,36): error TS6133: 'T' is declared but its value is never read.
+src/lib/flags-auth-integration.example.ts(9,10): error TS6133: 'statsigAdapter' is declared but its value is never read.
+src/lib/flags-auth-integration.example.ts(10,10): error TS6133: 'flag' is declared but its value is never read.
+src/lib/structured-data.ts(6,10): error TS6133: 'Organization' is declared but its value is never read.
+src/services/api.ts(12,7): error TS6133: 'DEMO_DATA' is declared but its value is never read.

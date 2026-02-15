@@ -1,6 +1,13 @@
 // DataTable Component - Reusable table with sorting, filtering, pagination
 import { useState } from 'react';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Table,
   TableBody,
   TableCell,
@@ -10,19 +17,6 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   ChevronLeft,
@@ -30,7 +24,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Search,
-  MoreHorizontal,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,

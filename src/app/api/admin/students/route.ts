@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { hashPassword } from '@/lib/auth';
+import { getTenantDb } from '@/lib/db';
+import { hashPassword } from '@/lib/password';
 import { requireAdmin } from '@/lib/api/auth-middleware';
+import { Prisma } from '@prisma/client';
 
 // GET /api/admin/students - List all students with filters
 export async function GET(request: NextRequest) {
   try {
     const authResult = await requireAdmin(request);
     if (authResult.error) return authResult.error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
 
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
@@ -18,11 +26,13 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+
+
+    const where: Prisma.StudentWhereInput = {};
 
     if (search) {
       where.OR = [
-        { user: { firstName: { contains: search } } }, // SQLite doesn't support mode: 'insensitive' with contains easily basically
+        { user: { firstName: { contains: search } } }, 
         { user: { lastName: { contains: search } } },
         { user: { email: { contains: search } } },
         { rollNumber: { contains: search } },
@@ -35,11 +45,11 @@ export async function GET(request: NextRequest) {
 
     // Status is on the User model
     if (status) {
-      where.user = { ...where.user, status };
+      where.user = { id: { not: '' }, status: status as string }; 
     }
 
-    const [students, total] = await prisma.$transaction([
-      prisma.student.findMany({
+    const [students, total] = await db.$transaction([
+      db.student.findMany({
         where,
         skip,
         take: limit,
@@ -57,7 +67,7 @@ export async function GET(request: NextRequest) {
         },
         orderBy: { createdAt: 'desc' },
       }),
-      prisma.student.count({ where }),
+      db.student.count({ where }),
     ]);
 
     // Flatten response structure to match frontend expectations
@@ -108,13 +118,20 @@ export async function POST(request: NextRequest) {
     const authResult = await requireAdmin(request);
     if (authResult.error) return authResult.error;
 
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
     const {
       firstName,
       lastName,
       email,
       dateOfBirth,
-      gender,
+      // gender, // unused
       grade,
       className, // section
       phoneNumber,
@@ -122,6 +139,7 @@ export async function POST(request: NextRequest) {
       parentName,
       parentEmail,
       parentPhone,
+      gender,
       medicalAllergies,
       medicalMedications,
       medicalNotes,
@@ -136,7 +154,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check existing email
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    const existingUser = await db.user.findFirst({ where: { email } });
     if (existingUser) {
       return NextResponse.json(
         { success: false, message: 'Email already exists' },
@@ -149,18 +167,18 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await hashPassword(defaultPassword);
     
     // Generate Roll Number (Simple auto-increment logic mock)
-    const count = await prisma.student.count();
+    const count = await db.student.count();
     const rollNumber = `${new Date().getFullYear()}${(count + 1).toString().padStart(4, '0')}`;
 
     // Transaction to create User and Student keys
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
           email,
           password: hashedPassword,
           firstName,
           lastName,
-          role: 'student',
+          role: 'STUDENT',
           status: 'ACTIVE',
           phoneNumber,
         },
@@ -169,6 +187,8 @@ export async function POST(request: NextRequest) {
       const student = await tx.student.create({
         data: {
           userId: user.id,
+          admissionIdentifier: rollNumber,
+          gender: gender || 'OTHER',
           currentGrade: grade,
           section: className,
           rollNumber,

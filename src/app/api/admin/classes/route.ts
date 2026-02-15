@@ -1,40 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
+import { Prisma } from '@prisma/client';
 
 // GET /api/admin/classes - List all classes
 export async function GET(request: NextRequest) {
   try {
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     // Optional filters
     const searchParams = request.nextUrl.searchParams;
     const grade = searchParams.get('grade');
-    const academicYear = searchParams.get('academicYear');
+    const academicYearId = searchParams.get('academicYearId'); 
 
-    const where: any = {};
-    if (grade) where.grade = grade;
-    if (academicYear) where.academicYear = academicYear;
 
-    const classes = await prisma.class.findMany({
+
+    const where: Prisma.ClassWhereInput = {};
+    if (grade) where.gradeLevel = grade; 
+    if (academicYearId) where.academicYearId = academicYearId;
+
+    const classes = await db.class.findMany({
       where,
       include: {
-        teacher: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true
+        classTeacher: { 
+          include: {
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+                email: true
+              }
+            }
           }
         },
         _count: {
           select: {
-            // students: true // Implicit relation count handling differs, explicit easier?
-            // Since we didn't add students explicit relation yet, we can't count them easily if it's not defined.
-            // But we defined 'students Student[]' in the Class model I just appended? 
-            // Wait, I put `students Student[]` in the schema append snippet?
-            // Let me check my previous tool call content (Step 385).
-            // content: "teacher User? ... students Student[] ..." ?? 
-            // NO. In Step 385 replacement content, I REMOVED `students Student[]` and wrote "// Relations to other existing models if needed".
-            // So `_count` for students will fail if I try to use it here.
-            // I will remove student count for now until I link Student model to Class.
+            // Placeholder for when students relation is explicit if needed
           }
         }
       },
@@ -60,27 +69,33 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/classes - Create new class
 export async function POST(request: NextRequest) {
   try {
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
-    const { name, grade, academicYear, teacherId, room, capacity } = body;
+    const { name, gradeLevel, academicYearId, classTeacherId } = body;
 
     // Validation
-    if (!name || !grade || !academicYear) {
+    if (!name || !gradeLevel || !academicYearId) {
       return NextResponse.json(
         { success: false, message: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Check availability if teacher assigned? (Basic checks for now)
-
-    const newClass = await prisma.class.create({
+    const newClass = await db.class.create({
       data: {
         name,
-        grade,
-        academicYear,
-        teacherId: teacherId || null,
-        room,
-        capacity: capacity ? parseInt(capacity) : null
+        gradeLevel,
+        academicYearId,
+        classTeacherId: classTeacherId || null,
       }
     });
 
@@ -90,10 +105,10 @@ export async function POST(request: NextRequest) {
       data: newClass
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating class:', error);
     // Unique constraint violation
-    if (error.code === 'P2002') {
+    if ((error as any).code === 'P2002') {
        return NextResponse.json(
         { success: false, message: 'Class already exists for this grade and year' },
         { status: 409 }

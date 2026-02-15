@@ -121,6 +121,7 @@ export default function ExecutiveAnalyticsPage() {
             value={data?.counts.students.toString() || "0"} 
             sub="Active Enrollments" 
             color="blue" 
+            badge="Updated"
           />
           <KPICard 
              title="Total Staff" 
@@ -135,6 +136,8 @@ export default function ExecutiveAnalyticsPage() {
             value={`$${(data?.financial.totalCollected || 0).toLocaleString()}`} 
             sub={`of $${(data?.financial.totalExpected || 0).toLocaleString()} Expected`}
             color="green" 
+            trend="+12%"
+            trendUp={true}
           />
            <KPICard 
             title="Avg Academic Score" 
@@ -204,6 +207,40 @@ export default function ExecutiveAnalyticsPage() {
                  </p>
               </div>
            </div>
+        </div>
+
+        {/* Performance Prediction vs Actual */}
+        <div className="bg-white dark:bg-[#1e2330] rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm flex flex-col">
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h3 className="text-lg font-bold text-[#111317] dark:text-white">Financial Performance Forecast</h3>
+              <p className="text-sm text-[#646d87] dark:text-gray-400">Predicted vs Actual Collection by Quarter</p>
+            </div>
+            <div className="flex gap-4 text-xs font-bold">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                <span className="text-[#646d87] dark:text-gray-400">Predicted</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-[#2957e0] rounded"></div>
+                <span className="text-[#646d87] dark:text-gray-400">Actual</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Bar Chart using BarGroup */}
+          <div className="flex-1 w-full min-h-[280px] flex items-end justify-center gap-6 md:gap-12 px-4" style={{height: '280px'}}>
+            <BarGroup label="Q1" pred={75} act={82} pVal="$45K" aVal="$49K" />
+            <BarGroup label="Q2" pred={80} act={78} pVal="$48K" aVal="$47K" />
+            <BarGroup label="Q3" pred={70} act={85} pVal="$42K" aVal="$51K" />
+            <BarGroup label="Q4" pred={90} act={65} pVal="$54K" aVal="$39K" />
+          </div>
+          
+          <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-800">
+            <p className="text-xs text-blue-800 dark:text-blue-300 italic">
+              ℹ️ Forecast data shown above is simulated for demonstration. Connect to your financial prediction model for live data.
+            </p>
+          </div>
         </div>
       </main>
     </div>

@@ -1,39 +1,21 @@
 {
-  "name": "Regisbridge Private School",
+  "name": "Regisbridge Academy",
   "short_name": "Regisbridge",
-  "description": "Official website for Regisbridge Private School - A distinguished private day and boarding school in Zimbabwe",
+  "description": "Excellence in Education and Character Development",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1C1A75",
-  "theme_color": "#D4AF37",
-  "orientation": "portrait-primary",
+  "background_color": "#0b1f3b",
+  "theme_color": "#0b1f3b",
   "icons": [
     {
-      "src": "/placeholder.svg",
+      "src": "/icon.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "/placeholder.svg",
+      "src": "/apple-icon.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
-    }
-  ],
-  "categories": ["education", "school"],
-  "lang": "en",
-  "scope": "/",
-  "screenshots": [
-    {
-      "src": "/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshot-narrow.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "type": "image/png"
     }
   ]
 }

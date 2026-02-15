@@ -28,15 +28,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { Plus, BookOpen, GraduationCap, Users } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 export function AcademicManagement() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('classes');
   const [classes, setClasses] = useState<any[]>([]);
-  const [subjects, setSubjects] = useState<any[]>([]); // We'll fetch subjects if API exists or stub for now
-  const [loading, setLoading] = useState(true);
   const [isClassOpen, setIsClassOpen] = useState(false);
 
   // Class Form
@@ -60,16 +58,8 @@ export function AcademicManagement() {
     }
   };
 
-  const fetchSubjects = async () => {
-     // Placeholder for subjects fetching if API existed
-     // For now just empty or stub
-  };
-
   useEffect(() => {
-    setLoading(true);
     if (activeTab === 'classes') fetchClasses();
-    else fetchSubjects();
-    setLoading(false);
   }, [activeTab]);
 
   const handleCreateClass = async (e: React.FormEvent) => {

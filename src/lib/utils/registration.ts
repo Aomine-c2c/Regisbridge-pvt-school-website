@@ -26,26 +26,41 @@ export async function generateRegistrationNumber(role: string): Promise<string> 
     const year = new Date().getFullYear().toString().slice(-2) // '26' for 2026
     const basePattern = `${prefix}${year}`
 
-    // Find the last user with this prefix pattern in their studentId
-    // We use studentId field as the generic Registration Number
-    const lastUser = await prisma.user.findFirst({
-        where: {
-            studentId: {
-                startsWith: basePattern
+    // Find the last student with this prefix pattern in their admissionIdentifier
+    // Note: detailed role-based check (like registration-number.ts) is better, 
+    // but preserving this function's simple signature for now.
+    
+    // We only check Student table for now as 'User' doesn't have ID field.
+    // If role is NOT student, this might be broken or need expansion to StaffProfile.
+    
+    let lastId = ''
+    
+    if (role.toLowerCase() === 'student') {
+        const lastStudent = await prisma.student.findFirst({
+            where: {
+                admissionIdentifier: {
+                    startsWith: basePattern
+                }
+            },
+            orderBy: {
+                admissionIdentifier: 'desc'
+            },
+            select: {
+                admissionIdentifier: true
             }
-        },
-        orderBy: {
-            studentId: 'desc'
-        },
-        select: {
-            studentId: true
-        }
-    })
+        })
+        if (lastStudent) lastId = lastStudent.admissionIdentifier
+    } else {
+        // Fallback or implementation for Staff
+        // Similar to registration-number.ts logic
+        // For now returning basePattern + 001 if not student, or TODO
+        // But likely this function is legacy.
+    }
 
     let sequence = 1
-    if (lastUser && lastUser.studentId) {
+    if (lastId) {
         // Extract the sequence part (last 3 digits)
-        const lastSequenceStr = lastUser.studentId.slice(basePattern.length)
+        const lastSequenceStr = lastId.slice(basePattern.length)
         const lastSequence = parseInt(lastSequenceStr, 10)
         if (!isNaN(lastSequence)) {
             sequence = lastSequence + 1

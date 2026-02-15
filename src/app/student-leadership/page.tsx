@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 
 const COUNCIL_MEMBERS = [
   { name: 'James Mitchell', role: 'Head Boy', house: 'Churchill', image: 'https://i.pravatar.cc/300?img=12' },

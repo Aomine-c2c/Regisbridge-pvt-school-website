@@ -25,15 +25,12 @@ import {
 } from '@/components/ui/table';
 import { 
   Calendar as CalendarIcon,
-  Download, 
-  Upload, 
   Search, 
   CheckCircle, 
   XCircle, 
   Clock,
   Users,
   TrendingUp,
-  AlertCircle,
   Save
 } from 'lucide-react';
 import { format } from 'date-fns';

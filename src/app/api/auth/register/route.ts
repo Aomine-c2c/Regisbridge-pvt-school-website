@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { hashPassword, generateAccessToken, generateRefreshToken } from '@/lib/auth'
+import { generateAccessToken, generateRefreshToken } from '@/lib/auth'
+import { hashPassword } from '@/lib/password'
+import { rbacService } from '@/services/rbac-service'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, password, firstName, lastName, role, grade, studentId, phoneNumber } = body
+    const { email, password, firstName, lastName, role, phoneNumber } = body
 
     // Validate required fields
     if (!email || !password || !firstName || !lastName || !role) {
@@ -42,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.findFirst({
       where: { email },
     })
 
@@ -64,18 +66,20 @@ export async function POST(request: NextRequest) {
         firstName,
         lastName,
         role,
-        grade: grade || null,
-        studentId: studentId || null,
         phoneNumber: phoneNumber || null,
         status: 'ACTIVE',
       },
     })
+
+    // Get default permissions for the role
+    const permissions = await rbacService.getUserPermissions(user.id)
 
     // Generate tokens
     const payload = {
       userId: user.id,
       email: user.email,
       role: user.role,
+      permissions
     }
 
     const accessToken = await generateAccessToken(payload)

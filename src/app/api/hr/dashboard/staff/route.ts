@@ -9,17 +9,17 @@ export async function GET(request: NextRequest) {
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
         // Get Current Day
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const today = days[new Date().getDay()];
+        // 0=Sun, 1=Mon... Schema uses 1=Mon...7=Sun
+        const dayInt = new Date().getDay() || 7;
 
         // Fetch Data
         const [todaysClasses, notices] = await Promise.all([
-            prisma.classSchedule.findMany({
+            prisma.timetablePeriod.findMany({
                 where: {
-                    dayOfWeek: today,
+                    dayOfWeek: dayInt,
                     OR: [
-                        { subject: { teacherId: user.userId } }, // Use userId because Subject links to User
-                        { class: { teacherId: user.userId } }
+                        { subject: { teachers: { some: { teacher: { userId: user.userId } } } } },
+                        { class: { classTeacher: { userId: user.userId } } }
                     ]
                 },
                 include: {
@@ -39,17 +39,19 @@ export async function GET(request: NextRequest) {
         ]);
 
         // Transform Classes
-        const classes = todaysClasses.map(schedule => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const classes = todaysClasses.map((schedule: any) => ({
             id: schedule.id,
-            time: schedule.startTime,
-            class: `${schedule.class.grade} ${schedule.class.name}`,
+            time: `${schedule.startTime} - ${schedule.endTime}`,
+            class: `${schedule.class.gradeLevel}-${schedule.class.section} ${schedule.class.name}`,
             subject: schedule.subject.name,
-            room: schedule.room || schedule.class.room || 'Main Bldg',
-            students: schedule.class.capacity || 30 // Mock student count as capacity
+            room: schedule.room || 'Main Bldg',
+            students: 30 // Mock student count
         }));
 
         // Transform Notices
-        const transformedNotices = notices.map(notice => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const transformedNotices = notices.map((notice: any) => ({
             id: notice.id,
             date: notice.publishDate ? notice.publishDate.toISOString().split('T')[0] : '',
             title: notice.title,

@@ -6,19 +6,21 @@ import { z } from 'zod'
  */
 
 // User Management Schemas
-export const createUserSchema = z.object({
+const userBaseSchema = z.object({
   email: z.string().email('Invalid email address'),
   firstName: z.string().min(2, 'First name required'),
   lastName: z.string().min(2, 'Last name required'),
   role: z.enum(['admin', 'teacher', 'parent', 'student']),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
+})
+
+export const createUserSchema = userBaseSchema.refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
 })
 
-export const updateUserSchema = createUserSchema.partial().omit({ password: true, confirmPassword: true })
+export const updateUserSchema = userBaseSchema.partial().omit({ password: true, confirmPassword: true })
 
 // Student Management Schemas
 export const enrollStudentSchema = z.object({

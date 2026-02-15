@@ -13,36 +13,53 @@ export async function GET(request: NextRequest) {
         }
 
         const { searchParams } = new URL(request.url)
-        const studentId = searchParams.get('studentId') || user.userId
+        let studentId = searchParams.get('studentId')
 
-        // Only allow students to view their own grades, unless they are admin (handled by RequireStudent allowing admin? No, requireStudent allows admin/superadmin too)
-        // requireStudent logic: if (user?.role !== 'student' && user?.role !== 'admin' && user?.role !== 'superadmin')
-        // So if I am admin, I pass requireStudent.
-        
-        if (user.role === 'student' && studentId !== user.userId) {
-            return NextResponse.json(
-                { success: false, message: 'Unauthorized' },
-                { status: 403 }
-            )
+        // If user is a student, force them to see their own grades
+        if (user.role === 'student') {
+            const studentProfile = await prisma.student.findUnique({
+                where: { userId: user.userId }
+            })
+            
+            if (!studentProfile) {
+                return NextResponse.json(
+                    { success: false, message: 'Student profile not found' },
+                    { status: 404 }
+                )
+            }
+            studentId = studentProfile.id
         }
 
-        // If I am admin, I can see any student's grades if I provide studentId.
-        // If I don't provide studentId as admin, it defaults to my userId, which might not have grades.
-        // That is acceptable behavior.
+        if (!studentId) {
+             return NextResponse.json(
+                { success: false, message: 'Student ID required' },
+                { status: 400 }
+            )
+        }
 
         const grades = await prisma.grade.findMany({
             where: { studentId },
             include: {
                 subject: {
                     select: { name: true, code: true }
+                },
+                term: {
+                    select: { name: true } // Include term name as 'term' might be expected as string
                 }
             },
             orderBy: { createdAt: 'desc' },
         })
 
+        // Transform grades to match expected frontend format if necessary
+        // Frontend likely expects `term` to be a string.
+        const formattedGrades = grades.map(g => ({
+            ...g,
+            term: g.term.name // Flatten term name
+        }))
+
         return NextResponse.json({
             success: true,
-            grades,
+            grades: formattedGrades,
         })
     } catch (error) {
         console.error('Get grades error:', error)

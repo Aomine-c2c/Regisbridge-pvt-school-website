@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 
 const SHOP_ITEMS = [
   { id: 1, name: 'School Blazer', price: 89.99, category: 'Uniform', image: 'blazer' },

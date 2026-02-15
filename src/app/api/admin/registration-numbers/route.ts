@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/api/auth-middleware'
 import { secureResponse } from '@/lib/api/security-headers'
 import { checkRateLimit, rateLimitPresets } from '@/lib/rate-limit'
+import { getTenantDb } from '@/lib/db'
 import {
   generateUniqueRegistrationNumber,
   getRegistrationStats,
@@ -26,13 +27,20 @@ export async function GET(request: NextRequest) {
     const { error } = await requireAdmin(request)
     if (error) return error
 
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+        return secureResponse({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     // Get year from query params
     const { searchParams } = new URL(request.url)
     const yearParam = searchParams.get('year')
     const year = yearParam ? parseInt(yearParam, 10) : undefined
 
     // Get statistics
-    const stats = await getRegistrationStats(year)
+    const stats = await getRegistrationStats(year, db)
 
     return secureResponse({
       success: true,
@@ -69,6 +77,13 @@ export async function POST(request: NextRequest) {
     const { error } = await requireAdmin(request)
     if (error) return error
 
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+        return secureResponse({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json()
     const {
       count = 1,
@@ -88,7 +103,7 @@ export async function POST(request: NextRequest) {
     const config: RegNumberConfig = { role: role as UserRole, yearFormat }
 
     if (count === 1) {
-      const registrationNumber = await generateUniqueRegistrationNumber(config)
+      const registrationNumber = await generateUniqueRegistrationNumber(config, db)
       return secureResponse({
         success: true,
         data: {
@@ -97,7 +112,7 @@ export async function POST(request: NextRequest) {
         },
       })
     } else {
-      const registrationNumbers = await bulkGenerateRegistrationNumbers(count, config)
+      const registrationNumbers = await bulkGenerateRegistrationNumbers(count, config, db)
       return secureResponse({
         success: true,
         data: {
@@ -130,6 +145,8 @@ export async function PUT(request: NextRequest) {
     const { error } = await requireAdmin(request)
     if (error) return error
 
+    // No need for tenant DB for format validation, but good practice if checking existence
+    
     const body = await request.json()
     const {
       registrationNumber,

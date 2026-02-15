@@ -1,59 +1,53 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
-    const { id } = await params;
+    const { id } = await context.params;
     try {
-        const { user, error } = await requireTeacher(request);
+        const { error } = await requireTeacher(request);
         if (error) return error;
 
-        // Verify the teacher has access to this class
-        // 1. Is it a class they are a Form Tutor for?
-        // 2. Is it a class where they teach a subject?
-        // Ideally we check relation, but for MVP we can just fetch and verify ownership if strict.
-        // For now, let's just fetch the class if it exists and maybe filter sensitive info if they aren't related?
-        // Let's assume broad read access for teachers for now, or just fetch.
-        
-        const classId = id;
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
 
-        const classDetails = await prisma.class.findUnique({
-            where: { id: classId },
+        const db = getTenantDb(tenantId);
+
+        // Verify class belongs to tenant
+        const classDetails = await db.class.findUnique({
+            where: { id }, // id is globally unique
             include: {
-                teacher: { select: { firstName: true, lastName: true } }, // Form Tutor
-                subjects: { select: { name: true, teacherId: true } }
+                classTeacher: { 
+                    include: { user: { select: { firstName: true, lastName: true } } } 
+                },
+                timetable: {
+                    include: {
+                        subject: true
+                    }
+                }
             }
         });
 
         if (!classDetails) {
             return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 });
         }
+        
+        if (classDetails.tenantId && classDetails.tenantId !== tenantId) {
+             return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 }); // Hide existence
+        }
 
-        // Fetch students in this class
-        // We match Student.currentGrade to Class.grade
-        // AND maybe Class.name if we had sections? 
-        // Schema: Student has `currentGrade` and `section`. Class has `grade` and `name` (which might be section?)
-        // Let's assume Class.name is like "4A" or "4B" and Student.section is "A" or "B" for Grade "4"?
-        // Or Class.grade="4", Class.name="4A". 
-        // Let's match on Grade for now. If multiple classes per grade, we need to filter by section if stored.
-        // Our Class model has `name` (e.g. 4A) and `grade` (e.g. 4).
-        // Student has `currentGrade` (e.g. 4) and `section` (e.g. A).
-        
-        // Let's parse section from Class Name if needed, or assume Class Name IS the identifier.
-        // Simple logic: Fetch students where currentGrade == class.grade
-        // If we want to be specific to the "Class" entity, we need to ensure Students belong to it.
-        // Let's try matching Student.currentGrade + Student.section 
-        // e.g. Class "4A" -> Grade "4", Name "4A" (or Name "A")?
-        // Let's assume Class.name is the full unique identifier like "4A"
-        
-        const students = await prisma.student.findMany({
+        // Distinct subjects from timetable
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const uniqueSubjects = Array.from(new Set((classDetails as any).timetable.map((t: any) => t.subject.name)));
+
+        const students = await db.student.findMany({
             where: {
-                currentGrade: classDetails.grade,
-                // Add section filter if your data uses it. 
-                // section: classDetails.name.replace(classDetails.grade, '').trim() // Rough heuristic
+                classId: classDetails.id
             },
             include: {
                 user: {
@@ -61,7 +55,6 @@ export async function GET(
                         firstName: true,
                         lastName: true,
                         email: true,
-                        studentId: true 
                     }
                 },
                 _count: {
@@ -71,16 +64,16 @@ export async function GET(
                 }
             },
             orderBy: {
-                user: { lastName: 'asc' }
+                admissionIdentifier: 'asc'
             }
         });
 
         const formattedStudents = students.map(s => ({
             id: s.id,
             name: `${s.user.firstName} ${s.user.lastName}`,
-            rollNumber: s.rollNumber,
-            attendance: `${s._count.attendance}%`, // Mock calculation, need total days
-            status: 'Active' // Mock
+            rollNumber: s.admissionIdentifier,
+            attendance: `${s._count.attendance}%`, 
+            status: 'Active' 
         }));
 
         return NextResponse.json({
@@ -89,8 +82,9 @@ export async function GET(
                 class: {
                     id: classDetails.id,
                     name: classDetails.name,
-                    grade: classDetails.grade,
-                    tutor: classDetails.teacher ? `${classDetails.teacher.firstName} ${classDetails.teacher.lastName}` : 'Unassigned'
+                    grade: classDetails.gradeLevel,
+                    tutor: classDetails.classTeacher ? `${classDetails.classTeacher.user.firstName} ${classDetails.classTeacher.user.lastName}` : 'Unassigned',
+                    subjects: uniqueSubjects
                 },
                 students: formattedStudents
             }

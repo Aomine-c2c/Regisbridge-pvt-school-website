@@ -39,13 +39,12 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { name, academicYear, term, startDate, endDate } = body
+    const { name, termId, startDate, endDate } = body
 
     const session = await prisma.examSession.create({
       data: {
         name,
-        academicYear,
-        term,
+        term: { connect: { id: termId } },
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         status: 'UPCOMING'

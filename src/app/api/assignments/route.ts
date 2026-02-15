@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
                 return NextResponse.json({ success: false, message: 'Student profile not found' }, { status: 404 });
             }
 
-            where.grade = student.currentGrade;
+            where.gradeLevel = student.currentGrade;
             // Optionally filter by status 'ACTIVE' for students? Or let them see all.
             // Let's default to all, but arguably 'ARCHIVED' might be hidden.
             if (!status) where.status = 'ACTIVE'; 
@@ -97,10 +97,10 @@ export async function POST(request: NextRequest) {
                 title,
                 description: description || '',
                 subjectId,
-                grade,
+                gradeLevel: grade,
                 dueDate: new Date(dueDate),
-                totalPoints: Number(totalPoints),
-                assignmentType: assignmentType || 'HOMEWORK',
+                maxScore: Number(totalPoints),
+                type: assignmentType || 'HOMEWORK',
                 createdBy: payload.userId,
                 status: 'ACTIVE'
             }

@@ -9,10 +9,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useToast } from '@/components/ui/use-toast'
 import { Loader2, Copy } from 'lucide-react'
 
-interface GeneratedResult {
-    registrationNumbers?: string[]
-    registrationNumber?: string
-}
 
 export function RegistrationGenerator({ onGenerate }: { onGenerate: () => void }) {
   const { toast } = useToast()

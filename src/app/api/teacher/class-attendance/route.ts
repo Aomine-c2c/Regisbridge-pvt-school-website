@@ -4,7 +4,7 @@ import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
     try {
-        const { user, error } = await requireTeacher(request);
+        const { error } = await requireTeacher(request);
         if (error) return error;
 
         const { searchParams } = new URL(request.url);
@@ -15,28 +15,13 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ success: false, message: 'Missing classId or date' }, { status: 400 });
         }
 
-        const date = new Date(dateStr);
-
         // Fetch students in the class
-        const classDetails = await prisma.class.findUnique({
-            where: { id: classId },
-            select: { grade: true }
-        });
-
-        if (!classDetails) {
-            return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 });
-        }
-
         const students = await prisma.student.findMany({
-            where: { currentGrade: classDetails.grade },
-            select: { id: true, user: { select: { firstName: true, lastName: true } }, rollNumber: true }
+            where: { classId: classId },
+            select: { id: true, user: { select: { firstName: true, lastName: true } }, admissionIdentifier: true },
+            orderBy: { admissionIdentifier: 'asc' }
         });
 
-        // Fetch existing attendance for this date
-        // We need to match date carefully. Often best to search range start-of-day to end-of-day
-        // Or if we store pure date objects. Prisma DateTime usually has time.
-        // Let's assume we store Start of Day.
-        
         const startOfDay = new Date(dateStr);
         startOfDay.setHours(0,0,0,0);
         
@@ -60,9 +45,9 @@ export async function GET(request: NextRequest) {
             return {
                 studentId: s.id,
                 name: `${s.user.firstName} ${s.user.lastName}`,
-                rollNumber: s.rollNumber,
+                rollNumber: s.admissionIdentifier,
                 status: record?.status || null, 
-                remarks: record?.notes || ''
+                remarks: record?.remarks || ''
             };
         });
 
@@ -104,16 +89,15 @@ export async function POST(request: NextRequest) {
                 },
                 update: {
                     status: rec.status,
-                    notes: rec.remarks,
-                    markedBy: user.userId,
-                    markedAt: new Date()
+                    remarks: rec.remarks,
+                    recordedById: user.userId,
                 },
                 create: {
                     studentId: rec.studentId,
                     date: attendanceDate,
                     status: rec.status,
-                    notes: rec.remarks,
-                    markedBy: user.userId
+                    remarks: rec.remarks,
+                    recordedById: user.userId
                 }
             });
         });

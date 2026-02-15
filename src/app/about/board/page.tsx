@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 
 const BOARD_MEMBERS = [
   {

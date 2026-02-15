@@ -1,6 +1,8 @@
+'use client';
+
 import { useState } from 'react';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 import { useSettings } from '@/contexts';
 import { StatusMessage } from '@/components/ui/StatusMessage';
 

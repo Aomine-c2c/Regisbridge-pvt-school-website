@@ -19,7 +19,7 @@ export async function GET(request: Request) {
           include: {
             student: {
               select: {
-                rollNumber: true,
+                admissionIdentifier: true,
                 user: { select: { firstName: true, lastName: true } }
               }
             }

@@ -8,51 +8,57 @@ interface FeeRecord {
   id: string;
   studentName: string;
   studentId: string;
-  grade: string;
-  boardingType: string;
-  invoiced: number;
-  paid: number;
+  amount: number;
+  paidAmount: number;
   balance: number;
-  status: 'Paid' | 'Partial' | 'Overdue';
-  overdueDays?: number;
-  avatar?: string;
+  feeType: string;
+  status: string;
+  dueDate: string;
+  paymentDate: string;
+  method: string;
+}
+
+interface FinanceStats {
+  totalRevenue: number;
+  pendingFees: number;
+  overdueCount: number;
 }
 
 export default function FinanceFeeManagementPage() {
   const { toast } = useToast();
   const [records, setRecords] = useState<FeeRecord[]>([]);
+  const [stats, setStats] = useState<FinanceStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const res = await fetch('/api/admin/finance', {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        });
-        const json = await res.json();
-        if (json.success) {
-          setRecords(json.data || getMockData());
-        } else {
-          setRecords(getMockData());
+        const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
+        
+        // Fetch Stats
+        const statsRes = await fetch('/api/admin/finance/stats', { headers });
+        const statsJson = await statsRes.json();
+        if (statsJson.success) {
+          setStats(statsJson.data);
+        }
+
+        // Fetch Payments
+        const paymentsRes = await fetch('/api/admin/finance/payments', { headers });
+        const paymentsJson = await paymentsRes.json();
+        if (paymentsJson.success) {
+          setRecords(paymentsJson.data.data);
         }
       } catch (error) {
-        console.error(error);
-        setRecords(getMockData());
+        console.error("Failed to fetch finance data", error);
+        toast({ title: "Error", description: "Failed to load finance data", variant: "destructive" });
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, []);
-
-  const getMockData = (): FeeRecord[] => [
-    { id: '1', studentName: 'Alexandra Chen', studentId: '#ST-2023-089', grade: 'Grade 10', boardingType: 'Boarding', invoiced: 15400, paid: 5400, balance: 10000, status: 'Overdue', overdueDays: 30 },
-    { id: '2', studentName: 'Marcus Johnson', studentId: '#ST-2023-112', grade: 'Grade 12', boardingType: 'Day Scholar', invoiced: 8200, paid: 8200, balance: 0, status: 'Paid' },
-    { id: '3', studentName: 'Sarah Williams', studentId: '#ST-2023-045', grade: 'Grade 11', boardingType: 'Boarding', invoiced: 15400, paid: 10000, balance: 5400, status: 'Partial' },
-    { id: '4', studentName: 'James Smith', studentId: '#ST-2023-201', grade: 'Grade 9', boardingType: 'Day Scholar', invoiced: 8200, paid: 2000, balance: 6200, status: 'Overdue', overdueDays: 60 },
-    { id: '5', studentName: 'Emily Davis', studentId: '#ST-2023-012', grade: 'Grade 11', boardingType: 'Boarding', invoiced: 15400, paid: 15400, balance: 0, status: 'Paid' },
-  ];
+  }, [toast]);
 
   const filteredRecords = records.filter(r =>
     r.studentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -61,10 +67,10 @@ export default function FinanceFeeManagementPage() {
 
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-gray-50">Loading...</div>;
 
-  const totalInvoiced = 4250000;
-  const totalCollected = 3100000;
-  const outstanding = 1150000;
-  const overdueAccounts = 142;
+  const totalInvoiced = stats?.totalRevenue || 0; // Stats API mock revenue as sum of paid
+  const totalCollected = stats?.totalRevenue || 0;
+  const outstanding = stats?.pendingFees || 0;
+  const overdueAccounts = stats?.overdueCount || 0;
 
   return (
     <div className="h-screen flex bg-gray-50 font-sans overflow-hidden">
@@ -163,7 +169,7 @@ export default function FinanceFeeManagementPage() {
           </div>
 
           {/* Table */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm flex flex-col">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm flex flex-col">
             {/* Filters */}
             <div className="p-4 border-b border-gray-200 flex flex-wrap gap-4 items-center justify-between">
               <div className="relative w-full max-w-sm">
@@ -186,8 +192,9 @@ export default function FinanceFeeManagementPage() {
                 </select>
                 <select className="px-3 py-2 text-sm border-gray-300 bg-white text-gray-700 rounded-lg">
                   <option>All Statuses</option>
-                  <option>Paid</option>
-                  <option>Overdue</option>
+                  <option>PAID</option>
+                  <option>PENDING</option>
+                  <option>PARTIAL</option>
                 </select>
               </div>
             </div>
@@ -198,8 +205,8 @@ export default function FinanceFeeManagementPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Student</th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Info</th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Invoiced</th>
+                    <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Fee Type</th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Paid</th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Balance</th>
                     <th className="px-6 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
@@ -207,51 +214,56 @@ export default function FinanceFeeManagementPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredRecords.map((record) => (
-                    <tr key={record.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-xs">
-                            {record.studentName.substring(0, 2)}
+                  {filteredRecords.length > 0 ? (
+                    filteredRecords.map((record) => (
+                      <tr key={record.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-xs">
+                              {record.studentName.substring(0, 2)}
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">{record.studentName}</div>
+                              <div className="text-xs text-gray-500">ID: {record.studentId}</div>
+                            </div>
                           </div>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{record.studentName}</div>
-                            <div className="text-xs text-gray-500">ID: {record.studentId}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="text-sm text-gray-700">{record.feeType}</span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-600 font-medium">${record.amount.toLocaleString()}.00</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-emerald-600 font-medium">${record.paidAmount.toLocaleString()}.00</td>
+                        <td className={`px-6 py-4 whitespace-nowrap text-right text-sm font-bold ${record.balance > 0 ? 'text-rose-600' : 'text-gray-400'}`}>
+                          ${record.balance.toLocaleString()}.00
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-center">
+                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+                            record.status === 'PAID' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' :
+                            record.status === 'PARTIAL' ? 'bg-orange-100 text-orange-800 border-orange-200' :
+                            'bg-rose-100 text-rose-800 border-rose-200'
+                          }`}>
+                            {record.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <div className="flex items-center justify-end gap-2">
+                            <button className="text-gray-400 hover:text-blue-600" title="Send Reminder">
+                              <span className="material-symbols-outlined text-[20px]">notifications_active</span>
+                            </button>
+                            <button className="text-gray-400 hover:text-gray-600" title="View Details">
+                              <span className="material-symbols-outlined text-[20px]">visibility</span>
+                            </button>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex flex-col gap-1">
-                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800 w-fit">{record.grade}</span>
-                          <span className="text-xs text-gray-500">{record.boardingType}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-600 font-medium">${record.invoiced.toLocaleString()}.00</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-emerald-600 font-medium">${record.paid.toLocaleString()}.00</td>
-                      <td className={`px-6 py-4 whitespace-nowrap text-right text-sm font-bold ${record.balance > 0 ? 'text-rose-600' : 'text-gray-400'}`}>
-                        ${record.balance.toLocaleString()}.00
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                          record.status === 'Paid' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' :
-                          record.status === 'Partial' ? 'bg-orange-100 text-orange-800 border-orange-200' :
-                          'bg-rose-100 text-rose-800 border-rose-200'
-                        }`}>
-                          {record.status}{record.overdueDays ? ` (${record.overdueDays}d)` : ''}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex items-center justify-end gap-2">
-                          <button className="text-gray-400 hover:text-blue-600" title="Send Reminder">
-                            <span className="material-symbols-outlined text-[20px]">notifications_active</span>
-                          </button>
-                          <button className="text-gray-400 hover:text-gray-600" title="View Details">
-                            <span className="material-symbols-outlined text-[20px]">visibility</span>
-                          </button>
-                        </div>
-                      </td>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                       <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                          No payment records found.
+                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

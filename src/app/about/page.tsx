@@ -3,8 +3,8 @@ import { getSettings } from '@/lib/settings';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 import { Timeline } from '@/components';
 import { HERITAGE_STATS, statsToArray } from '@/lib/data/stats';
 

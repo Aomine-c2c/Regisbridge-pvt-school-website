@@ -82,7 +82,7 @@ export async function GET(
                 name: `${student.user.firstName} ${student.user.lastName}`,
                 rollNumber: student.rollNumber,
                 status: record?.status || 'UNMARKED',
-                notes: record?.notes || ''
+                notes: record?.remarks || '' // Using remarks as notes
             };
         });
 

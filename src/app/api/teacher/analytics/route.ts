@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -7,30 +7,45 @@ export async function GET(request: NextRequest) {
         const { error } = await requireTeacher(request);
         if (error) return error;
 
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
+        const currentTerm = await db.term.findFirst({
+            where: { name: 'Term 1' }, // TODO: Make dynamic based on system settings
+            select: { id: true }
+        });
+
         // Fetch students with their grades and attendance
-        const students = await prisma.student.findMany({
-            take: 20, // Limit for performance
+        const students = await db.student.findMany({
+            take: 20, 
             include: {
                 user: { select: { firstName: true, lastName: true } },
                 grades: {
-                    where: { term: 'TERM 2' },
+                    where: { term: { id: currentTerm?.id } }, 
                     include: { subject: { select: { name: true } } }
                 },
                 attendance: { select: { status: true } }
             },
-            orderBy: { rollNumber: 'asc' }
+            orderBy: { user: { lastName: 'asc' } }
         });
 
-        const analyticsData = students.map(student => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const analyticsData = students.map((student: any) => {
             // Calculate overall GPA from grades
             const grades = student.grades;
             const gpa = grades.length > 0
-                ? grades.reduce((sum, g) => sum + (g.percentage / 25), 0) / grades.length
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ? grades.reduce((sum: number, g: any) => sum + ((g.score / g.maxScore) * 4), 0) / grades.length 
                 : 0;
 
             // Calculate attendance percentage
             const totalDays = student.attendance.length;
-            const presentDays = student.attendance.filter(a => a.status === 'PRESENT').length;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const presentDays = student.attendance.filter((a: any) => a.status === 'PRESENT').length;
             const attendance = totalDays > 0 ? Math.round((presentDays / totalDays) * 100) : 0;
 
             // Determine risk level
@@ -43,8 +58,16 @@ export async function GET(request: NextRequest) {
 
             // Map grades by subject
             const gradesBySubject: Record<string, string> = {};
-            grades.forEach(g => {
-                gradesBySubject[g.subject.name] = g.letterGrade || 'N/A';
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            grades.forEach((g: any) => {
+                const percentage = (g.score / g.maxScore) * 100;
+                let letter = 'F';
+                if (percentage >= 90) letter = 'A';
+                else if (percentage >= 80) letter = 'B';
+                else if (percentage >= 70) letter = 'C';
+                else if (percentage >= 60) letter = 'D';
+                
+                gradesBySubject[g.subject.name] = letter;
             });
 
             return {

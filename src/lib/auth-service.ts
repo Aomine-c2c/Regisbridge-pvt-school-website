@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from 'jose'
-import bcrypt from 'bcryptjs'
+
 
 // Validate JWT_SECRET environment variable
 const jwtSecretKey = process.env.JWT_SECRET
@@ -25,6 +25,8 @@ export interface JWTPayload {
     userId: string
     email: string
     role: string
+    permissions: string[] // RBAC Permissions
+    tenantId?: string // Optional for backward compatibility during migration
     iat?: number
     exp?: number
 }
@@ -73,12 +75,3 @@ export async function verifyRefreshToken(token: string): Promise<JWTPayload | nu
     }
 }
 
-// Hash password
-export async function hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, 10)
-}
-
-// Compare password
-export async function comparePassword(password: string, hashedPassword: string): Promise<boolean> {
-    return bcrypt.compare(password, hashedPassword)
-}

@@ -3,7 +3,7 @@ export interface User {
     email: string
     firstName: string
     lastName: string
-    role: 'admin' | 'teacher' | 'student' | 'parent'
+    role: 'admin' | 'teacher' | 'student' | 'parent' | 'superadmin'
     grade?: string | null
     studentId?: string | null
     phoneNumber?: string | null

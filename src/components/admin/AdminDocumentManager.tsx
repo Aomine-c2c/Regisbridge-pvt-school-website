@@ -34,11 +34,9 @@ import {
   Upload,
   Download,
   FileText,
-  File,
   Trash2,
   Search,
   Filter,
-  Eye,
 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 

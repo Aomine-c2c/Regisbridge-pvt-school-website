@@ -50,8 +50,8 @@ export async function POST(
             },
             update: {
                 score: Number(score),
-                feedback,
-                gradedBy: payload.userId,
+                remarks: feedback,
+                gradedBy: { connect: { id: payload.userId } },
                 gradedAt: new Date(),
                 status: 'GRADED'
             },
@@ -59,8 +59,8 @@ export async function POST(
                 assignmentId,
                 studentId,
                 score: Number(score),
-                feedback,
-                gradedBy: payload.userId,
+                remarks: feedback,
+                gradedBy: { connect: { id: payload.userId } },
                 gradedAt: new Date(),
                 status: 'GRADED'
             }

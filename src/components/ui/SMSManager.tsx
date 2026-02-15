@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Send, Phone, Users, Plus, Trash2, Eye } from 'lucide-react';
+import { MessageSquare, Send, Phone, Plus, Trash2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -151,6 +152,8 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
         description: `Message sent to ${recipients.length} recipient(s).`,
       });
     } catch (error) {
+      // Log error for debugging
+      console.error('SMS send error:', error);
       toast({
         title: "SMS Failed",
         description: "Failed to send SMS. Please try again.",

@@ -8,20 +8,19 @@ export async function GET(request: NextRequest) {
         if (error) return error;
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        // Get Student Grade
+        // Get Student Class
         const student = await prisma.student.findUnique({
             where: { userId: user.userId },
-            select: { currentGrade: true }
+            include: { class: true }
         });
 
-        if (!student) {
-             return NextResponse.json({ success: false, message: 'Student profile not found' }, { status: 404 });
+        if (!student || !student.class) {
+             return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 });
         }
 
-        // Find Upcoming Exams for this Grade
+        // Find Upcoming Exams (Global for now, ideally filtered by subjects in class)
         const upcomingExams = await prisma.examSchedule.findMany({
             where: {
-                subject: { grade: student.currentGrade },
                 date: { gte: new Date() },
                 session: { status: 'PUBLISHED' }
             },
@@ -36,14 +35,11 @@ export async function GET(request: NextRequest) {
         // Transform for UI
         const schedules = upcomingExams.map(schedule => ({
             id: schedule.id,
-            date: schedule.date.toISOString(),
-            formattedDate: schedule.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            time: schedule.startTime,
             subject: schedule.subject.name,
-            paper: schedule.subject.description || 'Paper 1', // Mock paper name as description
-            venue: schedule.venue || 'Main Hall',
-            duration: `${schedule.durationMinutes}m`, // e.g. 120m
-            durationFormatted: `${Math.floor(schedule.durationMinutes / 60)}h ${schedule.durationMinutes % 60}m`
+            date: schedule.date.toISOString(),
+            startTime: schedule.startTime,
+            duration: schedule.durationMin,
+            venue: schedule.venue || 'Main Hall'
         }));
 
         // Detailed Countdown for the nearest exam
@@ -56,7 +52,7 @@ export async function GET(request: NextRequest) {
                 nearestExam: nearestExam ? {
                     ...nearestExam,
                     title: `Upcoming Major Exam: ${nearestExam.subject}`,
-                    subtitle: `${nearestExam.paper} starts in:`
+                    subtitle: `Starts in:`
                 } : null
             }
         });

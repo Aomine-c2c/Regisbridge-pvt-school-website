@@ -27,6 +27,7 @@ export default function StudentRecordsPage() {
     const [error, setError] = useState('')
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
+    const [totalStudents, setTotalStudents] = useState(0)
 
     // Filters
     const [selectedGrade, setSelectedGrade] = useState('All Grades')
@@ -60,6 +61,7 @@ export default function StudentRecordsPage() {
                 if (json.success) {
                     setStudents(json.data.data)
                     setTotalPages(json.data.totalPages)
+                    setTotalStudents(json.data.total)
                 } else {
                     setError(json.message)
                 }
@@ -109,7 +111,7 @@ export default function StudentRecordsPage() {
                             </div>
                             <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">+12%</span>
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900">1,240</h3>
+                        <h3 className="text-2xl font-bold text-gray-900">{totalStudents}</h3>
                         <p className="text-sm text-gray-500">Total Enrollment</p>
                     </div>
                     {/* ... other stats cards ... */}

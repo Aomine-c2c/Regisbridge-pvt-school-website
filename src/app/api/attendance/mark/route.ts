@@ -40,16 +40,15 @@ export async function POST(request: NextRequest) {
                     },
                     update: {
                         status: record.status,
-                        notes: record.notes,
-                        markedBy: payload.userId,
-                        markedAt: new Date()
+                        remarks: record.notes || null, // Mapping notes from body to remarks in DB
+                        recordedById: payload.userId
                     },
                     create: {
                         studentId: record.studentId,
                         date: attendanceDate,
                         status: record.status,
-                        notes: record.notes,
-                        markedBy: payload.userId
+                        remarks: record.notes || null,
+                        recordedById: payload.userId
                     }
                 })
             )

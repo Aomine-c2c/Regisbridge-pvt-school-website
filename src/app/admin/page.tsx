@@ -1,63 +1,50 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+import { PageHeader } from '@/components/ui/page-header';
+import { DashboardStatCard } from '@/components/admin/dashboard-stat-card';
+import { AtRiskStudentsWidget } from '@/components/analytics/AtRiskStudentsWidget';
+import { AcademicTrendsWidget } from '@/components/analytics/AcademicTrendsWidget';
+import { 
+  Users, 
+  GraduationCap, 
+  School, 
+  DollarSign, 
+  TrendingUp, 
+  ArrowUpRight,
+  Activity,
+  ShieldCheck,
+  Bell,
+  Clock
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
-
-interface AdminStats {
-  totalEnrollment: number;
-  enrollmentChange: number;
-  facultyStaff: number;
-  staffChange: number;
-  dailyAttendance: number;
-  attendanceChange: number;
-  outstandingFees: number;
-  overdueAccounts: number;
-}
-
-interface Activity {
-  icon: string;
-  color: string;
-  title: string;
-  time: string;
-  detail: string;
-}
-
-interface RecentAdmission {
-  name: string;
-  grade: string;
-  status: string;
-  date: string;
-  statusColor: string;
+interface DashboardData {
+  totalStudents: number;
+  totalStaff: number;
+  activeCourses: number;
+  systemHealth: string;
+  recentActivity: { action: string; time: string }[];
 }
 
 export default function AdminDashboardCommandCenter() {
-  const { toast } = useToast();
-  const [stats, setStats] = useState<AdminStats | null>(null);
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [recentAdmissions, setRecentAdmissions] = useState<RecentAdmission[]>([]);
+  const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
         const res = await fetch('/api/admin/dashboard', {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         const json = await res.json();
         if (json.success) {
-          setStats(json.data.stats || getMockStats());
-          setActivities(json.data.activities || getMockActivities());
-          setRecentAdmissions(json.data.recentAdmissions || []);
-        } else {
-          setStats(getMockStats());
-          setActivities(getMockActivities());
-          setRecentAdmissions([]);
+          setData(json.data);
         }
       } catch (error) {
-        console.error(error);
-        setStats(getMockStats());
-        setActivities(getMockActivities());
+        console.error("Failed to fetch dashboard data", error);
       } finally {
         setLoading(false);
       }
@@ -65,280 +52,189 @@ export default function AdminDashboardCommandCenter() {
     fetchDashboard();
   }, []);
 
-  const getMockStats = (): AdminStats => ({
-    totalEnrollment: 1245,
-    enrollmentChange: 12,
-    facultyStaff: 142,
-    staffChange: 4,
-    dailyAttendance: 96.8,
-    attendanceChange: -0.5,
-    outstandingFees: 42000,
-    overdueAccounts: 28,
-  });
+  const stats = {
+    students: data?.totalStudents || 0,
+    staff: data?.totalStaff || 0,
+    classes: data?.activeCourses || 0,
+    revenue: 42500, // Mock
+  };
 
-  const getMockActivities = (): Activity[] => [
-    { icon: 'edit_document', color: 'blue', title: 'New enrollment application received', time: '2 mins ago', detail: 'Applicant #4029' },
-    { icon: 'payments', color: 'yellow', title: 'Tuition payment processed', time: '15 mins ago', detail: '$12,500.00' },
-    { icon: 'campaign', color: 'gray', title: 'Emergency drill scheduled', time: '1 hr ago', detail: 'System Admin' },
+  const activities = data?.recentActivity?.length ? data.recentActivity : [
+    { action: 'New enrollment application received', time: '2 mins ago' },
+    { action: 'Tuition payment processed ($12,500)', time: '15 mins ago' },
+    { action: 'System maintenance scheduled', time: '1 hr ago' },
   ];
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen bg-gray-50">Loading dashboard...</div>;
+  if (loading) {
+     return (
+        <div className="flex h-full w-full items-center justify-center p-8">
+            <div className="flex flex-col items-center gap-2">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-primary border-t-transparent"></div>
+                <p className="text-muted-foreground text-sm">Loading admin console...</p>
+            </div>
+        </div>
+     );
+  }
 
-  const currentStats = stats || getMockStats();
+  // Time-based greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  };
 
   return (
-    <div className="flex flex-col h-full w-full bg-gray-50 font-sans">
-
-        {/* Header */}
-        <header className="flex items-center justify-between border-b border-gray-200 bg-white px-8 py-4 z-10">
-          <h2 className="text-xl font-bold text-gray-900">Command Center</h2>
-          <div className="flex items-center gap-4">
-            {/* Search */}
-            <div className="relative hidden sm:block">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                <span className="material-symbols-outlined text-[20px]">search</span>
-              </span>
-              <input
-                className="h-10 w-80 rounded-lg border-none bg-gray-100 py-2 pl-10 pr-4 text-sm text-gray-900 focus:ring-2 focus:ring-blue-600 placeholder-gray-500"
-                placeholder="Search students, staff, reports..."
-                type="text"
-              />
+    <div className="space-y-6">
+      
+      {/* Admin Hero Section */}
+      <div className="relative overflow-hidden rounded-3xl bg-brand-navy p-8 text-white shadow-xl">
+        <div className="absolute right-0 top-0 h-64 w-64 translate-x-1/3 translate-y-[-10%] rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute bottom-0 left-0 h-32 w-32 translate-x-[-10%] translate-y-[10%] rounded-full bg-brand-gold/10 blur-2xl" />
+        
+        <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-blue-200/80">
+              <ShieldCheck className="h-4 w-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Admin Console</span>
             </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors relative">
-                <span className="material-symbols-outlined">notifications</span>
-                <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 border border-white"></span>
-              </button>
-              <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors">
-                <span className="material-symbols-outlined">settings</span>
-              </button>
-            </div>
+            <h1 className="text-3xl font-bold tracking-tight md:text-4xl text-white">
+              {getGreeting()}, Administrator
+            </h1>
+            <p className="max-w-xl text-blue-100/80">
+              System performance is optimal. You have <span className="font-bold text-white">3 pending approvals</span> requiring your attention.
+            </p>
           </div>
-        </header>
-
-        {/* Scrollable Dashboard Content */}
-        <div className="flex-1 overflow-y-auto p-8">
-          {/* KPI Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {/* Total Enrollment */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-500">Total Enrollment</h3>
-                  <div className="p-2 bg-blue-50 rounded-lg text-blue-800">
-                    <span className="material-symbols-outlined text-[20px]">groups</span>
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{currentStats.totalEnrollment.toLocaleString()}</div>
-                <div className="flex items-center gap-1 text-sm">
-                  <span className="text-green-600 font-medium flex items-center">
-                    <span className="material-symbols-outlined text-[16px]">trending_up</span> {currentStats.enrollmentChange}%
-                  </span>
-                  <span className="text-gray-500">vs last year</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Faculty Staff */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-500">Faculty Staff</h3>
-                  <div className="p-2 bg-amber-50 rounded-lg text-amber-600">
-                    <span className="material-symbols-outlined text-[20px]">school</span>
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{currentStats.facultyStaff}</div>
-                <div className="flex items-center gap-1 text-sm">
-                  <span className="text-green-600 font-medium flex items-center">
-                    <span className="material-symbols-outlined text-[16px]">trending_up</span> {currentStats.staffChange}%
-                  </span>
-                  <span className="text-gray-500">new hires</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Daily Attendance */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-500">Daily Attendance</h3>
-                  <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
-                    <span className="material-symbols-outlined text-[20px]">calendar_today</span>
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{currentStats.dailyAttendance}%</div>
-                <div className="flex items-center gap-1 text-sm">
-                  <span className="text-red-500 font-medium flex items-center">
-                    <span className="material-symbols-outlined text-[16px]">trending_down</span> {Math.abs(currentStats.attendanceChange)}%
-                  </span>
-                  <span className="text-gray-500">vs yesterday</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Outstanding Fees */}
-            <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-500">Outstanding Fees</h3>
-                  <div className="p-2 bg-red-50 rounded-lg text-red-500">
-                    <span className="material-symbols-outlined text-[20px]">warning</span>
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">${(currentStats.outstandingFees / 1000).toFixed(0)}k</div>
-                <div className="flex items-center gap-1 text-sm">
-                  <span className="text-gray-500">{currentStats.overdueAccounts} accounts overdue</span>
-                </div>
-              </div>
-              <div className="mt-3 w-full bg-gray-200 rounded-full h-1.5">
-                <div className="bg-red-500 h-1.5 rounded-full" style={{ width: '15%' }}></div>
-              </div>
-            </div>
+          
+          <div className="flex gap-3">
+             <Button variant="outline" className="bg-white/5 text-white border-white/10 hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                <Activity className="mr-2 h-4 w-4" />
+                System Health
+             </Button>
+             <Button className="bg-brand-gold text-brand-navy hover:bg-brand-gold/90 font-bold">
+                <Bell className="mr-2 h-4 w-4" />
+                Notifications
+             </Button>
           </div>
-
-          {/* Main Dashboard Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            {/* Financial Overview Chart */}
-            <div className="lg:col-span-2 rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900">Revenue vs Outstanding</h3>
-                  <p className="text-sm text-gray-500">Fiscal Year 2024</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-blue-800"></span>
-                    <span className="text-xs text-gray-500">Collected</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-gray-300"></span>
-                    <span className="text-xs text-gray-500">Pending</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bar Chart */}
-              <div className="relative h-64 w-full flex items-end justify-between gap-4 px-2">
-                {/* Background grid lines */}
-                <div className="absolute inset-0 flex flex-col justify-between pointer-events-none text-xs text-gray-500">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="border-b border-gray-100 w-full h-0"></div>
-                  ))}
-                </div>
-
-                {/* Quarters */}
-                {[
-                  { collected: 65, pending: 15 },
-                  { collected: 72, pending: 10 },
-                  { collected: 55, pending: 25 },
-                  { collected: 80, pending: 5 },
-                ].map((quarter, idx) => (
-                  <div key={idx} className="flex flex-col items-center gap-2 flex-1 z-10 group">
-                    <div className="w-full max-w-[40px] flex flex-col-reverse h-52 gap-1">
-                      <div
-                        className="bg-blue-800 w-full rounded-t-sm group-hover:bg-blue-700 transition-colors"
-                        style={{ height: `${quarter.collected}%` }}
-                      ></div>
-                      <div
-                        className="bg-gray-300 w-full rounded-b-sm group-hover:bg-gray-400 transition-colors"
-                        style={{ height: `${quarter.pending}%` }}
-                      ></div>
-                    </div>
-                    <span className="text-xs font-medium text-gray-500">Q{idx + 1}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Performance & Activity */}
-            <div className="flex flex-col gap-6">
-              {/* Performance Index */}
-              <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Performance Index</h3>
-                  <span className="material-symbols-outlined text-gray-400">more_horiz</span>
-                </div>
-                <div className="relative flex items-center justify-center py-4">
-                  <div className="text-center">
-                    <span className="text-3xl font-bold text-gray-900">85%</span>
-                    <p className="text-xs text-gray-500 mt-1">Target: 90%</p>
-                  </div>
-                </div>
-                <p className="text-sm text-center text-gray-500 mt-2">Overall institution academic rating based on recent standardized testing.</p>
-              </div>
-
-              {/* Activity Log */}
-              <div className="flex-1 rounded-xl bg-white p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Activity Log</h3>
-                <div className="flex flex-col gap-4">
-                  {activities.map((activity, idx) => (
-                    <div key={idx} className="flex gap-3">
-                      <div className={`w-8 h-8 rounded-full bg-${activity.color}-100 text-${activity.color}-600 flex items-center justify-center flex-shrink-0`}>
-                        <span className="material-symbols-outlined text-sm">{activity.icon}</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <p className="text-sm text-gray-900 font-medium">{activity.title}</p>
-                        <p className="text-xs text-gray-500">{activity.time} • {activity.detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Admissions Table */}
-          <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Recent Admissions</h3>
-              <button className="text-sm font-medium text-blue-800 hover:text-blue-700">View All</button>
-            </div>
-            <div className="overflow-x-auto">
-              {recentAdmissions.length > 0 ? (
-              <table className="w-full text-left text-sm text-gray-500">
-                <thead className="bg-gray-50 text-xs uppercase font-semibold">
-                  <tr>
-                    <th className="px-6 py-4">Student Name</th>
-                    <th className="px-6 py-4">Grade</th>
-                    <th className="px-6 py-4">Status</th>
-                    <th className="px-6 py-4">Application Date</th>
-                    <th className="px-6 py-4 text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {recentAdmissions.map((student, idx) => (
-                    <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-xs">
-                          {student.name.substring(0, 2)}
-                        </div>
-                        {student.name}
-                      </td>
-                      <td className="px-6 py-4">{student.grade}</td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center rounded-full bg-${student.statusColor}-50 px-2 py-1 text-xs font-medium text-${student.statusColor}-700 ring-1 ring-inset ring-${student.statusColor}-600/20`}>
-                          {student.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">{student.date}</td>
-                      <td className="px-6 py-4 text-right">
-                        <button className="text-gray-500 hover:text-blue-800 transition-colors">
-                          <span className="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              ) : (
-                <div className="p-6 text-center text-gray-500">No recent admissions found.</div>
-              )}
-            </div>
-          </div>
+        </div>
       </div>
+
+      {/* KPI Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <DashboardStatCard
+          title="Total Enrollment"
+          value={stats.students.toLocaleString()}
+          icon={Users}
+          trend={{ value: 12, label: "vs last year", positive: true }}
+          description="active students"
+          className="border-l-4 border-l-brand-primary"
+        />
+        <DashboardStatCard
+          title="Faculty & Staff"
+          value={stats.staff}
+          icon={GraduationCap}
+          trend={{ value: 4, label: "new hires", positive: true }}
+          description="total employees"
+          className="border-l-4 border-l-purple-500"
+        />
+        <DashboardStatCard
+          title="Active Classes"
+          value={stats.classes}
+          icon={School}
+          description="ongoing courses"
+          className="border-l-4 border-l-blue-400"
+        />
+        <DashboardStatCard
+          title="Monthly Revenue"
+          value={`$${(stats.revenue / 1000).toFixed(1)}k`}
+          icon={DollarSign}
+          trend={{ value: 8.2, label: "vs last month", positive: true }}
+          description="fees collected"
+          className="border-l-4 border-l-emerald-500"
+        />
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        
+        {/* Revenue Chart Placeholder */}
+        <Card className="col-span-4 border-none shadow-md">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+                <div>
+                    <CardTitle>Revenue Overview</CardTitle>
+                    <CardDescription>Monthly tuition and fee collection analysis.</CardDescription>
+                </div>
+                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                    <TrendingUp className="mr-1 h-3 w-3" /> +12.5% Growth
+                </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="pl-2">
+             <div className="h-[300px] w-full bg-gradient-to-b from-slate-50 to-white rounded-lg border border-slate-100 flex flex-col items-center justify-center relative overflow-hidden group">
+                {/* Simulated Chart Bars */}
+                <div className="absolute bottom-0 left-0 right-0 h-full flex items-end justify-around px-8 pb-0 opacity-30 group-hover:opacity-40 transition-opacity">
+                    {[40, 65, 45, 80, 55, 90, 70, 85, 60, 75, 50, 95].map((h, i) => (
+                        <div key={i} className="w-6 bg-brand-primary rounded-t-sm" style={{ height: `${h}%` }}></div>
+                    ))}
+                </div>
+                
+                <div className="z-10 text-center bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-slate-200 shadow-sm">
+                    <TrendingUp className="h-8 w-8 mx-auto mb-2 text-brand-primary" />
+                    <p className="font-semibold text-brand-navy">Revenue Analytics Module</p>
+                    <p className="text-xs text-slate-500 font-mono mt-1">Connecting to Finance API...</p>
+                </div>
+             </div>
+          </CardContent>
+        </Card>
+
+        {/* Recent Activity */}
+        <Card className="col-span-3 border-none shadow-md">
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+            <CardDescription>
+              Latest system events and updates.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-0">
+              {activities.map((activity, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-lg transition-colors border-b border-slate-100 last:border-0 last:pb-0">
+                  <div className={`mt-0.5 h-2 w-2 rounded-full ${index === 0 ? 'bg-blue-500' : 'bg-slate-300'}`} />
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium leading-none text-brand-navy">{activity.action}</p>
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {activity.time}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Button variant="ghost" className="w-full mt-4 text-xs text-brand-primary hover:text-brand-primary/80 hover:bg-blue-50">
+                View All Activity <ArrowUpRight className="ml-1 h-3 w-3" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* AI Insights Widget - New Addition */}
+        <div className="col-span-7">
+           <div className="grid gap-4 md:grid-cols-2">
+               <AtRiskStudentsWidget />
+               <AcademicTrendsWidget />
+           </div>
+        </div>
+      </div>
+
+       {/* Quick Links / Actions */}
+       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+           {['Add Student', 'Create Invoice', 'Schedule Class', 'Send Announcement'].map((action) => (
+               <Button key={action} variant="outline" className="h-16 border-2 border-slate-100 hover:border-brand-primary/20 hover:bg-blue-50/50 text-brand-navy font-semibold transition-all shadow-sm hover:shadow-md">
+                   {action}
+               </Button>
+           ))}
+       </div>
+
     </div>
   );
 }
+

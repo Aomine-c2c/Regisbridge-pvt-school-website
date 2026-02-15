@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { startOfDay, endOfDay, parseISO } from 'date-fns';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/attendance?date=2023-10-27&grade=10
 export async function GET(request: NextRequest) {
   try {
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const searchParams = request.nextUrl.searchParams;
     const dateParam = searchParams.get('date');
     const grade = searchParams.get('grade');
@@ -20,23 +31,26 @@ export async function GET(request: NextRequest) {
     // 1. Fetch Students (optionally filter by grade)
     const whereStudent: any = {};
     if (grade && grade !== 'all') {
-      whereStudent.currentGrade = grade;
+      whereStudent.class = { gradeLevel: grade };
     }
 
-    const students = await prisma.student.findMany({
+    const students = await db.student.findMany({
       where: whereStudent,
       include: {
         user: {
           select: { firstName: true, lastName: true }
+        },
+        class: {
+          select: { gradeLevel: true, name: true }
         }
       },
-      orderBy: { rollNumber: 'asc' }
+      orderBy: { rollNumber: 'asc' } // Changed from admissionIdentifier to rollNumber as per previous edits
     });
 
     // 2. Fetch existing attendance for this date
     // We filter by the students we just found to avoid fetching irrelevant records
     const studentIds = students.map(s => s.id);
-    const attendanceRecords = await prisma.attendance.findMany({
+    const attendanceRecords = await db.attendance.findMany({
       where: {
         studentId: { in: studentIds },
         date: {
@@ -53,10 +67,10 @@ export async function GET(request: NextRequest) {
         studentId: student.id, // Internal ID
         rollNumber: student.rollNumber, // Display ID
         studentName: student.user ? `${student.user.firstName} ${student.user.lastName}` : 'Unknown',
-        grade: student.currentGrade,
+        grade: student.class?.gradeLevel || 'Unassigned',
         status: record ? record.status : null, // null implies not marked yet
-        remarks: record ? record.notes : '',
-        markedAt: record ? record.markedAt : null
+        remarks: record ? record.remarks : '',
+        markedAt: record ? record.updatedAt : null
       };
     });
 
@@ -77,6 +91,17 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/attendance - Bulk record
 export async function POST(request: NextRequest) {
   try {
+    const { user, error } = await requireAdmin(request);
+    if (error) return error;
+    if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
     const { date, records } = body; // records: { studentId, status, remarks }[]
 
@@ -95,7 +120,7 @@ export async function POST(request: NextRequest) {
     
     // Simplest approach: Transaction of upserts
     const operations = records.map((record: any) => {
-        return prisma.attendance.upsert({
+        return db.attendance.upsert({
             where: {
                 studentId_date: {
                     studentId: record.studentId,
@@ -104,22 +129,20 @@ export async function POST(request: NextRequest) {
             },
             update: {
                 status: record.status,
-                notes: record.remarks,
-                markedBy: 'Admin', // Placeholder
-                markedAt: new Date()
+                remarks: record.remarks,
+                recordedById: user.userId,
             },
             create: {
                 studentId: record.studentId,
                 date: attendanceDate,
                 status: record.status,
-                notes: record.remarks,
-                markedBy: 'Admin',
-                markedAt: new Date()
+                remarks: record.remarks,
+                recordedById: user.userId,
             }
         });
     });
 
-    await prisma.$transaction(operations);
+    await db.$transaction(operations);
 
     return NextResponse.json({
       success: true,

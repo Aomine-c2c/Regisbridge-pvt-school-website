@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -7,25 +7,41 @@ export async function GET(request: NextRequest) {
         const { user, error } = await requireTeacher(request);
         if (error) return error;
 
-        // Fetch teacher (User) with their subjects
-        const teacher = await prisma.user.findUnique({
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
+        // Fetch teacher's subjects via profile
+        const teacherUser = await db.user.findUnique({
             where: { id: user!.userId },
             select: {
-                teacherSubjects: {
+                teacherProfile: {
                     select: {
-                        id: true,
-                        name: true,
-                        code: true
+                        subjectsTaught: {
+                            select: {
+                                subject: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        code: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         });
 
-        if (!teacher) {
-            return NextResponse.json({ success: false, message: 'Teacher not found' }, { status: 404 });
+        if (!teacherUser || !teacherUser.teacherProfile) {
+            return NextResponse.json({ success: false, message: 'Teacher profile not found' }, { status: 404 });
         }
 
-        return NextResponse.json({ success: true, data: teacher.teacherSubjects });
+        const subjects = teacherUser.teacherProfile.subjectsTaught.map((st: { subject: { id: string; name: string; code: string } }) => st.subject);
+        return NextResponse.json({ success: true, data: subjects });
     } catch (err) {
          
         console.error('Teacher subjects fetch error:', err);

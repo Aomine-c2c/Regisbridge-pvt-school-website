@@ -160,8 +160,8 @@ export default function TeacherResultsEntryPage() {
                     <tr className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-700">
                       <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">Student Details</th>
                       <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px] text-center">Assess.<br/><span className="text-[10px] opacity-70">(20%)</span></th>
-                      <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px] text-center">Mid-Term<br/><span class="text-[10px] opacity-70">(30%)</span></th>
-                      <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px] text-center">Final<br/><span class="text-[10px] opacity-70">(50%)</span></th>
+                      <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px] text-center">Mid-Term<br/><span className="text-[10px] opacity-70">(30%)</span></th>
+                      <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[100px] text-center">Final<br/><span className="text-[10px] opacity-70">(50%)</span></th>
                       <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[80px] text-center">Total</th>
                       <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[80px] text-center">Grade</th>
                       <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[140px]">Status</th>

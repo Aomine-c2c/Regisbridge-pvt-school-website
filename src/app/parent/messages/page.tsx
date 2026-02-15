@@ -143,9 +143,9 @@ export default function ParentMessagesPage() {
                                 ))}
                             </select>
                         </div>
-                    </div>
                 </div>
             )}
+            </div>
 
             {/* Messages Interface */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-300px)]">

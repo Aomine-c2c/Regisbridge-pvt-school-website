@@ -13,12 +13,9 @@ export async function GET(request: Request) {
     }
 
     // Admins see all, Staff see their own
-    const where = (payload.role !== 'admin')
-        ? { staffId: { user: { id: payload.userId } } } // Assuming staffId resolves to StaffProfile which has user.id
-        // Wait, schema check: LeaveRequest -> staff StaffProfile.
-        // We don't have direct userId on LeaveRequest.
-        // We need to look up StaffProfile first or use nested query.
-        : {}
+    // const where = (payload.role !== 'admin')
+    //     ? { staffId: { user: { id: payload.userId } } }
+    //     : {}
         
     // Let's optimize: fetch staffProfileId for the current user if not admin
     let staffProfileId = undefined;

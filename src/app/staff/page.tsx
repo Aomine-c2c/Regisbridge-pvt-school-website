@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import PremiumHeader from '@/components/layout/PremiumHeader';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
 import { StatBarList, NoticeBoard } from '@/components';
 
 interface StaffMetrics {

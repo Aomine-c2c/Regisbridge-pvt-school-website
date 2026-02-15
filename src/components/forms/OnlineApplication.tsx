@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Upload, CheckCircle, AlertCircle, FileText, User } from 'lucide-react';
 
@@ -32,7 +34,7 @@ export default function OnlineApplication() {
     passportPhoto: null,
   });
 
-  const [uploadedFiles, setUploadedFiles] = useState({
+  const [uploadedFiles, setUploadedFiles] = useState<{ [key: string]: File | null }>({
     birthCertificate: null,
     schoolReports: null,
     medicalReport: null,
@@ -321,7 +323,7 @@ export default function OnlineApplication() {
                   </div>
                   {uploadedFiles[doc.key] && (
                     <p className="text-sm text-gray-600 mt-2">
-                      File: {uploadedFiles[doc.key].name}
+                      File: {uploadedFiles[doc.key]?.name}
                     </p>
                   )}
                 </div>

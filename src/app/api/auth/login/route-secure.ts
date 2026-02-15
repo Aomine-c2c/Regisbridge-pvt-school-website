@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { withRateLimit, addSecurityHeaders, validateEmail, sanitizeInput } from '@/lib/security'
+import { withRateLimit, addSecurityHeaders, validateEmail, sanitizeInput, secureDbQuery } from '@/lib/security'
 import { prisma } from '@/lib/db'
-import { comparePassword, generateAccessToken, generateRefreshToken } from '@/lib/auth'
+import { generateAccessToken, generateRefreshToken } from '@/lib/auth'
+import { comparePassword } from '@/lib/password'
 
 async function loginHandler(request: NextRequest) {
   try {
@@ -28,9 +29,10 @@ async function loginHandler(request: NextRequest) {
     // Sanitize email to prevent injection
     const sanitizedEmail = sanitizeInput(email.toLowerCase())
 
-    // Use secure database query
+    // Use findFirst since email is unique per tenant but not globally
+    // We should ideally scope this by tenant resolved from the domain
     const user = await secureDbQuery(
-      () => prisma.user.findUnique({
+      () => prisma.user.findFirst({
         where: { email: sanitizedEmail },
         select: {
           id: true,
@@ -74,11 +76,16 @@ async function loginHandler(request: NextRequest) {
       return addSecurityHeaders(response)
     }
 
+    // Load permissions for the payload
+    const { rbacService } = await import('@/services/rbac-service')
+    const permissions = await rbacService.getUserPermissions(user.id)
+
     // Generate tokens
     const payload = {
       userId: user.id,
       email: user.email,
       role: user.role,
+      permissions
     }
 
     const [accessToken, refreshToken] = await Promise.all([
@@ -114,25 +121,6 @@ async function loginHandler(request: NextRequest) {
       { status: 500 }
     )
     return addSecurityHeaders(response)
-  }
-}
-
-// Import secureDbQuery function
-async function secureDbQuery<T>(
-  query: () => Promise<T>,
-  operation: string
-): Promise<T> {
-  try {
-    const result = await query()
-    
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`✅ DB Operation successful: ${operation}`)
-    }
-    
-    return result
-  } catch (error) {
-    console.error(`❌ DB Operation failed: ${operation}`, error)
-    throw error
   }
 }
 

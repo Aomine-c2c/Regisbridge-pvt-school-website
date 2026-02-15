@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+
 
 interface Child {
     id: string;
@@ -23,7 +23,7 @@ interface ActivityItem {
 }
 
 export default function ParentDashboard() {
-    const { toast } = useToast();
+    // const { toast } = useToast();
     const [children, setChildren] = useState<Child[]>([]);
     const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
     const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);

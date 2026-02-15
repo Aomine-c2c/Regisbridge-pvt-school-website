@@ -17,7 +17,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -31,7 +30,7 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Search, Calendar, MoreVertical, Trash, Edit } from 'lucide-react';
+import { Plus, Trash } from 'lucide-react';
 import { getAllNews, getAllEvents, createNews, createEvent, deleteNews, deleteEvent } from '@/services/adminService';
 import { NewsArticle, Event } from '@/types/admin';
 import { useToast } from '@/components/ui/use-toast';

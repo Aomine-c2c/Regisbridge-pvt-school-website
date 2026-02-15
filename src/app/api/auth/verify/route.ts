@@ -35,8 +35,8 @@ export async function GET(request: NextRequest) {
         firstName: true,
         lastName: true,
         role: true,
-        grade: true,
-        studentId: true,
+        // grade: true, // Removed as it doesn't exist on User
+        student: { select: { id: true } },
         phoneNumber: true,
         status: true,
         createdAt: true,

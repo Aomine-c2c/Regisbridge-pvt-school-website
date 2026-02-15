@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -8,10 +8,27 @@ export async function GET(request: NextRequest) {
         if (error) return error;
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        // Fetch assignments created by this teacher
-        const assignments = await prisma.assignment.findMany({
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
+        // Fetch assignments for subjects this teacher teaches
+        const assignments = await db.assignment.findMany({
             where: {
-                createdBy: user.userId
+                subject: {
+                teachers: {
+                    some: {
+                        teacher: { // specific to TeacherSubject join table
+                            user: {
+                                id: user.userId
+                            }
+                        }
+                    }
+                }
+                }
             },
             include: {
                 subject: { select: { name: true } },
@@ -21,12 +38,12 @@ export async function GET(request: NextRequest) {
         });
 
         // Format
-        const data = assignments.map(a => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data = (assignments as any[]).map(a => ({
             id: a.id,
             title: a.title,
             subject: a.subject.name,
-            grade: a.grade,
-            type: a.assignmentType,
+            type: a.type,
             dueDate: a.dueDate,
             status: a.status,
             submissionsCount: a._count.submissions
@@ -49,24 +66,29 @@ export async function POST(request: NextRequest) {
         if (error) return error;
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        const body = await request.json();
-        const { title, description, subjectId, grade, dueDate, totalPoints, assignmentType } = body;
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
 
-        if (!title || !subjectId || !grade || !dueDate) {
+        const db = getTenantDb(tenantId);
+
+        const body = await request.json();
+        const { title, description, subjectId, dueDate, totalPoints, assignmentType } = body;
+
+        if (!title || !subjectId || !dueDate) {
             return NextResponse.json({ success: false, message: 'Missing required fields' }, { status: 400 });
         }
 
-        const newAssignment = await prisma.assignment.create({
+        const newAssignment = await db.assignment.create({
             data: {
                 title,
                 description,
                 subjectId,
-                grade,
                 dueDate: new Date(dueDate),
-                totalPoints: parseInt(totalPoints),
-                assignmentType: assignmentType || 'HOMEWORK',
-                status: 'ACTIVE',
-                createdBy: user.userId
+                maxScore: parseInt(totalPoints) || 100,
+                type: assignmentType || 'HOMEWORK',
+                status: 'DRAFT',
             }
         });
 

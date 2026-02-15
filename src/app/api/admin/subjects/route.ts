@@ -1,20 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { verifyAccessToken } from '@/lib/auth';
-
-async function verifyAdminAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) return { authorized: false, error: 'No token' };
-    const token = authHeader.substring(7);
-    const payload = await verifyAccessToken(token);
-    if (!payload || (payload.role !== 'admin' && payload.role !== 'administrator')) return { authorized: false, error: 'Unauthorized' };
-    return { authorized: true };
-}
+import { getTenantDb } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
     try {
-        const auth = await verifyAdminAccess(request);
-        if (!auth.authorized) return NextResponse.json({ success: false, message: auth.error }, { status: 401 });
+        const { error } = await requireAdmin(request);
+        if (error) return error;
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
 
         const searchParams = request.nextUrl.searchParams;
         const grade = searchParams.get('grade');
@@ -24,10 +22,20 @@ export async function GET(request: NextRequest) {
         if (grade) where.grade = grade;
         if (teacherId) where.teacherId = teacherId;
 
-        const subjects = await prisma.subject.findMany({
+        const subjects = await db.subject.findMany({
             where,
             include: {
-                teacher: { select: { firstName: true, lastName: true } }
+                teachers: {
+                    include: {
+                        teacher: {
+                            include: {
+                                user: {
+                                    select: { firstName: true, lastName: true }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             orderBy: { name: 'asc' }
         });

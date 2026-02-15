@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 
 const STUDENT_LIFE_AREAS = [
   {

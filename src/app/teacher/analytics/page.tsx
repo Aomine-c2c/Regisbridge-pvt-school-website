@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useToast } from '@/components/ui/use-toast';
-import Link from 'next/link';
 
 interface StudentGrade {
   id: string;
@@ -15,7 +13,7 @@ interface StudentGrade {
 }
 
 export default function TeacherAnalyticsHeatmap() {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [students, setStudents] = useState<StudentGrade[]>([]);
   const [loading, setLoading] = useState(true);
   const [classFilter, setClassFilter] = useState('10-A');

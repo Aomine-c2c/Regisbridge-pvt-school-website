@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -8,17 +8,22 @@ export async function GET(request: NextRequest) {
         const { error } = await requireAdmin(request);
         if (error) return error;
 
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
         // Fetch Stats in parallel
         const [studentCount, teacherCount, classCount] = await Promise.all([
-            prisma.student.count(),
-            prisma.user.count({ where: { role: 'teacher' } }), // OR 'staff' if you have that role
-            prisma.class.count() // Active Courses/Classes
-            // prisma.subject.count() // Alternative for "Courses"
+            db.student.count(),
+            db.user.count({ where: { role: 'teacher' } }), 
+            db.class.count() 
         ]);
 
         // Recent Activity (Mock for now, or fetch latest created users/logs)
-        // Let's fetch last 3 users created as "New enrollments"
-        const recentUsers = await prisma.user.findMany({
+        const recentUsers = await db.user.findMany({
             take: 3,
             orderBy: { createdAt: 'desc' },
             select: { role: true, createdAt: true, firstName: true }

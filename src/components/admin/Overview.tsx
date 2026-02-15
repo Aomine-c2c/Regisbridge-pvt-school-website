@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react';
 import { StatsCard } from './shared/StatsCard';
 import { AdminHeader } from './shared/AdminHeader';
-import { Users, GraduationCap, DollarSign, FileText, TrendingUp, Clock, PieChart as PieChartIcon, Send, FileDown, Database, Mail, BarChart3 } from 'lucide-react';
+import { Users, GraduationCap, DollarSign, FileText, TrendingUp, PieChart as PieChartIcon, Clock, BarChart3, Send, FileDown, Database, Mail } from 'lucide-react';
 import { getDashboardStats, getEnrollmentData, getRevenueData, getActivityLogs } from '@/services/adminService';
-import type { DashboardStats, EnrollmentData, RevenueData, ActivityLog } from '@/types/admin';
+import type { DashboardStats, RevenueData, ActivityLog } from '@/types/admin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
 import { enrollmentMarch2021, enrollmentSummary } from '@/lib/data/seed-data-enrollment';
 import { staffStats } from '@/lib/data/seed-data-staff';
@@ -16,7 +16,7 @@ import { feeBreakdown2021 } from '@/lib/data/seed-data-financial';
 export function Overview() {
   const { toast } = useToast();
   const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [enrollmentData, setEnrollmentData] = useState<EnrollmentData[]>([]);
+  // const [enrollmentData, setEnrollmentData] = useState<EnrollmentData[]>([]);
   const [revenueData, setRevenueData] = useState<RevenueData[]>([]);
   const [activityLogs, setActivityLogs] = useState<ActivityLog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export function Overview() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const [statsData, enrollData, revData, logsData] = await Promise.all([
+      const [statsData, , revData, logsData] = await Promise.all([
         getDashboardStats(),
         getEnrollmentData(new Date().getFullYear()),
         getRevenueData(new Date().getFullYear()),
@@ -37,7 +37,7 @@ export function Overview() {
       ]);
 
       setStats(statsData);
-      setEnrollmentData(enrollData);
+      // setEnrollmentData(enrollData);
       setRevenueData(revData);
       setActivityLogs(logsData);
     } catch (error) {

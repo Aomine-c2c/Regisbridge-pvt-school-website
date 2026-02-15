@@ -163,9 +163,9 @@ export async function secureDbQuery<T>(
   try {
     const result = await query()
     
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`✅ DB Operation successful: ${operation}`)
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.log(`✅ DB Operation successful: ${operation}`)
+    // }
     
     return result
   } catch (error) {

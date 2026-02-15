@@ -3,7 +3,7 @@
  * Creates schema.org markup for SEO optimization
  */
 
-import { Organization, EducationalOrganization, Place, Course, Event, WithContext } from 'schema-dts'
+import { EducationalOrganization, Place, Course, Event, WithContext } from 'schema-dts'
 
 /**
  * Main school organization schema

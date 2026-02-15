@@ -40,20 +40,14 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { title, author, isbn, category, publisher, publicationYear, copies, location } = body
+    const { title, author, isbn, copies } = body
 
     const book = await prisma.book.create({
       data: {
         title,
         author,
         isbn,
-        category,
-        publisher,
-        publicationYear: parseInt(publicationYear),
-        copies: parseInt(copies),
-        available: parseInt(copies), // Initially all available
-        location,
-        status: 'AVAILABLE'
+        copies: parseInt(copies)
       }
     })
 
@@ -63,3 +57,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, message: 'Failed to add book' }, { status: 500 })
   }
 }
+
+

@@ -9,7 +9,7 @@ const API_BASE_URL = isBrowser()
   : '';
 
 // Demo data for development - replace with real API calls
-const DEMO_DATA = {
+export const DEMO_DATA = {
   students: [
     {
       id: 'STU001',
@@ -74,6 +74,27 @@ export interface ApplicationData {
   submittedDate: string;
 }
 
+export interface Grade {
+  subject: string;
+  grade: string;
+  percentage: number;
+  teacher: string;
+}
+
+export interface Assignment {
+  title: string;
+  subject: string;
+  dueDate: string;
+  status: 'submitted' | 'pending' | 'draft' | 'overdue';
+}
+
+export interface DocumentData {
+  id: string;
+  filename: string;
+  url: string;
+  uploadedAt: string;
+}
+
 export interface PaymentData {
   id: string;
   studentId: string;
@@ -124,23 +145,23 @@ class ApiService {
     });
   }
 
-  async getStudentGrades(studentId: string): Promise<ApiResponse<any[]>> {
-    return this.request<any[]>(`/students/${studentId}/grades`);
+  async getStudentGrades(studentId: string): Promise<ApiResponse<Grade[]>> {
+    return this.request<Grade[]>(`/students/${studentId}/grades`);
   }
 
-  async getStudentAssignments(studentId: string): Promise<ApiResponse<any[]>> {
-    return this.request<any[]>(`/students/${studentId}/assignments`);
+  async getStudentAssignments(studentId: string): Promise<ApiResponse<Assignment[]>> {
+    return this.request<Assignment[]>(`/students/${studentId}/assignments`);
   }
 
   // Application APIs
-  async submitApplication(applicationData: any): Promise<ApiResponse<ApplicationData>> {
+  async submitApplication(applicationData: ApplicationData): Promise<ApiResponse<ApplicationData>> {
     return this.request<ApplicationData>('/applications', {
       method: 'POST',
       body: JSON.stringify(applicationData),
     });
   }
 
-  async uploadDocument(file: File, applicationId: string): Promise<ApiResponse<any>> {
+  async uploadDocument(file: File, applicationId: string): Promise<ApiResponse<DocumentData>> {
     const formData = new FormData();
     formData.append('document', file);
     formData.append('applicationId', applicationId);

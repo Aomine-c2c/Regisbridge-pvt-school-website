@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import PremiumHeader from '@/components/layout/PremiumHeader';
-import PremiumFooter from '@/components/layout/PremiumFooter';
+import { PremiumHeader } from '@/components/layout/PremiumHeader';
+import { PremiumFooter } from '@/components/layout/PremiumFooter';
 import { StatusMessage } from '@/components/ui/StatusMessage';
 
 const FORM_STEPS = ['Student Information', 'Parent/Guardian Details', 'Academic History', 'Submit'];
@@ -66,7 +66,7 @@ export default function ApplicationFormPage() {
           message: json.message || 'Submission failed. Please check your data and try again.' 
         });
       }
-    } catch (err) {
+    } catch (_err) {
       setSubmitStatus({ 
         type: 'error', 
         message: 'A network error occurred. Please try again later.' 

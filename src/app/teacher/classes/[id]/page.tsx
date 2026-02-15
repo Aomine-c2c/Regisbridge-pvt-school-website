@@ -29,7 +29,10 @@ interface ClassDetails {
     tutor: string;
 }
 
-export default function ClassDetailsPage({ params }: { params: { id: string } }) {
+import React from 'react';
+
+export default function ClassDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = React.use(params);
     const { toast } = useToast();
     const router = useRouter();
     const [details, setDetails] = useState<ClassDetails | null>(null);
@@ -39,7 +42,7 @@ export default function ClassDetailsPage({ params }: { params: { id: string } })
     useEffect(() => {
         const fetchClassData = async () => {
             try {
-                const res = await fetch(`/api/teacher/classes/${params.id}`, {
+                const res = await fetch(`/api/teacher/classes/${id}`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
                 const json = await res.json();
@@ -57,7 +60,7 @@ export default function ClassDetailsPage({ params }: { params: { id: string } })
             }
         };
         fetchClassData();
-    }, [params.id, toast]);
+    }, [id, toast]);
 
     if (loading) return <div className="p-8 text-center">Loading class details...</div>;
     if (!details) return <div className="p-8 text-center">Class not found</div>;

@@ -21,7 +21,7 @@ export const scrollToSection = (sectionId: string): void => {
       top: offsetPosition,
       behavior: 'smooth',
     })
-  } catch (e) {
+  } catch (_e) {
     // If anything fails, attempt a simple focus fallback
     element.focus?.()
   }

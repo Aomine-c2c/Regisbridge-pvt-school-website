@@ -50,17 +50,18 @@ export async function POST(request: Request) {
     // Creating a staff member usually involves creating a User account first or linking to an existing one
     // For simplicity, we assume the User account exists and we are creating the Profile
     const body = await request.json()
-    const { userId, designation, department, joinDate, basicSalary, contractType } = body
+    const { userId, designation, department } = body
 
     const profile = await prisma.staffProfile.create({
       data: {
-        userId,
         employeeId: `EMP-${Date.now()}`,
         designation,
         department,
-        joinDate: new Date(joinDate),
-        basicSalary: parseFloat(basicSalary),
-        contractType
+        user: {
+          connect: {
+            id: userId
+          }
+        }
       }
     })
 

@@ -15,7 +15,13 @@ export async function GET(request: NextRequest) {
         // We assume the user.email provided in token matches the Student.parentEmail
         const children = await prisma.student.findMany({
             where: {
-                parentEmail: user.email
+                parents: {
+                    some: {
+                        parent: {
+                            userId: user.userId // Use userId from the authenticated User object
+                        }
+                    }
+                }
             },
             include: {
                 user: { select: { firstName: true, lastName: true } },
@@ -30,11 +36,12 @@ export async function GET(request: NextRequest) {
         });
 
         // Loop through children to get more specific stats (e.g. pending fees, recent grades)
-        const childrenData = await Promise.all(children.map(async (child) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const childrenData = await Promise.all((children as any[]).map(async (child) => {
              // Recent Grades
              const recentGrades = await prisma.grade.findMany({
                  where: { studentId: child.id },
-                 orderBy: { gradedAt: 'desc' },
+                 orderBy: { updatedAt: 'desc' },
                  take: 3,
                  include: { subject: { select: { name: true } } }
              });
@@ -46,10 +53,11 @@ export async function GET(request: NextRequest) {
                      studentId: child.id,
                      status: 'PENDING'
                  },
-                 _sum: { balance: true }
+                 _sum: { amountPaid: true }
              });
              
-             const totalDue = pendingFees.reduce((acc, curr) => acc + (curr._sum.balance || 0), 0);
+             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+             const totalDue = pendingFees.reduce((acc, curr) => acc + (curr._sum.amountPaid || 0), 0);
 
              return {
                  id: child.id,
@@ -62,10 +70,20 @@ export async function GET(request: NextRequest) {
                      gpa: '3.5', // Mocked
                      feesDue: totalDue
                  },
-                 recentGrades: recentGrades.map(g => ({
-                     subject: g.subject.name,
-                     grade: g.letterGrade
-                 })),
+                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 recentGrades: (recentGrades as any[]).map(g => {
+                     const percentage = (g.score / g.maxScore) * 100;
+                     let letter = 'F';
+                     if (percentage >= 90) letter = 'A';
+                     else if (percentage >= 80) letter = 'B';
+                     else if (percentage >= 70) letter = 'C';
+                     else if (percentage >= 60) letter = 'D';
+
+                     return {
+                         subject: g.subject.name,
+                         grade: letter
+                     };
+                 }),
                  lastAttendance: child.attendance[0]?.status || 'N/A'
              };
         }));

@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { logger } from '@/lib/logger';
-import { TrendingUp, TrendingDown, Award, BookOpen, Users, Calendar, Filter, Download, Eye } from 'lucide-react';
+import { TrendingUp, TrendingDown, Award, BookOpen, Users, Calendar, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
 import { useToast } from '@/hooks/use-toast';
 import lmsService from '@/services/lmsService';
 import { format } from 'date-fns';
 import {
   LineChart,
   Line,
-  AreaChart,
-  Area,
   BarChart,
   Bar,
   PieChart,
@@ -25,7 +23,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer
 } from 'recharts';
 
@@ -85,7 +82,7 @@ interface GradeBookProps {
 }
 
 export function GradeBook({
-  userRole = 'student',
+  userRole: _userRole = 'student',
   studentId = 'student-123',
   studentName = 'John Smith'
 }: GradeBookProps) {
@@ -94,6 +91,7 @@ export function GradeBook({
   const [selectedTerm, setSelectedTerm] = useState<string>('Term 2 2024');
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+
   const { toast } = useToast();
 
   useEffect(() => {

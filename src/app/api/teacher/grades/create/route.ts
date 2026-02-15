@@ -1,37 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyAccessToken } from '@/lib/auth'
+import { getTenantDb } from '@/lib/db'
+import { requireTeacher } from '@/lib/api/auth-middleware';
 
-async function verifyTeacherAccess(request: NextRequest) {
-    const authHeader = request.headers.get('authorization')
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return { authorized: false, error: 'No token provided' }
-    }
-
-    const token = authHeader.substring(7)
-    const payload = await verifyAccessToken(token)
-
-    if (!payload || (payload.role !== 'teacher' && payload.role !== 'admin')) {
-        return { authorized: false, error: 'Teacher access required' }
-    }
-
-    return { authorized: true, userId: payload.userId }
-}
-
-// POST /api/teacher/grades/create - Create grade entry
 export async function POST(request: NextRequest) {
     try {
-        const auth = await verifyTeacherAccess(request)
-        if (!auth.authorized) {
-            return NextResponse.json(
-                { success: false, message: auth.error },
-                { status: 401 }
-            )
+        const { user, error } = await requireTeacher(request);
+        if (error) return error;
+        if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
+        const db = getTenantDb(tenantId);
+
         const body = await request.json()
-        const { studentId, subjectId, score, maxScore, assessmentType, weight, date } = body
+        const { studentId, subjectId, score, maxScore, assessmentType, remarks } = body
 
         // Validate required fields
         if (!studentId || !subjectId || score === undefined || !maxScore || !assessmentType) {
@@ -42,10 +27,12 @@ export async function POST(request: NextRequest) {
         }
 
         // Verify teacher teaches this subject
-        const subject = await prisma.subject.findFirst({
+        const subject = await db.subject.findFirst({
             where: {
                 id: subjectId,
-                teacherId: auth.userId,
+                teachers: {
+                    some: { teacherId: user.userId }
+                }
             },
         })
 
@@ -56,28 +43,36 @@ export async function POST(request: NextRequest) {
             )
         }
 
+        // Get default term (MVP hack: Term 1)
+        const term = await db.term.findFirst({
+             where: { name: 'Term 1' } 
+        });
+        
+        if (!term) {
+             return NextResponse.json({ success: false, message: 'Term 1 not found (System not setup)' }, { status: 500 });
+        }
+
         // Create grade
-        const grade = await prisma.grade.create({
+        const grade = await db.grade.create({
             data: {
                 studentId,
                 subjectId,
+                termId: term.id,
                 score,
                 maxScore,
-                assessmentType: assessmentType || 'EXAM', // Default or from body
-                letterGrade,
-                remarks,
-                date: date ? new Date(date) : new Date(),
+                assessmentType: assessmentType || 'EXAM', 
+                remarks: remarks || null,
             },
             include: {
                 student: {
-                    select: {
+                    include: {
                         user: {
                             select: {
                                 firstName: true,
                                 lastName: true,
                             }
                         }
-                    },
+                    }
                 },
                 subject: {
                     select: {

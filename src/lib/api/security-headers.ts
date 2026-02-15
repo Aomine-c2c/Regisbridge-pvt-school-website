@@ -68,7 +68,7 @@ export function applySecurityHeaders(response: NextResponse): NextResponse {
  * @param init - Response initialization options
  * @returns NextResponse with security headers
  */
-export function secureResponse(body: any, init?: ResponseInit): NextResponse {
+export function secureResponse(body: unknown, init?: ResponseInit): NextResponse {
   const response = NextResponse.json(body, init);
   return applySecurityHeaders(response);
 }
@@ -77,7 +77,7 @@ export function secureResponse(body: any, init?: ResponseInit): NextResponse {
  * Middleware wrapper that adds security headers to API responses
  * Usage: Wrap your API route handler with this function
  */
-export function withSecurityHeaders<T>(
+export function withSecurityHeaders(
   handler: (request: Request) => Promise<NextResponse | Response>
 ) {
   return async (request: Request): Promise<NextResponse> => {

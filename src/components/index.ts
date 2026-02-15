@@ -26,4 +26,4 @@ export { IDCard } from './ui/IDCard';
 export { NoticeBoard } from './ui/NoticeBoard';
 export { TimetableGrid } from './ui/TimetableGrid';
 export { Leaderboard } from './ui/Leaderboard';
-export { default as DropdownMenu } from './ui/DropdownMenu';
+export { default as NavDropdown } from './ui/NavDropdown';

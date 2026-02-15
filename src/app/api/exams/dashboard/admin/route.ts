@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
                 include: {
                     subject: true,
                     session: true,
-                    results: { select: { id: true } } // To count candidates roughly
+                    // results: { select: { id: true } } // Removed as per schema update
                 },
                 orderBy: { date: 'asc' },
                 take: 50
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
             paperName: schedule.subject.description || 'Paper 1',
             date: schedule.date.toDateString(), // Simple date formatting
             time: `${schedule.startTime}`,
-            candidates: schedule.results.length || Math.floor(Math.random() * 100) + 20, // Mock if no results seeded yet
+            candidates: Math.floor(Math.random() * 100) + 20, // Mock for now until Grades/Results linked
             venue: schedule.venue || 'Main Hall',
             status: schedule.session.status === 'PUBLISHED' ? 'Finalized' : 'Draft' 
         }));

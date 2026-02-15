@@ -100,65 +100,57 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+import { headers } from 'next/headers'
+import { featureFlagService } from '@/services/feature-flag'
+import { prisma } from '@/lib/db'
+
+// ... existing imports
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const settings = await getSettings();
-  const schoolName = settings.schoolName || 'Regisbridge Academy';
-  const estYear = settings.establishmentYear || '2015';
+  // const settings = await getSettings();
+  // const schoolName = settings.schoolName || 'Regisbridge Academy';
+  // const estYear = settings.establishmentYear || '2015';
+
+  // Fetch Tenant Features & Branding
+  const headersList = await headers();
+  const tenantSlug = headersList.get('x-tenant-slug');
+  let features = null;
+  let tenantData = null;
+
+  if (tenantSlug) {
+      try {
+          // Resolve tenantId from slug to get features and branding
+           const tenant = await prisma.tenant.findUnique({
+              where: { slug: tenantSlug },
+              select: { 
+                id: true,
+                primaryColor: true,
+                secondaryColor: true,
+                uiConfig: true 
+              }
+          });
+          
+          if (tenant) {
+              tenantData = tenant;
+              features = await featureFlagService.getTenantFeatures(tenant.id);
+          }
+      } catch (error) {
+          // Tenant table might not exist yet - skip tenant-specific features
+          console.warn('Tenant query failed (table may not exist):', error instanceof Error ? error.message : error);
+      }
+  }
 
   return (
     <html lang="en" className={`light ${playfair.variable} ${inter.variable}`}>
       <head>
-        {/* Preload critical assets */}
-        <link rel="preload" href="/logo.png" as="image" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'EducationalOrganization',
-              name: schoolName,
-              alternateName: schoolName.includes(' Academy') 
-                ? schoolName.replace(' Academy', ' School') 
-                : schoolName.includes(' School') 
-                  ? schoolName.replace(' School', ' Academy')
-                  : schoolName,
-              url: 'https://regisbridge.page',
-              logo: 'https://regisbridge.page/logo.png',
-              description: settings.motto || 'Premier boarding and day school offering education from Early Childhood through A-Level',
-              foundingDate: estYear,
-              address: {
-                '@type': 'PostalAddress',
-                addressCountry: 'ZW',
-                streetAddress: settings.schoolAddress,
-              },
-              sameAs: [
-                settings.facebookUrl,
-                settings.twitterUrl,
-                settings.linkedinUrl,
-                settings.instagramUrl,
-              ].filter(Boolean),
-              offers: {
-                '@type': 'Offer',
-                category: 'Education',
-                description: 'Comprehensive education programs from Early Childhood Development through A-Level',
-              },
-            }),
-          }}
-        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       </head>
       <body className="min-h-screen bg-white text-gray-900">
-        <Providers>
+        <Providers features={features} tenant={tenantData}>
           {children}
         </Providers>
       </body>

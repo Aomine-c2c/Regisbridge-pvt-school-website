@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { logger } from '@/lib/logger';
-import { Bell, BellOff, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Bell, BellOff } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -23,6 +22,8 @@ export function NotificationManager() {
       checkSubscriptionStatus();
     }
   }, []);
+
+
 
   const checkSubscriptionStatus = async () => {
     try {
@@ -69,7 +70,7 @@ export function NotificationManager() {
       // You'll need to replace this with your actual VAPID public key
       const vapidPublicKey = 'BKxQzBJh8ZQG6VdJfR8pQ8nZJGwQy8zJGwQy8zJGwQy8zJGwQy8zJGwQy8zJGwQy8zJGwQy8zJGwQy8zJGwQy8z';
 
-      const subscription = await registration.pushManager.subscribe({
+      await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
       });

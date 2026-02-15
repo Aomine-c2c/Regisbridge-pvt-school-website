@@ -19,7 +19,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Select,
@@ -30,7 +29,7 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge'; // Check if badge-new or badge
-import { Plus, Search, Filter, MoreVertical, Edit, Trash, FileText } from 'lucide-react';
+import { Plus, Search, MoreVertical, Edit, Trash, FileText } from 'lucide-react';
 import { getAllStudents, enrollStudent, deleteStudent } from '@/services/adminService';
 import { Student, StudentFormData } from '@/types/admin';
 import { useToast } from '@/components/ui/use-toast';

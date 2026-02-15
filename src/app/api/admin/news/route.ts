@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/news - List news articles
 export async function GET(request: NextRequest) {
   try {
+    const { error, user } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = user?.tenantId;
+    
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -13,7 +19,9 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+    const where: any = {
+      tenantId, // Filter by tenant
+    };
 
     if (search) {
       where.OR = [
@@ -78,6 +86,9 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/news - Create news article
 export async function POST(request: NextRequest) {
   try {
+    const { error, user } = await requireAdmin(request);
+    if (error) return error;
+
     const body = await request.json();
     const {
       title,
@@ -99,6 +110,7 @@ export async function POST(request: NextRequest) {
 
     const article = await prisma.newsArticle.create({
       data: {
+        tenantId: user?.tenantId,
         title,
         content,
         excerpt,
@@ -107,7 +119,7 @@ export async function POST(request: NextRequest) {
         tags: tags ? JSON.stringify(tags) : null,
         status: status || 'DRAFT',
         publishDate: publishDate ? new Date(publishDate) : new Date(),
-        author: 'Admin', // In real app, get from session
+        author: user?.firstName || 'Admin', // In real app, get from session
       },
     });
 

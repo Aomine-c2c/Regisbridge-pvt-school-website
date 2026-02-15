@@ -3,7 +3,7 @@
 // AdminHeader Component - Header for admin pages with breadcrumbs
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 interface BreadcrumbItem {
   label: string;

@@ -13,11 +13,6 @@ interface Assignment {
     status: string;
 }
 
-interface ClassOption {
-    id: string;
-    name: string;
-}
-
 export default function TeacherAssignmentsPage() {
     const { toast } = useToast();
     const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -31,10 +26,10 @@ export default function TeacherAssignmentsPage() {
     const [subjectId, setSubjectId] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [totalPoints, setTotalPoints] = useState('100');
-    const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
+    const [_viewMode, _setViewMode] = useState<'grid' | 'list'>('list');
     const [selectedAssignments, setSelectedAssignments] = useState<Set<string>>(new Set());
     const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'draft'>('all');
-    const [showBatchActions, setShowBatchActions] = useState(false);
+    const [_showBatchActions, _setShowBatchActions] = useState(false);
     const [templates, setTemplates] = useState<any[]>([]);
     const [selectedTemplate, setSelectedTemplate] = useState('');
 

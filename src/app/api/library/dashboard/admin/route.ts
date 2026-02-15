@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
                 orderBy: { updatedAt: 'desc' },
                 include: {
                     book: { select: { title: true } },
-                    student: { select: { user: { select: { firstName: true, lastName: true } }, currentGrade: true } }
+                    student: { select: { user: { select: { firstName: true, lastName: true } }, class: { select: { name: true } } } }
                 }
             }),
             prisma.book.findMany({
@@ -36,23 +36,25 @@ export async function GET(request: NextRequest) {
         ]);
 
         // Transform Transactions
-        const transactions = recentTransactions.map(t => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const transactions = (recentTransactions as any[]).map(t => ({
             id: t.id,
             bookTitle: t.book.title,
             studentName: `${t.student.user.firstName} ${t.student.user.lastName}`.trim() || 'Student',
-            grade: t.student.currentGrade,
+            grade: t.student.class?.name || 'N/A',
             type: t.status === 'ISSUED' ? 'Issued to' : t.status === 'RETURNED' ? 'Returned by' : 'Updated',
             time: new Date(t.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // Simplified time
         }));
 
         // Transform Inventory
-        const inventoryList = inventory.map(book => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const inventoryList = (inventory as any[]).map(book => {
             const currentIssue = book.issues[0];
             return {
                 id: book.id,
                 title: book.title,
                 isbn: book.isbn || 'N/A',
-                category: book.category || 'General',
+                category: 'General',
                 status: currentIssue ? (currentIssue.status === 'OVERDUE' ? 'Overdue' : 'Borrowed') : 'Available',
                 borrower: currentIssue ? `${currentIssue.student.user.firstName} ${currentIssue.student.user.lastName}` : null,
                 dueDate: currentIssue?.dueDate ? new Date(currentIssue.dueDate).toLocaleDateString() : null,

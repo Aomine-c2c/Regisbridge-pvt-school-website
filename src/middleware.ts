@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { verifyAccessToken } from '@/lib/auth'
+import { addSecurityHeaders } from '@/lib/security'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 // Define protected routes and their required roles
 const PROTECTED_ROUTES = {
   '/admin': ['admin'],
-  '/teacher': ['teacher', 'admin'], // Admins might need access to teacher views
+  '/teacher': ['teacher', 'admin'],
   '/student': ['student'],
   '/parent': ['parent'],
   '/staff': ['staff', 'admin'],
@@ -19,124 +21,144 @@ const PUBLIC_ROUTES = [
   '/',
   '/about',
   '/contact',
-  '/admissions', // Public admissions info
+  '/admissions',
   '/api/auth/login',
   '/api/auth/register',
   '/api/auth/refresh',
   '/api/auth/verify',
 ]
 
+// Rate limit configuration for middleware
+const RATE_LIMIT_OPTIONS = {
+  windowMs: 60 * 1000, // 1 minute
+  maxRequests: 200, // 200 requests per minute per IP globally
+}
+
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // 1. Check if it's a public route
-  if (PUBLIC_ROUTES.some(route => pathname.startsWith(route) || pathname === '/')) {
-    return NextResponse.next()
-  }
-
-  // 2. Check for static assets (images, fonts, etc.)
-  if (
-    pathname.match(/\.(png|jpg|jpeg|gif|ico|svg|css|js|woff|woff2)$/) ||
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/media')
-  ) {
-    return NextResponse.next()
-  }
-
-  // 3. Get token from cookies or Authorization header
-  // We'll check cookies first as that's standard for SSR/Middleware
-  // But our AuthContext uses localStorage, so we might need to rely on the Authorization header if this was an API call
-  // However, for page navigation, we REALLY should be using cookies.
-  // ANALYSIS: The current AuthContext uses localStorage. Middleware CANNOT access localStorage.
-  // Middleware can only access Cookies.
-  // IF the app relies purely on localStorage, we cannot use Middleware for page protection effectively without
-  // moving the token to a cookie or using a client-side layout check.
-  
-  // Let's check if the user is willing to migrate to cookies or if we should implement a client-side HOC.
-  // The Security Audit recommended Middleware. To make Middleware work, we MUST use cookies.
-  
-  // STRATEGY:
-  // I will implement the middleware to look for a 'accessToken' cookie.
-  // I will ALSO update the AuthContext to set this cookie when logging in.
-  
-  let token = request.cookies.get('accessToken')?.value
-
-  // Fallback to Authorization header (for API calls)
-  if (!token) {
-    const authHeader = request.headers.get('authorization')
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      token = authHeader.substring(7)
+  try {
+    const { pathname } = request.nextUrl
+    const hostname = request.headers.get('host') || ''
+    
+    // 1. Tenant Resolution
+    let tenantSlug = null
+    if (hostname.includes('localhost')) {
+        tenantSlug = 'default-school'
+    } else {
+        const parts = hostname.split('.')
+        if (parts.length > 2) {
+            tenantSlug = parts[0]
+        }
     }
-  }
 
-  if (!token) {
-    // Redirect to login if accessing a protected route
-    if (Object.keys(PROTECTED_ROUTES).some(route => pathname.startsWith(route))) {
-      // For API routes, return 401 Unauthorized instead of redirecting
-      if (pathname.startsWith('/api/')) {
-        return NextResponse.json(
-          { success: false, message: 'Unauthorized' },
-          { status: 401 }
-        )
+    // 2. Check for public routes / assets
+    if (pathname.match(/\.(png|jpg|jpeg|gif|ico|svg|css|js|woff|woff2)$/) ||
+        pathname.startsWith('/_next') ||
+        pathname.startsWith('/media')) {
+      return NextResponse.next()
+    }
+
+    // 3. Global Rate Limiting
+    const rateLimitRes = checkRateLimit(request, RATE_LIMIT_OPTIONS)
+    if (rateLimitRes) return rateLimitRes
+
+    const isPublicRoute = PUBLIC_ROUTES.some(route => pathname.startsWith(route) || pathname === '/')
+
+    if (isPublicRoute) {
+       // Allow public routes, but still inject tenant header if we found one
+       const requestHeaders = new Headers(request.headers)
+       if (tenantSlug) requestHeaders.set('x-tenant-slug', tenantSlug)
+       return NextResponse.next({
+          request: { headers: requestHeaders }
+       })
+    }
+
+    // 4. Authentication Check
+    let token = request.cookies.get('accessToken')?.value
+
+    if (!token) {
+      const authHeader = request.headers.get('authorization')
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.substring(7)
       }
-
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      url.searchParams.set('from', pathname)
-      return NextResponse.redirect(url)
     }
-    return NextResponse.next()
-  }
 
-  // 4. Verify Token
-  const payload = await verifyAccessToken(token)
-
-  if (!payload) {
-    // Token is invalid/expired
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
-
-  // 5. Check Role Access
-  const userRole = payload.role as string
-  
-  // Find which protected route is being accessed (longest match first)
-  const matchedRoute = Object.keys(PROTECTED_ROUTES)
-    .sort((a, b) => b.length - a.length)
-    .find(route => pathname.startsWith(route))
-
-  if (matchedRoute) {
-    const allowedRoles = PROTECTED_ROUTES[matchedRoute as keyof typeof PROTECTED_ROUTES]
-    if (!allowedRoles.includes(userRole)) {
-      // User does not have permission
-       const url = request.nextUrl.clone()
-       url.pathname = '/unauthorized' // We need to create this page or redirect to their dashboard
-       return NextResponse.redirect(url)
+    if (!token) {
+      // Redirect unauthenticated users
+      if (Object.keys(PROTECTED_ROUTES).some(route => pathname.startsWith(route))) {
+        if (pathname.startsWith('/api/')) {
+          return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 })
+        }
+        const url = request.nextUrl.clone()
+        url.pathname = '/login'
+        url.searchParams.set('from', pathname)
+        return NextResponse.redirect(url)
+      }
+      return NextResponse.next()
     }
+
+    // 5. Verify Token
+    const payload = await verifyAccessToken(token)
+    if (!payload) {
+         if (Object.keys(PROTECTED_ROUTES).some(route => pathname.startsWith(route))) {
+            if (pathname.startsWith('/api/')) {
+               return NextResponse.json({ success: false, message: 'Invalid Token' }, { status: 401 })
+            }
+             const url = request.nextUrl.clone()
+             url.pathname = '/login'
+             return NextResponse.redirect(url)
+         }
+         // If not protected route (unlikely given logic above), just proceed? 
+         // But logic above says "!token" check handles redirection.
+         // Here token exists but invalid.
+         // We should redirect/error.
+         const url = request.nextUrl.clone()
+         url.pathname = '/login'
+         return NextResponse.redirect(url)
+    }
+
+    // 6. RBAC
+    const userRole = payload.role as string
+    const matchedRoute = Object.keys(PROTECTED_ROUTES)
+      .sort((a, b) => b.length - a.length)
+      .find(route => pathname.startsWith(route))
+
+    if (matchedRoute) {
+      const allowedRoles = PROTECTED_ROUTES[matchedRoute as keyof typeof PROTECTED_ROUTES]
+      if (!allowedRoles.includes(userRole)) {
+         const url = request.nextUrl.clone()
+         url.pathname = '/unauthorized' 
+         return NextResponse.redirect(url)
+      }
+    }
+
+    // 7. Pass context to backend via headers
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-user-id', payload.userId as string)
+    requestHeaders.set('x-user-role', payload.role as string)
+    if (payload.tenantId) {
+        requestHeaders.set('x-tenant-id', payload.tenantId as string)
+    }
+    if (tenantSlug) {
+        requestHeaders.set('x-tenant-slug', tenantSlug)
+    }
+
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
+
+    // 8. Add Security Headers
+    return addSecurityHeaders(response)
+
+  } catch (error: any) {
+    console.error('Middleware execution error:', error.message, error.stack)
+    return NextResponse.json({ error: 'Middleware Error', details: error.message }, { status: 500 })
   }
-
-  // 6. Pass user info to backend via headers (optional but useful)
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-user-id', payload.userId as string)
-  requestHeaders.set('x-user-role', payload.role as string)
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  })
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 }

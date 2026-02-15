@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireStudent } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -11,118 +11,162 @@ export async function GET(request: NextRequest) {
              return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
         }
 
-        // Fetch Student Profile
-        const studentProfile = await prisma.student.findUnique({
+        const tenantId = request.headers.get('x-tenant-id');
+        if (!tenantId) {
+             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+        }
+
+        const db = getTenantDb(tenantId);
+
+        // 1. Fetch Student Profile with Class & User
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const studentProfile: any = await db.student.findUnique({
             where: { userId: user.userId },
             include: {
-                user: { select: { firstName: true, lastName: true } },
-                attendance: { where: { status: 'present' } } // To count attendance
+                class: {
+                    include: {
+                        classTeacher: {
+                            include: { user: true }
+                        }
+                    }
+                },
+                user: true
             }
         });
 
         if (!studentProfile) {
              return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
         }
-
-        // Fetch Pending Assignments
-        // Assignments for their grade/subject that they haven't submitted yet
-        // OR submitted but not graded? "Pending" usually means "To Do"
         
-        // Find assignments for their grade
-        // We need to know which subjects they take. 
-        // MVP: Fetch assignments for their `currentGrade`.
-        const gradeAssignments = await prisma.assignment.findMany({
-            where: {
-                grade: studentProfile.currentGrade,
-                status: 'ACTIVE',
-                dueDate: { gte: new Date() } // Future due date
-            },
-            take: 5,
-            orderBy: { dueDate: 'asc' },
-            include: { subject: true }
-        });
-
-        // Check which ones are NOT submitted by this student
-        // This requires an extra check. 
-        // Optimization: Fetch submissions for these assignments by this student 
-        const assignmentIds = gradeAssignments.map(a => a.id);
-        const mySubmissions = await prisma.assignmentSubmission.findMany({
-            where: {
-                studentId: studentProfile.id,
-                assignmentId: { in: assignmentIds }
-            },
-            select: { assignmentId: true }
-        });
-        
-        const submittedIds = new Set(mySubmissions.map(s => s.assignmentId));
-        const pendingAssignments = gradeAssignments.filter(a => !submittedIds.has(a.id));
-
-        // Upcoming Timetable - Real Data from DB
-        const todayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-        
-        // Find class first (similar logic to Timetable API, reuse logic if possible, or repeat for MVP)
-        const studentClass = await prisma.class.findFirst({
-            where: {
-                grade: studentProfile.currentGrade,
-                ...(studentProfile.section ? { name: { contains: studentProfile.section } } : {})
-            }
-        });
-
-        let timetable: any[] = [];
-
-        if (studentClass) {
-            const todaySchedule = await prisma.classSchedule.findMany({
-                where: {
-                    classId: studentClass.id,
-                    dayOfWeek: todayName
-                },
-                include: {
-                    subject: { include: { teacher: { select: { firstName: true, lastName: true } } } }
-                },
-                orderBy: { startTime: 'asc' }
-            });
-
-            timetable = todaySchedule.map((s: any, index: number) => ({
-                id: s.id,
-                subject: s.subject.name,
-                time: `${s.startTime}-${s.endTime}`,
-                room: s.room || s.subject.grade || 'Room TBD', // Fallback
-                status: index === 0 ? 'now' : 'upcoming', // Simple logic
-                teacher: s.subject.teacher ? `${s.subject.teacher.firstName} ${s.subject.teacher.lastName}` : 'Staff'
-            }));
+        const tenantIdUser = studentProfile.user.tenantId || tenantId; // Fallback or strict check?
+        if (tenantIdUser && tenantIdUser !== tenantId) {
+             return NextResponse.json({ success: false, message: 'Profile mismatch' }, { status: 403 });
         }
 
-        // Recent Grades
-        const recentGrades = await prisma.grade.findMany({
-            where: { studentId: studentProfile.id },
-            orderBy: { gradedAt: 'desc' },
-            take: 4,
-            include: { subject: { select: { name: true } } }
-        });
+        const studentId = studentProfile.id;
+        const classId = studentProfile.class?.id; // Access via relation
 
+        // 2. Execute Independent Queries in Parallel
+        const [
+            subjectsData,
+            todaySchedule,
+            recentGrades,
+            attendanceStats,
+            housePoints
+        ] = await Promise.all([
+            // A. Fetch Subjects & Assignments
+            (async () => {
+                let subjectIds: string[] = [];
+                if (classId) {
+                    const classSubjects = await db.timetablePeriod.findMany({
+                        where: { classId },
+                        select: { subjectId: true },
+                        distinct: ['subjectId']
+                    });
+                    subjectIds = classSubjects.map((p: { subjectId: string }) => p.subjectId);
+                }
+
+                if (subjectIds.length === 0) return [];
+
+                const validAssignments = await db.assignment.findMany({
+                    where: {
+                        subjectId: { in: subjectIds },
+                        status: 'ACTIVE', 
+                        dueDate: { gte: new Date() }
+                    },
+                    take: 5,
+                    orderBy: { dueDate: 'asc' },
+                    include: { subject: { select: { name: true } } }
+                });
+
+                const assignmentIds = validAssignments.map(a => a.id);
+                if (assignmentIds.length === 0) return validAssignments;
+
+                const mySubmissions = await db.assignmentSubmission.findMany({
+                    where: {
+                        studentId,
+                        assignmentId: { in: assignmentIds }
+                    },
+                    select: { assignmentId: true }
+                });
+                
+                const submittedIds = new Set(mySubmissions.map(s => s.assignmentId));
+                return validAssignments.filter(a => !submittedIds.has(a.id));
+            })(),
+
+            // B. Timetable
+            (async () => {
+                if (!classId) return [];
+                const dayMap = [7, 1, 2, 3, 4, 5, 6]; 
+                const todayInt = dayMap[new Date().getDay()];
+
+                const schedule = await db.timetablePeriod.findMany({
+                    where: {
+                        classId,
+                        dayOfWeek: todayInt
+                    },
+                    include: { subject: true },
+                    orderBy: { startTime: 'asc' }
+                });
+
+                return schedule.map((s, index) => ({
+                    id: s.id,
+                    subject: s.subject.name,
+                    time: `${s.startTime}-${s.endTime}`,
+                    room: s.room || 'Room TBD',
+                    status: index === 0 ? 'now' : 'upcoming', 
+                    teacher: 'Staff' 
+                }));
+            })(),
+
+            // C. Recent Grades
+            db.grade.findMany({
+                where: { studentId },
+                orderBy: { updatedAt: 'desc' },
+                take: 4,
+                include: { subject: { select: { name: true } } }
+            }),
+
+            // D. Attendance Stats
+            (async () => {
+                const [present, total] = await Promise.all([
+                    db.attendance.count({ where: { studentId, status: 'PRESENT' } }),
+                    db.attendance.count({ where: { studentId } })
+                ]);
+                return { present, total };
+            })(),
+
+            // E. Mock House Points (or fetch from DB if model existed)
+            Promise.resolve(1247)
+        ]);
+
+        const pendingAssignments = subjectsData as any[]; 
+        const timetable = todaySchedule as any[];
+        
         const formattedGrades = recentGrades.map(g => ({
             label: g.subject.name,
-            value: g.percentage,
-            color: g.percentage >= 80 ? 'primary' : 'gray'
+            value: g.score,
+            max: g.maxScore,
+            color: (g.score / g.maxScore) >= 0.8 ? 'primary' : 'gray'
         }));
 
-        // House Points (Mocked if not in schema, currently not in schema)
-        // Using a static value or a field if we add it later.
-        const housePoints = 1247; 
+        const attendanceRate = attendanceStats.total > 0 
+            ? ((attendanceStats.present / attendanceStats.total) * 100).toFixed(0) + '%' 
+            : '100%';
 
         return NextResponse.json({
             success: true,
             data: {
                 profile: {
                     name: `${studentProfile.user.firstName} ${studentProfile.user.lastName}`,
-                    grade: studentProfile.currentGrade,
-                    id: studentProfile.rollNumber, 
-                    house: 'Windsor' // Mocked
+                    grade: studentProfile.class?.name || 'N/A',
+                    id: studentProfile.admissionIdentifier || studentProfile.id,
+                    house: 'Windsor'
                 },
                 stats: {
                     pendingAssignments: pendingAssignments.length,
-                    upcomingTests: 1, // Mocked
-                    attendance: '95%', // Mocked/Calced
+                    upcomingTests: 1, // Static for now
+                    attendance: attendanceRate,
                     housePoints
                 },
                 timetable,
@@ -130,7 +174,7 @@ export async function GET(request: NextRequest) {
                     subject: a.subject.name,
                     title: a.title,
                     due: a.dueDate.toISOString(),
-                    priority: 'medium' // Logic can refine this
+                    priority: 'medium'
                 })),
                 grades: formattedGrades
             }

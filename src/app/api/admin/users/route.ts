@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { hashPassword } from '@/lib/auth';
+import { getTenantDb } from '@/lib/db';
+import { hashPassword } from '@/lib/password';
 import { requireAdmin } from '@/lib/api/auth-middleware';
+import { Prisma } from '@prisma/client';
+import { auditService } from '@/services/audit-service';
 
 // GET /api/admin/users
 export async function GET(request: NextRequest) {
@@ -12,6 +14,13 @@ export async function GET(request: NextRequest) {
       return authResult.error;
     }
 
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -19,18 +28,20 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+
+
+    const where: Prisma.UserWhereInput = {};
     if (role) where.role = role;
     if (search) {
       where.OR = [
-        { firstName: { contains: search } }, // SQLite is case-insensitive by default in many configs, or we rely on Prisma defaults
+        { firstName: { contains: search } }, 
         { lastName: { contains: search } },
         { email: { contains: search } }
       ];
     }
 
-    const [users, total] = await prisma.$transaction([
-      prisma.user.findMany({
+    const [users, total] = await db.$transaction([
+      db.user.findMany({
         where,
         select: {
           id: true,
@@ -40,14 +51,13 @@ export async function GET(request: NextRequest) {
           role: true,
           status: true,
           createdAt: true,
-          studentId: true,
-          grade: true
+          phoneNumber: true
         },
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' }
       }),
-      prisma.user.count({ where })
+      db.user.count({ where })
     ]);
 
     return NextResponse.json({
@@ -79,8 +89,15 @@ export async function POST(request: NextRequest) {
        return authResult.error;
     }
 
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
-    const { firstName, lastName, email, password, role, grade, studentId } = body;
+    const { firstName, lastName, email, password, role } = body;
 
     // Basic validation
     if (!firstName || !lastName || !email || !password || !role) {
@@ -91,7 +108,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findFirst({
       where: { email }
     });
     if (existingUser) {
@@ -103,15 +120,13 @@ export async function POST(request: NextRequest) {
 
     const hashedPassword = await hashPassword(password);
 
-    const newUser = await prisma.user.create({
+    const newUser = await db.user.create({
       data: {
         firstName,
         lastName,
         email,
         password: hashedPassword,
         role,
-        grade,
-        studentId,
         status: 'active'
       },
       select: {
@@ -123,6 +138,16 @@ export async function POST(request: NextRequest) {
         status: true,
         createdAt: true
       }
+    });
+
+    // Audit Log
+    await auditService.log({
+      action: 'USER_CREATE',
+      resource: 'User',
+      resourceId: newUser.id,
+      userId: authResult.user?.userId, // Admin ID
+      tenantId: tenantId,
+      details: { firstName, lastName, email, role, status: 'active' }
     });
 
     return NextResponse.json({

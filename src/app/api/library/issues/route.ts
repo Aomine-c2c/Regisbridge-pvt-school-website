@@ -23,7 +23,7 @@ export async function GET(request: Request) {
         book: true,
         student: {
           select: {
-            rollNumber: true,
+            admissionIdentifier: true,
             user: {
               select: { firstName: true, lastName: true }
             }
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
     // Find student by roll number
     const student = await prisma.student.findUnique({
-      where: { rollNumber: studentRollNumber }
+      where: { admissionIdentifier: studentRollNumber }
     })
 
     if (!student) {
@@ -64,12 +64,12 @@ export async function POST(request: Request) {
 
     // Check book availability
     const book = await prisma.book.findUnique({ where: { id: bookId } })
-    if (!book || book.available < 1) {
+    if (!book || book.copies < 1) {
       return NextResponse.json({ success: false, message: 'Book not available' }, { status: 400 })
     }
 
     // Create issue and update book availability transaction
-    const [issue, updatedBook] = await prisma.$transaction([
+    const [issue] = await prisma.$transaction([
       prisma.libraryIssue.create({
         data: {
           bookId,
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
       }),
       prisma.book.update({
         where: { id: bookId },
-        data: { available: { decrement: 1 } }
+        data: { copies: { decrement: 1 } }
       })
     ])
 

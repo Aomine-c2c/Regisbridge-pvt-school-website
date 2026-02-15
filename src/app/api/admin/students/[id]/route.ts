@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
+import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/students/[id] - Get student details
 export async function GET(
@@ -8,7 +9,17 @@ export async function GET(
 ) {
   const { id } = await params
   try {
-    const student = await prisma.student.findUnique({
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
+    const student = await db.student.findUnique({
       where: { id: id },
       include: {
         user: {
@@ -73,6 +84,16 @@ export async function PUT(
 ) {
   const { id } = await params
   try {
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
     const body = await request.json();
     const {
       firstName,
@@ -87,7 +108,7 @@ export async function PUT(
     } = body;
 
     // Get student to find linked user
-    const student = await prisma.student.findUnique({
+    const student = await db.student.findUnique({
       where: { id: id },
     });
 
@@ -99,8 +120,8 @@ export async function PUT(
     }
 
     // Update Transaction
-    await prisma.$transaction([
-      prisma.user.update({
+    await db.$transaction([
+      db.user.update({
         where: { id: student.userId },
         data: {
           firstName,
@@ -108,7 +129,7 @@ export async function PUT(
           phoneNumber,
         },
       }),
-      prisma.student.update({
+      db.student.update({
         where: { id: id },
         data: {
           currentGrade: grade,
@@ -141,7 +162,17 @@ export async function DELETE(
 ) {
   const { id } = await params
   try {
-    const student = await prisma.student.findUnique({
+    const { error } = await requireAdmin(request);
+    if (error) return error;
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
+
+    const student = await db.student.findUnique({
       where: { id: id },
     });
 
@@ -152,11 +183,8 @@ export async function DELETE(
       );
     }
 
-    // Delete user (Cascade will handle student record, but let's be safe and rely on cascade defined in schema)
-    // Schema says: user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-    // So deleting user deletes student.
-    
-    await prisma.user.delete({
+    // Delete user (Cascade will handle student record)
+    await db.user.delete({
       where: { id: student.userId },
     });
 

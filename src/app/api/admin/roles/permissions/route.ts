@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 
 export async function POST(request: NextRequest) {
@@ -8,6 +8,13 @@ export async function POST(request: NextRequest) {
     if (authResult.error) {
       return authResult.error;
     }
+
+    const tenantId = request.headers.get('x-tenant-id');
+    if (!tenantId) {
+            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
+    }
+
+    const db = getTenantDb(tenantId);
 
     const body = await request.json();
     const { role, permissions } = body;
@@ -20,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update all users with the specified role
-    const updateResult = await prisma.user.updateMany({
+    const updateResult = await db.user.updateMany({
       where: { role: role },
       data: {
         permissions: JSON.stringify(permissions)

@@ -77,7 +77,7 @@ export function setTokens(token: string, refreshToken: string): void {
   try {
     setItem(TOKEN_KEY, token)
     setItem(REFRESH_TOKEN_KEY, refreshToken)
-  } catch (e) {
+  } catch (_e) {
     // ignore storage errors
   }
 }
@@ -105,7 +105,7 @@ export function clearAuth(): void {
     removeItem(TOKEN_KEY)
     removeItem(REFRESH_TOKEN_KEY)
     removeItem(USER_KEY)
-  } catch (e) {
+  } catch (_e) {
     // ignore
   }
 }
@@ -117,7 +117,7 @@ export function setUser(user: User): void {
   if (!isBrowser()) return
   try {
     setJSON(USER_KEY, user)
-  } catch (e) {
+  } catch (_e) {
     // ignore
   }
 }

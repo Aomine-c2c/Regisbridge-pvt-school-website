@@ -1,6 +1,5 @@
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+
+
 
 interface VirtualizedListProps<T> {
   items: T[];
