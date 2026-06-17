@@ -128,13 +128,13 @@ export default function StudentRecordsPage() {
                                 placeholder="Search by name, ID, or email..." 
                                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={(e: any) => setSearchTerm(e.target.value)}
                             />
                         </div>
                         <div className="flex items-center gap-2">
                             <select 
                                 value={selectedGrade}
-                                onChange={(e) => setSelectedGrade(e.target.value)}
+                                onChange={(e: any) => setSelectedGrade(e.target.value)}
                                 className="pl-3 pr-8 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-navy/20"
                             >
                                 <option>All Grades</option>
@@ -147,7 +147,7 @@ export default function StudentRecordsPage() {
                             </select>
                             <select 
                                 value={selectedStatus}
-                                onChange={(e) => setSelectedStatus(e.target.value)}
+                                onChange={(e: any) => setSelectedStatus(e.target.value)}
                                 className="pl-3 pr-8 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-navy/20"
                             >
                                 <option>All Status</option>
@@ -177,7 +177,7 @@ export default function StudentRecordsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {students.map((student) => (
+                                {students.map((student: any) => (
                                     <tr key={student.id} className="hover:bg-gray-50 transition-colors group">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">

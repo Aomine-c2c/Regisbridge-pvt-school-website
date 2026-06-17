@@ -7,8 +7,7 @@ export interface AuthUser {
   userId: string
   email: string
   role: string
-  tenantId?: string
-  firstName?: string
+    firstName?: string
   lastName?: string
 }
 

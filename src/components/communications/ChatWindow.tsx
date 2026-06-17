@@ -114,7 +114,7 @@ export function ChatWindow({ conversationId, currentUserId }: ChatWindowProps) {
             <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
           </div>
         ) : (
-          messages.map((msg) => (
+          messages.map((msg: any) => (
             <MessageBubble
               key={msg.id}
               content={msg.content}
@@ -136,8 +136,8 @@ export function ChatWindow({ conversationId, currentUserId }: ChatWindowProps) {
           <div className="flex-1 relative">
             <textarea
               value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyDown={(e) => {
+              onChange={(e: any) => setNewMessage(e.target.value)}
+              onKeyDown={(e: any) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
                   handleSend();

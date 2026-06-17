@@ -73,7 +73,7 @@ export default function WeeklyTimetablePage() {
           {/* Day Tabs */}
           <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
             <div className="flex gap-2 overflow-x-auto pb-2">
-              {days.map((day) => (
+              {days.map((day: any) => (
                 <button
                   key={day}
                   onClick={() => setActiveDay(day)}

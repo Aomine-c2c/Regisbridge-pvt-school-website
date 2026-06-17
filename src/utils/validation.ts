@@ -77,7 +77,7 @@ export const validatePassword = (password: string): ValidationResult => {
   return validateField(password, {
     required: true,
     minLength: 6,
-    custom: (value) => {
+    custom: (value: any) => {
       if (!/(?=.*[a-z])/.test(value)) {
         return 'Password must contain at least one lowercase letter';
       }

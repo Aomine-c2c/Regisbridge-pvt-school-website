@@ -111,7 +111,7 @@ export default function EventsCalendar() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {UPCOMING_EVENTS.map((event) => (
+        {UPCOMING_EVENTS.map((event: any) => (
           <article
             key={event.id}
             className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow"

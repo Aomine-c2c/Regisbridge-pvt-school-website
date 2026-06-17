@@ -178,7 +178,7 @@ export default function FinanceFeeManagementPage() {
                 </div>
                 <input
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: any) => setSearchQuery(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm"
                   placeholder="Search by student, ID, or invoice..."
                   type="text"
@@ -215,7 +215,7 @@ export default function FinanceFeeManagementPage() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredRecords.length > 0 ? (
-                    filteredRecords.map((record) => (
+                    filteredRecords.map((record: any) => (
                       <tr key={record.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">

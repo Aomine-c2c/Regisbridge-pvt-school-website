@@ -134,7 +134,7 @@ export function AcademicManagement() {
                 {classes.length === 0 ? (
                   <TableRow><TableCell colSpan={5} className="text-center py-8">No classes found</TableCell></TableRow>
                 ) : (
-                  classes.map((c) => (
+                  classes.map((c: any) => (
                     <TableRow key={c.id}>
                       <TableCell className="font-medium">{c.name}</TableCell>
                       <TableCell>{c.grade}</TableCell>

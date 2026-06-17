@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -9,12 +8,11 @@ export async function GET(request: NextRequest) {
 
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         // Fetch classes where the user is a form tutor
         const teacherUser = await db.user.findUnique({
@@ -42,7 +40,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Security Check
-        if (teacherUser.tenantId && teacherUser.tenantId !== tenantId) {
+        if (undefined && undefined !== tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant mismatch' }, { status: 403 });
         }
 

@@ -122,7 +122,7 @@ export default function StaffPortalPage() {
               { icon: 'event', label: 'Schedule', href: '/staff/schedule' },
               { icon: 'folder', label: 'Resources', href: '/staff/resources' },
               { icon: 'settings', label: 'Settings', href: '/staff/settings' },
-            ].map((item) => (
+            ].map((item: any) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -241,7 +241,7 @@ export default function StaffPortalPage() {
                       { icon: 'grade', label: 'Enter Grades', href: '/staff/grades' },
                       { icon: 'event', label: 'Book Meeting Room', href: '/staff/rooms' },
                       { icon: 'upload', label: 'Upload Resources', href: '/staff/resources' },
-                    ].map((action) => (
+                    ].map((action: any) => (
                       <Link
                         key={action.label}
                         href={action.href}

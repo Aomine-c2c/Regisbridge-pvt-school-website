@@ -105,7 +105,7 @@ export function ProfileCard({
                 <a
                   href={`mailto:${email}`}
                   className="hover:text-brand-primary transition-colors truncate"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e: any) => e.stopPropagation()}
                 >
                   {email}
                 </a>
@@ -117,7 +117,7 @@ export function ProfileCard({
                 <a
                   href={`tel:${phone}`}
                   className="hover:text-brand-primary transition-colors"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e: any) => e.stopPropagation()}
                 >
                   {phone}
                 </a>

@@ -137,11 +137,11 @@ export default function StaffPayrollPage() {
               {/* Calendar Grid */}
               <div className="grid grid-cols-7 gap-px bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
                 {/* Headers */}
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day: any) => (
                   <div key={day} className="bg-slate-50 dark:bg-slate-800 p-2 text-center text-xs font-semibold text-slate-500">{day}</div>
                 ))}
                 {/* Days Row 1 */}
-                {[25, 26, 27, 28, 29, 30].map((date) => (
+                {[25, 26, 27, 28, 29, 30].map((date: any) => (
                   <div key={date} className="bg-white dark:bg-[#1a1f2e] min-h-[80px] p-1.5 flex flex-col items-start gap-1">
                     <span className="text-xs text-slate-400">{date}</span>
                   </div>

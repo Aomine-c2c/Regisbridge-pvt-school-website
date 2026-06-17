@@ -328,18 +328,18 @@ export function StudyPlanner({
                   <Input
                     id="taskTitle"
                     value={formData.title}
-                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    onChange={(e: any) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                     placeholder="Enter task title"
                   />
                 </div>
                 <div>
                   <Label htmlFor="taskSubject">Subject</Label>
-                  <Select value={formData.subject} onValueChange={(value) => setFormData(prev => ({ ...prev, subject: value }))}>
+                  <Select value={formData.subject} onValueChange={(value: any) => setFormData(prev => ({ ...prev, subject: value }))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select subject" />
                     </SelectTrigger>
                     <SelectContent>
-                      {subjects.map((subject) => (
+                      {subjects.map((subject: any) => (
                         <SelectItem key={subject} value={subject}>{subject}</SelectItem>
                       ))}
                     </SelectContent>
@@ -350,7 +350,7 @@ export function StudyPlanner({
                   <Textarea
                     id="taskDescription"
                     value={formData.description}
-                    onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e: any) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                     placeholder="Task description"
                     rows={3}
                   />
@@ -375,7 +375,7 @@ export function StudyPlanner({
                       id="estimatedTime"
                       type="number"
                       value={formData.estimatedTime}
-                      onChange={(e) => setFormData(prev => ({ ...prev, estimatedTime: parseInt(e.target.value) || 60 }))}
+                      onChange={(e: any) => setFormData(prev => ({ ...prev, estimatedTime: parseInt(e.target.value) || 60 }))}
                     />
                   </div>
                 </div>
@@ -385,7 +385,7 @@ export function StudyPlanner({
                     id="taskDueDate"
                     type="date"
                     value={formData.dueDate}
-                    onChange={(e) => setFormData(prev => ({ ...prev, dueDate: e.target.value }))}
+                    onChange={(e: any) => setFormData(prev => ({ ...prev, dueDate: e.target.value }))}
                   />
                 </div>
                 <div>
@@ -393,7 +393,7 @@ export function StudyPlanner({
                   <Input
                     id="taskTags"
                     value={formData.tags}
-                    onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value }))}
+                    onChange={(e: any) => setFormData(prev => ({ ...prev, tags: e.target.value }))}
                     placeholder="math, chapter5, important"
                   />
                 </div>
@@ -422,7 +422,7 @@ export function StudyPlanner({
                     id="sessionDate"
                     type="date"
                     value={sessionFormData.date}
-                    onChange={(e) => setSessionFormData(prev => ({ ...prev, date: e.target.value }))}
+                    onChange={(e: any) => setSessionFormData(prev => ({ ...prev, date: e.target.value }))}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -432,7 +432,7 @@ export function StudyPlanner({
                       id="startTime"
                       type="time"
                       value={sessionFormData.startTime}
-                      onChange={(e) => setSessionFormData(prev => ({ ...prev, startTime: e.target.value }))}
+                      onChange={(e: any) => setSessionFormData(prev => ({ ...prev, startTime: e.target.value }))}
                     />
                   </div>
                   <div>
@@ -441,7 +441,7 @@ export function StudyPlanner({
                       id="endTime"
                       type="time"
                       value={sessionFormData.endTime}
-                      onChange={(e) => setSessionFormData(prev => ({ ...prev, endTime: e.target.value }))}
+                      onChange={(e: any) => setSessionFormData(prev => ({ ...prev, endTime: e.target.value }))}
                     />
                   </div>
                 </div>
@@ -450,7 +450,7 @@ export function StudyPlanner({
                   <Textarea
                     id="sessionNotes"
                     value={sessionFormData.notes}
-                    onChange={(e) => setSessionFormData(prev => ({ ...prev, notes: e.target.value }))}
+                    onChange={(e: any) => setSessionFormData(prev => ({ ...prev, notes: e.target.value }))}
                     placeholder="Session notes or goals"
                     rows={3}
                   />
@@ -529,7 +529,7 @@ export function StudyPlanner({
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-7 gap-2">
-            {weekDays.map((day) => {
+            {weekDays.map((day: any) => {
               const dayTasks = getTasksForDate(day);
               const daySessions = getSessionsForDate(day);
               const isToday = isSameDay(day, new Date());
@@ -546,7 +546,7 @@ export function StudyPlanner({
                   </div>
 
                   {/* Sessions for this day */}
-                  {daySessions.map((session) => (
+                  {daySessions.map((session: any) => (
                     <div key={session.id} className="mb-2 p-2 bg-purple-100 rounded text-xs">
                       <div className="font-medium">{session.startTime} - {session.endTime}</div>
                       {session.notes && (
@@ -556,7 +556,7 @@ export function StudyPlanner({
                   ))}
 
                   {/* Tasks for this day */}
-                  {dayTasks.slice(0, 3).map((task) => (
+                  {dayTasks.slice(0, 3).map((task: any) => (
                     <div key={task.id} className="mb-1 p-1 bg-gray-100 rounded text-xs">
                       <div className="flex items-center gap-1">
                         {getStatusIcon(task.status)}
@@ -584,7 +584,7 @@ export function StudyPlanner({
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {tasks.map((task) => (
+            {tasks.map((task: any) => (
               <div key={task.id} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex items-center gap-3">
                   <button

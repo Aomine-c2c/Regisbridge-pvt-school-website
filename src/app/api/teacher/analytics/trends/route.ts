@@ -14,13 +14,12 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
     }
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
         return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
     // 2. Fetch scoped trends
-    const trends = await analyticsService.getAcademicTrends(tenantId, { teacherId: user.userId });
+    const trends = await analyticsService.getAcademicTrends({ teacherId: user.userId });
 
     return NextResponse.json({ 
         success: true, 

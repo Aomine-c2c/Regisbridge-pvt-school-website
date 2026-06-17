@@ -11,7 +11,7 @@ export async function GET(req: Request) {
 
     const conversations = await messagingService.getConversations(
       session.user.id,
-      session.user.tenantId
+      session.undefined
     );
 
     return NextResponse.json(conversations);
@@ -41,7 +41,6 @@ export async function POST(req: Request) {
     }
 
     const conversation = await messagingService.createConversation({
-      tenantId: session.user.tenantId,
       participantIds,
       type: type || 'DIRECT',
       subject,

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/timetable?classId=...
@@ -8,12 +7,11 @@ export async function GET(request: NextRequest) {
         const { error } = await requireAdmin(request);
         if (error) return error; // Allow students/teachers to fetch? Maybe separate route or check role.
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const { searchParams } = new URL(request.url);
         const classId = searchParams.get('classId');
@@ -54,7 +52,7 @@ export async function GET(request: NextRequest) {
         
         days.forEach(day => {
             grouped[day] = schedule
-                .filter((s) => s.dayOfWeek === day) // Type inferred
+                .filter((s: any) => s.dayOfWeek === day) // Type inferred
                 .sort((a, b) => a.startTime.localeCompare(b.startTime));
         });
 
@@ -75,12 +73,11 @@ export async function POST(request: NextRequest) {
         const { error } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const body = await request.json();
         const { classId, subjectId, dayOfWeek, startTime, endTime, room } = body;
@@ -198,12 +195,11 @@ export async function DELETE(request: NextRequest) {
         const { error } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');

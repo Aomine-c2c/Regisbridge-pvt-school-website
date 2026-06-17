@@ -54,7 +54,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email, password }),
       })
 
-      const data = await response.json()
+      const text = await response.text()
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch (e) {
+        console.error('Server response was not JSON:', text.substring(0, 200)) // Log first 200 chars
+        throw new Error('Server internal error (Invalid JSON response)')
+      }
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed')

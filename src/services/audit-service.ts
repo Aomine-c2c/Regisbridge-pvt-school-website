@@ -6,8 +6,7 @@ export interface AuditLogEntry {
   resourceId?: string;
   details?: Record<string, any>;
   userId?: string;
-  tenantId?: string;
-  ipAddress?: string;
+    ipAddress?: string;
   userAgent?: string;
 }
 
@@ -21,7 +20,6 @@ export const auditService = {
           resourceId: entry.resourceId,
           details: entry.details ? JSON.stringify(entry.details) : null,
           userId: entry.userId,
-          tenantId: entry.tenantId!, // Required field
           ipAddress: entry.ipAddress,
           userAgent: entry.userAgent,
         },
@@ -32,9 +30,9 @@ export const auditService = {
     }
   },
 
-  async getLogs(tenantId: string, limit = 50) {
+  async getLogs(limit = 50) {
     return prisma.auditLog.findMany({
-      where: { tenantId },
+      where: {},
       orderBy: { createdAt: "desc" },
       take: limit,
       include: {

@@ -132,7 +132,7 @@ export function ReportsAnalytics() {
               </CardHeader>
               <CardContent>
                   <div className="space-y-4">
-                      {['present', 'absent', 'late', 'excused'].map((status) => {
+                      {['present', 'absent', 'late', 'excused'].map((status: any) => {
                           const count = stats.attendance.breakdown.find((b: any) => b.status === status)?.count || 0;
                           const totalMarked = stats.attendance.breakdown.reduce((acc: any, curr: any) => acc + curr.count, 0);
                           const percentage = totalMarked > 0 ? (count / totalMarked) * 100 : 0;

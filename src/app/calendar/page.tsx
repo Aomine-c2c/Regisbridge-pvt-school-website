@@ -39,7 +39,7 @@ export default function CalendarPage() {
                 
                 {/* Calendar Grid Placeholder */}
                 <div className="grid grid-cols-7 gap-2 mb-4">
-                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day: any) => (
                     <div key={day} className="text-center font-bold text-gray-600 text-sm py-2">{day}</div>
                   ))}
                   {Array.from({ length: 35 }).map((_, i) => (

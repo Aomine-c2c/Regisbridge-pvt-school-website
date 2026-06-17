@@ -89,7 +89,7 @@ export default function TimetablePage() {
               <div className="px-2">
                  <select 
                     value={selectedClass} 
-                    onChange={(e) => setSelectedClass(e.target.value)}
+                    onChange={(e: any) => setSelectedClass(e.target.value)}
                     className="w-full rounded-lg border-[#dcdee5] dark:border-[#334155] bg-[#f6f6f8] dark:bg-[#111521] text-sm py-2 px-3"
                  >
                     <option value="">Select a Class...</option>

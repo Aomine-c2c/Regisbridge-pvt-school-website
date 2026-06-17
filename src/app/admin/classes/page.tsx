@@ -120,7 +120,7 @@ export default function ClassesPage() {
                 <Input
                   placeholder="Search classes..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e: any) => setSearchTerm(e.target.value)}
                   className="pl-9"
                 />
              </div>
@@ -160,7 +160,7 @@ export default function ClassesPage() {
                ) : filteredClasses.length === 0 ? (
                   <tr><td colSpan={5} className="p-8 text-center text-slate-500">No classes found.</td></tr>
                ) : (
-                  filteredClasses.map((cls) => (
+                  filteredClasses.map((cls: any) => (
                     <tr key={cls.id} className="hover:bg-slate-50 transition-colors">
                       <td className="px-6 py-4 font-medium text-slate-900">{cls.name}</td>
                       <td className="px-6 py-4">

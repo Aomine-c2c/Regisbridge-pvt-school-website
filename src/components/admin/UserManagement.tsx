@@ -178,28 +178,28 @@ export default function UserManagement() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" required value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
+                      <Input id="firstName" required value={formData.firstName} onChange={(e: any) => setFormData({...formData, firstName: e.target.value})} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" required value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
+                      <Input id="lastName" required value={formData.lastName} onChange={(e: any) => setFormData({...formData, lastName: e.target.value})} />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                    <Input id="email" type="email" required value={formData.email} onChange={(e: any) => setFormData({...formData, email: e.target.value})} />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} />
+                    <Input id="password" type="password" required value={formData.password} onChange={(e: any) => setFormData({...formData, password: e.target.value})} />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Role</Label>
-                      <Select value={formData.role} onValueChange={(val) => setFormData({...formData, role: val})}>
+                      <Select value={formData.role} onValueChange={(val: any) => setFormData({...formData, role: val})}>
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
@@ -214,7 +214,7 @@ export default function UserManagement() {
                     {formData.role === 'student' && (
                         <div className="space-y-2">
                         <Label>Grade</Label>
-                        <Input value={formData.grade} onChange={(e) => setFormData({...formData, grade: e.target.value})} placeholder="e.g. 10" />
+                        <Input value={formData.grade} onChange={(e: any) => setFormData({...formData, grade: e.target.value})} placeholder="e.g. 10" />
                         </div>
                     )}
                   </div>
@@ -234,8 +234,8 @@ export default function UserManagement() {
               <Input
                 placeholder="Search by name or email..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                onChange={(e: any) => setSearch(e.target.value)}
+                onKeyDown={(e: any) => e.key === 'Enter' && handleSearch()}
               />
               <Button onClick={handleSearch} variant="outline">
                 <Search className="h-4 w-4" />
@@ -243,7 +243,7 @@ export default function UserManagement() {
             </div>
             <select
               value={roleFilter}
-              onChange={(e) => {
+              onChange={(e: any) => {
                 setRoleFilter(e.target.value)
                 setPage(1)
               }}
@@ -281,7 +281,7 @@ export default function UserManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
+                    {users.map((user: any) => (
                       <tr key={user.id} className="border-t hover:bg-muted/50">
                         <td className="p-3">
                           <div>

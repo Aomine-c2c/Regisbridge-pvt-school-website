@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { hashPassword } from '@/lib/password';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { Prisma } from '@prisma/client';
@@ -14,12 +13,11 @@ export async function GET(request: NextRequest) {
       return authResult.error;
     }
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
@@ -89,12 +87,11 @@ export async function POST(request: NextRequest) {
        return authResult.error;
     }
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const body = await request.json();
     const { firstName, lastName, email, password, role } = body;
@@ -146,7 +143,6 @@ export async function POST(request: NextRequest) {
       resource: 'User',
       resourceId: newUser.id,
       userId: authResult.user?.userId, // Admin ID
-      tenantId: tenantId,
       details: { firstName, lastName, email, role, status: 'active' }
     });
 

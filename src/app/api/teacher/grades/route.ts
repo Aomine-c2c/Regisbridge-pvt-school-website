@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -7,12 +6,11 @@ export async function GET(request: NextRequest) {
         const { error } = await requireTeacher(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const { searchParams } = new URL(request.url);
         const classId = searchParams.get('classId');
@@ -27,7 +25,7 @@ export async function GET(request: NextRequest) {
         // Fetch Class to get grade level
         const classDetails = await db.class.findUnique({
             where: { id: classId },
-            select: { gradeLevel: true, tenantId: true } 
+            select: { gradeLevel: true} 
         });
 
         if (!classDetails) {
@@ -35,7 +33,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Security Check
-        if (classDetails.tenantId && classDetails.tenantId !== tenantId) {
+        if (undefined && undefined !== tenantId) {
              return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 });
         }
 
@@ -99,12 +97,11 @@ export async function POST(request: NextRequest) {
         if (error) return error;
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const body = await request.json();
         const { classId, subjectId, term, academicYear, grades } = body; 

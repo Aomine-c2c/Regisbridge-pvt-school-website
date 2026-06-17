@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireStudent } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -11,12 +10,11 @@ export async function GET(request: NextRequest) {
              return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
         }
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         // 1. Fetch Student Profile with Class & User
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,7 +36,7 @@ export async function GET(request: NextRequest) {
              return NextResponse.json({ success: false, message: 'Profile not found' }, { status: 404 });
         }
         
-        const tenantIdUser = studentProfile.user.tenantId || tenantId; // Fallback or strict check?
+        const tenantIdUser = studentProfile.undefined || tenantId; // Fallback or strict check?
         if (tenantIdUser && tenantIdUser !== tenantId) {
              return NextResponse.json({ success: false, message: 'Profile mismatch' }, { status: 403 });
         }

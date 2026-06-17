@@ -6,8 +6,7 @@ interface User {
   id: string;
   email: string;
   role: string;
-  tenantId?: string;
-}
+  }
 
 export async function authMiddleware(request: NextRequest): Promise<NextResponse | User> {
   const token = request.cookies.get('accessToken')?.value || 

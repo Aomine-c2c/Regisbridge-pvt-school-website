@@ -271,7 +271,7 @@ export default function TeacherAssignmentsPage() {
                                 <div className="flex gap-2">
                                     <select 
                                         value={selectedTemplate}
-                                        onChange={(e) => {
+                                        onChange={(e: any) => {
                                             setSelectedTemplate(e.target.value);
                                             if (e.target.value) loadTemplate(e.target.value);
                                         }}

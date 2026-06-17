@@ -33,7 +33,7 @@ export function LanguageToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-        {languages.map((language) => (
+        {languages.map((language: any) => (
           <DropdownMenuItem
             key={language.code}
             onClick={() => i18n.changeLanguage(language.code)}

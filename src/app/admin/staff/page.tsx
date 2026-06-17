@@ -210,7 +210,7 @@ export default function StaffPage() {
                   <div className="relative">
                     <select 
                       value={filterDepartment}
-                      onChange={(e) => setFilterDepartment(e.target.value)}
+                      onChange={(e: any) => setFilterDepartment(e.target.value)}
                       className="appearance-none pl-3 pr-8 py-2 bg-[#f0f1f4] dark:bg-gray-800 text-sm font-medium rounded-lg border-none focus:ring-0 text-[#111318] dark:text-white cursor-pointer hover:bg-gray-200 transition-colors"
                     >
                       <option>All Departments</option>
@@ -244,7 +244,7 @@ export default function StaffPage() {
                   {filteredStaff.length === 0 ? (
                       <tr><td colSpan={6} className="p-8 text-center text-gray-500">No staff found.</td></tr>
                   ) : (
-                      filteredStaff.map((staff) => (
+                      filteredStaff.map((staff: any) => (
                         <tr key={staff.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
                         <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
@@ -325,7 +325,7 @@ export default function StaffPage() {
               <div className="space-y-5 relative">
                 {/* Timeline Line */}
                 <div className="absolute left-[9px] top-2 bottom-2 w-px bg-gray-200 dark:bg-gray-700"></div>
-                {data.activityLog.map((log) => (
+                {data.activityLog.map((log: any) => (
                     <div key={log.id} className="flex gap-4 relative">
                     <div className="size-5 rounded-full bg-blue-100 border-2 border-white dark:border-[#1a202c] z-10 flex items-center justify-center shrink-0">
                         <div className="size-2 rounded-full bg-[#1349ec]"></div>

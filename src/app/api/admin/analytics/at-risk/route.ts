@@ -8,8 +8,7 @@ export async function GET(request: NextRequest) {
     const { error } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
         return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 

@@ -53,7 +53,7 @@ export default function NavDropdown({ label, items, isActive = false }: Dropdown
           isActive ? 'text-brand-gold' : 'text-brand-navy'
         }`}
         onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={(e) => {
+        onKeyDown={(e: any) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             setIsOpen(!isOpen);
@@ -72,7 +72,7 @@ export default function NavDropdown({ label, items, isActive = false }: Dropdown
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <Link
               key={item.href}
               href={item.href}

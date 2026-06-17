@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { verifyAccessToken } from '@/lib/auth';
 
 // Helper to verify student access
@@ -30,12 +29,11 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         // 2. Fetch Student with associated Class
         const student = await db.student.findUnique({
@@ -81,7 +79,7 @@ export async function GET(request: NextRequest) {
             
             const dayEntries = scheduleEntries.filter(e => e.dayOfWeek === dayNum);
             
-            const lessons: Lesson[] = dayEntries.map((entry) => {
+            const lessons: Lesson[] = dayEntries.map((entry: any) => {
                 const teacherName = entry.subject?.teachers?.[0]?.teacher?.user 
                     ? `${entry.subject.teachers[0].teacher.user.firstName.charAt(0)}. ${entry.subject.teachers[0].teacher.user.lastName}` 
                     : 'Staff';

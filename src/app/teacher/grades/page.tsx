@@ -406,7 +406,7 @@ export default function TeacherGradebook() {
                   <tbody className="divide-y divide-gray-100">
                     {loading ? (
                       <tr><td colSpan={8} className="text-center py-8">Loading...</td></tr>
-                    ) : filteredStudents.map((student) => (
+                    ) : filteredStudents.map((student: any) => (
                       <tr key={student.studentId} className="group hover:bg-gray-50 transition-colors">
                         <td className="p-4">
                           <div className="flex items-center gap-3">
@@ -425,7 +425,7 @@ export default function TeacherGradebook() {
                             type="number"
                             max="20"
                             value={student.assessment}
-                            onChange={(e) => handleGradeChange(student.studentId, 'assessment', parseInt(e.target.value) || 0)}
+                            onChange={(e: any) => handleGradeChange(student.studentId, 'assessment', parseInt(e.target.value) || 0)}
                           />
                         </td>
                         <td className="p-2 text-center">
@@ -434,7 +434,7 @@ export default function TeacherGradebook() {
                             type="number"
                             max="30"
                             value={student.midterm}
-                            onChange={(e) => handleGradeChange(student.studentId, 'midterm', parseInt(e.target.value) || 0)}
+                            onChange={(e: any) => handleGradeChange(student.studentId, 'midterm', parseInt(e.target.value) || 0)}
                           />
                         </td>
                         <td className="p-2 text-center">
@@ -443,7 +443,7 @@ export default function TeacherGradebook() {
                             type="number"
                             max="50"
                             value={student.final}
-                            onChange={(e) => handleGradeChange(student.studentId, 'final', parseInt(e.target.value) || 0)}
+                            onChange={(e: any) => handleGradeChange(student.studentId, 'final', parseInt(e.target.value) || 0)}
                           />
                         </td>
                         <td className="p-4 text-center">
@@ -471,7 +471,7 @@ export default function TeacherGradebook() {
                             placeholder="Add comment..."
                             type="text"
                             value={student.comments}
-                            onChange={(e) => handleCommentChange(student.studentId, e.target.value)}
+                            onChange={(e: any) => handleCommentChange(student.studentId, e.target.value)}
                           />
                         </td>
                       </tr>

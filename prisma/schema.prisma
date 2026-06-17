@@ -20,9 +20,7 @@ datasource db {
 // Gender: 'MALE', 'FEMALE', 'OTHER'
 
 model User {
-  id       String  @id @default(cuid())
-  tenantId String? // Make optional initially for migration
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  id String @id @default(cuid())
 
   email       String
   password    String
@@ -42,104 +40,43 @@ model User {
   parentProfile  ParentProfile?
   staffProfile   StaffProfile?
 
-  refreshTokens    RefreshToken[]
-  documents        Document[]
-  notifications    Notification[]
+  refreshTokens              RefreshToken[]
+  documents                  Document[]
+  notifications              Notification[]
   conversationParticipations ConversationParticipant[]
-  sentMessages             Message[] 
-  readReceipts             MessageReadStatus[]
+  sentMessages               Message[]
+  readReceipts               MessageReadStatus[]
 
-  auditLogs        AuditLog[]
+  auditLogs AuditLog[]
 
   // Enterprise RBAC
-  roleId           String?
-  userRole         Role?          @relation(fields: [roleId], references: [id])
+  roleId            String?
+  userRole          Role?            @relation(fields: [roleId], references: [id])
   customPermissions UserPermission[]
 
-  invigilatedExams ExamSchedule[] // Added for Exam Invigilation
-  gradedSubmissions AssignmentSubmission[] @relation("SubmissionGrader")
+  invigilatedExams   ExamSchedule[] // Added for Exam Invigilation
+  gradedSubmissions  AssignmentSubmission[] @relation("SubmissionGrader")
   assignmentsCreated Assignment[]           @relation("AssignmentCreator")
-  permissions       String? // JSON string
+  permissions        String? // JSON string
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([tenantId, email])
+  @@unique([email])
   @@index([role])
-  @@index([tenantId])
-  @@index([tenantId, role, lastName])
-}
-
-model Tenant {
-  id           String  @id @default(uuid())
-  name         String
-  slug         String  @unique // Subdomain
-  customDomain String? @unique
-
-  logoUrl        String?
-  primaryColor   String? @default("#0f172a")
-  secondaryColor String? @default("#3b82f6")
-  faviconUrl     String?
-  uiConfig       String? @default("{}") // JSON string for customized UI layout
-
-  gradingScales  GradingScale[]
-
-  features TenantFeatures?
-
-  users            User[]
-  academicYears    AcademicYear[]
-  classes          Class[]
-  students         Student[]
-  subjects         Subject[]
-  term             Term[]
-  grades           Grade[]
-  attendance       Attendance[]
-  assignments      Assignment[]
-  submissions      AssignmentSubmission[]
-  timetablePeriods TimetablePeriod[]
-  auditLogs        AuditLog[]
-  conversations    Conversation[]
-  roles            Role[]
-  aiInsights       AiInsight[]
-  feePayments      FeePayment[]
-  newsArticles     NewsArticle[]
-  events           Event[]
-  // Add other relations as we migrate them
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([slug])
-}
-
-model TenantFeatures {
-  id       String @id @default(uuid())
-  tenantId String @unique
-  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-
-  enableFinance   Boolean @default(true)
-  enableHostel    Boolean @default(false)
-  enableTransport Boolean @default(false)
-  enableLibrary   Boolean @default(false)
-  enableHR        Boolean @default(true)
-  enableEvents    Boolean @default(true)
-  enableBlog      Boolean @default(true)
+  @@index([role, lastName])
 }
 
 model GradingScale {
-  id        String   @id @default(cuid())
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  name      String   // e.g., "GPA 4.0", "Percentage", "Letter Grade"
-  
+  id   String @id @default(cuid())
+  name String // e.g., "GPA 4.0", "Percentage", "Letter Grade"
+
   // JSON string for definition
   // e.g., [{ "label": "A", "min": 90, "max": 100, "gpa": 4.0 }, ...]
-  definition String 
+  definition String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@index([tenantId])
 }
 
 model RefreshToken {
@@ -158,8 +95,6 @@ model RefreshToken {
 
 model AcademicYear {
   id        String   @id @default(cuid())
-  tenantId  String?
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
   name      String   @unique // e.g., "2023-2024"
   startDate DateTime
   endDate   DateTime
@@ -174,8 +109,6 @@ model AcademicYear {
 
 model Term {
   id             String       @id @default(cuid())
-  tenantId       String?
-  tenant         Tenant?      @relation(fields: [tenantId], references: [id])
   name           String // "Term 1", "Semester A"
   startDate      DateTime
   endDate        DateTime
@@ -194,13 +127,11 @@ model Term {
 }
 
 model Class {
-  id         String  @id @default(cuid())
-  tenantId   String?
-  tenant     Tenant? @relation(fields: [tenantId], references: [id])
-  name       String // e.g. "10-A"
-  gradeLevel String // e.g. "10"
-  grade      String? // Added for compatibility
-  section    String? // e.g. "A"
+  id             String          @id @default(cuid())
+  name           String // e.g. "10-A"
+  gradeLevel     String // e.g. "10"
+  grade          String? // Added for compatibility
+  section        String? // e.g. "A"
   classSchedules ClassSchedule[]
 
   academicYearId String
@@ -209,8 +140,8 @@ model Class {
   classTeacherId String?
   classTeacher   TeacherProfile? @relation(fields: [classTeacherId], references: [id])
 
-  students  Student[]
-  timetable TimetablePeriod[]
+  students          Student[]
+  timetable         TimetablePeriod[]
   attendanceRecords Attendance[]
 
   createdAt DateTime @default(now())
@@ -221,17 +152,15 @@ model Class {
 
 model Subject {
   id          String  @id @default(cuid())
-  tenantId    String?
-  tenant      Tenant? @relation(fields: [tenantId], references: [id])
   name        String
   code        String  @unique
   description String?
 
-  teachers    TeacherSubject[]
-  assignments Assignment[]
-  timetable   TimetablePeriod[]
-  grades      Grade[]
-  exams       ExamSchedule[]
+  teachers       TeacherSubject[]
+  assignments    Assignment[]
+  timetable      TimetablePeriod[]
+  grades         Grade[]
+  exams          ExamSchedule[]
   classSchedules ClassSchedule[]
 
   createdAt DateTime @default(now())
@@ -241,18 +170,16 @@ model Subject {
 // --- User Profiles ---
 
 model Student {
-  id       String  @id @default(cuid())
-  tenantId String?
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  userId   String  @unique
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  admissionIdentifier String   @unique // admission number / roll number
-  rollNumber          String?  @unique // alias for admissionIdentifier
-  currentGrade        String?  // Added for route compatibility
-  section             String?  // Added for route compatibility
+  admissionIdentifier String    @unique // admission number / roll number
+  rollNumber          String?   @unique // alias for admissionIdentifier
+  currentGrade        String? // Added for route compatibility
+  section             String? // Added for route compatibility
   dateOfBirth         DateTime?
-  enrollmentDate      DateTime @default(now())
+  enrollmentDate      DateTime  @default(now())
   parentName          String?
   parentEmail         String?
   parentPhone         String?
@@ -260,8 +187,8 @@ model Student {
   gender              String // Enum: Gender
   bloodGroup          String?
   address             String?
-  classId String?
-  class   Class?  @relation(fields: [classId], references: [id])
+  classId             String?
+  class               Class?    @relation(fields: [classId], references: [id])
 
   parents ParentStudent[]
 
@@ -343,8 +270,6 @@ model StaffProfile {
 
 model Attendance {
   id        String  @id @default(cuid())
-  tenantId  String?
-  tenant    Tenant? @relation(fields: [tenantId], references: [id])
   studentId String
   student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
@@ -376,8 +301,6 @@ model Grade {
   subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   termId    String
   term      Term    @relation(fields: [termId], references: [id], onDelete: Cascade)
-  tenantId  String?
-  tenant    Tenant? @relation(fields: [tenantId], references: [id])
 
   assessmentType String // 'EXAM', 'TEST', 'ASSIGNMENT', 'PROJECT'
   score          Float
@@ -395,8 +318,6 @@ model Assignment {
   description String?
   subjectId   String
   subject     Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  tenantId    String?
-  tenant      Tenant? @relation(fields: [tenantId], references: [id])
 
   dueDate  DateTime
   maxScore Int
@@ -417,28 +338,26 @@ model Assignment {
 
 model AssignmentSubmission {
   id           String     @id @default(cuid())
-  tenantId     String?
-  tenant       Tenant?    @relation(fields: [tenantId], references: [id])
   assignmentId String
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   studentId    String
   student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  
-  content   String?
-  filePath  String?
-  fileUrl   String? // Added for compatibility
-  
+
+  content  String?
+  filePath String?
+  fileUrl  String? // Added for compatibility
+
   submittedAt DateTime @default(now())
 
   score      Float?
   remarks    String?
   gradedById String?
-  gradedBy   User?   @relation("SubmissionGrader", fields: [gradedById], references: [id])
-  status     String  @default("SUBMITTED") // SUBMITTED, GRADED, REJECTED
+  gradedBy   User?      @relation("SubmissionGrader", fields: [gradedById], references: [id])
+  status     String     @default("SUBMITTED") // SUBMITTED, GRADED, REJECTED
   gradedAt   DateTime?
+  documents  Document[]
 
   @@unique([assignmentId, studentId])
-  documents    Document[]
 }
 
 model TimetablePeriod {
@@ -447,8 +366,6 @@ model TimetablePeriod {
   class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
   subjectId String
   subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  tenantId  String?
-  tenant    Tenant? @relation(fields: [tenantId], references: [id])
 
   dayOfWeek Int // 1 (Mon) - 7 (Sun)
   startTime String // HH:mm
@@ -486,9 +403,6 @@ model FeePayment {
   feeStructureId String?
   feeStructure   FeeStructure? @relation(fields: [feeStructureId], references: [id])
 
-  tenantId      String?
-  tenant        Tenant?       @relation(fields: [tenantId], references: [id])
-
   amountPaid    Float
   paymentDate   DateTime @default(now())
   method        String // Enum: PaymentMethod
@@ -500,7 +414,7 @@ model FeePayment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([tenantId, status, paymentDate])
+  @@index([status, paymentDate])
 }
 
 model FinancialTransaction {
@@ -682,7 +596,6 @@ model Notification {
   createdAt DateTime @default(now())
 }
 
-
 model Document {
   id       String @id @default(cuid())
   filename String
@@ -754,6 +667,9 @@ model SystemSettings {
   currentTerm    String?
   timezone       String?
   currency       String?
+  primaryColor   String?  @default("#0f172a")
+  secondaryColor String?  @default("#3b82f6")
+  faviconUrl     String?
   setupCompleted Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -761,8 +677,6 @@ model SystemSettings {
 
 model NewsArticle {
   id          String    @id @default(uuid())
-  tenantId    String?
-  tenant      Tenant?   @relation(fields: [tenantId], references: [id])
   title       String
   content     String
   excerpt     String?
@@ -774,14 +688,10 @@ model NewsArticle {
   author      String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-
-  @@index([tenantId])
 }
 
 model Event {
   id          String    @id @default(uuid())
-  tenantId    String?
-  tenant      Tenant?   @relation(fields: [tenantId], references: [id])
   title       String
   description String?
   eventDate   DateTime
@@ -793,41 +703,35 @@ model Event {
   attendees   String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-
-  @@index([tenantId])
 }
-
 
 // --- Communication Hub ---
 
 model Conversation {
-  id            String   @id @default(cuid())
-  tenantId      String?
-  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
-  type          String   // 'DIRECT', 'GROUP'
-  subject       String?  // For group chats or subject lines
-  
-  participants  ConversationParticipant[]
-  messages      Message[]
-  
+  id      String  @id @default(cuid())
+  type    String // 'DIRECT', 'GROUP'
+  subject String? // For group chats or subject lines
+
+  participants ConversationParticipant[]
+  messages     Message[]
+
   lastMessageAt DateTime @default(now())
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  @@index([tenantId])
   @@index([lastMessageAt])
 }
 
 model ConversationParticipant {
-  id              String       @id @default(cuid())
-  conversationId  String
-  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  userId          String
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  unreadCount     Int      @default(0)
-  lastReadAt      DateTime @default(now())
-  
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  unreadCount Int      @default(0)
+  lastReadAt  DateTime @default(now())
+
   @@unique([conversationId, userId])
   @@index([userId])
 }
@@ -838,23 +742,23 @@ model Message {
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   senderId       String
   sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  
-  content        String
-  attachments    String?      // JSON string of attachment URLs/metadata
-  
-  readBy         MessageReadStatus[]
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+
+  content     String
+  attachments String? // JSON string of attachment URLs/metadata
+
+  readBy MessageReadStatus[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([conversationId])
 }
 
 model MessageReadStatus {
   messageId String
-  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
   userId    String
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   readAt    DateTime @default(now())
 
   @@id([messageId, userId])
@@ -863,34 +767,31 @@ model MessageReadStatus {
 // --- Enterprise RBAC ---
 
 model Role {
-  id          String   @id @default(cuid())
+  id          String  @id @default(cuid())
   name        String
   description String?
-  isSystem    Boolean  @default(false) // System roles cannot be deleted (e.g. ADMIN)
-  
-  tenantId    String?
-  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
-  
+  isSystem    Boolean @default(false) // System roles cannot be deleted (e.g. ADMIN)
+
   users       User[]
   permissions RolePermission[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 
-  @@unique([tenantId, name])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name])
 }
 
 model Permission {
-  id          String   @id @default(cuid())
-  slug        String   @unique // e.g. "users.create", "finance.view"
+  id          String  @id @default(cuid())
+  slug        String  @unique // e.g. "users.create", "finance.view"
   description String?
-  group       String   // e.g. "User Management", "Finance"
-  
-  roles       RolePermission[]
-  users       UserPermission[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  group       String // e.g. "User Management", "Finance"
+
+  roles RolePermission[]
+  users UserPermission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model RolePermission {
@@ -898,7 +799,7 @@ model RolePermission {
   role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
   permissionId String
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  
+
   @@id([roleId, permissionId])
 }
 
@@ -907,48 +808,41 @@ model UserPermission {
   user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   permissionId String
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  
-  grantedBy    String?    // User ID
-  grantedAt    DateTime   @default(now())
+
+  grantedBy String? // User ID
+  grantedAt DateTime @default(now())
 
   @@id([userId, permissionId])
 }
 
 model AuditLog {
-  id          String   @id @default(cuid())
-  tenantId    String
-  userId      String?
-  action      String
-  resource    String
-  resourceId  String?
-  details     String? // JSON string
-  ipAddress   String?
-  userAgent   String?
-  createdAt   DateTime @default(now())
-  
-  tenant      Tenant   @relation(fields: [tenantId], references: [id])
-  user        User?    @relation(fields: [userId], references: [id])
+  id         String   @id @default(cuid())
+  userId     String?
+  action     String
+  resource   String
+  resourceId String?
+  details    String? // JSON string
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id])
 
-  @@index([tenantId, createdAt])
+  @@index([createdAt])
 }
 
 model AiInsight {
-  id        String   @id @default(cuid())
-  tenantId  String
-  entityType String   // 'STUDENT', 'CLASS'
+  id         String    @id @default(cuid())
+  entityType String // 'STUDENT', 'CLASS'
   entityId   String
-  insight    String   // The text generated by AI
-  createdAt  DateTime @default(now())
+  insight    String // The text generated by AI
+  createdAt  DateTime  @default(now())
   expiresAt  DateTime? // Optional, for cache invalidation
-  
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
 
-  @@index([tenantId, entityType, entityId])
+  @@index([entityType, entityId])
 }
 
 model StudentApplication {
   id                String   @id @default(cuid())
-  tenantId          String?
   firstName         String
   lastName          String
   dateOfBirth       DateTime
@@ -965,18 +859,17 @@ model StudentApplication {
 }
 
 model ClassSchedule {
-  id        String  @id @default(cuid())
-  tenantId  String?
+  id        String          @id @default(cuid())
   classId   String
-  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  class     Class           @relation(fields: [classId], references: [id], onDelete: Cascade)
   subjectId String
-  subject   Subject @relation(fields: [subjectId], references: [id])
+  subject   Subject         @relation(fields: [subjectId], references: [id])
   teacherId String?
   teacher   TeacherProfile? @relation(fields: [teacherId], references: [id])
-  dayOfWeek String  // "Monday", etc.
-  startTime String  // "08:00"
-  endTime   String  // "09:00"
+  dayOfWeek String // "Monday", etc.
+  startTime String // "08:00"
+  endTime   String // "09:00"
   room      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }

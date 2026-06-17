@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auditService } from "@/services/audit-service";
 
 export async function GET(req: NextRequest) {
-  const tenantId = req.headers.get("x-tenant-id");
-
+  
   if (!tenantId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -14,7 +13,7 @@ export async function GET(req: NextRequest) {
     
     // In a real app we might want filtering by userId, resource, etc.
     // For now, simple list.
-    const logs = await auditService.getLogs(tenantId, limit);
+    const logs = await auditService.getLogs(limit);
     return NextResponse.json(logs);
   } catch (error) {
     console.error("Error fetching audit logs", error);

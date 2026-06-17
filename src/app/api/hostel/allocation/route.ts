@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const { studentId, bedId } = body
 
     // Transaction to ensure atomicity
-    const allocation = await prisma.$transaction(async (tx) => {
+    const allocation = await prisma.$transaction(async (tx: any) => {
       // Check if bed is occupied
       const bed = await tx.hostelBed.findUnique({ where: { id: bedId } })
       if (!bed) throw new Error('Bed not found')

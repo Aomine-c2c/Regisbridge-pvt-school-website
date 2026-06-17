@@ -173,7 +173,7 @@ export function ContentManagement() {
                 ) : news.length === 0 ? (
                    <TableRow><TableCell colSpan={5} className="text-center py-8">No news articles found</TableCell></TableRow>
                 ) : (
-                  news.map((item) => (
+                  news.map((item: any) => (
                     <TableRow key={item.id}>
                       <TableCell className="font-medium">{item.title}</TableCell>
                       <TableCell className="capitalize">{item.category}</TableCell>
@@ -217,7 +217,7 @@ export function ContentManagement() {
                 ) : events.length === 0 ? (
                    <TableRow><TableCell colSpan={5} className="text-center py-8">No events found</TableCell></TableRow>
                 ) : (
-                  events.map((item) => (
+                  events.map((item: any) => (
                     <TableRow key={item.id}>
                       <TableCell className="font-medium">{item.title}</TableCell>
                       <TableCell>

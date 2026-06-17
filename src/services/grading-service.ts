@@ -8,11 +8,10 @@ export interface GradeDefinition {
 }
 
 export const gradingService = {
-  async getGradingScale(tenantId: string, name?: string) {
+  async getGradingScale(name?: string) {
     // If name is provided, find specific scale, otherwise find default or first
     const scale = await prisma.gradingScale.findFirst({
         where: { 
-            tenantId,
             ...(name ? { name } : {})
         }
     });

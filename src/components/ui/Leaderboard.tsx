@@ -112,7 +112,7 @@ export function Leaderboard({
         )}
 
         {/* Runners Up Grid (2nd-4th place) */}
-        {runnersUp.map((entry) => (
+        {runnersUp.map((entry: any) => (
           <div
             key={entry.id}
             className={`bg-white p-6 rounded-xl shadow-md border-t-4 ${getBorderColor(entry.rank)} flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300`}

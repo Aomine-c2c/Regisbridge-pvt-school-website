@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTenantDb } from "@/lib/db";
 import { rbacService } from "@/services/rbac-service";
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const tenantId = req.headers.get("x-tenant-id");
-  if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
   try {
     const body = await req.json();
@@ -17,7 +15,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     // or we might need a specific update by ID function in service.
     // Let's implement specific update here using DB directly to be safe about ID.
     
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
     
     // Check if system role
     const existing = await db.role.findUnique({ where: { id } });
@@ -45,10 +43,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const tenantId = req.headers.get("x-tenant-id");
-  if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
-  const db = getTenantDb(tenantId);
+  const db = (tenantId);
   try {
     const role = await db.role.findUnique({ where: { id } });
     if (role?.isSystem) {

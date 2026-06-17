@@ -117,7 +117,7 @@ export default function TeacherAttendancePage() {
                     <select 
                         className="w-full p-2 border border-gray-300 rounded-md"
                         value={selectedClassId}
-                        onChange={(e) => setSelectedClassId(e.target.value)}
+                        onChange={(e: any) => setSelectedClassId(e.target.value)}
                     >
                         <option value="">-- Select Class --</option>
                         {classes.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -130,7 +130,7 @@ export default function TeacherAttendancePage() {
                         type="date" 
                         className="w-full p-2 border border-gray-300 rounded-md"
                         value={date}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e: any) => setDate(e.target.value)}
                     />
                 </div>
 
@@ -185,7 +185,7 @@ export default function TeacherAttendancePage() {
                                             placeholder="Optional notes..."
                                             className="w-full text-sm p-1 border-b border-gray-200 focus:border-brand-navy outline-none bg-transparent"
                                             value={student.notes || ''}
-                                            onChange={(e) => handleNoteChange(student.studentId, e.target.value)}
+                                            onChange={(e: any) => handleNoteChange(student.studentId, e.target.value)}
                                         />
                                     </td>
                                 </tr>

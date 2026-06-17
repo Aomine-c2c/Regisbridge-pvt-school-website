@@ -276,7 +276,7 @@ export default function LibraryCommandCenterPage() {
                 {data.recentTransactions.length === 0 ? (
                   <div className="p-4 text-center text-sm text-slate-500">No recent transactions.</div>
                 ) : (
-                  data.recentTransactions.map((tx) => (
+                  data.recentTransactions.map((tx: any) => (
                     <div key={tx.id} className="p-4 flex items-start gap-3 hover:bg-[#f8fafc] dark:hover:bg-[#1e293b]/50 transition-colors cursor-pointer">
                       <div className="w-10 h-10 rounded-md bg-[#e2e8f0] dark:bg-[#334155] flex items-center justify-center shrink-0">
                         <span className="material-symbols-outlined text-[#64748b]">book</span>
@@ -319,7 +319,7 @@ export default function LibraryCommandCenterPage() {
                     placeholder="Search title, author, ISBN..."
                     type="text"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e: any) => setSearchQuery(e.target.value)}
                   />
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function LibraryCommandCenterPage() {
                       </td>
                     </tr>
                    ) : (
-                    filteredInventory.map((book) => (
+                    filteredInventory.map((book: any) => (
                       <tr key={book.id} className="group hover:bg-[#f8fafc] dark:hover:bg-[#1e293b]/30 transition-colors">
                         <td className="px-6 py-3">
                           <div

@@ -166,7 +166,7 @@ export function LearningPlatform({
 
         <TabsContent value="courses" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course) => (
+            {courses.map((course: any) => (
               <Card key={course.id} className="cursor-pointer hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center justify-between">
@@ -207,7 +207,7 @@ export function LearningPlatform({
 
         <TabsContent value="assignments" className="space-y-4">
           <div className="grid gap-4">
-            {assignments.map((assignment) => (
+            {assignments.map((assignment: any) => (
               <Card key={assignment.id}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
@@ -253,7 +253,7 @@ export function LearningPlatform({
                             <input
                               type="file"
                               accept=".pdf,.doc,.docx,.txt"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 const file = e.target.files?.[0];
                                 if (file) {
                                   handleAssignmentSubmit(assignment.id, file);

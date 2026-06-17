@@ -217,7 +217,7 @@ export function DataEntryTool() {
                   <Input
                     id="fullName"
                     value={schoolInfo.fullName}
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setSchoolInfo({ ...schoolInfo, fullName: e.target.value })
                     }
                   />
@@ -227,7 +227,7 @@ export function DataEntryTool() {
                   <Input
                     id="legalName"
                     value={schoolInfo.legalName}
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setSchoolInfo({ ...schoolInfo, legalName: e.target.value })
                     }
                   />
@@ -240,7 +240,7 @@ export function DataEntryTool() {
                   id="mission"
                   rows={3}
                   value={schoolInfo.mission}
-                  onChange={(e) => setSchoolInfo({ ...schoolInfo, mission: e.target.value })}
+                  onChange={(e: any) => setSchoolInfo({ ...schoolInfo, mission: e.target.value })}
                   placeholder="Enter mission statement from constitution document"
                 />
               </div>
@@ -251,7 +251,7 @@ export function DataEntryTool() {
                   id="vision"
                   rows={3}
                   value={schoolInfo.vision}
-                  onChange={(e) => setSchoolInfo({ ...schoolInfo, vision: e.target.value })}
+                  onChange={(e: any) => setSchoolInfo({ ...schoolInfo, vision: e.target.value })}
                   placeholder="Enter vision statement from constitution document"
                 />
               </div>
@@ -262,7 +262,7 @@ export function DataEntryTool() {
                   <Input
                     id="address"
                     value={schoolInfo.address}
-                    onChange={(e) => setSchoolInfo({ ...schoolInfo, address: e.target.value })}
+                    onChange={(e: any) => setSchoolInfo({ ...schoolInfo, address: e.target.value })}
                     placeholder="Street address"
                   />
                 </div>
@@ -271,7 +271,7 @@ export function DataEntryTool() {
                   <Input
                     id="phone"
                     value={schoolInfo.phone}
-                    onChange={(e) => setSchoolInfo({ ...schoolInfo, phone: e.target.value })}
+                    onChange={(e: any) => setSchoolInfo({ ...schoolInfo, phone: e.target.value })}
                     placeholder="+263 4 123456"
                   />
                 </div>
@@ -284,7 +284,7 @@ export function DataEntryTool() {
                     id="email"
                     type="email"
                     value={schoolInfo.email}
-                    onChange={(e) => setSchoolInfo({ ...schoolInfo, email: e.target.value })}
+                    onChange={(e: any) => setSchoolInfo({ ...schoolInfo, email: e.target.value })}
                     placeholder="info@regisbridge.ac.zw"
                   />
                 </div>
@@ -293,7 +293,7 @@ export function DataEntryTool() {
                   <Input
                     id="website"
                     value={schoolInfo.website}
-                    onChange={(e) => setSchoolInfo({ ...schoolInfo, website: e.target.value })}
+                    onChange={(e: any) => setSchoolInfo({ ...schoolInfo, website: e.target.value })}
                   />
                 </div>
               </div>
@@ -319,7 +319,7 @@ export function DataEntryTool() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="grade">Grade/Form</Label>
-                  <Select value={feeEntry.grade} onValueChange={(value) => setFeeEntry({ ...feeEntry, grade: value })}>
+                  <Select value={feeEntry.grade} onValueChange={(value: any) => setFeeEntry({ ...feeEntry, grade: value })}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select grade" />
                     </SelectTrigger>
@@ -340,7 +340,7 @@ export function DataEntryTool() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="term">Term</Label>
-                  <Select value={feeEntry.term} onValueChange={(value) => setFeeEntry({ ...feeEntry, term: value })}>
+                  <Select value={feeEntry.term} onValueChange={(value: any) => setFeeEntry({ ...feeEntry, term: value })}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select term" />
                     </SelectTrigger>
@@ -356,7 +356,7 @@ export function DataEntryTool() {
                   <Input
                     id="year"
                     value={feeEntry.year}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, year: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, year: e.target.value })}
                   />
                 </div>
               </div>
@@ -368,7 +368,7 @@ export function DataEntryTool() {
                     id="tuition"
                     type="number"
                     value={feeEntry.tuition}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, tuition: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, tuition: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -377,7 +377,7 @@ export function DataEntryTool() {
                     id="boarding"
                     type="number"
                     value={feeEntry.boarding}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, boarding: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, boarding: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -386,7 +386,7 @@ export function DataEntryTool() {
                     id="development"
                     type="number"
                     value={feeEntry.development}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, development: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, development: e.target.value })}
                   />
                 </div>
               </div>
@@ -398,7 +398,7 @@ export function DataEntryTool() {
                     id="exam"
                     type="number"
                     value={feeEntry.exam}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, exam: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, exam: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -407,7 +407,7 @@ export function DataEntryTool() {
                     id="transport"
                     type="number"
                     value={feeEntry.transport}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, transport: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, transport: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
@@ -416,7 +416,7 @@ export function DataEntryTool() {
                     id="other"
                     type="number"
                     value={feeEntry.other}
-                    onChange={(e) => setFeeEntry({ ...feeEntry, other: e.target.value })}
+                    onChange={(e: any) => setFeeEntry({ ...feeEntry, other: e.target.value })}
                   />
                 </div>
               </div>
@@ -436,7 +436,7 @@ export function DataEntryTool() {
                     </Button>
                   </div>
                   <div className="border rounded-lg p-4 max-h-60 overflow-y-auto">
-                    {fees.map((fee) => (
+                    {fees.map((fee: any) => (
                       <div key={fee.id} className="py-2 border-b last:border-0">
                         <div className="font-medium">
                           {fee.grade} - Term {fee.term} {fee.year}
@@ -470,7 +470,7 @@ export function DataEntryTool() {
                     id="date"
                     type="date"
                     value={financialEntry.date}
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setFinancialEntry({ ...financialEntry, date: e.target.value })
                     }
                   />
@@ -479,7 +479,7 @@ export function DataEntryTool() {
                   <Label htmlFor="type">Type</Label>
                   <Select
                     value={financialEntry.type}
-                    onValueChange={(value) => setFinancialEntry({ ...financialEntry, type: value })}
+                    onValueChange={(value: any) => setFinancialEntry({ ...financialEntry, type: value })}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -496,7 +496,7 @@ export function DataEntryTool() {
                     id="amount"
                     type="number"
                     value={financialEntry.amount}
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setFinancialEntry({ ...financialEntry, amount: e.target.value })
                     }
                   />
@@ -509,7 +509,7 @@ export function DataEntryTool() {
                   <Input
                     id="category"
                     value={financialEntry.category}
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setFinancialEntry({ ...financialEntry, category: e.target.value })
                     }
                     placeholder="e.g., Salaries, Utilities, Tuition Fees"
@@ -519,7 +519,7 @@ export function DataEntryTool() {
                   <Label htmlFor="month">Month</Label>
                   <Select
                     value={financialEntry.month}
-                    onValueChange={(value) => setFinancialEntry({ ...financialEntry, month: value })}
+                    onValueChange={(value: any) => setFinancialEntry({ ...financialEntry, month: value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select month" />
@@ -547,7 +547,7 @@ export function DataEntryTool() {
                 <Textarea
                   id="description"
                   value={financialEntry.description}
-                  onChange={(e) =>
+                  onChange={(e: any) =>
                     setFinancialEntry({ ...financialEntry, description: e.target.value })
                   }
                   placeholder="Brief description of the transaction"
@@ -569,7 +569,7 @@ export function DataEntryTool() {
                     </Button>
                   </div>
                   <div className="border rounded-lg p-4 max-h-60 overflow-y-auto">
-                    {financialRecords.map((record) => (
+                    {financialRecords.map((record: any) => (
                       <div key={record.id} className="py-2 border-b last:border-0">
                         <div className="font-medium">
                           {record.category} - ${record.amount}

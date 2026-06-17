@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTenantDb } from "@/lib/db";
 import { rbacService } from "@/services/rbac-service";
 
 export async function GET(req: NextRequest) {
-  const tenantId = req.headers.get("x-tenant-id");
-  if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
-  const db = getTenantDb(tenantId);
+  const db = (tenantId);
   try {
     const roles = await db.role.findMany({
       include: {
@@ -21,14 +19,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const tenantId = req.headers.get("x-tenant-id");
-  if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
   try {
     const body = await req.json();
     const { name, description, permissionIds } = body;
 
-    const role = await rbacService.upsertRole(tenantId, name, permissionIds, description);
+    const role = await rbacService.upsertRole(name, permissionIds, description);
     return NextResponse.json(role);
   } catch (error) {
     return new NextResponse("Error creating role", { status: 500 });

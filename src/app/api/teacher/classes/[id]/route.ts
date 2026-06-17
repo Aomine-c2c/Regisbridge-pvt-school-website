@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(
@@ -11,12 +10,11 @@ export async function GET(
         const { error } = await requireTeacher(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         // Verify class belongs to tenant
         const classDetails = await db.class.findUnique({
@@ -37,7 +35,7 @@ export async function GET(
             return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 });
         }
         
-        if (classDetails.tenantId && classDetails.tenantId !== tenantId) {
+        if (undefined && undefined !== tenantId) {
              return NextResponse.json({ success: false, message: 'Class not found' }, { status: 404 }); // Hide existence
         }
 

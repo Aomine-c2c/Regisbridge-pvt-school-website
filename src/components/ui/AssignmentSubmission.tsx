@@ -255,7 +255,7 @@ export function AssignmentSubmission({
               type="file"
               multiple
               accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar"
-              onChange={(e) => handleFileSelect(e.target.files)}
+              onChange={(e: any) => handleFileSelect(e.target.files)}
               className="hidden"
             />
           </div>
@@ -270,7 +270,7 @@ export function AssignmentSubmission({
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {uploadedFiles.map((file) => (
+              {uploadedFiles.map((file: any) => (
                 <div key={file.id} className="flex items-center gap-3 p-3 border rounded-lg">
                   <div className="text-2xl">{getFileIcon(file.type)}</div>
                   <div className="flex-1">
@@ -316,7 +316,7 @@ export function AssignmentSubmission({
         <CardContent>
           <textarea
             value={submissionNotes}
-            onChange={(e) => setSubmissionNotes(e.target.value)}
+            onChange={(e: any) => setSubmissionNotes(e.target.value)}
             placeholder="Add any notes or comments about your submission..."
             className="w-full p-3 border rounded-lg resize-none"
             rows={4}

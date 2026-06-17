@@ -111,46 +111,29 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const settings = await getSettings();
-  // const schoolName = settings.schoolName || 'Regisbridge Academy';
-  // const estYear = settings.establishmentYear || '2015';
-
-  // Fetch Tenant Features & Branding
-  const headersList = await headers();
-  const tenantSlug = headersList.get('x-tenant-slug');
-  let features = null;
-  let tenantData = null;
-
-  if (tenantSlug) {
-      try {
-          // Resolve tenantId from slug to get features and branding
-           const tenant = await prisma.tenant.findUnique({
-              where: { slug: tenantSlug },
-              select: { 
-                id: true,
-                primaryColor: true,
-                secondaryColor: true,
-                uiConfig: true 
-              }
-          });
-          
-          if (tenant) {
-              tenantData = tenant;
-              features = await featureFlagService.getTenantFeatures(tenant.id);
-          }
-      } catch (error) {
-          // Tenant table might not exist yet - skip tenant-specific features
-          console.warn('Tenant query failed (table may not exist):', error instanceof Error ? error.message : error);
-      }
+  const settings = await prisma.systemSettings.findFirst();
+  
+  if (!settings?.setupCompleted) {
+     // We can't redirect easily from layout without knowing the path, 
+     // so we rely on page-level checks or middleware.
   }
+  
+  // Inject branding colors if available
+  const styleStr = `
+    :root {
+      --primary: ${settings?.primaryColor || '#0f172a'};
+      --secondary: ${settings?.secondaryColor || '#3b82f6'};
+    }
+  `;
 
   return (
     <html lang="en" className={`light ${playfair.variable} ${inter.variable}`}>
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <style dangerouslySetInnerHTML={{ __html: styleStr }} />
       </head>
       <body className="min-h-screen bg-white text-gray-900">
-        <Providers features={features} tenant={tenantData}>
+        <Providers features={null} tenant={settings}>
           {children}
         </Providers>
       </body>

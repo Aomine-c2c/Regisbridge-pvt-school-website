@@ -190,7 +190,7 @@ export default function TransportPage() {
                     className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 dark:placeholder:text-[#9dabb9] px-4 rounded-l-none pl-2 text-sm md:text-base font-normal"
                     placeholder="Search vehicle or route ID"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e: any) => setSearchQuery(e.target.value)}
                   />
                 </div>
               </label>
@@ -299,7 +299,7 @@ export default function TransportPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-[#283039]">
-                    {filteredFleet.map((vehicle) => (
+                    {filteredFleet.map((vehicle: any) => (
                       <tr key={vehicle.id} className="hover:bg-slate-50 dark:hover:bg-[#242d38] transition-colors cursor-pointer group">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
@@ -362,7 +362,7 @@ export default function TransportPage() {
                 <select 
                   className="pl-9 pr-8 py-2 bg-slate-50 dark:bg-[#283039] border-none rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary outline-none"
                   value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
+                  onChange={(e: any) => setFilterStatus(e.target.value)}
                 >
                   <option value="All Status">All Status</option>
                   <option value="On Time">On Time</option>
@@ -411,7 +411,7 @@ export default function TransportPage() {
                         </td>
                     </tr>
                 ) : (
-                    filteredFleet.map((vehicle) => (
+                    filteredFleet.map((vehicle: any) => (
                     <tr key={vehicle.id} className="hover:bg-slate-50 dark:hover:bg-[#242d38] transition-colors">
                       <td className="px-6 py-4 text-slate-900 dark:text-white font-medium">
                         {vehicle.vehicleId}

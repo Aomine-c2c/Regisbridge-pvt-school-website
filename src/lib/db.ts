@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 export async function testDatabaseConnection(): Promise<boolean> {
   try {
     await prisma.$connect()
-    // console.log('✅ Database connected successfully')
+    console.log('✅ Database connected successfully')
     return true
   } catch (error) {
     console.error('❌ Database connection failed:', error)
@@ -41,52 +41,3 @@ export async function disconnectDatabase(): Promise<void> {
     console.error('❌ Database disconnection failed:', error)
   }
 }
-
-// Multi-Tenant Restricted Client
-export function getTenantDb(tenantId: string) {
-  return prisma.$extends({
-    query: {
-      $allModels: {
-        async $allOperations({ model, operation, args, query }) {
-          // List of models that have tenantId and require isolation
-          const tenantModels = [
-            'User', 
-            'Student', 
-            'Class', 
-            'Subject', 
-            'AcademicYear', 
-            'Term',
-            'Grade',
-            'Attendance',
-            'Assignment',
-            'AssignmentSubmission',
-            'TimetablePeriod'
-          ];
-
-          if (tenantModels.includes(model)) {
-            const argsAny = args as Record<string, unknown>;
-
-            // Write operations: Inject tenantId
-            if (operation === 'create') {
-               if (!argsAny.data) argsAny.data = {};
-               (argsAny.data as Record<string, unknown>).tenantId = tenantId;
-            } else if (operation === 'createMany') {
-               if (Array.isArray(argsAny.data)) {
-                  argsAny.data.forEach((item: Record<string, unknown>) => (item as Record<string, unknown>).tenantId = tenantId);
-               } else {
-                  (argsAny.data as Record<string, unknown>).tenantId = tenantId;
-               }
-            } else if (operation !== 'findUnique' && operation !== 'findUniqueOrThrow') {
-                // Read/Update/Delete operations: Inject tenantId into where clause
-                if (!argsAny.where) argsAny.where = {};
-                (argsAny.where as Record<string, unknown>).tenantId = tenantId;
-            }
-          }
-          return query(args);
-        }
-      }
-    }
-  });
-}
-
-export type TenantClient = ReturnType<typeof getTenantDb>;

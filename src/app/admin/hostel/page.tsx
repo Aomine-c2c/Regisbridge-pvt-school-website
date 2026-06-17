@@ -183,7 +183,7 @@ export default function HostelOccupancyPage() {
               <div className="relative">
                 <select 
                     className="appearance-none bg-white dark:bg-[#1a202e] border border-[#dcdee5] dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
-                    onChange={(e) => setFilterBlock(e.target.value)}
+                    onChange={(e: any) => setFilterBlock(e.target.value)}
                     value={filterBlock}
                 >
                   <option value="All">All Blocks</option>
@@ -194,7 +194,7 @@ export default function HostelOccupancyPage() {
               <div className="relative">
                 <select 
                     className="appearance-none bg-white dark:bg-[#1a202e] border border-[#dcdee5] dark:border-gray-700 text-gray-700 dark:text-gray-200 py-2 pl-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
-                    onChange={(e) => setFilterFloor(e.target.value)}
+                    onChange={(e: any) => setFilterFloor(e.target.value)}
                     value={filterFloor}
                 >
                   <option value="All">All Floors</option>
@@ -223,7 +223,7 @@ export default function HostelOccupancyPage() {
                 <div className="p-8 text-center text-slate-500">No rooms found.</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredRooms.map((room) => (
+                {filteredRooms.map((room: any) => (
                     <div 
                         key={room.id} 
                         className={`group relative flex flex-col gap-3 p-4 rounded-lg border transition-all cursor-pointer bg-white dark:bg-[#1a202e] shadow-sm hover:shadow-md ${
@@ -304,7 +304,7 @@ export default function HostelOccupancyPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                  {data.maintenanceList.map((req) => (
+                  {data.maintenanceList.map((req: any) => (
                     <tr key={req.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                         <td className="px-6 py-4 font-medium text-[#111317] dark:text-gray-200">{req.room}</td>
                         <td className="px-6 py-4 text-gray-600 dark:text-gray-400">{req.issue}</td>

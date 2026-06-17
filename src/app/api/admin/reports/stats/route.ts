@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { startOfDay, endOfDay } from 'date-fns';
 
@@ -8,12 +7,11 @@ export async function GET(req: NextRequest) {
     const { error } = await requireAdmin(req);
     if (error) return error;
 
-    const tenantId = req.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     // 1. Student Stats
     const totalStudents = await db.student.count();
@@ -75,8 +73,7 @@ export async function GET(req: NextRequest) {
       },
       where: {
         student: {
-            tenantId: tenantId
-        }
+            }
       }
     });
 

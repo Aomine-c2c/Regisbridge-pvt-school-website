@@ -48,7 +48,7 @@ export function NoticeBoard({
             <p className="text-sm">No notices at this time</p>
           </div>
         ) : (
-          displayedNotices.map((notice) => {
+          displayedNotices.map((notice: any) => {
             const NoticeWrapper = notice.href ? 'a' : 'div';
             const wrapperProps = notice.href
               ? { href: notice.href }

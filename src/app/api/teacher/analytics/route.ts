@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 export async function GET(request: NextRequest) {
@@ -7,12 +6,11 @@ export async function GET(request: NextRequest) {
         const { error } = await requireTeacher(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const currentTerm = await db.term.findFirst({
             where: { name: 'Term 1' }, // TODO: Make dynamic based on system settings

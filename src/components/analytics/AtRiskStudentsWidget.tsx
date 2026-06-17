@@ -73,7 +73,7 @@ export function AtRiskStudentsWidget({ endpoint = '/api/admin/analytics/at-risk'
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {students.slice(0, 5).map((student) => (
+            {students.slice(0, 5).map((student: any) => (
               <div key={student.studentId} className="flex items-center justify-between">
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">{student.name}</p>

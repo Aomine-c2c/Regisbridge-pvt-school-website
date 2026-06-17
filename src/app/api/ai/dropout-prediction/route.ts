@@ -7,8 +7,7 @@ export async function POST(req: NextRequest) {
     const { error, user } = await requireAdmin(req); 
     if (error) return error;
 
-    const tenantId = req.headers.get("x-tenant-id");
-    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+        if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
     const body = await req.json();
     const { studentId } = body;
@@ -17,7 +16,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Missing studentId", { status: 400 });
     }
 
-    const prediction = await aiService.predictDropoutRisk(tenantId, studentId);
+    const prediction = await aiService.predictDropoutRisk(studentId);
     
     return NextResponse.json({ prediction });
 

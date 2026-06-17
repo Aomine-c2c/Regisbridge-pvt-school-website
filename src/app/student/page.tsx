@@ -234,7 +234,7 @@ export default function StudentAcademicCommandCenter() {
                 </div>
                 
                 <TabsContent value="assignments" className="space-y-4">
-                    {d.assignments.slice(0, 4).map((assignment) => {
+                    {d.assignments.slice(0, 4).map((assignment: any) => {
                         const isOverdue = new Date(assignment.due) < new Date();
                         return (
                             <Card key={assignment.id} className="overflow-hidden border-l-4 border-l-brand-gold hover:bg-slate-50 transition-colors cursor-pointer">
@@ -266,7 +266,7 @@ export default function StudentAcademicCommandCenter() {
 
                 <TabsContent value="schedule" className="space-y-4">
                     {d.timetable.length > 0 ? (
-                        d.timetable.map((classSession) => (
+                        d.timetable.map((classSession: any) => (
                              <Card key={classSession.id}>
                                 <CardContent className="p-4 flex items-center gap-4">
                                      <div className="flex flex-col items-center justify-center w-14 h-14 rounded-lg bg-slate-100 shrink-0">
@@ -301,7 +301,7 @@ export default function StudentAcademicCommandCenter() {
                     <CardTitle className="text-base">Subject Progress</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-5">
-                    {d.subjects.map((subject) => (
+                    {d.subjects.map((subject: any) => (
                         <div key={subject.id} className="space-y-2">
                              <div className="flex items-center justify-between text-sm">
                                 <span className="font-medium">{subject.name}</span>

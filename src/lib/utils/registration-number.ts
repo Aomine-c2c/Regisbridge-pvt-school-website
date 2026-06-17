@@ -14,7 +14,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import { prisma, TenantClient } from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 const isDbEnabled = true; // Use shared prisma instance
 
@@ -44,7 +44,7 @@ const DEFAULT_CONFIG: Required<RegNumberConfig> = {
  */
 export async function generateRegistrationNumber(
   config: RegNumberConfig = {},
-  db: PrismaClient | TenantClient = prisma
+  db: PrismaClient  = prisma
 ): Promise<string> {
   const finalConfig = { ...DEFAULT_CONFIG, ...config }
   const { role, yearFormat, sequencePadding } = finalConfig
@@ -140,7 +140,7 @@ function extractSequence(fullNumber: string, prefixPattern: string): number {
  */
 export async function generateUniqueRegistrationNumber(
   config: RegNumberConfig = {},
-  db: PrismaClient | TenantClient = prisma,
+  db: PrismaClient  = prisma,
   maxRetries: number = 3
 ): Promise<string> {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
@@ -178,7 +178,7 @@ export async function generateUniqueRegistrationNumber(
 /**
  * Get stats
  */
-export async function getRegistrationStats(_year?: number, db: PrismaClient | TenantClient = prisma) {
+export async function getRegistrationStats(_year?: number, db: PrismaClient  = prisma) {
     // Simplified stats for now
     return {
         total: 0,
@@ -190,7 +190,7 @@ export async function getRegistrationStats(_year?: number, db: PrismaClient | Te
 // Keep legacy exports for compatibility if needed, but updated
 export const isValidRegistrationNumber = (reg: string) => /^[A-Z]{2}\d{5,}$/.test(reg)
 export const parseRegistrationNumber = (reg: string) => ({ prefix: reg.slice(0,2), year: reg.slice(2,4), sequence: reg.slice(4) })
-export const bulkGenerateRegistrationNumbers = async (count: number, config: RegNumberConfig, db: PrismaClient | TenantClient = prisma) => {
+export const bulkGenerateRegistrationNumbers = async (count: number, config: RegNumberConfig, db: PrismaClient  = prisma) => {
     const nums = []
     for(let i=0; i<count; i++) nums.push(await generateUniqueRegistrationNumber(config, db))
     return nums

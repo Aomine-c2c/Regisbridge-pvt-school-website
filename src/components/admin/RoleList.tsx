@@ -69,7 +69,7 @@ export function RoleList() {
         <div className="text-center py-10 text-gray-500">Loading roles...</div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {roles.map((role) => (
+        {roles.map((role: any) => (
           <div key={role.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
@@ -106,7 +106,7 @@ export function RoleList() {
             <div className="border-t pt-4 mt-auto">
               <h4 className="text-xs font-semibold text-gray-400 uppercase mb-2">Permissions</h4>
               <div className="flex flex-wrap gap-2">
-                {role.permissions.slice(0, 3).map((p) => (
+                {role.permissions.slice(0, 3).map((p: any) => (
                   <span key={p.permission.slug} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md border border-gray-200">
                     {p.permission.description}
                   </span>

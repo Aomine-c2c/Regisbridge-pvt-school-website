@@ -117,14 +117,14 @@ export function StaffDirectory() {
               <Input
                 placeholder="Search by name, position, or EC number..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e: any) => setSearchTerm(e.target.value)}
                 className="pl-10"
                 aria-label="Search staff members"
               />
             </div>
             <select
               value={filterDepartment}
-              onChange={(e) => setFilterDepartment(e.target.value)}
+              onChange={(e: any) => setFilterDepartment(e.target.value)}
               className="px-4 py-2 border rounded-md bg-white"
               aria-label="Filter by department"
             >
@@ -140,7 +140,7 @@ export function StaffDirectory() {
 
       {/* Staff Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredStaff.map((staff) => (
+        {filteredStaff.map((staff: any) => (
           <Card key={staff.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex justify-between items-start">

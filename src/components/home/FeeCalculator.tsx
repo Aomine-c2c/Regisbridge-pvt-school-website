@@ -91,7 +91,7 @@ export default function FeeCalculator() {
               Education Level
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {(['ecd', 'primary', 'secondary'] as const).map((lvl) => (
+              {(['ecd', 'primary', 'secondary'] as const).map((lvl: any) => (
                 <button
                   key={lvl}
                   onClick={() => {
@@ -120,7 +120,7 @@ export default function FeeCalculator() {
                 <input
                   type="checkbox"
                   checked={isBoarding}
-                  onChange={(e) => setIsBoarding(e.target.checked)}
+                  onChange={(e: any) => setIsBoarding(e.target.checked)}
                   className="w-5 h-5 rounded border-gray-300 text-brand-primary focus:ring-brand-primary"
                 />
                 <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -143,7 +143,7 @@ export default function FeeCalculator() {
               min="1"
               max="3"
               value={terms}
-              onChange={(e) => setTerms(Number(e.target.value))}
+              onChange={(e: any) => setTerms(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand-primary"
             />
             <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -159,7 +159,7 @@ export default function FeeCalculator() {
               Additional Fees (Optional)
             </label>
             <div className="space-y-2">
-              {currentLevel.extras.map((extra) => (
+              {currentLevel.extras.map((extra: any) => (
                 <label key={extra.category} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors">
                   <input
                     type="checkbox"

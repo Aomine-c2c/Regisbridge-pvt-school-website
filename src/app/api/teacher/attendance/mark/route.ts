@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTenantDb } from '@/lib/db'
 import { requireTeacher } from '@/lib/api/auth-middleware';
 
 // POST /api/teacher/attendance/mark - Mark attendance
@@ -9,12 +8,11 @@ export async function POST(request: NextRequest) {
         if (error) return error; 
         if (!user) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const body = await request.json()
         const { studentId, subjectId, status, date, notes } = body

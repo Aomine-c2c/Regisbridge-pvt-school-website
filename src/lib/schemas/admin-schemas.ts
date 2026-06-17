@@ -15,7 +15,7 @@ const userBaseSchema = z.object({
   confirmPassword: z.string(),
 })
 
-export const createUserSchema = userBaseSchema.refine((data) => data.password === data.confirmPassword, {
+export const createUserSchema = userBaseSchema.refine((data: any) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
 })
@@ -27,7 +27,7 @@ export const enrollStudentSchema = z.object({
   firstName: z.string().min(2, 'First name required'),
   lastName: z.string().min(2, 'Last name required'),
   email: z.string().email('Invalid email'),
-  dateOfBirth: z.string().refine((date) => {
+  dateOfBirth: z.string().refine((date: any) => {
     const age = new Date().getFullYear() - new Date(date).getFullYear()
     return age >= 3 && age <= 25
   }, 'Student must be between 3 and 25 years old'),

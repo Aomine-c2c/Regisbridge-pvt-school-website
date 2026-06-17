@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/db";
 
 export interface CreateConversationParams {
-  tenantId: string;
-  participantIds: string[];
+    participantIds: string[];
   type: 'DIRECT' | 'GROUP';
   subject?: string;
   initialMessage?: string;
@@ -14,13 +13,12 @@ export const messagingService = {
    * Create a new conversation or return existing DIRECT conversation
    */
   async createConversation(params: CreateConversationParams) {
-    const { tenantId, participantIds, type, subject, initialMessage, senderId } = params;
+    const { participantIds, type, subject, initialMessage, senderId } = params;
 
     // For DIRECT conversations, check if one already exists between these 2 users
     if (type === 'DIRECT' && participantIds.length === 2) {
       const existing = await prisma.conversation.findFirst({
         where: {
-          tenantId,
           type: 'DIRECT',
           participants: {
             every: {
@@ -36,7 +34,7 @@ export const messagingService = {
       if (existing) {
         // If initialMessage is provided, send it
         if (initialMessage && senderId) {
-            await this.sendMessage({ tenantId, conversationId: existing.id, senderId, content: initialMessage });
+            await this.sendMessage({ conversationId: existing.id, senderId, content: initialMessage });
         }
         return existing;
       }
@@ -45,7 +43,6 @@ export const messagingService = {
     // Create new conversation
     const conversation = await prisma.conversation.create({
       data: {
-        tenantId,
         type,
         subject,
         participants: {
@@ -73,8 +70,7 @@ export const messagingService = {
   /**
    * Send a message in a conversation
    */
-  async sendMessage({ tenantId: _tenantId, conversationId, senderId, content, attachments }: { 
-      tenantId: string, 
+  async sendMessage({ conversationId, senderId, content, attachments }: { 
       conversationId: string, 
       senderId: string, 
       content: string, 
@@ -124,10 +120,9 @@ export const messagingService = {
   /**
    * Get conversations for a user
    */
-  async getConversations(userId: string, _tenantId: string) {
+  async getConversations(userId: string) {
     return await prisma.conversation.findMany({
       where: {
-        tenantId: _tenantId,
         participants: {
           some: { userId }
         }
@@ -148,7 +143,7 @@ export const messagingService = {
   /**
    * Get messages for a conversation
    */
-  async getMessages(_tenantId: string, conversationId: string, userId: string, page = 1) {
+  async getMessages(conversationId: string, userId: string, page = 1) {
     // Verify access
     const membership = await prisma.conversationParticipant.findUnique({
         where: { conversationId_userId: { conversationId, userId } }

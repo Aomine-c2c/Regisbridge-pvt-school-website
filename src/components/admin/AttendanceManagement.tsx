@@ -218,7 +218,7 @@ export function AttendanceManagement() {
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={(date) => date && setSelectedDate(date)}
+                  onSelect={(date: any) => date && setSelectedDate(date)}
                   initialFocus
                 />
               </PopoverContent>
@@ -241,7 +241,7 @@ export function AttendanceManagement() {
               <Input
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e: any) => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -273,7 +273,7 @@ export function AttendanceManagement() {
               ) : filteredAttendance.length === 0 ? (
                 <TableRow><TableCell colSpan={5} className="text-center py-8">No students found</TableCell></TableRow>
               ) : (
-                filteredAttendance.map((record) => (
+                filteredAttendance.map((record: any) => (
                   <TableRow key={record.studentId}>
                     <TableCell className="font-medium">{record.rollNumber}</TableCell>
                     <TableCell>{record.studentName}</TableCell>

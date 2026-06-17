@@ -279,7 +279,7 @@ export default function StudentAssignmentsPage() {
                                         className="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent transition-all"
                                         placeholder="Type your answer or upload your work here...&#10;&#10;Tip: Be detailed and thorough in your response."
                                         value={submissionContent}
-                                        onChange={(e) => setSubmissionContent(e.target.value)}
+                                        onChange={(e: any) => setSubmissionContent(e.target.value)}
                                         required
                                         disabled={submitting}
                                     />

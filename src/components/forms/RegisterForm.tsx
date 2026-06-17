@@ -183,7 +183,7 @@ export function RegisterForm() {
               <Label htmlFor="grade">Grade *</Label>
               <Select
                 value={formData.grade}
-                onValueChange={(value) => setFormData(prev => ({ ...prev, grade: value }))}
+                onValueChange={(value: any) => setFormData(prev => ({ ...prev, grade: value }))}
                 disabled={isLoading}
               >
                 <SelectTrigger>
@@ -269,7 +269,7 @@ export function RegisterForm() {
                   type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="Confirm your password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e: any) => setConfirmPassword(e.target.value)}
                   disabled={isLoading}
                   className="pl-10 pr-10"
                   autoComplete="new-password"

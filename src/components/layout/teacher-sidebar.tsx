@@ -50,7 +50,7 @@ export function TeacherSidebar({ ...props }: React.ComponentProps<typeof Sidebar
       </SidebarHeader>
       <SidebarContent className="bg-white">
         <SidebarMenu className="px-2 py-4">
-          {navItems.map((item) => (
+          {navItems.map((item: any) => (
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton
                 asChild

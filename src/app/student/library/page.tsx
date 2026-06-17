@@ -152,7 +152,7 @@ export default function StudentLibraryPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.myShelf.map((book) => (
+                {data.myShelf.map((book: any) => (
                     <div key={book.id} className="flex bg-white dark:bg-[#1C252E] p-4 rounded-xl shadow-sm border border-[#f1f5f9] dark:border-[#283039] gap-4 group hover:border-primary/50 transition-colors">
                         <div
                         className="w-24 h-32 shrink-0 rounded-lg bg-[#e2e8f0] dark:bg-[#334155] bg-cover bg-center shadow-inner"
@@ -214,7 +214,7 @@ export default function StudentLibraryPage() {
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-              {data.recommendations.map((book) => (
+              {data.recommendations.map((book: any) => (
                 <div key={book.id} className="group cursor-pointer">
                     <div className="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg mb-3 bg-[#e2e8f0] dark:bg-[#334155]">
                         {book.coverImage ? (
@@ -255,7 +255,7 @@ export default function StudentLibraryPage() {
                 <h3 className="text-lg font-bold text-[#0f172a] dark:text-white">New Arrivals</h3>
               </div>
               <div className="space-y-4">
-                {data.newArrivals.slice(0, 2).map((book) => (
+                {data.newArrivals.slice(0, 2).map((book: any) => (
                     <div key={book.id} className="flex gap-4 items-center group cursor-pointer hover:bg-[#f8fafc] dark:hover:bg-white/5 p-2 rounded-lg -mx-2 transition-colors">
                     <div
                         className="w-12 h-16 rounded bg-[#e2e8f0] dark:bg-[#334155] bg-cover bg-center shrink-0"

@@ -343,7 +343,7 @@ export function GradeBook({
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {gradeData.subjects.map((subject) => (
+                  {gradeData.subjects.map((subject: any) => (
                     <div key={subject.name} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{subject.name}</span>
@@ -371,7 +371,7 @@ export function GradeBook({
                     .flatMap(subject => subject.assignments)
                     .sort((a, b) => b.date.getTime() - a.date.getTime())
                     .slice(0, 5)
-                    .map((assignment) => (
+                    .map((assignment: any) => (
                       <div key={assignment.id} className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-sm">{assignment.title}</p>
@@ -397,7 +397,7 @@ export function GradeBook({
                 <SelectValue placeholder="Select subject for details" />
               </SelectTrigger>
               <SelectContent>
-                {gradeData.subjects.map((subject) => (
+                {gradeData.subjects.map((subject: any) => (
                   <SelectItem key={subject.name} value={subject.name}>
                     {subject.name} ({subject.grade})
                   </SelectItem>
@@ -439,7 +439,7 @@ export function GradeBook({
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {subject.assignments.map((assignment) => (
+                      {subject.assignments.map((assignment: any) => (
                         <div key={assignment.id} className="flex items-center justify-between">
                           <div>
                             <p className="font-medium text-sm">{assignment.title}</p>

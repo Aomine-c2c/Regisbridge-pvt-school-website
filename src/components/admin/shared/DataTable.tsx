@@ -79,8 +79,8 @@ export function DataTable<T extends { id: string }>({
 
   // Filter data based on search
   const filteredData = searchQuery
-    ? data.filter((item) =>
-        columns.some((col) => {
+    ? data.filter((item: any) =>
+        columns.some((col: any) => {
           const value = item[col.key as keyof T];
           return value
             ?.toString()
@@ -125,7 +125,7 @@ export function DataTable<T extends { id: string }>({
       setSelectedIds(new Set());
       onSelectionChange?.([]);
     } else {
-      const allIds = new Set(paginatedData.map((item) => item.id));
+      const allIds = new Set(paginatedData.map((item: any) => item.id));
       setSelectedIds(allIds);
       onSelectionChange?.(Array.from(allIds));
     }
@@ -169,7 +169,7 @@ export function DataTable<T extends { id: string }>({
             <Input
               placeholder={searchPlaceholder}
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: any) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -189,7 +189,7 @@ export function DataTable<T extends { id: string }>({
                   />
                 </TableHead>
               )}
-              {columns.map((column) => (
+              {columns.map((column: any) => (
                 <TableHead key={column.key}>
                   {column.sortable ? (
                     <Button
@@ -228,7 +228,7 @@ export function DataTable<T extends { id: string }>({
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedData.map((item) => (
+              paginatedData.map((item: any) => (
                 <TableRow key={item.id}>
                   {selectable && (
                     <TableCell>
@@ -238,7 +238,7 @@ export function DataTable<T extends { id: string }>({
                       />
                     </TableCell>
                   )}
-                  {columns.map((column) => (
+                  {columns.map((column: any) => (
                     <TableCell key={column.key}>
                       {column.render
                         ? column.render(item)
@@ -259,7 +259,7 @@ export function DataTable<T extends { id: string }>({
           <span>Rows per page:</span>
           <Select
             value={localItemsPerPage.toString()}
-            onValueChange={(value) => setLocalItemsPerPage(Number(value))}
+            onValueChange={(value: any) => setLocalItemsPerPage(Number(value))}
           >
             <SelectTrigger className="w-20">
               <SelectValue />

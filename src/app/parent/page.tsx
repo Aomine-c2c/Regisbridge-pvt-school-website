@@ -119,7 +119,7 @@ export default function ParentDashboard() {
                         <div className="flex-1 min-w-0">
                             <select
                                 value={selectedChildId || ''}
-                                onChange={(e) => setSelectedChildId(e.target.value)}
+                                onChange={(e: any) => setSelectedChildId(e.target.value)}
                                 className="w-full p-2 font-semibold text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                             >
                                 {children.map(child => (

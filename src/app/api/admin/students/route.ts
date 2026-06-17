@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { hashPassword } from '@/lib/password';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { Prisma } from '@prisma/client';
@@ -10,12 +9,11 @@ export async function GET(request: NextRequest) {
     const authResult = await requireAdmin(request);
     if (authResult.error) return authResult.error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
@@ -71,7 +69,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Flatten response structure to match frontend expectations
-    const flattenedStudents = students.map((student) => ({
+    const flattenedStudents = students.map((student: any) => ({
       id: student.id,
       studentId: student.userId, // Mapping userId to studentId for frontend
       firstName: student.user.firstName,
@@ -118,12 +116,11 @@ export async function POST(request: NextRequest) {
     const authResult = await requireAdmin(request);
     if (authResult.error) return authResult.error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const body = await request.json();
     const {
@@ -171,7 +168,7 @@ export async function POST(request: NextRequest) {
     const rollNumber = `${new Date().getFullYear()}${(count + 1).toString().padStart(4, '0')}`;
 
     // Transaction to create User and Student keys
-    const result = await db.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx: any) => {
       const user = await tx.user.create({
         data: {
           email,

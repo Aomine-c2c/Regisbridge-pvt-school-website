@@ -176,7 +176,7 @@ export function StudentManagement() {
             placeholder="Search students..."
             className="pl-8"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: any) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
@@ -227,7 +227,7 @@ export function StudentManagement() {
                 <TableCell colSpan={6} className="text-center py-8">No students found</TableCell>
               </TableRow>
             ) : (
-              students.map((student) => (
+              students.map((student: any) => (
                 <TableRow key={student.id}>
                   <TableCell>
                     <div>
@@ -297,23 +297,23 @@ export function StudentManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>First Name</Label>
-                  <Input required value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
+                  <Input required value={formData.firstName} onChange={(e: any) => setFormData({...formData, firstName: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Last Name</Label>
-                  <Input required value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
+                  <Input required value={formData.lastName} onChange={(e: any) => setFormData({...formData, lastName: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Email</Label>
-                  <Input required type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                  <Input required type="email" value={formData.email} onChange={(e: any) => setFormData({...formData, email: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Date of Birth</Label>
-                  <Input type="date" value={formData.dateOfBirth} onChange={(e) => setFormData({...formData, dateOfBirth: e.target.value})} />
+                  <Input type="date" value={formData.dateOfBirth} onChange={(e: any) => setFormData({...formData, dateOfBirth: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Grade</Label>
-                  <Select value={formData.grade} onValueChange={(val) => setFormData({...formData, grade: val})}>
+                  <Select value={formData.grade} onValueChange={(val: any) => setFormData({...formData, grade: val})}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Grade" />
                     </SelectTrigger>
@@ -326,7 +326,7 @@ export function StudentManagement() {
                 </div>
                 <div className="space-y-2">
                   <Label>Class/Section</Label>
-                  <Input value={formData.className} onChange={(e) => setFormData({...formData, className: e.target.value})} placeholder="e.g. 10A" />
+                  <Input value={formData.className} onChange={(e: any) => setFormData({...formData, className: e.target.value})} placeholder="e.g. 10A" />
                 </div>
               </div>
             </div>
@@ -337,19 +337,19 @@ export function StudentManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Guardian Name</Label>
-                  <Input required value={formData.parentName} onChange={(e) => setFormData({...formData, parentName: e.target.value})} />
+                  <Input required value={formData.parentName} onChange={(e: any) => setFormData({...formData, parentName: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Guardian Email</Label>
-                  <Input type="email" value={formData.parentEmail} onChange={(e) => setFormData({...formData, parentEmail: e.target.value})} />
+                  <Input type="email" value={formData.parentEmail} onChange={(e: any) => setFormData({...formData, parentEmail: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label>Phone Number</Label>
-                  <Input required value={formData.parentPhone} onChange={(e) => setFormData({...formData, parentPhone: e.target.value})} />
+                  <Input required value={formData.parentPhone} onChange={(e: any) => setFormData({...formData, parentPhone: e.target.value})} />
                 </div>
                  <div className="space-y-2">
                   <Label>Relationship</Label>
-                  <Select value={formData.parentRelationship} onValueChange={(val) => setFormData({...formData, parentRelationship: val})}>
+                  <Select value={formData.parentRelationship} onValueChange={(val: any) => setFormData({...formData, parentRelationship: val})}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select Relationship" />
                     </SelectTrigger>
@@ -369,11 +369,11 @@ export function StudentManagement() {
               <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
                   <Label>Allergies</Label>
-                  <Input value={formData.medicalAllergies} onChange={(e) => setFormData({...formData, medicalAllergies: e.target.value})} />
+                  <Input value={formData.medicalAllergies} onChange={(e: any) => setFormData({...formData, medicalAllergies: e.target.value})} />
                 </div>
                  <div className="space-y-2">
                   <Label>Medications</Label>
-                  <Input value={formData.medicalMedications} onChange={(e) => setFormData({...formData, medicalMedications: e.target.value})} />
+                  <Input value={formData.medicalMedications} onChange={(e: any) => setFormData({...formData, medicalMedications: e.target.value})} />
                 </div>
               </div>
             </div>

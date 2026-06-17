@@ -76,7 +76,7 @@ export function AuditLogViewer() {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {logs.map((log) => (
+              {logs.map((log: any) => (
                 <tr key={log.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedLog(log)}>
                   <td className="px-4 py-3 whitespace-nowrap text-gray-500">
                     <div className="flex items-center gap-2">

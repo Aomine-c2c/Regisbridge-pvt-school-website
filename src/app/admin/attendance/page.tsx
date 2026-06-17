@@ -188,7 +188,7 @@ export default function AttendancePage() {
                     <input 
                         type="date" 
                         value={date}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e: any) => setDate(e.target.value)}
                         className="pl-9 h-10 w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-navy focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
                     />
                 </div>
@@ -216,7 +216,7 @@ export default function AttendancePage() {
                     <Input 
                         placeholder="Search by name or ID..." 
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e: any) => setSearchQuery(e.target.value)}
                         className="pl-9"
                     />
                  </div>
@@ -251,7 +251,7 @@ export default function AttendancePage() {
                     ) : filteredStudents.length === 0 ? (
                          <tr><td colSpan={4} className="p-8 text-center text-slate-500">No students found for this grade.</td></tr>
                     ) : (
-                        filteredStudents.map((student) => (
+                        filteredStudents.map((student: any) => (
                             <tr key={student.studentId} className={`hover:bg-slate-50 transition-colors ${student.status === 'ABSENT' ? 'bg-red-50/30' : ''}`}>
                                 <td className="px-6 py-4 font-mono text-slate-600">{student.rollNumber || '-'}</td>
                                 <td className="px-6 py-4 font-medium text-slate-900">{student.studentName}</td>
@@ -298,7 +298,7 @@ export default function AttendancePage() {
                                     <Input 
                                         placeholder="Add remark..." 
                                         value={student.remarks || ''}
-                                        onChange={(e) => handleRemarkChange(student.studentId, e.target.value)}
+                                        onChange={(e: any) => handleRemarkChange(student.studentId, e.target.value)}
                                         className="h-8 text-xs w-full min-w-[150px]"
                                     />
                                 </td>

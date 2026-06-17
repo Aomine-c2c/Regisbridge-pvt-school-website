@@ -214,7 +214,7 @@ export default function SetupWizardPage() {
                     <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Preview</label>
                     <div className="flex-1 rounded-lg bg-slate-100 dark:bg-[#101522] border border-slate-200 dark:border-[#282c39] p-4 flex items-center justify-center relative overflow-hidden h-32">
                       {formData.logoUrl ? (
-                          <img src={formData.logoUrl} alt="Logo Preview" className="h-full object-contain" onError={(e) => (e.currentTarget.style.display = 'none')} />
+                          <img src={formData.logoUrl} alt="Logo Preview" className="h-full object-contain" onError={(e: any) => (e.currentTarget.style.display = 'none')} />
                       ) : (
                           <span className="text-xs text-[#9da4b9] italic">No file selected</span>
                       )}

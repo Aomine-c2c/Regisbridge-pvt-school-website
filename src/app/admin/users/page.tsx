@@ -230,7 +230,7 @@ export default function SystemUserManagementPage() {
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">search</span>
                   <input
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e: any) => setSearchQuery(e.target.value)}
                     className="w-full pl-10 pr-4 h-10 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-blue-600 text-sm text-gray-900 placeholder-gray-500"
                     placeholder="Search by name, email, or role..."
                     type="text"
@@ -264,7 +264,7 @@ export default function SystemUserManagementPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {filteredUsers.length > 0 ? (
-                        filteredUsers.map((user) => (
+                        filteredUsers.map((user: any) => (
                         <tr key={user.id} className="hover:bg-gray-50 transition-colors group">
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
@@ -380,7 +380,7 @@ export default function SystemUserManagementPage() {
                   <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Select Role</label>
                   <select 
                     value={selectedRoleToEdit}
-                    onChange={(e) => setSelectedRoleToEdit(e.target.value)}
+                    onChange={(e: any) => setSelectedRoleToEdit(e.target.value)}
                     className="w-full p-2 border border-gray-200 rounded-lg text-sm font-medium focus:ring-2 focus:ring-blue-600"
                   >
                     {SYSTEM_ROLES.map(role => (
@@ -420,7 +420,7 @@ export default function SystemUserManagementPage() {
                       { key: 'view_reports', name: 'View Reports', desc: 'Access to financial dashboards' },
                       { key: 'process_payments', name: 'Process Payments', desc: 'Charge cards and record checks' },
                       { key: 'manage_payroll', name: 'Manage Payroll', desc: 'Edit salaries and disburse funds' },
-                    ].map((perm) => (
+                    ].map((perm: any) => (
                       <div key={perm.key} className="flex items-center justify-between group">
                         <div className="flex flex-col">
                           <span className="text-sm font-medium text-gray-900">{perm.name}</span>
@@ -443,7 +443,7 @@ export default function SystemUserManagementPage() {
                       { key: 'view_profiles', name: 'View Profiles', desc: 'Read-only access to student info' },
                       { key: 'edit_records', name: 'Edit Academic Records', desc: 'Change grades and attendance' },
                       { key: 'delete_records', name: 'Delete Records', desc: 'Permanently remove student data' },
-                    ].map((perm) => (
+                    ].map((perm: any) => (
                       <div key={perm.key} className="flex items-center justify-between group">
                         <div className="flex flex-col">
                           <span className="text-sm font-medium text-gray-900">{perm.name}</span>

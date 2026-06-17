@@ -32,7 +32,7 @@ export function SectionRenderer({ config }: SectionRendererProps) {
 
   return (
     <>
-      {config.sections.map((section) => {
+      {config.sections.map((section: any) => {
         const Component = COMPONENT_REGISTRY[section.type];
         if (!Component) {
           console.warn(`Unknown component type: ${section.type}`);

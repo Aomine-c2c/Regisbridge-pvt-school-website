@@ -11,8 +11,7 @@ export async function POST(req: NextRequest) {
     // TODO: Allow teachers too.
     if (error) return error;
 
-    const tenantId = req.headers.get("x-tenant-id");
-    if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
+        if (!tenantId) return new NextResponse("Unauthorized", { status: 401 });
 
     const body = await req.json();
     const { studentId } = body;
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Missing studentId", { status: 400 });
     }
 
-    const insight = await aiService.analyzeStudentRisk(tenantId, studentId);
+    const insight = await aiService.analyzeStudentRisk(studentId);
     
     return NextResponse.json({ insight });
 

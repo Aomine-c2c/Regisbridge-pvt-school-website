@@ -90,7 +90,7 @@ export function TimetableGrid({
             <p className="text-sm">No classes scheduled</p>
           </div>
         ) : (
-          lessons.map((lesson) => {
+          lessons.map((lesson: any) => {
             const status = lesson.status || 'upcoming';
             const colors = statusColors[status];
 

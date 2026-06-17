@@ -63,7 +63,7 @@ export default function MyClassesPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {classes.map((cls) => (
+                    {classes.map((cls: any) => (
                         <div key={`${cls.id}-${cls.subject}`} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
                             <div className="flex justify-between items-start mb-4">
                                 <BadgeNew variant={cls.role === 'Form Tutor' ? 'primary' : 'secondary'}>

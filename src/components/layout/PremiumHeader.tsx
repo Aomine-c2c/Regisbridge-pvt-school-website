@@ -6,11 +6,13 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import NavDropdown from '@/components/ui/NavDropdown';
 import { useSettings } from '@/contexts/SettingsContext';
+import { useAllFeatureFlags } from '@/contexts/FeatureFlagContext';
 
 export function PremiumHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { settings } = useSettings();
+  const features = useAllFeatureFlags();
 
   const menuItems = {
     about: [
@@ -27,22 +29,22 @@ export function PremiumHeader() {
     ],
     academics: [
       { label: 'Academic Excellence', href: '/academics' },
-      { label: 'Digital Library', href: '/student/library' },
+      ...(features.enableLibrary ? [{ label: 'Digital Library', href: '/student/library' }] : []),
       { label: 'Academic Calendar', href: '/calendar' },
       { label: 'Career Guidance', href: '/career-guidance' },
     ],
     studentLife: [
       { label: 'Student Life Overview', href: '/student-life' },
-      { label: 'Boarding & Pastoral Care', href: '/boarding' },
+      ...(features.enableHostel ? [{ label: 'Boarding & Pastoral Care', href: '/boarding' }] : []),
       { label: 'Student Leadership', href: '/student-leadership' },
       { label: 'Student Wellness', href: '/wellness' },
       { label: 'House Championship', href: '/student/house' },
     ],
     community: [
-      { label: 'News & Events', href: '/news' },
+      ...(features.enableBlog || features.enableEvents ? [{ label: 'News & Events', href: '/news' }] : []),
       { label: 'Alumni Network', href: '/alumni' },
       { label: 'Support & Giving', href: '/support' },
-      { label: 'School Shop', href: '/shop' },
+      ...(features.enableFinance ? [{ label: 'School Shop', href: '/shop' }] : []),
       { label: 'Press Kit', href: '/press' },
     ],
   };
@@ -152,7 +154,7 @@ export function PremiumHeader() {
                   {key === 'studentLife' ? 'Student Life' : key.charAt(0).toUpperCase() + key.slice(1)}
                 </div>
                 <div className="flex flex-col pb-3">
-                  {items.map((item) => (
+                  {items.map((item: any) => (
                     <Link
                       key={item.href}
                       href={item.href}

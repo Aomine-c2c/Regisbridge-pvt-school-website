@@ -56,7 +56,7 @@ export function DataTable<T extends { id: string | number }>({
               </TableCell>
             </TableRow>
           ) : (
-            data.map((item) => (
+            data.map((item: any) => (
               <TableRow
                 key={item.id}
                 onClick={() => onRowClick && onRowClick(item)}

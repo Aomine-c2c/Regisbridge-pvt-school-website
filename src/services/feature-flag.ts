@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/db";
 
 export const featureFlagService = {
-  async getTenantFeatures(tenantId: string) {
+  async getTenantFeatures() {
     try {
       const features = await prisma.tenantFeatures.findUnique({
-        where: { tenantId },
+        where: {},
       });
 
       if (!features) {
@@ -35,7 +35,7 @@ export const featureFlagService = {
     }
   },
 
-  async isFeatureEnabled(tenantId: string, feature: keyof Omit<import("@prisma/client").TenantFeatures, "id" | "tenantId" | "tenant">) {
+  async isFeatureEnabled(feature: keyof Omit<import("@prisma/client").TenantFeatures, "id" | "tenantId" | "tenant">) {
     const features = await this.getTenantFeatures(tenantId);
     return features ? features[feature] : false;
   },

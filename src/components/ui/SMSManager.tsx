@@ -225,7 +225,7 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
                   type="checkbox"
                   id="bulkMode"
                   checked={isBulkMode}
-                  onChange={(e) => setIsBulkMode(e.target.checked)}
+                  onChange={(e: any) => setIsBulkMode(e.target.checked)}
                   className="rounded"
                 />
                 <Label htmlFor="bulkMode">Bulk SMS Mode</Label>
@@ -238,18 +238,18 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
                     <Input
                       id="recipient"
                       value={formData.recipient}
-                      onChange={(e) => setFormData(prev => ({ ...prev, recipient: e.target.value }))}
+                      onChange={(e: any) => setFormData(prev => ({ ...prev, recipient: e.target.value }))}
                       placeholder="+263771234567"
                     />
                   </div>
                   <div>
                     <Label htmlFor="recipientGroup">Or Select Group</Label>
-                    <Select value={formData.recipientGroup} onValueChange={(value) => setFormData(prev => ({ ...prev, recipientGroup: value }))}>
+                    <Select value={formData.recipientGroup} onValueChange={(value: any) => setFormData(prev => ({ ...prev, recipientGroup: value }))}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select recipient group" />
                       </SelectTrigger>
                       <SelectContent>
-                        {recipientGroups.map((group) => (
+                        {recipientGroups.map((group: any) => (
                           <SelectItem key={group.value} value={group.value}>
                             {group.label} ({group.count} recipients)
                           </SelectItem>
@@ -264,7 +264,7 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
                   <Textarea
                     id="bulkRecipients"
                     value={bulkRecipients}
-                    onChange={(e) => setBulkRecipients(e.target.value)}
+                    onChange={(e: any) => setBulkRecipients(e.target.value)}
                     placeholder="+263771234567&#10;+263781234567&#10;+263791234567"
                     rows={6}
                   />
@@ -276,7 +276,7 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
                 <Textarea
                   id="message"
                   value={formData.message}
-                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                  onChange={(e: any) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                   placeholder="Enter your SMS message (160 characters max for single SMS)"
                   rows={4}
                   maxLength={160}
@@ -296,7 +296,7 @@ export function SMSManager({ userRole = 'admin' }: SMSManagerProps) {
       </div>
 
       <div className="grid gap-4">
-        {messages.map((message) => (
+        {messages.map((message: any) => (
           <Card key={message.id}>
             <CardHeader>
               <div className="flex items-center justify-between">

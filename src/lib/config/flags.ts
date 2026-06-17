@@ -23,7 +23,7 @@ export const identify = dedupe((async () => ({
 export const createFeatureFlag = (key: string) => flag<boolean, StatsigUser>({
   key,
   adapter: statsigAdapter.featureGate(
-    (gate) => gate.value,
+    (gate: any) => gate.value,
     { exposureLogging: true }
   ),
   identify,

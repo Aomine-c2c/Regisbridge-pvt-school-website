@@ -12,8 +12,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     const { id: conversationId } = await params;
 
     const messages = await messagingService.getMessages(
-      session.user.tenantId,
-      conversationId,
+      session.user.conversationId,
       session.user.id
     );
 

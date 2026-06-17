@@ -111,7 +111,7 @@ export function ConversationList({ currentUserId }: ConversationListProps) {
           </div>
         ) : (
           <div className="divide-y">
-            {conversations.map((conv) => {
+            {conversations.map((conv: any) => {
               const isActive = pathname === `/communications/${conv.id}`;
               const title = getConversationTitle(conv);
               const preview = getPreview(conv);

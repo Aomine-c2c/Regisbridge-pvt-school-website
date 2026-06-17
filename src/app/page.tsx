@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
 import { getSettings } from '@/lib/settings';
+import { headers } from 'next/headers';
+import { featureFlagService } from '@/services/feature-flag';
+import { prisma } from '@/lib/db';
+import { redirect } from 'next/navigation';
 
 import { PremiumHeader } from '@/components/layout/PremiumHeader';
 import { PremiumFooter } from '@/components/layout/PremiumFooter';
@@ -126,7 +130,19 @@ const TESTIMONIALS = [
 ];
 
 export default async function Home() {
-  const settings = await getSettings();
+  const settings = await prisma.systemSettings.findFirst();
+  
+  if (!settings?.setupCompleted) {
+      redirect('/welcome');
+  }
+
+  let features = null;
+  // TODO: Implement global feature flags if needed, for now we default them.
+
+  // Fallback to defaults if no features found
+  const enableHostel = features?.enableHostel ?? false;
+  const enableEvents = features?.enableEvents ?? true;
+  const enableBlog = features?.enableBlog ?? true;
   
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white">
@@ -247,6 +263,7 @@ export default async function Home() {
       </section>
 
       {/* Boarding Feature Section */}
+      {enableHostel && (
       <section id="boarding" aria-label="Boarding Life" className="bg-brand-navy text-white py-20 relative overflow-hidden">
         {/* Decorative blur effects */}
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/20 rounded-full blur-3xl pointer-events-none" />
@@ -303,8 +320,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      )}
 
 {/* Latest News */}
+      {(enableBlog || enableEvents) && (
       <section id="news" aria-label="Latest News" className="py-16 px-6 lg:px-20 max-w-[1200px] mx-auto bg-white my-12 rounded-3xl shadow-sm border border-gray-100">
         <ScrollReveal animation="fadeInUp">
           <div className="flex items-center justify-between mb-8">
@@ -316,6 +335,7 @@ export default async function Home() {
         </ScrollReveal>
         <NewsCarousel items={NEWS_ITEMS} />
       </section>
+      )}
 
       {/* Virtual Tour */}
       <VirtualTour />

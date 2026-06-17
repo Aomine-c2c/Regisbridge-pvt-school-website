@@ -13,8 +13,8 @@ export function Providers({ children, features, tenant }: { children: React.Reac
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
-        .then((reg) => console.log('SW Registered', reg))
-        .catch((err) => console.error('SW Registration Error', err));
+        .then((reg: any) => console.log('SW Registered', reg))
+        .catch((err: any) => console.error('SW Registration Error', err));
     }
   }, []);
 

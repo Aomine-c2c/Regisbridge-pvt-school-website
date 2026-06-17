@@ -133,7 +133,7 @@ export default function ApplicationFormPage() {
                         type="text"
                         required
                         value={formData.firstName}
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, firstName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -145,7 +145,7 @@ export default function ApplicationFormPage() {
                         type="text"
                         required
                         value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, lastName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -157,7 +157,7 @@ export default function ApplicationFormPage() {
                         type="date"
                         required
                         value={formData.dateOfBirth}
-                        onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -168,7 +168,7 @@ export default function ApplicationFormPage() {
                       <select
                         required
                         value={formData.gender}
-                        onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, gender: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       >
                         <option value="">Select</option>
@@ -194,7 +194,7 @@ export default function ApplicationFormPage() {
                         type="text"
                         required
                         value={formData.parentName}
-                        onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, parentName: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -206,7 +206,7 @@ export default function ApplicationFormPage() {
                         type="email"
                         required
                         value={formData.parentEmail}
-                        onChange={(e) => setFormData({ ...formData, parentEmail: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, parentEmail: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -218,7 +218,7 @@ export default function ApplicationFormPage() {
                         type="tel"
                         required
                         value={formData.parentPhone}
-                        onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, parentPhone: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -238,7 +238,7 @@ export default function ApplicationFormPage() {
                       <input
                         type="text"
                         value={formData.currentSchool}
-                        onChange={(e) => setFormData({ ...formData, currentSchool: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, currentSchool: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>
@@ -249,7 +249,7 @@ export default function ApplicationFormPage() {
                       <select
                         required
                         value={formData.gradeApplying}
-                        onChange={(e) => setFormData({ ...formData, gradeApplying: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, gradeApplying: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       >
                         <option value="">Select Grade</option>
@@ -268,7 +268,7 @@ export default function ApplicationFormPage() {
                         type="date"
                         required
                         value={formData.startDate}
-                        onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                        onChange={(e: any) => setFormData({ ...formData, startDate: e.target.value })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-navy focus:border-transparent"
                       />
                     </div>

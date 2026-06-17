@@ -24,8 +24,7 @@ export async function POST(request: NextRequest) {
 
   // Example: private-tenant-[tenantId]
   if (channel.startsWith('private-tenant-')) {
-    const tenantId = channel.split('-')[2];
-    if (session.user.tenantId && session.user.tenantId !== tenantId) {
+        if (session.undefined && session.undefined !== tenantId) {
       return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
     }
   }

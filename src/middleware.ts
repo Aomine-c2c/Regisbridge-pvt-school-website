@@ -40,15 +40,7 @@ export async function middleware(request: NextRequest) {
     const hostname = request.headers.get('host') || ''
     
     // 1. Tenant Resolution
-    let tenantSlug = null
-    if (hostname.includes('localhost')) {
-        tenantSlug = 'default-school'
-    } else {
-        const parts = hostname.split('.')
-        if (parts.length > 2) {
-            tenantSlug = parts[0]
-        }
-    }
+    // Tenant logic removed for single-tenant architecture
 
     // 2. Check for public routes / assets
     if (pathname.match(/\.(png|jpg|jpeg|gif|ico|svg|css|js|woff|woff2)$/) ||
@@ -64,12 +56,8 @@ export async function middleware(request: NextRequest) {
     const isPublicRoute = PUBLIC_ROUTES.some(route => pathname.startsWith(route) || pathname === '/')
 
     if (isPublicRoute) {
-       // Allow public routes, but still inject tenant header if we found one
-       const requestHeaders = new Headers(request.headers)
-       if (tenantSlug) requestHeaders.set('x-tenant-slug', tenantSlug)
-       return NextResponse.next({
-          request: { headers: requestHeaders }
-       })
+       // Allow public routes
+       return NextResponse.next()
     }
 
     // 4. Authentication Check
@@ -124,7 +112,7 @@ export async function middleware(request: NextRequest) {
 
     if (matchedRoute) {
       const allowedRoles = PROTECTED_ROUTES[matchedRoute as keyof typeof PROTECTED_ROUTES]
-      if (!allowedRoles.includes(userRole)) {
+      if (userRole !== 'SUPERUSER' && !allowedRoles.includes(userRole)) {
          const url = request.nextUrl.clone()
          url.pathname = '/unauthorized' 
          return NextResponse.redirect(url)
@@ -135,12 +123,6 @@ export async function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-user-id', payload.userId as string)
     requestHeaders.set('x-user-role', payload.role as string)
-    if (payload.tenantId) {
-        requestHeaders.set('x-tenant-id', payload.tenantId as string)
-    }
-    if (tenantSlug) {
-        requestHeaders.set('x-tenant-slug', tenantSlug)
-    }
 
     const response = NextResponse.next({
       request: {

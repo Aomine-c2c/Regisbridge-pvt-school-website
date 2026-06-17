@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { Prisma } from '@prisma/client';
 
@@ -9,12 +8,11 @@ export async function GET(request: NextRequest) {
     const { error } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const searchParams = request.nextUrl.searchParams;
     const studentId = searchParams.get('studentId');
@@ -26,8 +24,7 @@ export async function GET(request: NextRequest) {
     const where: Prisma.FeePaymentWhereInput = {
         // Enforce tenant scoping via student relation since FeePayment lacks tenantId
         student: {
-            tenantId: tenantId
-        }
+            }
     };
     
     if (studentId) where.studentId = studentId;
@@ -93,12 +90,11 @@ export async function POST(request: NextRequest) {
     const { error, user } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const body = await request.json();
     const {

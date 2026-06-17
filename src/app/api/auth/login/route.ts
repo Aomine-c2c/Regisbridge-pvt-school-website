@@ -9,7 +9,17 @@ import { auditService } from '@/services/audit-service'
 
 async function loginHandler(request: NextRequest) {
   try {
-    const body = await request.json()
+    let body;
+    try {
+      body = await request.json()
+      console.log('[Login] Request body parsed', { email: body.email })
+    } catch (_e) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid JSON body' },
+        { status: 400 }
+      )
+    }
+
     const { email, password } = body
 
     // Validate input with more specific checks
@@ -31,11 +41,20 @@ async function loginHandler(request: NextRequest) {
     // Sanitize email
     const sanitizedEmail = sanitizeInput(email.toLowerCase())
 
-    // Find user (using findFirst since email is unique per tenant but not globally)
-    // TODO: In the future, we should scope this by tenantId determined from the domain
-    const user = await prisma.user.findFirst({
-      where: { email: sanitizedEmail },
-    })
+    // Find user by global unique email
+    let user;
+    try {
+      user = await prisma.user.findUnique({
+        where: { email: sanitizedEmail },
+      })
+      console.log('[Login] User lookup result:', user ? 'Found' : 'Not Found', user?.id)
+    } catch (dbError: any) {
+      console.error('Database connection error during login:', dbError)
+      return NextResponse.json(
+        { success: false, message: 'Service unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -46,6 +65,7 @@ async function loginHandler(request: NextRequest) {
 
     // Verify password
     const isValidPassword = await comparePassword(password, user.password)
+    console.log('[Login] Password verification:', isValidPassword)
     if (!isValidPassword) {
       return NextResponse.json(
         { success: false, message: 'Invalid credentials' },
@@ -63,16 +83,18 @@ async function loginHandler(request: NextRequest) {
 
     // Generate tokens
     const permissions = await rbacService.getUserPermissions(user.id)
+    console.log('[Login] Permissions fetched:', permissions.length)
 
     const payload = {
       userId: user.id,
       email: user.email,
       role: user.role,
       permissions,
-      tenantId: user.tenantId || undefined, // Add tenantId
+      // Add tenantId
     }
 
     const accessToken = await generateAccessToken(payload)
+    console.log('[Login] Access Token generated')
     const refreshToken = await generateRefreshToken(payload)
 
     // Remove password from response
@@ -109,21 +131,26 @@ async function loginHandler(request: NextRequest) {
     })
 
     // Audit Log: Successful Login
-    await auditService.log({
-      action: 'LOGIN_SUCCESS',
-      resource: 'auth',
-      userId: user.id,
-      tenantId: user.tenantId || 'global', // Fallback if no tenant
-      ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
-      userAgent: request.headers.get('user-agent') || 'unknown',
-      details: { email: user.email }
-    })
+    try {
+      await auditService.log({
+        action: 'LOGIN_SUCCESS',
+        resource: 'auth',
+        userId: user.id,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
+        details: { email: user.email }
+      })
+    } catch (auditError) {
+      console.error('Audit log failed:', auditError)
+      // Continue login even if audit fails
+    }
 
+    console.log('[Login] Sending success response')
     return addSecurityHeaders(response)
-  } catch (error) {
-    console.error('Login error:', error)
+  } catch (error: any) {
+    console.error('Critical login error:', error)
     return addSecurityHeaders(NextResponse.json(
-      { success: false, message: 'Internal server error' },
+      { success: false, message: 'Internal server error', error: process.env.NODE_ENV === 'development' ? error.message : undefined },
       { status: 500 }
     ))
   }

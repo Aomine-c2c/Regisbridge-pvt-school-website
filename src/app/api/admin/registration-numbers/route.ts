@@ -2,7 +2,6 @@ import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/api/auth-middleware'
 import { secureResponse } from '@/lib/api/security-headers'
 import { checkRateLimit, rateLimitPresets } from '@/lib/rate-limit'
-import { getTenantDb } from '@/lib/db'
 import {
   generateUniqueRegistrationNumber,
   getRegistrationStats,
@@ -27,12 +26,11 @@ export async function GET(request: NextRequest) {
     const { error } = await requireAdmin(request)
     if (error) return error
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
         return secureResponse({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     // Get year from query params
     const { searchParams } = new URL(request.url)
@@ -77,12 +75,11 @@ export async function POST(request: NextRequest) {
     const { error } = await requireAdmin(request)
     if (error) return error
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
         return secureResponse({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const body = await request.json()
     const {

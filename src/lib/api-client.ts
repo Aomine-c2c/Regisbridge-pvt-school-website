@@ -117,7 +117,7 @@ async function apiRequest<T>(
       // Retry on network/timeout errors
       if (attempt < retries) {
         const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
-        await new Promise((resolve) => setTimeout(resolve, delay));
+        await new Promise((resolve: any) => setTimeout(resolve, delay));
         continue;
       }
     }

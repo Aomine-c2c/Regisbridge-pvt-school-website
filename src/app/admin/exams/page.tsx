@@ -210,7 +210,7 @@ export default function ExamSessionManagementPage() {
                   {data.schedules.length === 0 ? (
                       <tr><td colSpan={6} className="p-8 text-center text-gray-500">No scheduled exams found.</td></tr>
                   ) : (
-                      data.schedules.map((exam) => (
+                      data.schedules.map((exam: any) => (
                         <tr key={exam.id} className="hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors group">
                             <td className="p-4 text-center">
                             <input className="rounded border-gray-300 text-primary focus:ring-primary" type="checkbox" />

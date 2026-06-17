@@ -5,11 +5,10 @@ export const aiService = {
   /**
    * Generates a risk analysis for a student based on their data.
    */
-  async analyzeStudentRisk(tenantId: string, studentId: string): Promise<string | null> {
+  async analyzeStudentRisk(studentId: string): Promise<string | null> {
     // 1. Check if we have a fresh cached insight (less than 24 hours old)
     const cached = await prisma.aiInsight.findFirst({
       where: {
-        tenantId,
         entityType: 'STUDENT',
         entityId: studentId,
         createdAt: { gt: new Date(Date.now() - 24 * 60 * 60 * 1000) } // 24 hours
@@ -66,7 +65,6 @@ export const aiService = {
       // 5. Cache Result
       await prisma.aiInsight.create({
         data: {
-          tenantId,
           entityType: 'STUDENT',
           entityId: studentId,
           insight
@@ -80,11 +78,10 @@ export const aiService = {
   /**
    * Generates a performance summary for a class.
    */
-  async generateClassSummary(tenantId: string, classId: string): Promise<string | null> {
+  async generateClassSummary(classId: string): Promise<string | null> {
      // 1. Check Cache
      const cached = await prisma.aiInsight.findFirst({
         where: {
-          tenantId,
           entityType: 'CLASS',
           entityId: classId,
           createdAt: { gt: new Date(Date.now() - 24 * 60 * 60 * 1000) }
@@ -143,7 +140,6 @@ export const aiService = {
       if (insight) {
           await prisma.aiInsight.create({
               data: {
-                  tenantId,
                   entityType: 'CLASS',
                   entityId: classId,
                   insight
@@ -157,7 +153,7 @@ export const aiService = {
   /**
    * Predicts potential student dropout risk based on attendance trends and academic decline.
    */
-  async predictDropoutRisk(tenantId: string, studentId: string): Promise<string | null> {
+  async predictDropoutRisk(studentId: string): Promise<string | null> {
       // 1. Fetch Data (Last 90 days for trend analysis)
       const student = await prisma.student.findUnique({
           where: { id: studentId },

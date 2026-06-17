@@ -1,158 +1,254 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
-export default function WelcomePage() {
-  return (
-    <div className="font-sans antialiased bg-[#f8f8f5] dark:bg-[#221e10] text-slate-900 dark:text-slate-100 overflow-hidden h-screen relative">
-      {/* Main Dashboard Layer (Blurred Background) */}
-      <div className="relative flex h-full w-full flex-col bg-[#181611] dark overflow-hidden blur-[4px] scale-[0.99] opacity-60 pointer-events-none select-none transition-all duration-500">
-        <div className="flex h-full grow flex-col">
-          <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#393528] px-10 py-3 bg-[#181611]">
-            <div className="flex items-center gap-4 text-white">
-              <div className="size-8 text-[#f4c025] flex items-center justify-center">
-                <span className="material-symbols-outlined text-3xl">school</span>
-              </div>
-              <h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">EduCommand Enterprise</h2>
+export default function SetupWizardPage() {
+    const router = useRouter();
+    const [step, setStep] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const [formData, setFormData] = useState({
+        schoolName: '',
+        primaryColor: '#0f172a',
+        secondaryColor: '#3b82f6',
+        adminFirstName: '',
+        adminLastName: '',
+        adminEmail: '',
+        adminPassword: '',
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const nextStep = () => {
+        setError('');
+        if (step === 1 && !formData.schoolName) {
+            setError('School Name is required');
+            return;
+        }
+        setStep(s => s + 1);
+    };
+
+    const prevStep = () => setStep(s => s - 1);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError('');
+        
+        if (!formData.adminEmail || !formData.adminPassword || !formData.adminFirstName || !formData.adminLastName) {
+            setError('All admin fields are required');
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const res = await fetch('/api/setup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Failed to setup');
+            }
+
+            // Redirect to login page upon success
+            router.push('/login?setup=success');
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
+                <div>
+                    <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
+                        System Setup
+                    </h2>
+                    <p className="mt-2 text-center text-sm text-gray-600">
+                        {step === 1 && "Let's start with your school's identity"}
+                        {step === 2 && "Choose your primary brand colors"}
+                        {step === 3 && "Create the master administrator account"}
+                    </p>
+                </div>
+
+                {error && (
+                    <div className="bg-red-50 border-l-4 border-red-400 p-4">
+                        <div className="flex">
+                            <div className="ml-3">
+                                <p className="text-sm text-red-700">{error}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                    {/* Step 1: Basic Info */}
+                    {step === 1 && (
+                        <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-500">
+                            <div>
+                                <label htmlFor="schoolName" className="block text-sm font-medium text-gray-700">
+                                    School Name
+                                </label>
+                                <input
+                                    id="schoolName"
+                                    name="schoolName"
+                                    type="text"
+                                    required
+                                    value={formData.schoolName}
+                                    onChange={handleChange}
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm mt-1"
+                                    placeholder="Regisbridge Academy"
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 2: Branding */}
+                    {step === 2 && (
+                        <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
+                            <div>
+                                <label htmlFor="primaryColor" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Primary Color
+                                </label>
+                                <div className="flex items-center gap-3">
+                                    <input
+                                        id="primaryColor"
+                                        name="primaryColor"
+                                        type="color"
+                                        value={formData.primaryColor}
+                                        onChange={handleChange}
+                                        className="h-10 w-10 border-0 p-0 rounded cursor-pointer"
+                                    />
+                                    <span className="text-sm text-gray-500 font-mono uppercase">{formData.primaryColor}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="secondaryColor" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Secondary Color
+                                </label>
+                                <div className="flex items-center gap-3">
+                                    <input
+                                        id="secondaryColor"
+                                        name="secondaryColor"
+                                        type="color"
+                                        value={formData.secondaryColor}
+                                        onChange={handleChange}
+                                        className="h-10 w-10 border-0 p-0 rounded cursor-pointer"
+                                    />
+                                    <span className="text-sm text-gray-500 font-mono uppercase">{formData.secondaryColor}</span>
+                                </div>
+                            </div>
+                            
+                            {/* Preview box */}
+                            <div className="mt-4 p-4 rounded-lg shadow-sm" style={{ backgroundColor: formData.primaryColor }}>
+                                <div className="text-white font-semibold text-center mb-2">Color Preview</div>
+                                <div className="w-full h-8 rounded" style={{ backgroundColor: formData.secondaryColor }}></div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 3: Admin Account */}
+                    {step === 3 && (
+                        <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-500">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label htmlFor="adminFirstName" className="block text-sm font-medium text-gray-700">First Name</label>
+                                    <input
+                                        id="adminFirstName"
+                                        name="adminFirstName"
+                                        type="text"
+                                        required
+                                        value={formData.adminFirstName}
+                                        onChange={handleChange}
+                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm mt-1"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="adminLastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                                    <input
+                                        id="adminLastName"
+                                        name="adminLastName"
+                                        type="text"
+                                        required
+                                        value={formData.adminLastName}
+                                        onChange={handleChange}
+                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm mt-1"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="adminEmail" className="block text-sm font-medium text-gray-700">Email address</label>
+                                <input
+                                    id="adminEmail"
+                                    name="adminEmail"
+                                    type="email"
+                                    required
+                                    value={formData.adminEmail}
+                                    onChange={handleChange}
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm mt-1"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="adminPassword" className="block text-sm font-medium text-gray-700">Password</label>
+                                <input
+                                    id="adminPassword"
+                                    name="adminPassword"
+                                    type="password"
+                                    required
+                                    value={formData.adminPassword}
+                                    onChange={handleChange}
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm mt-1"
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                        {step > 1 ? (
+                            <button
+                                type="button"
+                                onClick={prevStep}
+                                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                Back
+                            </button>
+                        ) : (
+                            <div></div>
+                        )}
+                        
+                        {step < 3 ? (
+                            <button
+                                type="button"
+                                onClick={nextStep}
+                                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                Next Step
+                            </button>
+                        ) : (
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="inline-flex items-center px-6 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+                            >
+                                {loading ? 'Saving...' : 'Complete Setup'}
+                            </button>
+                        )}
+                    </div>
+                </form>
             </div>
-            <div className="flex flex-1 justify-end gap-8">
-              <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-[#bab29c]">search</span>
-                <span className="material-symbols-outlined text-[#bab29c]">notifications</span>
-                <div className="size-10 rounded-full bg-gray-700"></div>
-              </div>
-            </div>
-          </header>
-          <div className="flex h-full flex-1">
-            {/* Sidebar Mock */}
-            <aside className="w-64 border-r border-[#393528] bg-[#181611] flex flex-col p-4 gap-2 hidden lg:flex">
-              <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#393528] text-[#f4c025]">
-                <span className="material-symbols-outlined">dashboard</span>
-                <p className="text-white text-sm font-medium leading-normal">Dashboard</p>
-              </div>
-              <div className="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
-                <span className="material-symbols-outlined">person_add</span>
-                <p className="text-sm font-medium leading-normal">Admissions</p>
-              </div>
-              <div className="flex items-center gap-3 px-3 py-2 text-[#bab29c]">
-                <span className="material-symbols-outlined">menu_book</span>
-                <p className="text-sm font-medium leading-normal">Academics</p>
-              </div>
-            </aside>
-            {/* Content Area Mock */}
-            <main className="flex-1 p-8 bg-[#181611]">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-50">
-                <div className="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
-                <div className="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
-                <div className="h-40 rounded-lg bg-[#27241b] border border-[#393528]"></div>
-                <div className="h-96 rounded-lg bg-[#27241b] border border-[#393528] col-span-2"></div>
-                <div className="h-96 rounded-lg bg-[#27241b] border border-[#393528]"></div>
-              </div>
-            </main>
-          </div>
         </div>
-      </div>
-
-      {/* Modal Overlay */}
-      <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        {/* Modal Container */}
-        <div className="relative w-full max-w-[900px] bg-[#1a1814] border border-[#393528] rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto md:h-[600px]">
-           {/* Close Button */}
-           <button className="absolute top-4 right-4 text-[#bab29c] hover:text-white transition-colors p-2 rounded-full hover:bg-white/5 z-20">
-             <span className="material-symbols-outlined text-xl">close</span>
-           </button>
-
-           {/* Left Column: Visual/Welcome */}
-           <div className="w-full md:w-5/12 bg-[#221e10] p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#393528] relative overflow-hidden">
-             {/* Background accent */}
-             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#f4c025]/0 via-[#f4c025] to-[#f4c025]/0 opacity-50"></div>
-             
-             <div className="space-y-6 z-10 relative">
-               <div className="size-12 rounded-lg bg-[#f4c025]/10 flex items-center justify-center text-[#f4c025] mb-4 border border-[#f4c025]/20">
-                 <span className="material-symbols-outlined text-3xl">school</span>
-               </div>
-               <div>
-                 <h1 className="text-3xl font-bold text-white mb-2">Welcome to Your Command Center</h1>
-                 <p className="text-[#bab29c] text-base leading-relaxed">Experience the new standard in K-12 institutional management. We've redesigned your workflow for clarity and speed.</p>
-               </div>
-             </div>
-
-             <div className="mt-12 space-y-6 relative z-10">
-               <ValueProp icon="cut" title="Efficiency" desc="Streamlined workflows for staff and faculty." />
-               <ValueProp icon="visibility" title="Clarity" desc="Data-driven insights at a glance." />
-               <ValueProp icon="verified_user" title="Authority" desc="Total control over administrative governance." />
-             </div>
-           </div>
-
-           {/* Right Column: Choices */}
-           <div className="w-full md:w-7/12 bg-[#1a1814] p-8 flex flex-col justify-center">
-             <div className="mb-8">
-               <div className="flex items-center justify-between mb-2">
-                 <span className="text-xs font-bold text-[#f4c025] uppercase tracking-widest">Onboarding Step 1 of 3</span>
-                 <div className="flex gap-1">
-                   <div className="w-8 h-1 bg-[#f4c025] rounded-full"></div>
-                   <div className="w-8 h-1 bg-[#393528] rounded-full"></div>
-                   <div className="w-8 h-1 bg-[#393528] rounded-full"></div>
-                 </div>
-               </div>
-               <h2 className="text-2xl font-bold text-white">How would you like to get started?</h2>
-             </div>
-
-             <div className="active-options grid gap-4">
-               <OnboardingOption 
-                 icon="explore" 
-                 title="Take a Tour" 
-                 desc="Step-by-step interactive guide through the platform." 
-                 href="/admin/dashboard"
-               />
-               <OnboardingOption 
-                 icon="play_arrow" 
-                 title="Watch Overview" 
-                 desc="Quick 2-minute video introduction to key features." 
-                 href="#"
-               />
-               <OnboardingOption 
-                 icon="rocket_launch" 
-                 title="Jump Right In" 
-                 desc="Skip the intro and explore on my own." 
-                 href="/admin/dashboard"
-               />
-             </div>
-           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ValueProp({ icon, title, desc }: any) {
-  return (
-    <div className="flex gap-4 items-start">
-      <div className="text-[#f4c025] mt-1">
-        <span className="material-symbols-outlined">{icon}</span>
-      </div>
-      <div>
-        <h3 className="text-white font-bold text-sm uppercase tracking-wide">{title}</h3>
-        <p className="text-[#8e8675] text-sm">{desc}</p>
-      </div>
-    </div>
-  );
-}
-
-function OnboardingOption({ icon, title, desc, href }: any) {
-  return (
-    <Link href={href} className="group relative flex items-center gap-4 p-5 rounded-lg border border-[#393528] bg-[#221e10] hover:bg-[#2a261a] hover:border-[#f4c025]/50 transition-all duration-300 text-left">
-      <div className="size-12 rounded-full bg-[#393528] group-hover:bg-[#f4c025] group-hover:text-black text-white flex items-center justify-center transition-colors duration-300 shrink-0">
-        <span className="material-symbols-outlined">{icon}</span>
-      </div>
-      <div className="flex-1">
-        <h3 className="text-lg font-bold text-white group-hover:text-[#f4c025] transition-colors">{title}</h3>
-        <p className="text-[#8e8675] text-sm">{desc}</p>
-      </div>
-      <div className="text-[#393528] group-hover:text-[#f4c025] transition-colors">
-        <span className="material-symbols-outlined">arrow_forward</span>
-      </div>
-    </Link>
-  );
+    );
 }

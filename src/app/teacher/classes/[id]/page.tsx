@@ -102,7 +102,7 @@ export default function ClassDetailsPage({ params }: { params: Promise<{ id: str
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {students.length > 0 ? students.map((bg) => (
+                        {students.length > 0 ? students.map((bg: any) => (
                             <TableRow key={bg.id}>
                                 <TableCell className="font-mono text-xs">{bg.rollNumber}</TableCell>
                                 <TableCell className="font-medium">{bg.name}</TableCell>

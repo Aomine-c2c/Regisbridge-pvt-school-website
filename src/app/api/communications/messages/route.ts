@@ -17,7 +17,6 @@ export async function POST(req: Request) {
     }
 
     const message = await messagingService.sendMessage({
-      tenantId: session.user.tenantId,
       conversationId,
       senderId: session.user.id,
       content,

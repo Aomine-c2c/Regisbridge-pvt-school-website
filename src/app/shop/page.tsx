@@ -29,7 +29,7 @@ export default function SchoolShopPage() {
 
           {/* Category Filters */}
           <div className="flex gap-2 mb-8">
-            {['All', 'Uniform', 'Sportswear', 'Accessories'].map((category) => (
+            {['All', 'Uniform', 'Sportswear', 'Accessories'].map((category: any) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -47,8 +47,8 @@ export default function SchoolShopPage() {
           {/* Products Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {SHOP_ITEMS.filter(
-              (item) => selectedCategory === 'All' || item.category === selectedCategory
-            ).map((item) => (
+              (item: any) => selectedCategory === 'All' || item.category === selectedCategory
+            ).map((item: any) => (
               <div
                 key={item.id}
                 className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"

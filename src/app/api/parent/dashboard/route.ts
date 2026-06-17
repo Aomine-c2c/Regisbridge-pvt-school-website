@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
         // Loop through children to get more specific stats (e.g. pending fees, recent grades)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const childrenData = await Promise.all((children as any[]).map(async (child) => {
+        const childrenData = await Promise.all((children as any[]).map(async (child: any) => {
              // Recent Grades
              const recentGrades = await prisma.grade.findMany({
                  where: { studentId: child.id },

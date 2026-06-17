@@ -98,7 +98,7 @@ export default function ExecutiveAnalyticsPage() {
               <label className="absolute -top-2 left-2 px-1 bg-white dark:bg-[#1e2330] text-xs font-bold text-[#2957e0] z-10">Cohort</label>
               <select 
                 value={cohort}
-                onChange={(e) => setCohort(e.target.value)}
+                onChange={(e: any) => setCohort(e.target.value)}
                 disabled
                 className="w-full h-10 pl-3 pr-8 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent text-sm focus:ring-[#2957e0] focus:border-[#2957e0] text-[#111317] dark:text-white appearance-none cursor-pointer"
               >
@@ -162,7 +162,7 @@ export default function ExecutiveAnalyticsPage() {
              {/* CSS Bar Chart */}
              <div className="flex-1 w-full min-h-[300px] flex items-end justify-center gap-4 md:gap-8 px-2">
                 {data?.charts.distribution && data.charts.distribution.length > 0 ? (
-                    data?.charts.distribution.map((item) => {
+                    data?.charts.distribution.map((item: any) => {
                          // Calculate relative height based on max value
                          const maxVal = Math.max(...data.charts.distribution.map(d => d.value));
                          const heightPct = maxVal > 0 ? (item.value / maxVal) * 100 : 0;

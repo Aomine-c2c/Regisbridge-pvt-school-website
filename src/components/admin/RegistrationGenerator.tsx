@@ -73,7 +73,7 @@ export function RegistrationGenerator({ onGenerate }: { onGenerate: () => void }
         <CardContent className="space-y-6">
           <div className="space-y-3">
             <Label>Role Type</Label>
-            <RadioGroup defaultValue="student" onValueChange={(v) => setRole(v as any)} className="flex gap-4">
+            <RadioGroup defaultValue="student" onValueChange={(v: any) => setRole(v as any)} className="flex gap-4">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="student" id="r-student" />
                 <Label htmlFor="r-student">Student (RS)</Label>
@@ -93,7 +93,7 @@ export function RegistrationGenerator({ onGenerate }: { onGenerate: () => void }
                     min={1} 
                     max={100} 
                     value={count} 
-                    onChange={(e) => setCount(parseInt(e.target.value) || 1)}
+                    onChange={(e: any) => setCount(parseInt(e.target.value) || 1)}
                     className="w-32"
                 />
                 <span className="text-sm text-muted-foreground">Max 100 at a time</span>

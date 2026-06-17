@@ -117,7 +117,7 @@ export default function TeacherAnalyticsHeatmap() {
             </div>
             <select
               value={classFilter}
-              onChange={(e) => setClassFilter(e.target.value)}
+              onChange={(e: any) => setClassFilter(e.target.value)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
               <option>Class: 10-A</option>
@@ -126,7 +126,7 @@ export default function TeacherAnalyticsHeatmap() {
             </select>
             <select
               value={termFilter}
-              onChange={(e) => setTermFilter(e.target.value)}
+              onChange={(e: any) => setTermFilter(e.target.value)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-100"
             >
               <option>Term: Spring 2024</option>
@@ -165,7 +165,7 @@ export default function TeacherAnalyticsHeatmap() {
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 min-w-[100px] border-b border-gray-200">
                     Attendance
                   </th>
-                  {subjects.map((subject) => (
+                  {subjects.map((subject: any) => (
                     <th key={subject} className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 border-b border-gray-200">
                       {subject}
                     </th>
@@ -176,7 +176,7 @@ export default function TeacherAnalyticsHeatmap() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {students.map((student) => (
+                {students.map((student: any) => (
                   <tr key={student.id} className="group hover:bg-gray-50 transition-colors">
                     <td className="sticky left-0 z-10 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 bg-white group-hover:bg-gray-50 border-r border-gray-200 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.1)]">
                       <div className="flex items-center gap-3">
@@ -193,7 +193,7 @@ export default function TeacherAnalyticsHeatmap() {
                     <td className={`whitespace-nowrap px-3 py-4 text-sm font-semibold ${student.attendance < 70 ? 'text-red-600' : student.attendance < 85 ? 'text-yellow-600' : 'text-green-600'}`}>
                       {student.attendance}%
                     </td>
-                    {subjects.map((subject) => (
+                    {subjects.map((subject: any) => (
                       <td key={subject} className="whitespace-nowrap px-3 py-4 text-sm text-center">
                         <div className={`inline-flex items-center justify-center rounded px-2 py-1 text-xs font-bold ring-1 ring-inset ${getGradeColor(student.grades[subject] || 'N/A')}`}>
                           {student.grades[subject] || 'N/A'}

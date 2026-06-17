@@ -99,7 +99,7 @@ export default function SubjectsPage() {
                 <Input
                   placeholder="Search by name or code..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e: any) => setSearchTerm(e.target.value)}
                   className="pl-9"
                 />
              </div>
@@ -125,7 +125,7 @@ export default function SubjectsPage() {
                ) : filteredSubjects.length === 0 ? (
                   <tr><td colSpan={4} className="p-8 text-center text-slate-500">No subjects found.</td></tr>
                ) : (
-                  filteredSubjects.map((sub) => (
+                  filteredSubjects.map((sub: any) => (
                     <tr key={sub.id} className="hover:bg-slate-50 transition-colors">
                       <td className="px-6 py-4 font-mono text-xs font-bold text-slate-500 bg-slate-50/50 w-[100px]">
                         {sub.code}

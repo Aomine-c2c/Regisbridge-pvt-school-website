@@ -60,7 +60,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
       </SidebarHeader>
       <SidebarContent className="bg-brand-navy text-slate-300">
         <SidebarMenu className="px-2 py-4">
-          {navItems.map((item) => (
+          {navItems.map((item: any) => (
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton
                 asChild

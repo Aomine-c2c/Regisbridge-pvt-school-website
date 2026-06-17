@@ -91,7 +91,7 @@ export default function VirtualTour() {
 
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-2">
-          {(['all', 'campus', 'classroom', 'sports', 'boarding', 'events'] as const).map((category) => (
+          {(['all', 'campus', 'classroom', 'sports', 'boarding', 'events'] as const).map((category: any) => (
             <button
               key={category}
               onClick={() => setFilter(category)}
@@ -146,14 +146,14 @@ export default function VirtualTour() {
           </button>
 
           <button
-            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            onClick={(e: any) => { e.stopPropagation(); prevImage(); }}
             className="absolute left-4 text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-2"
             aria-label="Previous image"
           >
             <span className="material-symbols-outlined text-3xl">chevron_left</span>
           </button>
 
-          <div className="relative max-w-5xl max-h-[80vh] w-full" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-5xl max-h-[80vh] w-full" onClick={(e: any) => e.stopPropagation()}>
             <div className="relative aspect-video">
               <Image
                 src={filteredImages[selectedImage].src}
@@ -169,7 +169,7 @@ export default function VirtualTour() {
           </div>
 
           <button
-            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            onClick={(e: any) => { e.stopPropagation(); nextImage(); }}
             className="absolute right-4 text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-2"
             aria-label="Next image"
           >

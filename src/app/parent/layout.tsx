@@ -62,7 +62,7 @@ export default function ParentLayout({
 
                         {/* Navigation - Enhanced Touch Targets */}
                         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-                            {navItems.map((item) => {
+                            {navItems.map((item: any) => {
                                 const isActive = pathname === item.href;
                                 return (
                                     <Link

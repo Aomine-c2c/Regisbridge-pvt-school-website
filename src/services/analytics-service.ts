@@ -13,10 +13,10 @@ export const analyticsService = {
   /**
    * Identifies students at risk based on attendance (< 85%) and grades (< 50%).
    */
-  async getAtRiskStudents(tenantId: string, filters?: { classId?: string; teacherId?: string }): Promise<AtRiskStudent[]> {
+  async getAtRiskStudents(filters?: { classId?: string; teacherId?: string }): Promise<AtRiskStudent[]> {
     const atRiskStudents: AtRiskStudent[] = [];
 
-    const whereClause: any = { tenantId };
+    const whereClause: any = {};
     
     // If a specific class is requested
     if (filters?.classId) {
@@ -113,14 +113,13 @@ export const analyticsService = {
   /**
    * Get class-level performance trends (Average Grade per Month)
    */
-  async getAcademicTrends(tenantId: string, filters?: { classId?: string; teacherId?: string }) {
+  async getAcademicTrends(filters?: { classId?: string; teacherId?: string }) {
     // Group grades by month for the last 6 months
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
     const grades = await prisma.grade.findMany({
       where: { 
-          tenantId,
           createdAt: { gte: sixMonthsAgo },
           student: filters?.teacherId ? {
               class: {

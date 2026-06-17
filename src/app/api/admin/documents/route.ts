@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { writeFile, unlink } from 'fs/promises';
 import { join } from 'path';
-import { getTenantDb } from '@/lib/db';
 
 const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'documents');
 
@@ -12,20 +11,18 @@ export async function GET(request: NextRequest) {
         const { error, user } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         // Fetch documents uploaded by users in this tenant
         // Since Document doesn't have tenantId but uploadedBy (User) does
         const documents = await db.document.findMany({
             where: {
                 uploadedBy: {
-                    tenantId: tenantId
-                }
+                    }
             },
             orderBy: { createdAt: 'desc' },
             include: { uploadedBy: { select: { firstName: true, lastName: true } } } // Fixed relation naming from uploadedByUser to uploadedBy
@@ -45,12 +42,11 @@ export async function POST(request: NextRequest) {
         const { user, error } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const formData = await request.formData();
         const file = formData.get('file') as File;
@@ -95,12 +91,11 @@ export async function DELETE(request: NextRequest) {
         const { error, user } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');
@@ -114,8 +109,7 @@ export async function DELETE(request: NextRequest) {
             where: { 
                 id,
                 uploadedBy: {
-                    tenantId: tenantId
-                }
+                    }
             } 
         });
 

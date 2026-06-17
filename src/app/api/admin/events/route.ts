@@ -8,8 +8,7 @@ export async function GET(request: NextRequest) {
     const { error, user } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = (user as any)?.tenantId || request.headers.get('x-tenant-id');
-    
+        
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -20,12 +19,12 @@ export async function GET(request: NextRequest) {
     // Default: List upcoming events first
     const [events, total] = await prisma.$transaction([
       prisma.event.findMany({
-        where: { tenantId },
+        where: {},
         skip,
         take: limit,
         orderBy: { eventDate: 'asc' },
       }),
-      prisma.event.count({ where: { tenantId } }),
+      prisma.event.count({ where: {} }),
     ]);
 
     const formattedEvents = events.map(event => ({
@@ -82,8 +81,7 @@ export async function POST(request: NextRequest) {
 
     const event = await prisma.event.create({
       data: {
-      tenantId: (user as any)?.tenantId || request.headers.get('x-tenant-id'),
-        title,
+      title,
         description: description || '',
         eventDate: new Date(eventDate),
         endDate: endDate ? new Date(endDate) : null,

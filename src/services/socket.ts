@@ -36,7 +36,7 @@ class SocketService {
       this.reconnectAttempts = 0;
     });
 
-    this.socket.on('disconnect', (reason) => {
+    this.socket.on('disconnect', (reason: any) => {
       logger.debug('Disconnected from chat server', reason);
       if (reason === 'io server disconnect') {
         // Server disconnected, try to reconnect
@@ -44,16 +44,16 @@ class SocketService {
       }
     });
 
-    this.socket.on('connect_error', (error) => {
+    this.socket.on('connect_error', (error: any) => {
       logger.error('Socket connection error', error);
       this.attemptReconnect();
     });
 
-    this.socket.on('reconnect', (attemptNumber) => {
+    this.socket.on('reconnect', (attemptNumber: any) => {
       logger.info('Reconnected to chat server', { attemptNumber });
     });
 
-    this.socket.on('reconnect_error', (error) => {
+    this.socket.on('reconnect_error', (error: any) => {
       logger.error('Reconnection error', error);
     });
 

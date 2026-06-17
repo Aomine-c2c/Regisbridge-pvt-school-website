@@ -26,7 +26,7 @@ export interface JWTPayload {
     email: string
     role: string
     permissions: string[] // RBAC Permissions
-    tenantId?: string // Optional for backward compatibility during migration
+     // Optional for backward compatibility during migration
     iat?: number
     exp?: number
 }

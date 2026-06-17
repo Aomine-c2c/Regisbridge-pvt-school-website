@@ -205,7 +205,7 @@ export function NotificationCenter({ onClose, onClearUnread }: NotificationCente
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={(e) => {
+                        onClick={(e: any) => {
                           e.stopPropagation();
                           deleteNotification(notification.id);
                         }}

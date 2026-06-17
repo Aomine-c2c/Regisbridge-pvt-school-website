@@ -238,7 +238,7 @@ export function SystemSettings() {
                   <Input
                     id="schoolName"
                     value={settings.schoolName}
-                    onChange={(e) => updateSetting('schoolName', e.target.value)}
+                    onChange={(e: any) => updateSetting('schoolName', e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -246,7 +246,7 @@ export function SystemSettings() {
                   <Input
                     id="academicYear"
                     value={settings.academicYear}
-                    onChange={(e) => updateSetting('academicYear', e.target.value)}
+                    onChange={(e: any) => updateSetting('academicYear', e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -255,7 +255,7 @@ export function SystemSettings() {
                     id="schoolEmail"
                     type="email"
                     value={settings.schoolEmail}
-                    onChange={(e) => updateSetting('schoolEmail', e.target.value)}
+                    onChange={(e: any) => updateSetting('schoolEmail', e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -263,7 +263,7 @@ export function SystemSettings() {
                   <Input
                     id="schoolPhone"
                     value={settings.schoolPhone}
-                    onChange={(e) => updateSetting('schoolPhone', e.target.value)}
+                    onChange={(e: any) => updateSetting('schoolPhone', e.target.value)}
                   />
                 </div>
               </div>
@@ -272,7 +272,7 @@ export function SystemSettings() {
                 <Textarea
                   id="schoolAddress"
                   value={settings.schoolAddress}
-                  onChange={(e) => updateSetting('schoolAddress', e.target.value)}
+                  onChange={(e: any) => updateSetting('schoolAddress', e.target.value)}
                   rows={3}
                 />
               </div>
@@ -280,7 +280,7 @@ export function SystemSettings() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="currency">Currency</Label>
-                  <Select value={settings.currency} onValueChange={(value) => updateSetting('currency', value)}>
+                  <Select value={settings.currency} onValueChange={(value: any) => updateSetting('currency', value)}>
                     <SelectTrigger id="currency">
                       <SelectValue />
                     </SelectTrigger>
@@ -293,7 +293,7 @@ export function SystemSettings() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="timezone">Timezone</Label>
-                  <Select value={settings.timezone} onValueChange={(value) => updateSetting('timezone', value)}>
+                  <Select value={settings.timezone} onValueChange={(value: any) => updateSetting('timezone', value)}>
                     <SelectTrigger id="timezone">
                       <SelectValue />
                     </SelectTrigger>
@@ -306,7 +306,7 @@ export function SystemSettings() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="dateFormat">Date Format</Label>
-                  <Select value={settings.dateFormat} onValueChange={(value) => updateSetting('dateFormat', value)}>
+                  <Select value={settings.dateFormat} onValueChange={(value: any) => updateSetting('dateFormat', value)}>
                     <SelectTrigger id="dateFormat">
                       <SelectValue />
                     </SelectTrigger>
@@ -338,7 +338,7 @@ export function SystemSettings() {
                 <Switch
                   id="emailEnabled"
                   checked={settings.emailEnabled}
-                  onCheckedChange={(checked) => updateSetting('emailEnabled', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('emailEnabled', checked)}
                 />
               </div>
               <Separator />
@@ -348,7 +348,7 @@ export function SystemSettings() {
                   <Input
                     id="smtpServer"
                     value={settings.smtpServer}
-                    onChange={(e) => updateSetting('smtpServer', e.target.value)}
+                    onChange={(e: any) => updateSetting('smtpServer', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -357,7 +357,7 @@ export function SystemSettings() {
                   <Input
                     id="smtpPort"
                     value={settings.smtpPort}
-                    onChange={(e) => updateSetting('smtpPort', e.target.value)}
+                    onChange={(e: any) => updateSetting('smtpPort', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -366,7 +366,7 @@ export function SystemSettings() {
                   <Input
                     id="smtpUsername"
                     value={settings.smtpUsername}
-                    onChange={(e) => updateSetting('smtpUsername', e.target.value)}
+                    onChange={(e: any) => updateSetting('smtpUsername', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -376,7 +376,7 @@ export function SystemSettings() {
                     id="smtpPassword"
                     type="password"
                     value={settings.smtpPassword}
-                    onChange={(e) => updateSetting('smtpPassword', e.target.value)}
+                    onChange={(e: any) => updateSetting('smtpPassword', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -386,7 +386,7 @@ export function SystemSettings() {
                     id="emailFromAddress"
                     type="email"
                     value={settings.emailFromAddress}
-                    onChange={(e) => updateSetting('emailFromAddress', e.target.value)}
+                    onChange={(e: any) => updateSetting('emailFromAddress', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -395,7 +395,7 @@ export function SystemSettings() {
                   <Input
                     id="emailFromName"
                     value={settings.emailFromName}
-                    onChange={(e) => updateSetting('emailFromName', e.target.value)}
+                    onChange={(e: any) => updateSetting('emailFromName', e.target.value)}
                     disabled={!settings.emailEnabled}
                   />
                 </div>
@@ -421,7 +421,7 @@ export function SystemSettings() {
                 <Switch
                   id="smsEnabled"
                   checked={settings.smsEnabled}
-                  onCheckedChange={(checked) => updateSetting('smsEnabled', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('smsEnabled', checked)}
                 />
               </div>
               <Separator />
@@ -430,7 +430,7 @@ export function SystemSettings() {
                   <Label htmlFor="smsProvider">SMS Provider</Label>
                   <Select 
                     value={settings.smsProvider} 
-                    onValueChange={(value) => updateSetting('smsProvider', value)}
+                    onValueChange={(value: any) => updateSetting('smsProvider', value)}
                     disabled={!settings.smsEnabled}
                   >
                     <SelectTrigger id="smsProvider">
@@ -448,7 +448,7 @@ export function SystemSettings() {
                   <Input
                     id="smsFromNumber"
                     value={settings.smsFromNumber}
-                    onChange={(e) => updateSetting('smsFromNumber', e.target.value)}
+                    onChange={(e: any) => updateSetting('smsFromNumber', e.target.value)}
                     disabled={!settings.smsEnabled}
                     placeholder="+1234567890"
                   />
@@ -459,7 +459,7 @@ export function SystemSettings() {
                     id="smsApiKey"
                     type="password"
                     value={settings.smsApiKey}
-                    onChange={(e) => updateSetting('smsApiKey', e.target.value)}
+                    onChange={(e: any) => updateSetting('smsApiKey', e.target.value)}
                     disabled={!settings.smsEnabled}
                   />
                 </div>
@@ -488,7 +488,7 @@ export function SystemSettings() {
                 <Switch
                   id="enableEmailNotifications"
                   checked={settings.enableEmailNotifications}
-                  onCheckedChange={(checked) => updateSetting('enableEmailNotifications', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('enableEmailNotifications', checked)}
                 />
               </div>
               <Separator />
@@ -500,7 +500,7 @@ export function SystemSettings() {
                 <Switch
                   id="enableSMSNotifications"
                   checked={settings.enableSMSNotifications}
-                  onCheckedChange={(checked) => updateSetting('enableSMSNotifications', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('enableSMSNotifications', checked)}
                 />
               </div>
               <Separator />
@@ -512,7 +512,7 @@ export function SystemSettings() {
                 <Switch
                   id="enablePushNotifications"
                   checked={settings.enablePushNotifications}
-                  onCheckedChange={(checked) => updateSetting('enablePushNotifications', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('enablePushNotifications', checked)}
                 />
               </div>
             </CardContent>
@@ -532,7 +532,7 @@ export function SystemSettings() {
                 <Switch
                   id="notifyOnNewRegistration"
                   checked={settings.notifyOnNewRegistration}
-                  onCheckedChange={(checked) => updateSetting('notifyOnNewRegistration', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('notifyOnNewRegistration', checked)}
                 />
               </div>
               <Separator />
@@ -544,7 +544,7 @@ export function SystemSettings() {
                 <Switch
                   id="notifyOnPayment"
                   checked={settings.notifyOnPayment}
-                  onCheckedChange={(checked) => updateSetting('notifyOnPayment', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('notifyOnPayment', checked)}
                 />
               </div>
               <Separator />
@@ -556,7 +556,7 @@ export function SystemSettings() {
                 <Switch
                   id="notifyOnAttendance"
                   checked={settings.notifyOnAttendance}
-                  onCheckedChange={(checked) => updateSetting('notifyOnAttendance', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('notifyOnAttendance', checked)}
                 />
               </div>
             </CardContent>
@@ -579,7 +579,7 @@ export function SystemSettings() {
                 <Switch
                   id="enableTwoFactor"
                   checked={settings.enableTwoFactor}
-                  onCheckedChange={(checked) => updateSetting('enableTwoFactor', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('enableTwoFactor', checked)}
                 />
               </div>
               <Separator />
@@ -590,7 +590,7 @@ export function SystemSettings() {
                     id="sessionTimeout"
                     type="number"
                     value={settings.sessionTimeout}
-                    onChange={(e) => updateSetting('sessionTimeout', parseInt(e.target.value))}
+                    onChange={(e: any) => updateSetting('sessionTimeout', parseInt(e.target.value))}
                   />
                 </div>
                 <div className="space-y-2">
@@ -599,7 +599,7 @@ export function SystemSettings() {
                     id="maxLoginAttempts"
                     type="number"
                     value={settings.maxLoginAttempts}
-                    onChange={(e) => updateSetting('maxLoginAttempts', parseInt(e.target.value))}
+                    onChange={(e: any) => updateSetting('maxLoginAttempts', parseInt(e.target.value))}
                   />
                 </div>
               </div>
@@ -618,7 +618,7 @@ export function SystemSettings() {
                   id="passwordMinLength"
                   type="number"
                   value={settings.passwordMinLength}
-                  onChange={(e) => updateSetting('passwordMinLength', parseInt(e.target.value))}
+                  onChange={(e: any) => updateSetting('passwordMinLength', parseInt(e.target.value))}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -629,7 +629,7 @@ export function SystemSettings() {
                 <Switch
                   id="passwordRequireSpecialChar"
                   checked={settings.passwordRequireSpecialChar}
-                  onCheckedChange={(checked) => updateSetting('passwordRequireSpecialChar', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('passwordRequireSpecialChar', checked)}
                 />
               </div>
             </CardContent>
@@ -652,7 +652,7 @@ export function SystemSettings() {
                 <Switch
                   id="autoBackupEnabled"
                   checked={settings.autoBackupEnabled}
-                  onCheckedChange={(checked) => updateSetting('autoBackupEnabled', checked)}
+                  onCheckedChange={(checked: any) => updateSetting('autoBackupEnabled', checked)}
                 />
               </div>
               <Separator />
@@ -661,7 +661,7 @@ export function SystemSettings() {
                   <Label htmlFor="backupFrequency">Backup Frequency</Label>
                   <Select 
                     value={settings.backupFrequency} 
-                    onValueChange={(value) => updateSetting('backupFrequency', value)}
+                    onValueChange={(value: any) => updateSetting('backupFrequency', value)}
                     disabled={!settings.autoBackupEnabled}
                   >
                     <SelectTrigger id="backupFrequency">
@@ -681,7 +681,7 @@ export function SystemSettings() {
                     id="backupTime"
                     type="time"
                     value={settings.backupTime}
-                    onChange={(e) => updateSetting('backupTime', e.target.value)}
+                    onChange={(e: any) => updateSetting('backupTime', e.target.value)}
                     disabled={!settings.autoBackupEnabled}
                   />
                 </div>
@@ -691,7 +691,7 @@ export function SystemSettings() {
                     id="backupRetentionDays"
                     type="number"
                     value={settings.backupRetentionDays}
-                    onChange={(e) => updateSetting('backupRetentionDays', parseInt(e.target.value))}
+                    onChange={(e: any) => updateSetting('backupRetentionDays', parseInt(e.target.value))}
                     disabled={!settings.autoBackupEnabled}
                   />
                 </div>

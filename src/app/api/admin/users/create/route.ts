@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTenantDb } from '@/lib/db'
 import { hashPassword } from '@/lib/password'
 import { requireAdmin } from '@/lib/api/auth-middleware';
 
@@ -9,12 +8,11 @@ export async function POST(request: NextRequest) {
         const { error } = await requireAdmin(request);
         if (error) return error;
 
-        const tenantId = request.headers.get('x-tenant-id');
-        if (!tenantId) {
+                if (!tenantId) {
              return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
         }
 
-        const db = getTenantDb(tenantId);
+        const db = (tenantId);
 
         const body = await request.json()
         const { email, password, firstName, lastName, role, phoneNumber } = body

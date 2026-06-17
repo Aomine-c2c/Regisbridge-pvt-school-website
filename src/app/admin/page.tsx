@@ -227,7 +227,7 @@ export default function AdminDashboardCommandCenter() {
 
        {/* Quick Links / Actions */}
        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-           {['Add Student', 'Create Invoice', 'Schedule Class', 'Send Announcement'].map((action) => (
+           {['Add Student', 'Create Invoice', 'Schedule Class', 'Send Announcement'].map((action: any) => (
                <Button key={action} variant="outline" className="h-16 border-2 border-slate-100 hover:border-brand-primary/20 hover:bg-blue-50/50 text-brand-navy font-semibold transition-all shadow-sm hover:shadow-md">
                    {action}
                </Button>

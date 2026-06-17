@@ -8,8 +8,7 @@ export async function GET(request: NextRequest) {
     const { error, user } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = user?.tenantId;
-    
+        
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -20,7 +19,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     const where: any = {
-      tenantId, // Filter by tenant
+      // Filter by tenant
     };
 
     if (search) {
@@ -110,7 +109,6 @@ export async function POST(request: NextRequest) {
 
     const article = await prisma.newsArticle.create({
       data: {
-        tenantId: user?.tenantId,
         title,
         content,
         excerpt,

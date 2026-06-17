@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTenantDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 
 // GET /api/admin/students/[id] - Get student details
@@ -12,12 +11,11 @@ export async function GET(
     const { error } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const student = await db.student.findUnique({
       where: { id: id },
@@ -87,12 +85,11 @@ export async function PUT(
     const { error } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const body = await request.json();
     const {
@@ -165,12 +162,11 @@ export async function DELETE(
     const { error } = await requireAdmin(request);
     if (error) return error;
 
-    const tenantId = request.headers.get('x-tenant-id');
-    if (!tenantId) {
+        if (!tenantId) {
             return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
     }
 
-    const db = getTenantDb(tenantId);
+    const db = (tenantId);
 
     const student = await db.student.findUnique({
       where: { id: id },

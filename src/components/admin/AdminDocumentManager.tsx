@@ -145,11 +145,11 @@ export function AdminDocumentManager() {
     }
   }
 
-  const filteredDocuments = documents.filter((doc) => {
+  const filteredDocuments = documents.filter((doc: any) => {
     const matchesSearch =
       doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doc.fileName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      doc.tags.some((tag: any) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
 
     const matchesCategory = categoryFilter === 'all' || doc.category === categoryFilter
 
@@ -256,7 +256,7 @@ export function AdminDocumentManager() {
       const data = await response.json()
 
       if (response.ok && data.success) {
-        setDocuments(documents.filter((d) => d.id !== doc.id))
+        setDocuments(documents.filter((d: any) => d.id !== doc.id))
         toast({
           title: 'Document deleted',
           description: `${doc.title} has been deleted`,
@@ -377,7 +377,7 @@ export function AdminDocumentManager() {
           <Input
             placeholder="Search documents by title, filename, or tags..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: any) => setSearchTerm(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -408,19 +408,19 @@ export function AdminDocumentManager() {
         <div className="bg-white rounded-lg border p-4">
           <p className="text-sm text-gray-600">Financial</p>
           <p className="text-2xl font-bold">
-            {documents.filter((d) => d.category === 'financial').length}
+            {documents.filter((d: any) => d.category === 'financial').length}
           </p>
         </div>
         <div className="bg-white rounded-lg border p-4">
           <p className="text-sm text-gray-600">Forms</p>
           <p className="text-2xl font-bold">
-            {documents.filter((d) => d.category === 'forms').length}
+            {documents.filter((d: any) => d.category === 'forms').length}
           </p>
         </div>
         <div className="bg-white rounded-lg border p-4">
           <p className="text-sm text-gray-600">Administrative</p>
           <p className="text-2xl font-bold">
-            {documents.filter((d) => d.category === 'administrative').length}
+            {documents.filter((d: any) => d.category === 'administrative').length}
           </p>
         </div>
       </div>
@@ -447,7 +447,7 @@ export function AdminDocumentManager() {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredDocuments.map((doc) => (
+              filteredDocuments.map((doc: any) => (
                 <TableRow key={doc.id}>
                   <TableCell>
                     <div className="flex items-start gap-2">
@@ -456,7 +456,7 @@ export function AdminDocumentManager() {
                         <p className="font-medium">{doc.title}</p>
                         <p className="text-sm text-gray-500">{doc.fileName}</p>
                         <div className="flex gap-1 mt-1">
-                          {doc.tags.map((tag) => (
+                          {doc.tags.map((tag: any) => (
                             <Badge key={tag} variant="outline" className="text-xs">
                               {tag}
                             </Badge>

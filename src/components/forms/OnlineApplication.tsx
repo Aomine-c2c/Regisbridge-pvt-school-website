@@ -99,7 +99,7 @@ export default function OnlineApplication() {
                   type="text"
                   required
                   value={formData.firstName}
-                  onChange={(e) => handleInputChange('firstName', e.target.value)}
+                  onChange={(e: any) => handleInputChange('firstName', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -109,7 +109,7 @@ export default function OnlineApplication() {
                   type="text"
                   required
                   value={formData.lastName}
-                  onChange={(e) => handleInputChange('lastName', e.target.value)}
+                  onChange={(e: any) => handleInputChange('lastName', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -119,7 +119,7 @@ export default function OnlineApplication() {
                   type="date"
                   required
                   value={formData.dateOfBirth}
-                  onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                  onChange={(e: any) => handleInputChange('dateOfBirth', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -128,7 +128,7 @@ export default function OnlineApplication() {
                 <select
                   required
                   value={formData.gender}
-                  onChange={(e) => handleInputChange('gender', e.target.value)}
+                  onChange={(e: any) => handleInputChange('gender', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 >
                   <option value="">Select Gender</option>
@@ -143,7 +143,7 @@ export default function OnlineApplication() {
                   type="text"
                   required
                   value={formData.nationality}
-                  onChange={(e) => handleInputChange('nationality', e.target.value)}
+                  onChange={(e: any) => handleInputChange('nationality', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -153,7 +153,7 @@ export default function OnlineApplication() {
                   type="tel"
                   required
                   value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  onChange={(e: any) => handleInputChange('phone', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -163,7 +163,7 @@ export default function OnlineApplication() {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  onChange={(e: any) => handleInputChange('email', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -172,7 +172,7 @@ export default function OnlineApplication() {
                 <textarea
                   required
                   value={formData.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  onChange={(e: any) => handleInputChange('address', e.target.value)}
                   rows={3}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
@@ -192,7 +192,7 @@ export default function OnlineApplication() {
                   type="text"
                   required
                   value={formData.parentName}
-                  onChange={(e) => handleInputChange('parentName', e.target.value)}
+                  onChange={(e: any) => handleInputChange('parentName', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -202,7 +202,7 @@ export default function OnlineApplication() {
                   type="tel"
                   required
                   value={formData.parentPhone}
-                  onChange={(e) => handleInputChange('parentPhone', e.target.value)}
+                  onChange={(e: any) => handleInputChange('parentPhone', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -212,7 +212,7 @@ export default function OnlineApplication() {
                   type="email"
                   required
                   value={formData.parentEmail}
-                  onChange={(e) => handleInputChange('parentEmail', e.target.value)}
+                  onChange={(e: any) => handleInputChange('parentEmail', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -221,7 +221,7 @@ export default function OnlineApplication() {
                 <input
                   type="text"
                   value={formData.parentOccupation}
-                  onChange={(e) => handleInputChange('parentOccupation', e.target.value)}
+                  onChange={(e: any) => handleInputChange('parentOccupation', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -240,7 +240,7 @@ export default function OnlineApplication() {
                   type="text"
                   required
                   value={formData.currentSchool}
-                  onChange={(e) => handleInputChange('currentSchool', e.target.value)}
+                  onChange={(e: any) => handleInputChange('currentSchool', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 />
               </div>
@@ -249,7 +249,7 @@ export default function OnlineApplication() {
                 <select
                   required
                   value={formData.gradeApplying}
-                  onChange={(e) => handleInputChange('gradeApplying', e.target.value)}
+                  onChange={(e: any) => handleInputChange('gradeApplying', e.target.value)}
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
                 >
                   <option value="">Select Grade</option>
@@ -269,7 +269,7 @@ export default function OnlineApplication() {
                 <label className="block text-gray-700 mb-2">Previous Academic Results</label>
                 <textarea
                   value={formData.previousResults}
-                  onChange={(e) => handleInputChange('previousResults', e.target.value)}
+                  onChange={(e: any) => handleInputChange('previousResults', e.target.value)}
                   rows={4}
                   placeholder="Please provide details of your previous academic performance..."
                   className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C1A75]"
@@ -289,7 +289,7 @@ export default function OnlineApplication() {
                 { key: 'schoolReports', label: 'School Reports (Last 2 years)', required: true },
                 { key: 'medicalReport', label: 'Medical Report', required: false },
                 { key: 'passportPhoto', label: 'Passport Size Photo', required: true },
-              ].map((doc) => (
+              ].map((doc: any) => (
                 <div key={doc.key} className="border-2 border-dashed border-gray-300 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -311,7 +311,7 @@ export default function OnlineApplication() {
                           <input
                             type="file"
                             accept=".pdf,.jpg,.jpeg,.png"
-                            onChange={(e) => {
+                            onChange={(e: any) => {
                               const file = e.target.files?.[0];
                               if (file) handleFileUpload(doc.key, file);
                             }}

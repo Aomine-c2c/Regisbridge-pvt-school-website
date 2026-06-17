@@ -41,15 +41,14 @@ export const rbacService = {
   /**
    * Create or Update a Role with Permissions
    */
-  async upsertRole(tenantId: string, name: string, permissionIds: string[], description?: string) {
+  async upsertRole(name: string, permissionIds: string[], description?: string) {
     // 1. Create/Update Role
     const role = await prisma.role.upsert({
       where: { 
-        tenantId_name: { tenantId, name } 
+        tenantId_name: { name } 
       },
       update: { description },
       create: { 
-        tenantId, 
         name, 
         description 
       }

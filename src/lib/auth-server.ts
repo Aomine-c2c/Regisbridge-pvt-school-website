@@ -15,7 +15,6 @@ export async function getSession() {
       id: payload.userId,
       email: payload.email,
       role: payload.role,
-      tenantId: payload.tenantId,
       permissions: payload.permissions || []
     }
   };
