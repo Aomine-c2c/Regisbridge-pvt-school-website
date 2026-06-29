@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "vercel-build": "prisma generate && next build",
-    "test": "jest --watch",
+    "test": "jest --ci",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "test:coverage": "jest --coverage",
     "test:unit": "jest src/lib",

@@ -1,27 +1,39 @@
 @echo off
+chcp 65001 >nul
 echo ========================================
 echo  Regisbridge School - Start Servers
 echo ========================================
 echo.
 
-echo Starting Backend Server...
-start "Backend API" cmd /k "cd server && npm start"
+setlocal
+where node >nul 2>&1
+if %errorlevel% neq 0 (
+  echo [ERROR] Node.js not found in PATH.
+  pause
+  exit /b 1
+)
 
-timeout /t 3 /nobreak > nul
+echo Generating Prisma client...
+call npx prisma generate
+if %errorlevel% neq 0 exit /b %errorlevel%
+echo.
 
-echo Starting Frontend Server...
-start "Frontend" cmd /k "npm run dev"
+echo Starting Next.js server...
+start "Next.js" cmd /k "npm run dev"
 
 echo.
 echo ========================================
 echo  Servers Starting!
 echo ========================================
-echo  Backend:  http://localhost:3002
-echo  Frontend: http://localhost:8080
+echo  Next.js:  http://localhost:3000
 echo ========================================
 echo.
 echo Press any key to stop all servers...
 pause > nul
 
-taskkill /FI "WINDOWTITLE eq Backend API*" /T /F
-taskkill /FI "WINDOWTITLE eq Frontend*" /T /F
+echo Stopping servers...
+for /f "tokens=2" %%A in ('tasklist /fi "WINDOWTITLE eq Next.js*" /fo csv /nh ^| findstr /i "cmd.exe"') do (
+  taskkill /fi "PID eq %%B" /f >nul 2>&1
+)
+taskkill /FI "WINDOWTITLE eq Next.js*" /T /F >nul 2>&1
+echo Done.

@@ -1,23 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { hashPassword } from '@/lib/password';
+import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/api/auth-middleware';
 import { Prisma } from '@prisma/client';
 import { auditService } from '@/services/audit-service';
+import { hashPassword } from '@/lib/password';
 
 // GET /api/admin/users
 export async function GET(request: NextRequest) {
   try {
-    // Verify Admin Access
     const authResult = await requireAdmin(request);
     if (authResult.error) {
       return authResult.error;
     }
 
-        if (!tenantId) {
-            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
-    }
-
-    const db = (tenantId);
+    const db = prisma;
 
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get('page') || '1');
@@ -26,13 +22,11 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
     const skip = (page - 1) * limit;
 
-
-
     const where: Prisma.UserWhereInput = {};
     if (role) where.role = role;
     if (search) {
       where.OR = [
-        { firstName: { contains: search } }, 
+        { firstName: { contains: search } },
         { lastName: { contains: search } },
         { email: { contains: search } }
       ];
@@ -49,13 +43,13 @@ export async function GET(request: NextRequest) {
           role: true,
           status: true,
           createdAt: true,
-          phoneNumber: true
+          phoneNumber: true,
         },
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' }
+        orderBy: { createdAt: 'desc' },
       }),
-      db.user.count({ where })
+      db.user.count({ where }),
     ]);
 
     return NextResponse.json({
@@ -65,10 +59,9 @@ export async function GET(request: NextRequest) {
         pages: Math.ceil(total / limit),
         page,
         limit,
-        totalPages: Math.ceil(total / limit)
-      }
+        totalPages: Math.ceil(total / limit),
+      },
     });
-
   } catch (error) {
     console.error('Error fetching users:', error);
     return NextResponse.json(
@@ -81,22 +74,16 @@ export async function GET(request: NextRequest) {
 // POST /api/admin/users - Create User
 export async function POST(request: NextRequest) {
   try {
-    // Verify Admin Access
     const authResult = await requireAdmin(request);
     if (authResult.error) {
-       return authResult.error;
+      return authResult.error;
     }
 
-        if (!tenantId) {
-            return NextResponse.json({ success: false, message: 'Tenant context missing' }, { status: 400 });
-    }
-
-    const db = (tenantId);
+    const db = prisma;
 
     const body = await request.json();
     const { firstName, lastName, email, password, role } = body;
 
-    // Basic validation
     if (!firstName || !lastName || !email || !password || !role) {
       return NextResponse.json(
         { message: 'Missing required fields' },
@@ -104,10 +91,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user exists
-    const existingUser = await db.user.findFirst({
-      where: { email }
-    });
+    const existingUser = await db.user.findFirst({ where: { email } });
     if (existingUser) {
       return NextResponse.json(
         { message: 'User with this email already exists' },
@@ -124,7 +108,7 @@ export async function POST(request: NextRequest) {
         email,
         password: hashedPassword,
         role,
-        status: 'active'
+        status: 'ACTIVE',
       },
       select: {
         id: true,
@@ -133,25 +117,30 @@ export async function POST(request: NextRequest) {
         email: true,
         role: true,
         status: true,
-        createdAt: true
-      }
+        createdAt: true,
+        phoneNumber: true,
+        updatedAt: true,
+      },
     });
 
-    // Audit Log
-    await auditService.log({
-      action: 'USER_CREATE',
-      resource: 'User',
-      resourceId: newUser.id,
-      userId: authResult.user?.userId, // Admin ID
-      details: { firstName, lastName, email, role, status: 'active' }
-    });
+    try {
+      await auditService.log({
+        action: 'USER_CREATE',
+        resource: 'User',
+        resourceId: newUser.id,
+        userId: request.headers.get('x-user-id') || undefined,
+        ipAddress: request.headers.get('x-forwarded-for') || undefined,
+        userAgent: request.headers.get('user-agent') || undefined,
+        details: { firstName, lastName, email, role, status: 'ACTIVE' },
+      });
+    } catch (e) {
+      console.error('Audit log failed', e);
+    }
 
-    return NextResponse.json({
-      success: true,
-      user: newUser,
-      message: 'User created successfully'
-    }, { status: 201 });
-
+    return NextResponse.json(
+      { success: true, user: newUser, message: 'User created successfully' },
+      { status: 201 }
+    );
   } catch (error) {
     console.error('Error creating user:', error);
     return NextResponse.json(

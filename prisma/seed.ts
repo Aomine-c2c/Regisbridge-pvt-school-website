@@ -138,6 +138,106 @@ async function main() {
     }
   })
 
+  console.log('Base data seeding completed!')
+}
+
+async function seedRBAC() {
+  const roles: { name: string; description?: string; permissions: string[] }[] = [
+    {
+      name: 'owner',
+      description: 'Full platform access with billing and tenant management',
+      permissions: [
+        'dashboard.view',
+        'users.view',
+        'users.create',
+        'users.update',
+        'users.delete',
+        'roles.view',
+        'roles.manage',
+        'finance.view',
+        'finance.manage',
+        'reports.view',
+        'settings.manage',
+        'audit.view',
+        'academics.view',
+        'academics.manage',
+      ],
+    },
+    {
+      name: 'admin',
+      description: 'School operations access without tenant-level billing controls',
+      permissions: [
+        'dashboard.view',
+        'users.view',
+        'users.create',
+        'users.update',
+        'teachers.view',
+        'students.view',
+        'attendance.manage',
+        'assignments.manage',
+        'exams.manage',
+        'timetables.manage',
+        'finance.view',
+        'finance.manage',
+        'reports.view',
+        'notifications.send',
+        'library.manage',
+        'hostel.manage',
+      ],
+    },
+    {
+      name: 'teacher',
+      description: 'Classroom-focused access for teaching and grading',
+      permissions: [
+        'dashboard.view',
+        'students.view',
+        'attendance.mark',
+        'attendance.view',
+        'assignments.view',
+        'assignments.create',
+        'assignments.grade',
+        'exams.view',
+        'grades.view',
+        'grades.update',
+        'timetable.view',
+        'messages.send',
+        'notifications.view',
+      ],
+    },
+  ]
+
+  for (const role of roles) {
+    await prisma.role.upsert({
+      where: { name: role.name },
+      update: { description: role.description || '' },
+      create: {
+        name: role.name,
+        description: role.description || '',
+        isSystem: true,
+        permissions: {
+          create: role.permissions.map((slug) => ({
+            permission: {
+              connectOrCreate: {
+                where: { slug },
+                create: {
+                  slug,
+                  description: slug,
+                  group: slug.split('.')[0],
+                },
+              },
+            },
+          })),
+        },
+      },
+    })
+  }
+
+  console.log('RBAC roles and permissions seeded.')
+}
+
+async function main() {
+  console.log('Starting RBAC seed...')
+  await seedRBAC()
   console.log('Seeding completed!')
 }
 

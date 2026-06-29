@@ -1,6 +1,6 @@
 # Regisbridge School Management System
 
-A comprehensive school management platform built with React, TypeScript, and Node.js. Features student/parent/teacher portals, admin dashboard, authentication system, and real-time communication.
+A comprehensive school management platform built with **Next.js 16**, **React**, **TypeScript**, **Prisma**, and **Supabase**. Features student/parent/teacher portals, admin dashboard, authentication system, and real-time communication.
 
 ## 🌟 Features
 
@@ -51,38 +51,24 @@ A comprehensive school management platform built with React, TypeScript, and Nod
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd v54
+   cd Regisbridge-pvt-school-website
    ```
 
 2. **Install dependencies**
    ```bash
-   # Frontend
+   # Install workspace dependencies
    npm install
-
-   # Backend
-   cd server
-   npm install
-   cd ..
    ```
 
-3. **Start development servers**
+3. **Start development server**
    ```bash
-   # Option 1: Use batch script (Windows)
-   start-servers.bat
-
-   # Option 2: Start manually
-   # Terminal 1 - Backend
-   cd server
-   npm start
-
-   # Terminal 2 - Frontend
+   # Next.js app (includes API routes at src/app/api)
    npm run dev
    ```
 
 4. **Access the application**
-   - Frontend: http://localhost:8080
-   - Backend API: http://localhost:3002
-   - Admin Dashboard: http://localhost:8080/admin
+   - Frontend: http://localhost:3000
+   - Admin Dashboard: http://localhost:3000/admin
 
 ### Default Admin Credentials
 ```
@@ -95,41 +81,14 @@ Password: Admin123!
 ## 📁 Project Structure
 
 ```
-v54/
-├── src/                          # Frontend source code
+Regisbridge-pvt-school-website/
+├── src/                          # Frontend and API routes
+│   ├── app/                      # Next.js App Router
 │   ├── components/               # React components
-│   │   ├── admin/               # Admin dashboard components
-│   │   │   ├── shared/          # Reusable admin components
-│   │   │   ├── Overview.tsx     # Analytics dashboard
-│   │   │   ├── UserManagement.tsx # User CRUD interface
-│   │   │   └── ...              # Other admin sections (stubs)
-│   │   ├── ui/                  # shadcn/ui components
-│   │   └── ...                  # Other app components
-│   ├── pages/                    # Page components
-│   │   ├── AdminDashboard.tsx   # Admin interface
-│   │   ├── Portal.tsx           # User portals
-│   │   └── ...
-│   ├── contexts/                 # React contexts
-│   │   ├── AuthContext.tsx      # Authentication state
-│   │   └── AppContext.tsx       # Global app state
-│   ├── services/                 # API clients
-│   │   ├── adminService.ts      # Admin API calls
-│   │   ├── authService.ts       # Auth API calls
-│   │   └── ...
-│   ├── types/                    # TypeScript type definitions
-│   │   └── admin.ts             # Admin types
-│   └── ...
-├── server/                       # Backend source code
-│   ├── index.js                 # Express server
-│   └── package.json
+│   └── lib/                     # Shared utilities and config
+├── prisma/                       # Prisma schema and migrations
 ├── public/                       # Static assets
-├── docs/                         # Documentation
-│   ├── README.md                # Documentation index
-│   ├── phases/                  # Phase-by-phase details
-│   ├── api/                     # API documentation
-│   ├── testing/                 # Testing guides
-│   └── deployment/              # Deployment instructions
-└── ...
+└── docs/                         # Documentation
 ```
 
 ## 🔑 Authentication System
@@ -278,128 +237,46 @@ See [docs/api/README.md](docs/api/README.md) for complete API reference.
 ## 🛠️ Technology Stack
 
 ### Frontend
-- **Framework:** React 18 with TypeScript
-- **Build Tool:** Vite
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **UI Components:** shadcn/ui
 - **Charts:** Recharts
-- **Routing:** React Router v6
 - **State Management:** React Context API
 - **HTTP Client:** Fetch API
 - **Icons:** Lucide React
 
 ### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Authentication:** JWT (jsonwebtoken)
-- **Password Hashing:** bcrypt
-- **Validation:** Joi
-- **CORS:** cors middleware
-- **Rate Limiting:** express-rate-limit
+- **Runtime:** Node.js (serverless Next.js API Routes)
+- **ORM:** Prisma
+- **Database:** Supabase (PostgreSQL)
 
 ### Development Tools
-- **TypeScript:** Type safety
-- **ESLint:** Code linting
-- **PostCSS:** CSS processing
-- **Vite:** Fast dev server and HMR
+- **Package Manager:** npm
+- **Type Safety:** TypeScript
+- **Linting:** ESLint
 
-## 📝 Development Guide
+### Development Guide
 
-### Adding New Admin Features
+See [docs/README.md](docs/README.md) for the organized documentation and [docs/phases/README.md](docs/phases/README.md) for phase-by-phase implementation details.
 
-1. **Define Types** (`src/types/admin.ts`)
-   ```typescript
-   export interface NewFeature {
-     id: string;
-     name: string;
-     // ...
-   }
-   ```
-
-2. **Add Service Functions** (`src/services/adminService.ts`)
-   ```typescript
-   export const getNewFeatures = async (): Promise<NewFeature[]> => {
-     return authenticatedFetch('/api/admin/new-features');
-   };
-   ```
-
-3. **Create Component** (`src/components/admin/NewFeatureManagement.tsx`)
-   ```typescript
-   export default function NewFeatureManagement() {
-     // Component logic
-   }
-   ```
-
-4. **Add Backend Endpoint** (`server/index.js`)
-   ```javascript
-   app.get('/api/admin/new-features', verifyToken, requireAdmin, async (req, res) => {
-     // Endpoint logic
-   });
-   ```
-
-5. **Add to Dashboard** (`src/pages/AdminDashboard.tsx`)
-   ```tsx
-   <TabsContent value="new-feature">
-     <NewFeatureManagement />
-   </TabsContent>
-   ```
-
-### Database Integration
-
-Current implementation uses in-memory storage (Map). For production:
-
-1. **Choose Database:**
-   - PostgreSQL (recommended for relational data)
-   - MongoDB (for flexible schemas)
-
-2. **Install ORM:**
-   ```bash
-   # Prisma (PostgreSQL)
-   npm install @prisma/client
-   npm install -D prisma
-
-   # Mongoose (MongoDB)
-   npm install mongoose
-   ```
-
-3. **Create Schema:**
-   ```prisma
-   // Prisma example
-   model User {
-     id        String   @id @default(uuid())
-     email     String   @unique
-     firstName String
-     lastName  String
-     role      String
-     // ...
-   }
-   ```
-
-4. **Replace Map with Database Calls:**
-   ```javascript
-   // Before
-   const users = new Map();
-
-   // After
-   const users = await prisma.user.findMany();
-   ```
-
-See server/index.js comments for migration guidance.
+Current repository layout:
+- API routes: `src/app/api/...`
+- Frontend components: `src/components/...`
+- Database schema and client: `prisma/` and `src/lib/db/`
 
 ## 🧪 Testing
 
 ### Frontend Testing
 ```bash
 npm run test
+# or
+npx jest
+# or
+npx vitest
 ```
 
-### Backend Testing
-```bash
-cd server
-npm test
-```
-
-### Manual Testing Checklists
+## 🚀 Production Deployment
 - [docs/testing/README.md](docs/testing/README.md) - Complete testing guides
 - [TESTING_CHECKLIST.md](TESTING_CHECKLIST.md) - General testing
 - [AUTH_TESTING.md](AUTH_TESTING.md) - Authentication testing
@@ -429,14 +306,13 @@ DATABASE_URL=postgresql://user:pass@host:5432/db
 ```
 
 ### Build for Production
-
+### Build for Production
 ```bash
-# Frontend
+# Build Next.js app (routes + API included)
 npm run build
 
-# Backend (no build needed, Node.js)
-cd server
-npm install --production
+# Start production server
+npm run start
 ```
 
 ### Deployment Options

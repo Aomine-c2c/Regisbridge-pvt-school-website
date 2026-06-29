@@ -43,12 +43,14 @@ This directory contains deployment guides and configuration for different hostin
    JWT_REFRESH_EXPIRES_IN=30d
 
    # Email (SendGrid)
-   SENDGRID_API_KEY=SG.your-production-sendgrid-key
-   EMAIL_FROM=noreply@regisbridge.ac.zw
-   EMAIL_TO=school@regisbridge.ac.zw
+   SENDGRID_API_KEY=your-sendgrid-api-key
+   EMAIL_FROM=noreply@regisbridge.edu
+   EMAIL_TO=school@regisbridge.edu
 
-   # Frontend
-   VITE_API_URL=https://your-app.vercel.app/api
+   # Database (Supabase)
+   DATABASE_URL=postgresql://user:password@host:5432/postgres
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
    ```
 
 4. **Deploy**
@@ -62,18 +64,20 @@ This directory contains deployment guides and configuration for different hostin
 ```bash
 # Security (REQUIRED - Change these!)
 JWT_SECRET=your-unique-production-secret-minimum-32-characters
-SENDGRID_API_KEY=SG.your-production-sendgrid-api-key
+SENDGRID_API_KEY=your-sendgrid-api-key
 
 # URLs
-VITE_API_URL=https://your-domain.com/api
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
 CORS_ORIGINS=https://your-domain.com
 
 # Email
-EMAIL_FROM=noreply@regisbridge.ac.zw
-EMAIL_TO=contact@regisbridge.ac.zw
+EMAIL_FROM=noreply@regisbridge.edu
+EMAIL_TO=contact@regisbridge.edu
 
-# Database (Future - Phase 5)
-DATABASE_URL=postgresql://user:pass@host:5432/db
+# Database (Supabase)
+DATABASE_URL=postgresql://user:password@host:5432/postgres
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
 ### Environment File Setup
