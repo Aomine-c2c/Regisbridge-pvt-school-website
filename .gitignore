@@ -95,3 +95,4 @@ docs/**/*.pdf
 !docs/deployment/**/*.md
 !docs/phases/**/*.md
 !docs/testing/**/*.md
+node_modules,build,buildOutputs,.gradle,.kotlin,.vscode,dist,out
