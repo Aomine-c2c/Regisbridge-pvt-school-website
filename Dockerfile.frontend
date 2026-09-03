@@ -1,0 +1,67 @@
+# ==============================================================================
+# Multi-Stage Production Dockerfile for Next.js 15 Standalone
+# ==============================================================================
+
+# 1. Base Image
+FROM node:20-alpine AS base
+RUN apk add --no-cache libc6-compat openssl netcat-openbsd
+WORKDIR /app
+
+# 2. Dependencies Stage
+FROM base AS deps
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci
+
+# 3. Build Stage
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Generate Prisma Client
+RUN npx prisma generate
+
+# Environment variables for build
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Compile Next.js standalone application
+RUN npm run build
+
+# 4. Production Runner Stage
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Setup unprivileged system user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy runtime assets
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
+
+# Include prisma CLI and ts-node for runtime db sync and seeding
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/@prisma/engines ./node_modules/@prisma/engines
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/ts-node ./node_modules/ts-node
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/typescript ./node_modules/typescript
+
+# Setup uploads directory with proper ownership
+RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app/public/uploads
+
+COPY --chown=nextjs:nodejs frontend-entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+USER nextjs
+
+EXPOSE 3000
+
+ENTRYPOINT ["/app/entrypoint.sh"]
