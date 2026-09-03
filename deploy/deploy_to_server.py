@@ -139,7 +139,9 @@ def main():
     # 4. Check if this is initial setup or update
     check_env = run_remote(f"test -f {remote_dir}/.env.production && echo 'exists' || echo 'missing'")
 
-    action = input("\nSelect deployment action:\n  [1] Initial Server Setup (setup_server.sh)\n  [2] Release Update (update.sh)\nChoice [1/2]: ").strip()
+    action = os.getenv("REGISBRIDGE_DEPLOY_ACTION")
+    if not action:
+        action = input("\nSelect deployment action:\n  [1] Initial Server Setup (setup_server.sh)\n  [2] Release Update (update.sh)\nChoice [1/2]: ").strip()
 
     if action == "2":
         run_remote(f"{remote_dir}/deploy/update.sh")

@@ -70,7 +70,14 @@ if [ ! -f .env.production ]; then
     sed -i "s|replace_with_64_char_secret_for_nextauth_sessions_1234567890abcdef|${RAND_NEXTAUTH}|g" .env.production
     sed -i "s|replace_with_random_django_secret_key_1234567890abcdefghijklmnopqrstuv|${RAND_DJANGO_SECRET}|g" .env.production
 
-    echo -e "${GREEN}[+] .env.production generated with new secure random secrets.${NC}"
+    # Detect primary local WiFi/LAN IP (e.g. 192.168.1.68)
+    LOCAL_IP=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^127\.' | grep -v '^172\.' | head -n 1 || echo "192.168.1.68")
+    echo -e "${YELLOW}[*] Configuring application for local network IP: http://${LOCAL_IP}:8080...${NC}"
+
+    sed -i "s|https://school.regisbridge.com|http://${LOCAL_IP}:8080|g" .env.production
+    sed -i "s|school.regisbridge.com|${LOCAL_IP}|g" .env.production
+
+    echo -e "${GREEN}[+] .env.production generated with new secure random secrets and configured for ${LOCAL_IP}:8080.${NC}"
 else
     echo -e "${GREEN}[+] Existing .env.production detected.${NC}"
 fi
