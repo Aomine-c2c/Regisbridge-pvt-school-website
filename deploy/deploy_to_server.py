@@ -30,16 +30,14 @@ def get_config():
         user = input("Server SSH Username [root]: ").strip() or "root"
 
     key_path = os.getenv("REGISBRIDGE_SSH_KEY")
-    password = None
+    password = os.getenv("REGISBRIDGE_SERVER_PASSWORD")
 
-    if not key_path:
+    if not key_path and not password:
         use_key = input("Use SSH Private Key? (y/n) [n]: ").strip().lower()
         if use_key == 'y':
             key_path = input("Path to private key file: ").strip()
         else:
-            password = os.getenv("REGISBRIDGE_SERVER_PASSWORD")
-            if not password:
-                password = getpass.getpass(f"SSH Password for {user}@{host}: ")
+            password = getpass.getpass(f"SSH Password for {user}@{host}: ")
 
     remote_dir = os.getenv("REGISBRIDGE_REMOTE_DIR", "/opt/regisbridge")
     return host, user, password, key_path, remote_dir
