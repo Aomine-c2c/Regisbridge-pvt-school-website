@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv
+
+# Load local .env if present
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^8p1&2w925!1t%7_sgutks@1xj)n8=4@%7$af!%s)50=w^&!hh'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-^8p1&2w925!1t%7_sgutks@1xj)n8=4@%7$af!%s)50=w^&!hh')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('true', '1', 't')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',') if host.strip()]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost,http://127.0.0.1').split(',') if origin.strip()
+]
 
 
 # Application definition
@@ -105,11 +115,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '2015Regisbridge26',
-        'HOST': 'db.vbicbcsdugwaqyprsdbt.supabase.co',
-        'PORT': '5432',
+        'NAME': os.getenv('DJANGO_DB_NAME', os.getenv('POSTGRES_DB_DJANGO', 'regisbridge_django')),
+        'USER': os.getenv('DJANGO_DB_USER', os.getenv('POSTGRES_USER', 'postgres')),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', os.getenv('POSTGRES_PASSWORD', 'postgres')),
+        'HOST': os.getenv('DJANGO_DB_HOST', 'db'),
+        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
 
@@ -152,4 +162,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
