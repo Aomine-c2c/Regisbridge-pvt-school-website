@@ -130,9 +130,14 @@ const TESTIMONIALS = [
 ];
 
 export default async function Home() {
-  const settings = await prisma.systemSettings.findFirst();
+  let settings = null;
+  try {
+    settings = await prisma.systemSettings.findFirst();
+  } catch {
+    // Database may be unreachable during static prerendering / build phase
+  }
   
-  if (!settings?.setupCompleted) {
+  if (settings && !settings.setupCompleted) {
       redirect('/welcome');
   }
 

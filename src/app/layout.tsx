@@ -111,7 +111,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const settings = await prisma.systemSettings.findFirst();
+  let settings = null;
+  try {
+    settings = await prisma.systemSettings.findFirst();
+  } catch {
+    // Database may be unreachable during static prerendering / build phase
+  }
   
   if (!settings?.setupCompleted) {
      // We can't redirect easily from layout without knowing the path, 
