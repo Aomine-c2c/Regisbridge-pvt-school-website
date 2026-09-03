@@ -2,7 +2,10 @@ import { SignJWT, jwtVerify } from 'jose'
 
 
 // Validate JWT_SECRET environment variable
-const jwtSecretKey = process.env.JWT_SECRET
+const isBuild = process.env.NEXT_PHASE === 'phase-production-build' || process.env.IS_BUILD === 'true' || process.env.npm_lifecycle_event === 'build';
+const defaultBuildSecret = 'build_dummy_jwt_secret_must_be_at_least_64_characters_long_for_validation_123456789';
+
+const jwtSecretKey = process.env.JWT_SECRET || (isBuild ? defaultBuildSecret : undefined);
 if (!jwtSecretKey) {
     throw new Error('JWT_SECRET environment variable is required. Generate with: openssl rand -base64 64')
 }
@@ -12,7 +15,7 @@ if (jwtSecretKey.length < 32) {
 const JWT_SECRET = new TextEncoder().encode(jwtSecretKey)
 
 // Validate JWT_REFRESH_SECRET environment variable
-const jwtRefreshSecretKey = process.env.JWT_REFRESH_SECRET
+const jwtRefreshSecretKey = process.env.JWT_REFRESH_SECRET || (isBuild ? defaultBuildSecret : undefined);
 if (!jwtRefreshSecretKey) {
     throw new Error('JWT_REFRESH_SECRET environment variable is required. Generate with: openssl rand -base64 64')
 }

@@ -24,6 +24,12 @@ RUN npx prisma generate
 # Environment variables for build
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV IS_BUILD=true
+ENV JWT_SECRET="build_dummy_jwt_secret_must_be_at_least_64_characters_long_for_validation_123456789"
+ENV JWT_REFRESH_SECRET="build_dummy_jwt_refresh_secret_must_be_at_least_64_characters_long_123456789"
+ENV NEXTAUTH_SECRET="build_dummy_nextauth_secret_must_be_at_least_64_characters_long_123456789"
+ENV DATABASE_URL="postgresql://postgres:postgres@localhost:5432/regisbridge_web"
+ENV NEXTAUTH_URL="http://localhost:3000"
 
 # Compile Next.js standalone application
 RUN npm run build
