@@ -27,5 +27,12 @@ docker compose -f docker-compose.prod.yml --env-file .env.production up -d --bui
 echo -e "${YELLOW}[*] Cleaning up dangling Docker images...${NC}"
 docker image prune -f
 
+echo -e "${YELLOW}[*] Updating host Nginx virtual host configuration...${NC}"
+if [ -d /etc/nginx/sites-available ]; then
+    cp deploy/regisbridge.conf /etc/nginx/sites-available/regisbridge.conf
+    ln -sf /etc/nginx/sites-available/regisbridge.conf /etc/nginx/sites-enabled/regisbridge.conf
+    nginx -t && systemctl reload nginx || true
+fi
+
 echo -e "${GREEN}[+] Update complete. Current status:${NC}"
-docker compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml --env-file .env.production ps
