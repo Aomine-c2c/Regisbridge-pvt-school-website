@@ -427,4 +427,73 @@ For issues or questions:
 
 ---
 
+## 🚢 Production Server Deployment Guide
+
+The Regisbridge School Management System is containerized for production on an **Ubuntu/Debian Linux VPS** that is already hosting other websites. It uses a **Unix Domain Socket** (`/run/regisbridge/app.sock`) to completely eliminate port conflicts on the host.
+
+### Architecture Overview
+- **Zero-Port Host Ingress**: Communicates with the host's existing Nginx via Unix domain socket `/run/regisbridge/app.sock`.
+- **Dual Logical Databases**: A single PostgreSQL 16 container houses `regisbridge_web` (Next.js Prisma) and `regisbridge_django` (Django tenants).
+- **Internal Routing Gateway**:
+  - `/django-admin/` & `/api/v1/` $\rightarrow$ Django/Gunicorn (Port 8000)
+  - `/admin/` & all web pages $\rightarrow$ Next.js 15 Standalone (Port 3000)
+  - `/uploads/` & `/media/` $\rightarrow$ Persistent named volume
+
+---
+
+### Deployment Method A: One-Click Push from Local Machine (Recommended)
+
+You can deploy directly from your development machine (Windows, Mac, or Linux) using the included Python CLI:
+
+```bash
+# Install paramiko if not already present
+pip install paramiko
+
+# Run deployment wizard
+python deploy/deploy_to_server.py
+```
+
+*This packages your project, uploads it via SFTP to `/tmp/regisbridge_code.tar.gz`, extracts it to `/opt/regisbridge/`, and runs the server setup script over SSH.*
+
+---
+
+### Deployment Method B: Manual / Git-Based Deployment on Server
+
+1. **Clone or Copy Repository on Server**:
+   ```bash
+   sudo mkdir -p /opt/regisbridge
+   cd /opt/regisbridge
+   git clone <repo-url> .
+   ```
+
+2. **Run Master Bootstrap Script**:
+   ```bash
+   sudo chmod +x deploy/*.sh
+   sudo ./deploy/setup_server.sh
+   ```
+   *The script automatically verifies Docker, creates the socket directory, generates cryptographically secure secrets in `.env.production`, builds and starts the Docker Compose stack, and configures the host Nginx.*
+
+3. **Configure Domain & SSL via Let's Encrypt**:
+   ```bash
+   # Update server_name in /etc/nginx/sites-available/regisbridge.conf
+   sudo nano /etc/nginx/sites-available/regisbridge.conf
+
+   # Obtain free automated SSL
+   sudo certbot --nginx -d your-school-domain.com
+   ```
+
+---
+
+### Operations & Maintenance
+
+| Action | Command |
+| :--- | :--- |
+| **View Live Logs** | `docker compose -f docker-compose.prod.yml logs -f` |
+| **Check Services** | `docker compose -f docker-compose.prod.yml ps` |
+| **Zero-Downtime Update** | `sudo ./deploy/update.sh` |
+| **Backup Databases** | `sudo ./deploy/backup_db.sh` (Saved to `/var/backups/regisbridge/`) |
+| **Restore Database** | `sudo ./deploy/restore_db.sh <db_name> <path/to/backup.sql.gz>` |
+
+---
+
 Built with ❤️ for Regisbridge School
