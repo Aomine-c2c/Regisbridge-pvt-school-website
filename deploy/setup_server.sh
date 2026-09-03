@@ -72,12 +72,12 @@ if [ ! -f .env.production ]; then
 
     # Detect primary local WiFi/LAN IP (e.g. 192.168.1.68)
     LOCAL_IP=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^127\.' | grep -v '^172\.' | head -n 1 || echo "192.168.1.68")
-    echo -e "${YELLOW}[*] Configuring application for local network IP: http://${LOCAL_IP}:8080...${NC}"
+    echo -e "${YELLOW}[*] Configuring application for local network IP: http://${LOCAL_IP}:8085...${NC}"
 
-    sed -i "s|https://school.regisbridge.com|http://${LOCAL_IP}:8080|g" .env.production
-    sed -i "s|school.regisbridge.com|${LOCAL_IP}|g" .env.production
+    sed -i "s|https://regisbridge.page|http://${LOCAL_IP}:8085|g" .env.production
+    sed -i "s|regisbridge.page|${LOCAL_IP}|g" .env.production
 
-    echo -e "${GREEN}[+] .env.production generated with new secure random secrets and configured for ${LOCAL_IP}:8080.${NC}"
+    echo -e "${GREEN}[+] .env.production generated with new secure random secrets and configured for ${LOCAL_IP}:8085.${NC}"
 else
     echo -e "${GREEN}[+] Existing .env.production detected.${NC}"
 fi
@@ -88,7 +88,7 @@ docker compose -f docker-compose.prod.yml --env-file .env.production down || tru
 docker compose -f docker-compose.prod.yml --env-file .env.production up -d --build
 
 echo -e "${GREEN}[+] Containers started successfully.${NC}"
-docker compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml --env-file .env.production ps
 
 # 7. Configure Host Nginx
 if [ -d /etc/nginx/sites-available ]; then

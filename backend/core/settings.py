@@ -45,6 +45,7 @@ SHARED_APPS = (
     'tenants', # you must create this app to hold your tenant models
     
     'django.contrib.contenttypes',
+    'users',
 
     # everything below here is optional
     'django.contrib.auth',
